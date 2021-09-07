@@ -2,7 +2,7 @@
 --------------------------------------------------------------------------------------------------------------------
 [![CodeQL](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/codeql.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/codeql.yml)
 
-[Link to CodeQL Yaml](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/codeql.yml)
+[Click to edit CodeQL Yaml](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/codeql.yml)
 
 ##Code QL
 1. Ability to trigger off branch push or pull request
@@ -38,7 +38,11 @@
 --------------------------------------------------------------------------------------------------------------------
 [![OWASP Baseline Scan](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/owaspbase.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/owaspbase.yml)
 
+[Click to edit Baseline Yaml](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/owaspbase.yml)
+
 [![OWASP Full Scan](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/owaspfull.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/owaspfull.yml)
+
+[Click to edit Full Scan Yaml](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/owaspfull.yml)
 
 ## OWASP
 
@@ -61,6 +65,9 @@ Open source web application security scanner:
 
 --------------------------------------------------------------------------------------------------------------------  
 [![Aqua Trivy Vulnerability Scanner](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/trivyscan.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/trivyscan.yml)
+
+[Click to edit Trivy Yaml](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/trivyscan.yml)
+
 ## Trivy Scan
 
 Scanner for vulnerabilities in container images, file systems, and Git repositories, as well as for configuration issues:
@@ -93,6 +100,9 @@ Scanner for vulnerabilities in container images, file systems, and Git repositor
 
 --------------------------------------------------------------------------------------------------------------------    
 [![Aqua Trivy with GH Scanning](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/trivyghscan.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/trivyghscan.yml)
+
+[Click to edit Trivy with GH Yaml](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/trivyghscan.yml)
+
 ## Trivy with GitHub
 
 Scanner for vulnerabilities in container images, file systems, and Git repositories, as well as for configuration issues which will create a result in the Security Tab:
@@ -112,6 +122,10 @@ Scanner for vulnerabilities in container images, file systems, and Git repositor
 --------------------------------------------------------------------------------------------------------------------
 [![Sonarqube](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/sonarqube.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/sonarqube.yml)
 
+[Click to edit Sonarqube Yaml](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/sonarqube.yml)
+
+## Sonarqube
+
 1. Ability to trigger off branch push or pull request
 
     ```bash
@@ -129,6 +143,9 @@ Scanner for vulnerabilities in container images, file systems, and Git repositor
 
 --------------------------------------------------------------------------------------------------------------------
 [![Version Bump Template](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/version.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/version.yml)
+
+[Click to edit Versioning Yaml](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/version.yml)
+
 ## Versioning
 
 The following template enables a GitHub action to version the repository you are working on with either a Major, Minor or Patch level version.
