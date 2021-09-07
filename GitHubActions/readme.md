@@ -34,7 +34,8 @@
 10. Updates sent to #Security Events
 
 --------------------------------------------------------------------------------------------------------------------
-[![OWASP](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/owaspbase.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/owaspbase.yml)
+[![OWASP Base](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/owaspbase.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/owaspbase.yml)
+[![OWASP Full Scan](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/owaspfull.ymlbadge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/owaspfull.yml)
 
 ## OWASP
 
