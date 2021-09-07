@@ -1,7 +1,7 @@
 env: 
   TARGET_URL: 'http://www.itsecgames.com/' # Set env variable for the target website for OWASP to scan
 
-name: 'OWASP Full Scan Template'
+name: 'OWASP Baseline Scan Template'
 on:
  #branches:
  # -main
