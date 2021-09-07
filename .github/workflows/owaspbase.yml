@@ -14,7 +14,7 @@ on:
  #paths-ignore:
  # - 'docs/**'
   push: #Any push will trigger this action
-    branches: [ main ]
+    branches: [ master ]
   pull_request: #Any Pull Request will trigger this action
     branches: [ mybranch ]
   schedule:
