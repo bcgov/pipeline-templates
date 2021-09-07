@@ -2,7 +2,7 @@
 --------------------------------------------------------------------------------------------------------------------
 [![CodeQL](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/codeql.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/codeql.yml)
 
-[Click to edit CodeQL Yaml](/.github/workflows/codeql.yml)
+[Click to view the CodeQL yaml template](/.github/workflows/codeql.yml)
 
 ## Code QL
 1. Ability to trigger off branch push or pull request
