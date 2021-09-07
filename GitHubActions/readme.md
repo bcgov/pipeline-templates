@@ -125,7 +125,7 @@ Scanner for vulnerabilities in container images, file systems, and Git repositor
 3. Ability to create pre requisite action before launching this action is defined in line 29 (Currently commented out)
 
 --------------------------------------------------------------------------------------------------------------------
-[![Versioning](https://github.com/bcgov/Security-pipeline-templates/edit/main/GitHubActions/workflows/version.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/edit/main/GitHubActions/workflows/version.yml)
+[![Versioning](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/version.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/version.yml)
 ## Versioning
 
 The following template enables a GitHub action to version the repository you are working on with either a Major, Minor or Patch level version.
