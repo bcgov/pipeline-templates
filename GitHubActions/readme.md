@@ -1,6 +1,6 @@
 # GitHub Actions Templates
 --------------------------------------------------------------------------------------------------------------------
-[![CodeQL](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/codeql.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/codeql.yml)
+[![CodeQL](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/codeql.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/codeql.yml)
 
 ##Code QL
 1. Ability to trigger off branch push or pull request
@@ -58,7 +58,7 @@ Open source web application security scanner:
 3. Both the baseline and full scan are included within this action, lines 44-53 are for baseline and lines 55-64 for full scan
 
 --------------------------------------------------------------------------------------------------------------------  
-[![Trivy](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/trivyscan.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/trivyscan.yml)
+[![Aqua Trivy Vulnerability Scanner](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/trivyscan.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/trivyscan.yml)
 ## Trivy Scan
 
 Scanner for vulnerabilities in container images, file systems, and Git repositories, as well as for configuration issues:
@@ -90,7 +90,7 @@ Scanner for vulnerabilities in container images, file systems, and Git repositor
    
 
 --------------------------------------------------------------------------------------------------------------------    
-[![TrivywGH](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/trivyghscan.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/trivyghscan.yml)
+[![Aqua Trivy with GH Scanning](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/trivyghscan.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/trivyghscan.yml)
 ## Trivy with GitHub
 
 Scanner for vulnerabilities in container images, file systems, and Git repositories, as well as for configuration issues which will create a result in the Security Tab:
@@ -108,7 +108,7 @@ Scanner for vulnerabilities in container images, file systems, and Git repositor
 3. Results of scan set to GitHub Security Tab
 
 --------------------------------------------------------------------------------------------------------------------
-[![Sonarqube](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/sonarqube.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/sonarqube.yml)
+[![Sonarqube](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/sonarqube.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/sonarqube.yml)
 
 1. Ability to trigger off branch push or pull request
 
@@ -126,7 +126,7 @@ Scanner for vulnerabilities in container images, file systems, and Git repositor
 3. Ability to create pre requisite action before launching this action is defined in line 29 (Currently commented out)
 
 --------------------------------------------------------------------------------------------------------------------
-[![Versioning](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/version.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/version.yml)
+[![Version Bump Template](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/version.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/version.yml)
 ## Versioning
 
 The following template enables a GitHub action to version the repository you are working on with either a Major, Minor or Patch level version.
