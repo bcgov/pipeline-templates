@@ -89,7 +89,7 @@ Scanner for vulnerabilities in container images, file systems, and Git repositor
    
 
 --------------------------------------------------------------------------------------------------------------------    
-[![TrivywGH](https://github.com/bcgov/Security-pipeline-templates/edit/main/GitHubActions/workflows/trivywithghscan.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/edit/main/GitHubActions/workflows/trivywithghscan.yml)
+[![TrivywGH](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/trivyscan.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/trivyscan.yml)
 ## Trivy with GitHub
 
 Scanner for vulnerabilities in container images, file systems, and Git repositories, as well as for configuration issues which will create a result in the Security Tab:
