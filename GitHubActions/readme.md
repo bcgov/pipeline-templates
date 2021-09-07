@@ -57,7 +57,7 @@ Open source web application security scanner:
 3. Both the baseline and full scan are included within this action, lines 44-53 are for baseline and lines 55-64 for full scan
 
 --------------------------------------------------------------------------------------------------------------------  
-[![Trivy](https://github.com/bcgov/Security-pipeline-templates/edit/main/GitHubActions/workflows/trivyscan.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/edit/main/GitHubActions/workflows/trivyscan.yml)
+[![Trivy](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/trivyscan.ymlbadge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/trivyscan.yml)
 ## Trivy Scan
 
 Scanner for vulnerabilities in container images, file systems, and Git repositories, as well as for configuration issues:
