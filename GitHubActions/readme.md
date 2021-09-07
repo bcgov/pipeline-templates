@@ -1,4 +1,4 @@
-# GitHub Actions Templates
+# GitHub Actions Templates 
 --------------------------------------------------------------------------------------------------------------------
 [![CodeQL](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/codeql.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/codeql.yml)
 
