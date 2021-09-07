@@ -1,6 +1,6 @@
 # GitHub Actions Templates
 --------------------------------------------------------------------------------------------------------------------
-[![CodeQL](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/codeql.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/codeql.yml)
+[![CodeQL](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/codeql.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/codeql.yml)
 
 ##Code QL
 1. Ability to trigger off branch push or pull request
@@ -34,8 +34,8 @@
 10. Updates sent to #Security Events
 
 --------------------------------------------------------------------------------------------------------------------
-[![OWASP Base](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/owaspbase.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/owaspbase.yml)
-[![OWASP Full Scan](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/owaspfull.ymlbadge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/owaspfull.yml)
+[![OWASP Base](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/owaspbase.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/owaspbase.yml)
+[![OWASP Full Scan](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/owaspfull.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/owaspfull.yml)
 
 ## OWASP
 
@@ -57,7 +57,7 @@ Open source web application security scanner:
 3. Both the baseline and full scan are included within this action, lines 44-53 are for baseline and lines 55-64 for full scan
 
 --------------------------------------------------------------------------------------------------------------------  
-[![Trivy](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/trivyscan.ymlbadge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/trivyscan.yml)
+[![Trivy](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/trivyscan.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/trivyscan.yml)
 ## Trivy Scan
 
 Scanner for vulnerabilities in container images, file systems, and Git repositories, as well as for configuration issues:
@@ -89,7 +89,7 @@ Scanner for vulnerabilities in container images, file systems, and Git repositor
    
 
 --------------------------------------------------------------------------------------------------------------------    
-[![TrivywGH](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/trivyscan.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/trivyscan.yml)
+[![TrivywGH](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/trivyghscan.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/trivyghscan.yml)
 ## Trivy with GitHub
 
 Scanner for vulnerabilities in container images, file systems, and Git repositories, as well as for configuration issues which will create a result in the Security Tab:
@@ -107,7 +107,7 @@ Scanner for vulnerabilities in container images, file systems, and Git repositor
 3. Results of scan set to GitHub Security Tab
 
 --------------------------------------------------------------------------------------------------------------------
-[![Sonarqube](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/sonarqube.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/sonarqube.yml)
+[![Sonarqube](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/sonarqube.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/sonarqube.yml)
 
 1. Ability to trigger off branch push or pull request
 
@@ -125,7 +125,7 @@ Scanner for vulnerabilities in container images, file systems, and Git repositor
 3. Ability to create pre requisite action before launching this action is defined in line 29 (Currently commented out)
 
 --------------------------------------------------------------------------------------------------------------------
-[![Versioning](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/version.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/version.yml)
+[![Versioning](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/version.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/version.yml)
 ## Versioning
 
 The following template enables a GitHub action to version the repository you are working on with either a Major, Minor or Patch level version.
