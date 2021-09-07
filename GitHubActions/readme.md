@@ -107,7 +107,7 @@ Scanner for vulnerabilities in container images, file systems, and Git repositor
 3. Results of scan set to GitHub Security Tab
 
 --------------------------------------------------------------------------------------------------------------------
-[![Sonarqube](https://github.com/bcgov/Security-pipeline-templates/edit/main/GitHubActions/workflows/sonarqube.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/edit/main/GitHubActions/workflows/sonarqube.yml)
+[![Sonarqube](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/sonarqube.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/GitHubActions/sonarqube.yml)
 
 1. Ability to trigger off branch push or pull request
 
