@@ -4,7 +4,7 @@
 
 [Click to edit CodeQL Yaml](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/codeql.yml)
 
-##Code QL
+## Code QL
 1. Ability to trigger off branch push or pull request
 
     ```bash
