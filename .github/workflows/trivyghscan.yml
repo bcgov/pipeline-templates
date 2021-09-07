@@ -1,0 +1,53 @@
+name: Aqua Trivy with GH Scanning
+on:
+ #branches:
+ # -main
+ # -releases/XX
+ #branches-ignore:
+ # -main
+ # -releases/XX
+ #tags-ignore:
+ # -v1.
+ #paths-ignore:
+ # - 'docs/**'
+  push: #Any push will trigger this action
+    branches: [ mybranch ]
+  pull_request: #Any Pull Request will trigger this action
+    branches: [ mybranch ]
+  schedule:
+    # Layout of cron schedule.  'minute hour day(month) month day(week)'
+    # Schedule option to review code at rest for possible net-new threats/CVE's
+    # List of Cron Schedule Examples can be found at https://crontab.guru/examples.html
+    # Top of Every Hour ie: 17:00:00. '0 * * * *'
+    # Midnight Daily ie: 00:00:00. '0 0 * * *'
+    # 12AM UTC --> 8PM EST. '0 0 * * *'
+    # Midnight Friday. '0 0 * * FRI'
+    # Once a week at midnight Sunday. '0 0 * * 0'
+    # First day of the month at midnight. '0 0 1 * *'
+    # Every Quarter. '0 0 1 */3 *'
+    # Every 6 months. '0 0 1 */6 *'
+    # Every Year. '0 0 1 1 *' 
+    - cron: '0 0 * * *'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Trivy vulnerability scanner in repo mode
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          ignore-unfixed: true
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: 'trivy-results.sarif'
