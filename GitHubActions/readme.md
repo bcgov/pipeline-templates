@@ -35,6 +35,7 @@
 
 --------------------------------------------------------------------------------------------------------------------
 [![OWASP Base](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/owaspbase.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/owaspbase.yml)
+
 [![OWASP Full Scan](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/owaspfull.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/blob/main/.github/workflows/owaspfull.yml)
 
 ## OWASP
