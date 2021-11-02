@@ -217,7 +217,7 @@ EOF
 
 ### **codeql-scan**
 
-*Scans a given repository for explicit languages. [CodeQL](https://codeql.github.com/)
+*Scans a given repository for explicit languages. [CodeQL](https://codeql.github.com/)*
 
 ```yaml
 cat <<EOF | kubectl create -f -
@@ -238,7 +238,7 @@ spec:
   - name: branchName
     value: main
   - name: pathToContext
-    value: tekton/
+    value: ./tekton/base/tasks/codeql
   - name: releaseName
     value: codeql-bundle-linux64
   - name: githubToken
