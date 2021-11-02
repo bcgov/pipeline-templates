@@ -1,4 +1,4 @@
-# Security-pipeline-templates
+# Pipeline Templates
 
 [![Lifecycle:Experimental](https://img.shields.io/badge/Lifecycle-Experimental-339999)](<Redirect-URL>)
 
