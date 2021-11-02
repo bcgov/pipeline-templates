@@ -18,6 +18,9 @@ spec:
     - name: repoUrl
       type: string
       description: The git repository URL to clone from.
+    - name: releaseName
+      type: string
+      description: Name of release binary for bundle.
     - name: repo
       type: string
       description: The git repository name.
@@ -62,6 +65,8 @@ spec:
           value: $(params.repo)
         - name: REPO_URL
           value: $(params.repoUrl)
+        - name: RELEASE_NAME
+          value: $(params.releaseName)
       workspaces:
         - name: source
           workspace: shared-data
