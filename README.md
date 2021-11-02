@@ -7,3 +7,4 @@ This repo contains a catalog of pipeline code for each respective pipeline techn
 ## Pipeline Tools
 
 - [Tekton](tekton/README.md)
+- [ArgoCD](argocd/README.md)
