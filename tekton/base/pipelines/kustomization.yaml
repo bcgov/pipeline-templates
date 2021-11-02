@@ -6,3 +6,4 @@ namePrefix: p-
 resources:
 - buildah.yaml
 - maven.yaml
+- codeql.yaml

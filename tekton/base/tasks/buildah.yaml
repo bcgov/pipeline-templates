@@ -30,6 +30,7 @@ spec:
       image: $(params.BUILDAH_IMAGE)
       workingDir: $(workspaces.source.path)
       script: |
+        pwd
         buildah --storage-driver=$(params.STORAGE_DRIVER) bud \
           --no-cache -f $(params.DOCKERFILE) -t $(params.IMAGE) $(params.CONTEXT)
       volumeMounts:

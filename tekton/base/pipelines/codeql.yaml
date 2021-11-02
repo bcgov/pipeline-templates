@@ -1,0 +1,72 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: codeql
+spec:
+  workspaces:
+    - name: shared-data
+      description: |
+        This workspace will receive the cloned git repo and be passed
+        to the next Task for the repo's README.md file to be read.
+    - name: ssh-creds
+      description: |
+        This workspace will provide ssh credentials to the git-clone task.
+  params:
+    - name: buildImageUrl
+      type: string
+      description: Name of App that will be deployed.
+    - name: repoUrl
+      type: string
+      description: The git repository URL to clone from.
+    - name: releaseName
+      type: string
+      description: Name of release binary for bundle.
+    - name: repo
+      type: string
+      description: The git repository name.
+    - name: branchName
+      type: string
+      description: The git branch to clone.
+    - name: pathToContext
+      type: string
+      description: Set current directory.
+    - name: githubToken
+      type: string
+      description: Reference to the secret name storing the github PAT.
+  tasks:
+    - name: fetch-repository
+      taskRef:
+        name: t-git-clone
+      workspaces:
+        - name: output
+          workspace: shared-data
+        - name: ssh-directory
+          workspace: ssh-creds
+      params:
+        - name: url
+          value: $(params.repoUrl)
+        - name: deleteExisting
+          value: "true"
+        - name: revision
+          value: $(params.branchName)
+    - name: codeql-scan
+      taskRef:
+        name: t-codeql
+      runAfter:
+        - fetch-repository
+      params:
+        - name: BUILD_IMAGE
+          value: $(params.buildImageUrl)
+        - name: CONTEXT
+          value: $(params.pathToContext)
+        - name: GITHUB_TOKEN
+          value: $(params.githubToken)
+        - name: REPO
+          value: $(params.repo)
+        - name: REPO_URL
+          value: $(params.repoUrl)
+        - name: RELEASE_NAME
+          value: $(params.releaseName)
+      workspaces:
+        - name: source
+          workspace: shared-data
