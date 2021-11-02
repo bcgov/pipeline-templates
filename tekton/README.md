@@ -238,6 +238,8 @@ spec:
     value: main
   - name: pathToContext
     value: tekton/
+  - name: releaseName
+    value: codeql-bundle-linux64
   - name: githubToken
     value: tkn-github-token
   workspaces:
