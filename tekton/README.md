@@ -220,6 +220,7 @@ EOF
 *Scans a given repository for explicit languages. [CodeQL](https://codeql.github.com/)
 
 ```yaml
+cat <<EOF | kubectl create -f -
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
@@ -257,7 +258,7 @@ spec:
   - name: docker-config
     secret:
       secretName: tkn-docker-credentials
-
+EOF
 ```
 
 ## How It Works
