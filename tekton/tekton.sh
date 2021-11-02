@@ -31,7 +31,7 @@ function cleanup(){
 function apply(){
     sync
     credentials
-    kubectl apply -k overlays/${ENV}
+    kubectl apply -k overlays/${ENV} || cleanup
     cleanup
 }
 
