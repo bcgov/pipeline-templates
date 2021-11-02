@@ -1,0 +1,94 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: build-push-image-template
+spec:
+  params:
+  - name: appName
+    default: flask-web
+  - name: repoUrl
+    default: git@github.com:bcgov/security-pipeline-templates.git
+  - name: imageUrl
+    default: gregnrobinson/tkn-flask-web:v1.0.0
+  - name: branchName
+    default: main
+  - name: dockerfile
+    default: ./Dockerfile
+  - name: pathToContext
+    default: ./tekton/demo/flask-web
+  - name: buildahImage
+    default: quay.io/buildah/stable:v1.23.1
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1beta1
+    kind: PipelineRun
+    metadata:
+      generateName: docker-build-push-run-
+    spec:
+      serviceAccountName: service-tekton-triggers-sa
+      pipelineRef:
+        name: p-buildah
+      params:
+      - name: appName
+        value: $(tt.params.appName)
+      - name: repoUrl
+        value: $(tt.params.repoUrl)
+      - name: imageUrl
+        value: $(tt.params.imageUrl)
+      - name: branchName
+        value: $(tt.params.branchName)
+      - name: dockerfile
+        value: $(tt.params.dockerfile)
+      - name: pathToContext
+        value: $(tt.params.pathToContext)
+      - name: buildahImage
+        value: $(tt.params.buildahImage)
+      workspaces:
+      - name: shared-data
+        volumeClaimTemplate:
+          spec:
+            accessModes:
+            - ReadWriteOnce
+            resources:
+              requests:
+                storage: 500Mi
+      - name: ssh-creds
+        secret:
+          secretName: tkn-ssh-credentials
+      - name: docker-config
+        secret:
+          secretName: tkn-docker-credentials
+---
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: build-push-image-tekton-trigger-listener
+spec:
+  serviceAccountName: service-tekton-triggers-sa
+  triggers:
+    - name: github-listener
+      interceptors:
+        - github:
+            secretRef:
+              secretName: github-secret
+              secretKey: secretToken
+            eventTypes:
+              - pull_request
+              - push
+      bindings:
+        - ref: build-push-image-pipeline-binding
+      template:
+        ref: build-push-image-template
+---
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerBinding
+metadata:
+  name: build-push-image-pipeline-binding
+spec:
+  params:
+  - name: gitrevision
+    value: $(body.head_commit.id)
+  - name: gitrepositoryurl
+    value: $(body.repository.url)
+  - name: contenttype
+    value: $(header.Content-Type)
+
