@@ -14,7 +14,11 @@ secretGenerator:
     files:
       - creds/.dockerconfigjson
     type: kubernetes.io/dockerconfigjson
-  - name: github-secret
+  - name: tkn-github-token
+    type: Opaque
+    literals:
+      - secretToken=
+  - name: tkn-github-secret
     type: Opaque
     literals:
       - secretToken=

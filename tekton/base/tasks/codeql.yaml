@@ -1,0 +1,54 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: codeql
+spec:
+  params:
+    - name: BUILD_IMAGE
+      default: index.docker.io/library/ubuntu:latest
+      description: Reference of the image buildah will produce.
+    - name: CONTEXT
+      description: Path to the Dockerfile to build.
+      default: tekton/
+    - name: GITHUB_TOKEN
+      description: A Github PAT with repo access.
+      default: github-token
+    - name: REPO
+      description: Path to the Dockerfile to build. 
+    - name: REPO_URL
+      description: Path to the Dockerfile to build.
+    - name: RELEASE_NAME
+      description: Path to the Dockerfile to build. 
+      default: codeql-bundle-linux64
+  workspaces:
+    - name: source
+      description: |
+        Shared workspace including the repo source code.
+  steps:
+    - name: install
+      image: $(params.BUILD_IMAGE)
+      workingDir: $(workspaces.source.path)/$(params.CONTEXT)
+      script: |
+        pwd
+        wget -O ./base/tasks/codeql https://github.com/github/codeql-action/releases/latest/download/${RELEASE_NAME}.tar.gz &&\
+          tar -xvzf ${RELEASE_NAME}.tar.gz &&\
+          chmod +x codeql-runner-linux
+      securityContext:
+        privileged: true
+    - name: codeql-init-scan
+      image: $(params.BUILD_IMAGE)
+      workingDir: $(workspaces.source.path)/$(params.CONTEXT)
+      script: |
+        pwd
+        echo ${GITHUB_TOKEN} | ./base/tasks/codeql/codeql-runner-linux init \
+          --repository $(params.REPO) \
+          --github-url $(params.REPO_URL) \
+          --github-auth-stdin
+      securityContext:
+        privileged: true
+      env:
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: $(params.GITHUB_TOKEN)
+              key: secretToken
