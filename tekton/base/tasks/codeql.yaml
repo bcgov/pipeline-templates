@@ -35,7 +35,7 @@ spec:
         mkdir -p $(params.CONTEXT)
         wget -O $(params.CONTEXT)/$(params.RELEASE_NAME).tar.gz https://github.com/github/codeql-action/releases/latest/download/$(params.RELEASE_NAME).tar.gz &&\
           tar -xvzf $(params.CONTEXT)/$(params.RELEASE_NAME).tar.gz &&\
-          chmod +x $(params.CONTEXT)/codeql-runner-linux
+          chmod +x $(params.CONTEXT)/codeql/codeql
       securityContext:
         privileged: true
     - name: codeql-init-scan
@@ -43,10 +43,10 @@ spec:
       workingDir: $(workspaces.source.path)/$(params.CONTEXT)
       script: |
         pwd
-        echo ${GITHUB_TOKEN} | $(params.CONTEXT)/codeql-runner-linux init \
-          --repository $(params.REPO) \
-          --github-url $(params.REPO_URL) \
-          --github-auth-stdin
+        $(params.CONTEXT)/codeql/codeql database \
+        create /workspace/codeql-dbs/javascript \
+          --language=javascript \
+          --source-root /workspace/source/
       securityContext:
         privileged: true
       env:
