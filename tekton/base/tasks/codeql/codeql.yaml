@@ -5,11 +5,11 @@ metadata:
 spec:
   params:
     - name: BUILD_IMAGE
-      default: index.docker.io/library/ubuntu:latest
+      default: docker.io/gregnrobinson/codeql-cli
       description: Reference of the image buildah will produce.
     - name: CONTEXT
       description: Path to codeql source code.
-      default: ./tekton/base/tasks/codeql
+      default: .
     - name: GITHUB_TOKEN
       description: A Github PAT with repo access.
       default: tkn-github-token
@@ -38,11 +38,12 @@ spec:
     #    wget -O $(params.RELEASE_NAME) https://github.com/github/codeql-cli-binaries/releases/download/$(params.VERSION)/$(params.RELEASE_NAME) &&\
     #      unzip $(params.RELEASE_NAME) &&\
     #      chmod +x ./codeql/codeql
-    #  securityContext:
-    #    privileged: true
     - name: codeql-resolve-packs
       image: $(params.BUILD_IMAGE)
       workingDir: $(workspaces.source.path)
+      script: |
+        codeql resolve languages &&\
+        codeql resolve qlpacks
       env:
         - name: CODEQL_CLI_ARGS
           value: resolve qlpacks
@@ -51,15 +52,15 @@ spec:
             secretKeyRef:
               name: $(params.GITHUB_TOKEN)
               key: secretToken
-    - name: codeql-create-db
-      image: $(params.BUILD_IMAGE)
-      workingDir: $(workspaces.source.path)
-      env:
-        - name: CODEQL_CLI_ARGS
-          value: database create ./source_db -s /workspace/source/ --language=java,python 
-        - name: GITHUB_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: $(params.GITHUB_TOKEN)
-              key: secretToken
+    #- name: codeql-create-db
+    #  image: $(params.BUILD_IMAGE)
+    #  workingDir: $(workspaces.source.path)
+    #  env:
+    #    - name: CODEQL_CLI_ARGS
+    #      value: database create ./python-db . --language=python 
+    #    - name: GITHUB_TOKEN
+    #      valueFrom:
+    #        secretKeyRef:
+    #          name: $(params.GITHUB_TOKEN)
+    #          key: secretToken
 

@@ -144,7 +144,7 @@ spec:
   - name: repoUrl
     value: git@github.com:bcgov/security-pipeline-templates.git
   - name: imageUrl
-    value: gregnrobinson/tkn-flask-web:latest
+    value: gregnrobinson/codeql-cli:latest
   - name: branchName
     value: main
   - name: dockerfile
@@ -152,7 +152,7 @@ spec:
   - name: pathToContext
     value: ./tekton/base/tasks/codeql
   - name: buildahImage
-    value: quay.io/buildah/stable:sha256:da3b748d3b28e9247c6972b60e59bed094bc79723497ad0e437c5fdda2992ff8 # AMD64
+    value: quay.io/buildah/stable # AMD64
   workspaces:
   - name: shared-data
     volumeClaimTemplate:
@@ -230,7 +230,7 @@ spec:
     name: p-codeql
   params:
   - name: buildImageUrl
-    value: mcr.microsoft.com/cstsectools/codeql-container
+    value: docker.io/gregnrobinson/codeql-cli:latest
   - name: repoUrl
     value: git@github.com:bcgov/security-pipeline-templates.git
   - name: repo
@@ -238,7 +238,7 @@ spec:
   - name: branchName
     value: main
   - name: pathToContext
-    value: ./tekton/base/tasks/codeql
+    value: .
   - name: releaseName
     value: codeql.zip
   - name: githubToken
@@ -253,7 +253,7 @@ spec:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 1Gi
+            storage: 3Gi
   - name: ssh-creds
     secret:
       secretName: tkn-ssh-credentials

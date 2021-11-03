@@ -7,4 +7,4 @@ resources:
 - buildah.yaml
 - git-clone.yaml
 - maven-build.yaml
-- codeql.yaml
+- ./codeql
