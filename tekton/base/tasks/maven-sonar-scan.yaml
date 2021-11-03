@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: maven-build
+  name: maven-sonar-scan
   labels:
     app.kubernetes.io/version: "0.2"
   annotations:
@@ -139,7 +139,7 @@ spec:
             secretKeyRef:
               name: tkn-sonar-secret
               key: secretToken
-    - name: mvn-goals
+    - name: mvn-sonar-scan
       image: $(params.MAVEN_IMAGE)
       workingDir: $(workspaces.source.path)/$(params.CONTEXT_DIR)
       command: ["/usr/bin/mvn"]

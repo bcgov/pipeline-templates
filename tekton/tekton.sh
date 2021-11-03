@@ -144,9 +144,10 @@ do
           resources
           shift 2
           ;;
-      -a | --apply)
+      -a | --apply-all)
           # do something here call function
           # and write it in your help function display_help()
+          ENV=dev
           apply
           shift 2
           ;;
