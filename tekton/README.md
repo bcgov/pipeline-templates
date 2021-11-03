@@ -269,6 +269,44 @@ spec:
 EOF
 ```
 
+```yaml
+cat <<EOF | kubectl create -f -
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: sonar-scanner-run-
+spec:
+  pipelineRef:
+    name: p-sonar
+  params:
+  - name: sonarHostUrl
+    value: 'https://sonarcloud.io'
+  - name: sonarProject
+    value: tekton
+  - name: repoUrl
+    value: git@github.com:bcgov/security-pipeline-templates.git
+  - name: branchName
+    value: main
+  workspaces:
+  - name: shared-data
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+  - name: ssh-creds
+    secret:
+      secretName: tkn-ssh-credentials
+  - name: docker-config
+    secret:
+      secretName: tkn-docker-credentials
+  - name: sonar-settings
+    emptyDir: {}
+EOF
+```
+
 ## How It Works
 
 Much of the heavy lifting is performed by a tool called [Kustomize](https://kustomize.io/). Kustomize comes pre-bundled with **kubectl version >= 1.14** which means the only required prerequisite for developers to deploy this project is a target cluster and the latest version of kubectl.

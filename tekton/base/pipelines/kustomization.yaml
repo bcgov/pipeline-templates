@@ -7,3 +7,4 @@ resources:
 - buildah.yaml
 - maven.yaml
 - codeql.yaml
+- sonar.yaml

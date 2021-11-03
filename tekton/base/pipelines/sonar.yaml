@@ -1,0 +1,57 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: sonar
+spec:
+  workspaces:
+    - name: shared-data
+      description: |
+        This workspace will receive the cloned git repo and be passed
+        to the next Task for the repo's README.md file to be read.
+    - name: ssh-creds
+      description: |
+        This workspace will provide ssh credentials to the git-clone task.
+    - name: docker-config
+      description: |
+        This workspace will provide docker credentials to the docker-build-push task.
+    - name: sonar-settings
+  params:
+  - name: repoUrl
+    type: string
+  - name: branchName
+    type: string
+  - name: sonarHostUrl
+    type: string
+  - name: sonarProject
+    type: string
+  tasks:
+    - name: fetch-repository
+      taskRef:
+        name: t-git-clone
+      workspaces:
+        - name: output
+          workspace: shared-data
+        - name: ssh-directory
+          workspace: ssh-creds
+      params:
+        - name: url
+          value: $(params.repoUrl)
+        - name: deleteExisting
+          value: "true"
+        - name: revision
+          value: $(params.branchName)
+    - name: code-analysis
+      taskRef:
+        name: t-sonar-scanner
+      runAfter:
+        - fetch-repository
+      params:
+        - name: SONAR_HOST_URL
+          value: $(params.sonarHostUrl)
+        - name: SONAR_PROJECT_KEY
+          value: $(params.sonarProject)
+      workspaces:
+        - name: source
+          workspace: shared-data
+        - name: sonar-settings
+          workspace: sonar-settings

@@ -8,4 +8,5 @@ resources:
 - git-clone.yaml
 - mvn-build.yaml
 - mvn-sonar-scan.yaml
+- sonar-scanner.yaml
 - ./codeql
