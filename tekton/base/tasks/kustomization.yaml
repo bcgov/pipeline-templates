@@ -6,6 +6,6 @@ namePrefix: t-
 resources:
 - buildah.yaml
 - git-clone.yaml
-- maven-build.yaml
-- maven-sonar-scan.yaml
+- mvn-build.yaml
+- mvn-sonar-scan.yaml
 - ./codeql

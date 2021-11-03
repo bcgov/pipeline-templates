@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: maven-build
+  name: mvn-build
 spec:
   params:
     - name: appName
@@ -51,9 +51,9 @@ spec:
           value: $(params.repoUrl)
         - name: revision
           value: $(params.branchName)
-    - name: maven-run
+    - name: mvn-run
       taskRef:
-        name: t-maven-build
+        name: t-mvn-build
       runAfter:
         - fetch-repo
       params:
@@ -71,13 +71,13 @@ spec:
           workspace: maven-settings
         - name: source
           workspace: shared-data
-    - name: maven-sonar-scan
+    - name: mvn-sonar-scan
       when:
         - input: "$(params.runSonarScan)"
           operator: in
           values: ["true"]
       taskRef:
-        name: t-maven-sonar-scan
+        name: t-mvn-sonar-scan
       runAfter:
         - fetch-repo
       params:

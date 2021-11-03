@@ -21,7 +21,7 @@ spec:
     bugs, vulnerabilities and code smells across project branches and pull requests.
 
   workspaces:
-    - name: source-dir
+    - name: source
     - name: sonar-settings
   params:
     - name: SONAR_HOST_URL

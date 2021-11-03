@@ -180,10 +180,10 @@ cat <<EOF | kubectl create -f -
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  generateName: maven-build-run-
+  generateName: mvn-build-run-
 spec:
   pipelineRef:
-    name: p-maven-build
+    name: p-mvn-build
   params:
   - name: appName
     value: maven-test
@@ -195,6 +195,10 @@ spec:
     value: main
   - name: pathToContext
     value: ./tekton/demo/maven-test
+  - name: runSonarScan
+    value: 'true'
+  - name: sonarProject
+    value: tekton
   workspaces:
   - name: shared-data
     volumeClaimTemplate:
