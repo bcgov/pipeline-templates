@@ -54,7 +54,7 @@ spec:
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
-  name: build-push-image-tekton-trigger-listener
+  name: maven-build-event-listener
 spec:
   serviceAccountName: service-tekton-triggers-sa
   triggers:
@@ -75,7 +75,7 @@ spec:
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
-  name: build-push-image-pipeline-binding
+  name: maven-build-trigger-binding
 spec:
   params:
   - name: gitrevision

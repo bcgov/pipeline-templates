@@ -246,7 +246,7 @@ spec:
   - name: version
     value: v2.7.0
   - name: language
-    value: javascript
+    value: python
   workspaces:
   - name: shared-data
     volumeClaimTemplate:
@@ -255,7 +255,7 @@ spec:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 6Gi
+            storage: 1Gi
   - name: ssh-creds
     secret:
       secretName: tkn-ssh-credentials

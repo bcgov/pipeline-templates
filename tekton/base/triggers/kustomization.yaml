@@ -4,4 +4,5 @@ kind: Kustomization
 resources:
   - ingress.yaml
   - rbac.yaml
-  - trigger-template.yaml
+  - trigger-flask-web.yaml
+  - trigger-maven-build.yaml
