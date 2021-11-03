@@ -38,7 +38,7 @@ spec:
       workingDir: $(workspaces.source.path)
       script: |
         buildah --storage-driver=$(params.STORAGE_DRIVER) push \
-          --authfile /root/.docker/.dockerconfigjson $(params.IMAGE) --isolation chroot
+          --authfile /root/.docker/.dockerconfigjson $(params.IMAGE)
       volumeMounts:
         - name: varlibcontainers
           mountPath: /var/lib/containers

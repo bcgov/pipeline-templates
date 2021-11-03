@@ -150,7 +150,7 @@ spec:
   - name: dockerfile
     value: ./Dockerfile
   - name: pathToContext
-    value: ./tekton/demo/flask-web
+    value: ./tekton/base/tasks/codeql
   - name: buildahImage
     value: quay.io/buildah/stable:sha256:da3b748d3b28e9247c6972b60e59bed094bc79723497ad0e437c5fdda2992ff8 # AMD64
   workspaces:
@@ -180,7 +180,7 @@ cat <<EOF | kubectl create -f -
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  generateName: maven-run-
+  generateName: maven-build-run-
 spec:
   pipelineRef:
     name: p-maven-build
