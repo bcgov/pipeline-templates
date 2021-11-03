@@ -269,6 +269,10 @@ spec:
 EOF
 ```
 
+### **sonar-scan**
+
+*Scans a given repository against a provided SonarCloud project. [SonarCloud](https://sonarcloud.io/)*
+
 ```yaml
 cat <<EOF | kubectl create -f -
 apiVersion: tekton.dev/v1beta1
