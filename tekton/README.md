@@ -339,6 +339,10 @@ secretGenerator:
     type: Opaque
     literals:
       - secretToken=
+  - name: sonar-token
+    type: Opaque
+    literals:
+      - secretToken=
 patchesJson6902:
   - target:
       version: v1

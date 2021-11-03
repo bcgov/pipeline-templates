@@ -28,6 +28,7 @@ function credentials(){
     cp ${DOCKER_CONFIG_PATH} ${DIR}/overlays/${ENV}/creds/.dockerconfigjson
     yq eval -i '.secretGenerator[2].literals.[0] = "'secretToken=$GITHUB_SECRET'"' overlays/${ENV}/kustomization.yaml
     yq eval -i '.secretGenerator[3].literals.[0] = "'secretToken=$GITHUB_TOKEN'"' overlays/${ENV}/kustomization.yaml
+    yq eval -i '.secretGenerator[4].literals.[0] = "'secretToken=$SONAR_TOKEN'"' overlays/${ENV}/kustomization.yaml
     echo "${green}Generated secret declerations...${normal}"
 }
 
@@ -38,6 +39,7 @@ function cleanup(){
     kubectl delete pod $(kubectl get pods | grep DeadlineExceeded | awk '{print $1}') 2> /dev/null || echo "${green}Cleaning up DeadlineExceeded jobs${normal}"
     yq eval -i '.secretGenerator[2].literals.[0] = "secretToken="' overlays/${ENV}/kustomization.yaml
     yq eval -i '.secretGenerator[3].literals.[0] = "secretToken="' overlays/${ENV}/kustomization.yaml
+    yq eval -i '.secretGenerator[4].literals.[0] = "secretToken="' overlays/${ENV}/kustomization.yaml
     rm -rf ${DIR}/overlays/${ENV}/creds
     echo "${green}Cleanup completed successfully...${normal}"
 }
@@ -138,6 +140,7 @@ do
           shift 2
           ;;
       -r | --resources)
+          ENV=resources
           resources
           shift 2
           ;;

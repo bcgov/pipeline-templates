@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - ../../base/pipelines
   - ../../base/tasks
-  - ../../base/triggers
 generatorOptions:
   disableNameSuffixHash: true
 secretGenerator:
@@ -19,6 +18,10 @@ secretGenerator:
     literals:
       - secretToken=
   - name: tkn-github-token
+    type: Opaque
+    literals:
+      - secretToken=
+  - name: tkn-sonar-secret
     type: Opaque
     literals:
       - secretToken=

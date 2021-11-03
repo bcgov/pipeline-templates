@@ -133,6 +133,30 @@ spec:
           </mirror>"
           sed -i "s|<!-- ### mirrors from ENV ### -->|$xml|" $(workspaces.maven-settings.path)/settings.xml
         fi
+      env:
+        - name: SONAR_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: tkn-sonar-secret
+              key: secretToken
+    - name: mvn-clean-verify
+      image: $(params.MAVEN_IMAGE)
+      workingDir: $(workspaces.source.path)/$(params.CONTEXT_DIR)
+      command: ["/usr/bin/mvn"]
+      args:
+        - clean 
+        - verify
+        - sonar:sonar
+        - -Dsonar.login=${SONAR_TOKEN}
+        - -Dsonar.host.url=https://sonarcloud.io
+        - -Dsonar.organization=ci-testing
+        - -Dsonar.projectKey=tekton
+      env:
+        - name: SONAR_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: tkn-sonar-secret
+              key: secretToken
     - name: mvn-goals
       image: $(params.MAVEN_IMAGE)
       workingDir: $(workspaces.source.path)/$(params.CONTEXT_DIR)
@@ -141,3 +165,30 @@ spec:
         - -s
         - $(workspaces.maven-settings.path)/settings.xml
         - "$(params.GOALS)"
+      env:
+        - name: SONAR_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: tkn-sonar-secret
+              key: secretToken
+    - name: mvn-sonar-scan
+      image: $(params.MAVEN_IMAGE)
+      workingDir: $(workspaces.source.path)/$(params.CONTEXT_DIR)
+      command: ["/usr/bin/mvn"]
+      args:
+        - verify 
+        - org.sonarsource.scanner.maven:sonar-maven-plugin:sonar 
+        - -Dsonar.projectKey=tekton
+      env:
+        - name: SONAR_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: tkn-sonar-secret
+              key: secretToken
+
+
+
+
+
+
+
