@@ -5,7 +5,7 @@ metadata:
 spec:
   params:
     - name: BUILD_IMAGE
-      default: docker.io/gregnrobinson/codeql-cli
+      default: docker.io/gregnrobinson/codeql-cli:latest
       description: Reference of the image buildah will produce.
     - name: CONTEXT
       description: Path to codeql source code.
@@ -28,16 +28,6 @@ spec:
       description: |
         Shared workspace including the repo source code.
   steps:
-    #- name: install
-    #  image: $(params.BUILD_IMAGE)
-    #  workingDir: $(workspaces.source.path)
-    #  script: |
-    #    pwd
-    #    apt update
-    #    apt install wget unzip -y
-    #    wget -O $(params.RELEASE_NAME) https://github.com/github/codeql-cli-binaries/releases/download/$(params.VERSION)/$(params.RELEASE_NAME) &&\
-    #      unzip $(params.RELEASE_NAME) &&\
-    #      chmod +x ./codeql/codeql
     - name: codeql-resolve-packs
       image: $(params.BUILD_IMAGE)
       workingDir: $(workspaces.source.path)
@@ -45,22 +35,20 @@ spec:
         codeql resolve languages &&\
         codeql resolve qlpacks
       env:
-        - name: CODEQL_CLI_ARGS
-          value: resolve qlpacks
         - name: GITHUB_TOKEN
           valueFrom:
             secretKeyRef:
               name: $(params.GITHUB_TOKEN)
               key: secretToken
-    #- name: codeql-create-db
-    #  image: $(params.BUILD_IMAGE)
-    #  workingDir: $(workspaces.source.path)
-    #  env:
-    #    - name: CODEQL_CLI_ARGS
-    #      value: database create ./python-db . --language=python 
-    #    - name: GITHUB_TOKEN
-    #      valueFrom:
-    #        secretKeyRef:
-    #          name: $(params.GITHUB_TOKEN)
-    #          key: secretToken
+    - name: codeql-create-db
+      image: $(params.BUILD_IMAGE)
+      workingDir: $(workspaces.source.path)
+      script: |
+        codeql database create ./python-db . --language=python
+      env:
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: $(params.GITHUB_TOKEN)
+              key: secretToken
 
