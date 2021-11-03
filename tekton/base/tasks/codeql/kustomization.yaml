@@ -3,4 +3,3 @@ kind: Kustomization
 
 resources:
 - codeql.yaml
-- limit-range.yaml

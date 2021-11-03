@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ../../base/pipelines
   - ../../base/tasks
+  - ../../base/triggers
 generatorOptions:
   disableNameSuffixHash: true
 secretGenerator:

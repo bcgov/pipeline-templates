@@ -1,7 +1,7 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
-  name: build-push-image-template
+  name: buildah-build-push-trigger
 spec:
   params:
   - name: appName
@@ -9,7 +9,7 @@ spec:
   - name: repoUrl
     default: git@github.com:bcgov/security-pipeline-templates.git
   - name: imageUrl
-    default: gregnrobinson/tkn-flask-web:v1.0.0
+    default: gregnrobinson/tkn-flask-web:latest
   - name: branchName
     default: main
   - name: dockerfile
