@@ -23,6 +23,9 @@ spec:
     - name: VERSION
       description: CodeQL version to use. 
       default: v2.7.0
+    - name: LANGUAGE
+      description: CodeQL language to scan. 
+      default: javascript
   workspaces:
     - name: source
       description: |
@@ -44,7 +47,21 @@ spec:
       image: $(params.BUILD_IMAGE)
       workingDir: $(workspaces.source.path)
       script: |
-        codeql database create ./python-db . --language=python
+        codeql database create \
+          --language=$(params.LANGUAGE) /workspace/source/$(params.LANGUAGE)-db
+      env:
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: $(params.GITHUB_TOKEN)
+              key: secretToken
+    - name: codeql-analyze-db
+      image: $(params.BUILD_IMAGE)
+      workingDir: $(workspaces.source.path)
+      script: |
+        codeql database analyze /workspace/source/$(params.LANGUAGE)-db \
+          --format=SARIF \
+          --output=$(workspaces.source.path)/$(params.LANGUAGE)-results
       env:
         - name: GITHUB_TOKEN
           valueFrom:

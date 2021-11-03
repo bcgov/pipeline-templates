@@ -36,6 +36,9 @@ spec:
     - name: version
       type: string
       description: Version of CodeQL to use.
+    - name: language
+      type: string
+      description: Language for CodeQL to scan.
   tasks:
     - name: fetch-repository
       taskRef:
@@ -72,6 +75,8 @@ spec:
           value: $(params.releaseName)
         - name: VERSION
           value: $(params.version)
+        - name: LANGUAGE
+          value: $(params.language)
       workspaces:
         - name: source
           workspace: shared-data

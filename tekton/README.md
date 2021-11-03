@@ -144,13 +144,13 @@ spec:
   - name: repoUrl
     value: git@github.com:bcgov/security-pipeline-templates.git
   - name: imageUrl
-    value: gregnrobinson/codeql-cli:latest
+    value: gregnrobinson/tkn-flask-web:latest
   - name: branchName
     value: main
   - name: dockerfile
     value: ./Dockerfile
   - name: pathToContext
-    value: ./tekton/base/tasks/codeql
+    value: ./tekton/demo/flask-web
   - name: buildahImage
     value: quay.io/buildah/stable # AMD64
   workspaces:
@@ -245,6 +245,8 @@ spec:
     value: tkn-github-token
   - name: version
     value: v2.7.0
+  - name: language
+    value: javascript
   workspaces:
   - name: shared-data
     volumeClaimTemplate:
@@ -253,7 +255,7 @@ spec:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 3Gi
+            storage: 6Gi
   - name: ssh-creds
     secret:
       secretName: tkn-ssh-credentials
