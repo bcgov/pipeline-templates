@@ -8,6 +8,8 @@
 - [Pipeline Run Templates](#pipeline-run-templates)
   - [**buildah-build-push**](#buildah-build-push)
   - [**maven-build**](#maven-build)
+  - [**codeql-scan**](#codeql-scan)
+  - [**sonar-scan**](#sonar-scan)
 - [How It Works](#how-it-works)
 
 ## Overview
@@ -288,7 +290,7 @@ spec:
   - name: sonarProject
     value: tekton
   - name: repoUrl
-    value: git@github.com:bcgov/security-pipeline-templates.git
+    value: git@github.com:gregnrobinson/app-factory.git
   - name: branchName
     value: main
   workspaces:
