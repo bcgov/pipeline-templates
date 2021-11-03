@@ -10,15 +10,13 @@ spec:
       description: Reference the image version of buildah.
     - name: STORAGE_DRIVER
       description: Set buildah storage driver
-      default: overlay
+      default: vfs
     - name: DOCKERFILE
       description: Path to the Dockerfile to build.
       default: ./Dockerfile
     - name: CONTEXT
       description: Path to the Dockerfile to build.
       default: .
-    - name: IMAGE_PUSH_SECRET_NAME
-      description: Kubernetes secrets contain image push username and password
   workspaces:
     - name: source
     - name: dockerconfig
@@ -30,36 +28,20 @@ spec:
       image: $(params.BUILDAH_IMAGE)
       workingDir: $(workspaces.source.path)
       script: |
-        pwd
         buildah --storage-driver=$(params.STORAGE_DRIVER) bud \
-          --no-cache -f $(params.DOCKERFILE) -t $(params.IMAGE) $(params.CONTEXT)
+          --no-cache -f $(params.DOCKERFILE) -t $(params.IMAGE) --isolation chroot $(params.CONTEXT) 
       volumeMounts:
         - name: varlibcontainers
           mountPath: /var/lib/containers
-      securityContext:
-        privileged: true
     - name: push
       image: $(params.BUILDAH_IMAGE)
       workingDir: $(workspaces.source.path)
       script: |
         buildah --storage-driver=$(params.STORAGE_DRIVER) push \
-          --authfile /root/.docker/.dockerconfigjson $(params.IMAGE)
+          --authfile /root/.docker/.dockerconfigjson $(params.IMAGE) --isolation chroot
       volumeMounts:
         - name: varlibcontainers
           mountPath: /var/lib/containers
-      securityContext:
-        privileged: true
-      env:
-        - name: USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: $(params.IMAGE_PUSH_SECRET_NAME)
-              key: username
-        - name: PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: $(params.IMAGE_PUSH_SECRET_NAME)
-              key: password
   volumes:
     - name: varlibcontainers
       emptyDir: {}

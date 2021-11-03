@@ -57,8 +57,6 @@ spec:
       params:
         - name: IMAGE
           value: $(params.imageUrl)
-        - name: IMAGE_PUSH_SECRET_NAME
-          value: image-push-secrets
         - name: DOCKERFILE
           value: $(params.dockerfile)
         - name: CONTEXT

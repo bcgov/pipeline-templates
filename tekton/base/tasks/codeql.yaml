@@ -43,8 +43,6 @@ spec:
     - name: codeql-resolve-packs
       image: $(params.BUILD_IMAGE)
       workingDir: $(workspaces.source.path)
-      securityContext:
-        privileged: true
       env:
         - name: CODEQL_CLI_ARGS
           value: resolve qlpacks
@@ -56,11 +54,9 @@ spec:
     - name: codeql-create-db
       image: $(params.BUILD_IMAGE)
       workingDir: $(workspaces.source.path)
-      securityContext:
-        privileged: true
       env:
         - name: CODEQL_CLI_ARGS
-          value: database create ./source_db -s /workspace/source/ --db-cluster --language=java,python 
+          value: database create ./source_db -s /workspace/source/ --language=java,python 
         - name: GITHUB_TOKEN
           valueFrom:
             secretKeyRef:

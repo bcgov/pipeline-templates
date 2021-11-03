@@ -152,7 +152,7 @@ spec:
   - name: pathToContext
     value: ./tekton/demo/flask-web
   - name: buildahImage
-    value: quay.io/buildah/stable:v1.23.1
+    value: quay.io/buildah/stable:sha256:da3b748d3b28e9247c6972b60e59bed094bc79723497ad0e437c5fdda2992ff8 # AMD64
   workspaces:
   - name: shared-data
     volumeClaimTemplate:
@@ -230,7 +230,7 @@ spec:
     name: p-codeql
   params:
   - name: buildImageUrl
-    value: index.docker.io/library/ubuntu:latest
+    value: mcr.microsoft.com/cstsectools/codeql-container
   - name: repoUrl
     value: git@github.com:bcgov/security-pipeline-templates.git
   - name: repo

@@ -83,7 +83,20 @@ function apply(){
         kubectl apply -k overlays/${ENV} || cleanup
     fi
     cleanup
-        echo "${green}Apply completed successfully...${normal}"
+    echo "${green}Apply completed successfully...${normal}"
+}
+
+function resources(){
+    setup
+    credentials
+    if [ -z "${CONTEXT}" ]; then
+        kubectl apply -k overlays/resources || cleanup
+    else
+        kubectl config use-context ${CONTEXT}
+        kubectl apply -k overlays/resources || cleanup
+    fi
+    cleanup
+    echo "${green}Pipelines deployed successfully...${normal}"
 }
 
 function display_help() {    
@@ -99,6 +112,7 @@ function display_help() {
     echo "   ${bold}-s, --sync${normal}          Pull the latest pipeline and trigger releases. "
     echo "   ${bold}-p, --prune${normal}         Delete all ${bold}Completed${normal}, $(tput bold)Errored${normal} or $(tput bold)DeadLineExceeded${normal} pod runs. "
     echo "   ${bold}-c, --creds${normal}         Create secret declerations from the provided values in ${bold}.env${normal}. "
+    echo "   ${bold}-r, --resources${normal}     Deploys just the pipelines, tasks, and triggers. "
     echo "   ${bold}-h, --help${normal}          Display argument options. "
     echo 
     exit 1
@@ -121,6 +135,10 @@ do
           ;;
       -p | --prune)
           cleanup
+          shift 2
+          ;;
+      -r | --resources)
+          resources
           shift 2
           ;;
       -a | --apply)
