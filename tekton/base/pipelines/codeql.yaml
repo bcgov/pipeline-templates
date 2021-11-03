@@ -33,6 +33,9 @@ spec:
     - name: githubToken
       type: string
       description: Reference to the secret name storing the github PAT.
+    - name: version
+      type: string
+      description: Version of CodeQL to use.
   tasks:
     - name: fetch-repository
       taskRef:
@@ -67,6 +70,8 @@ spec:
           value: $(params.repoUrl)
         - name: RELEASE_NAME
           value: $(params.releaseName)
+        - name: VERSION
+          value: $(params.version)
       workspaces:
         - name: source
           workspace: shared-data

@@ -12,46 +12,58 @@ spec:
       default: ./tekton/base/tasks/codeql
     - name: GITHUB_TOKEN
       description: A Github PAT with repo access.
-      default: github-token
+      default: tkn-github-token
     - name: REPO
       description: Path to the Dockerfile to build. 
     - name: REPO_URL
       description: Path to the Dockerfile to build.
     - name: RELEASE_NAME
       description: Path to the Dockerfile to build. 
-      default: codeql-bundle-linux64
+      default: codeql.zip
+    - name: VERSION
+      description: CodeQL version to use. 
+      default: v2.7.0
   workspaces:
     - name: source
       description: |
         Shared workspace including the repo source code.
   steps:
-    - name: install
+    #- name: install
+    #  image: $(params.BUILD_IMAGE)
+    #  workingDir: $(workspaces.source.path)
+    #  script: |
+    #    pwd
+    #    apt update
+    #    apt install wget unzip -y
+    #    wget -O $(params.RELEASE_NAME) https://github.com/github/codeql-cli-binaries/releases/download/$(params.VERSION)/$(params.RELEASE_NAME) &&\
+    #      unzip $(params.RELEASE_NAME) &&\
+    #      chmod +x ./codeql/codeql
+    #  securityContext:
+    #    privileged: true
+    - name: codeql-resolve-packs
       image: $(params.BUILD_IMAGE)
-      workingDir: $(workspaces.source.path)/$(params.CONTEXT)
-      script: |
-        pwd
-        apt update
-        apt install wget -y
-        mkdir -p $(params.CONTEXT)
-        wget -O $(params.CONTEXT)/$(params.RELEASE_NAME).tar.gz https://github.com/github/codeql-action/releases/latest/download/$(params.RELEASE_NAME).tar.gz &&\
-          tar -xvzf $(params.CONTEXT)/$(params.RELEASE_NAME).tar.gz &&\
-          chmod +x $(params.CONTEXT)/codeql/codeql
-      securityContext:
-        privileged: true
-    - name: codeql-init-scan
-      image: $(params.BUILD_IMAGE)
-      workingDir: $(workspaces.source.path)/$(params.CONTEXT)
-      script: |
-        pwd
-        $(params.CONTEXT)/codeql/codeql database \
-        create /workspace/codeql-dbs/javascript \
-          --language=javascript \
-          --source-root /workspace/source/
+      workingDir: $(workspaces.source.path)
       securityContext:
         privileged: true
       env:
+        - name: CODEQL_CLI_ARGS
+          value: resolve qlpacks
         - name: GITHUB_TOKEN
           valueFrom:
             secretKeyRef:
               name: $(params.GITHUB_TOKEN)
               key: secretToken
+    - name: codeql-create-db
+      image: $(params.BUILD_IMAGE)
+      workingDir: $(workspaces.source.path)
+      securityContext:
+        privileged: true
+      env:
+        - name: CODEQL_CLI_ARGS
+          value: database create ./source_db -s /workspace/source/ --db-cluster --language=java,python 
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: $(params.GITHUB_TOKEN)
+              key: secretToken
+

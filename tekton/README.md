@@ -240,9 +240,11 @@ spec:
   - name: pathToContext
     value: ./tekton/base/tasks/codeql
   - name: releaseName
-    value: codeql-bundle-linux64
+    value: codeql.zip
   - name: githubToken
     value: tkn-github-token
+  - name: version
+    value: v2.7.0
   workspaces:
   - name: shared-data
     volumeClaimTemplate:
