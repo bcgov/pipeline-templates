@@ -21,15 +21,59 @@ function sync(){
     echo "${green}Sync completed successfully...${normal}"
 }
 
+function install(){
+    setup
+    sync
+    credentials
+    secrets
+    if [ -z "${CONTEXT}" ]; then
+        kubectl apply -k overlays/install || cleanup
+    else
+        kubectl config use-context ${CONTEXT}
+        kubectl apply -k overlays/install || cleanup
+    fi
+    echo "${green}Install completed successfully...${normal}"
+}
+
+function update(){
+    setup
+    credentials
+    secrets
+    if [ -z "${CONTEXT}" ]; then
+        kubectl apply -k overlays/update || cleanup
+    else
+        kubectl config use-context ${CONTEXT}
+        kubectl apply -k overlays/update || cleanup
+    fi
+    echo "${green}Install completed successfully...${normal}"
+}
+
 function credentials(){
     setup
-    mkdir -p ${DIR}/overlays/${ENV}/creds
-    cp ${SSH_KEY_PATH} ${DIR}/overlays/${ENV}/creds/id_rsa
-    cp ${DOCKER_CONFIG_PATH} ${DIR}/overlays/${ENV}/creds/.dockerconfigjson
-    yq eval -i '.secretGenerator[2].literals.[0] = "'secretToken=$GITHUB_SECRET'"' overlays/${ENV}/kustomization.yaml
-    yq eval -i '.secretGenerator[3].literals.[0] = "'secretToken=$GITHUB_TOKEN'"' overlays/${ENV}/kustomization.yaml
-    yq eval -i '.secretGenerator[4].literals.[0] = "'secretToken=$SONAR_TOKEN'"' overlays/${ENV}/kustomization.yaml
-    echo "${green}Generated secret declerations...${normal}"
+    mkdir -p ${DIR}/overlays/creds/.creds
+    cp ${SSH_KEY_PATH} ${DIR}/overlays/creds/.creds/id_rsa
+    cp ${DOCKER_CONFIG_PATH} ${DIR}/overlays/creds/.creds/.dockerconfigjson
+    yq eval -i '.secretGenerator[2].literals.[0] = "'secretToken=$GITHUB_SECRET'"' overlays/creds/kustomization.yaml
+    yq eval -i '.secretGenerator[3].literals.[0] = "'secretToken=$GITHUB_TOKEN'"'  overlays/creds/kustomization.yaml
+    yq eval -i '.secretGenerator[4].literals.[0] = "'secretToken=$SONAR_TOKEN'"'   overlays/creds/kustomization.yaml
+    echo "${green}Credentials successfully configured...${normal}"
+}
+
+function secrets(){
+    setup
+    sync
+    credentials
+    if [ -z "${CONTEXT}" ]; then
+        kubectl apply -k overlays/creds
+    else
+        kubectl config use-context ${CONTEXT}
+        kubectl apply -k overlays/creds
+    fi
+    yq eval -i '.secretGenerator[2].literals.[0] = "secretToken="' overlays/creds/kustomization.yaml
+    yq eval -i '.secretGenerator[3].literals.[0] = "secretToken="' overlays/creds/kustomization.yaml
+    yq eval -i '.secretGenerator[4].literals.[0] = "secretToken="' overlays/creds/kustomization.yaml
+    rm -rf overlays/creds/.creds
+    echo "${green}Secrets configured successfully...${normal}"
 }
 
 function cleanup(){
@@ -37,10 +81,6 @@ function cleanup(){
     kubectl delete pod $(kubectl get pods | grep Completed        | awk '{print $1}') 2> /dev/null || echo "${green}Cleaning up Completed jobs${normal}"
     kubectl delete pod $(kubectl get pods | grep Error            | awk '{print $1}') 2> /dev/null || echo "${green}Cleaning up Errored jobs${normal}" 
     kubectl delete pod $(kubectl get pods | grep DeadlineExceeded | awk '{print $1}') 2> /dev/null || echo "${green}Cleaning up DeadlineExceeded jobs${normal}"
-    yq eval -i '.secretGenerator[2].literals.[0] = "secretToken="' overlays/${ENV}/kustomization.yaml
-    yq eval -i '.secretGenerator[3].literals.[0] = "secretToken="' overlays/${ENV}/kustomization.yaml
-    yq eval -i '.secretGenerator[4].literals.[0] = "secretToken="' overlays/${ENV}/kustomization.yaml
-    rm -rf ${DIR}/overlays/${ENV}/creds
     echo "${green}Cleanup completed successfully...${normal}"
 }
 
@@ -74,33 +114,6 @@ function setup(){
     fi
 }
 
-function apply(){
-    setup
-    sync
-    credentials
-    if [ -z "${CONTEXT}" ]; then
-        kubectl apply -k overlays/${ENV} || cleanup
-    else
-        kubectl config use-context ${CONTEXT}
-        kubectl apply -k overlays/${ENV} || cleanup
-    fi
-    cleanup
-    echo "${green}Apply completed successfully...${normal}"
-}
-
-function resources(){
-    setup
-    credentials
-    if [ -z "${CONTEXT}" ]; then
-        kubectl apply -k overlays/resources || cleanup
-    else
-        kubectl config use-context ${CONTEXT}
-        kubectl apply -k overlays/resources || cleanup
-    fi
-    cleanup
-    echo "${green}Pipelines deployed successfully...${normal}"
-}
-
 function display_help() {    
     SHORT_SHA="$(git rev-parse --short HEAD)"
     BRANCH="$(git rev-parse --abbrev-ref HEAD)"
@@ -110,11 +123,11 @@ function display_help() {
     echo ""
     echo "Usage: tekton.sh [option...]" >&2
     echo
-    echo "   ${bold}-a, --apply${normal}         Install and deploy Tekton resources. "
+    echo "   ${bold}-i, --install${normal}       Install Tekton and create pipeline secrets. "
     echo "   ${bold}-s, --sync${normal}          Pull the latest pipeline and trigger releases. "
+    echo "   ${bold}-c, --creds${normal}         Deploys/Updates pipeline secrets from .env "
+    echo "   ${bold}-u, --update${normal}        Deploys/Updates just the pipelines, tasks, and triggers. "
     echo "   ${bold}-p, --prune${normal}         Delete all ${bold}Completed${normal}, $(tput bold)Errored${normal} or $(tput bold)DeadLineExceeded${normal} pod runs. "
-    echo "   ${bold}-c, --creds${normal}         Create secret declerations from the provided values in ${bold}.env${normal}. "
-    echo "   ${bold}-r, --resources${normal}     Deploys just the pipelines, tasks, and triggers. "
     echo "   ${bold}-h, --help${normal}          Display argument options. "
     echo 
     exit 1
@@ -127,28 +140,25 @@ do
           display_help  # Call your function
           exit 0
           ;;
+      -i | --install)
+          install
+          shift 2
+          ;;
+      -u | --update)
+          update
+          shift 2
+          ;;
       -s | --sync)
           sync
           shift 2
           ;;
+
       -c | --creds)
-          credentials
+          secrets
           shift 2
           ;;
       -p | --prune)
           cleanup
-          shift 2
-          ;;
-      -r | --resources)
-          ENV=resources
-          resources
-          shift 2
-          ;;
-      -a | --apply-all)
-          # do something here call function
-          # and write it in your help function display_help()
-          ENV=dev
-          apply
           shift 2
           ;;
 

@@ -1,17 +1,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-resources:
-  - ../../base/pipelines
-  - ../../base/tasks
 generatorOptions:
   disableNameSuffixHash: true
 secretGenerator:
   - name: tkn-ssh-credentials
     files:
-      - creds/id_rsa
+      - .creds/id_rsa
   - name: tkn-docker-credentials
     files:
-      - creds/.dockerconfigjson
+      - .creds/.dockerconfigjson
     type: kubernetes.io/dockerconfigjson
   - name: tkn-github-secret
     type: Opaque
@@ -21,7 +18,7 @@ secretGenerator:
     type: Opaque
     literals:
       - secretToken=
-  - name: tkn-sonar-secret
+  - name: sonar-token
     type: Opaque
     literals:
       - secretToken=
