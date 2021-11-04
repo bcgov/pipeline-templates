@@ -1,3 +1,0 @@
-[submodule "/Users/gregrobinson/repos/bcgov/security-pipeline-templates/tekton/base/tasks/codeql/source"]
-	path = /Users/gregrobinson/repos/bcgov/security-pipeline-templates/tekton/base/tasks/codeql/source
-	url = git@github.com:github/codeql.git
