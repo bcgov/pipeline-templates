@@ -291,7 +291,7 @@ spec:
     name: p-sonar
   params:
   - name: sonarHostUrl
-    value: 'https://sonarcloud.io'
+    value: https://sonarcloud.io
   - name: sonarProject
     value: app-factory
   - name: repoUrl
@@ -430,10 +430,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- pipelines.yaml
-- triggers.yaml
-- interceptors.yaml
-- dashboards.yaml
+  - pipelines.yaml
+  - triggers.yaml
+  - interceptors.yaml
+  - dashboards.yaml
 
 ## ./base/pipelines/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
@@ -442,8 +442,8 @@ kind: Kustomization
 namePrefix: p-
 
 resources:
-- buildah.yaml
-- maven.yaml
+  - buildah.yaml
+  - maven.yaml
 
 ## ./base/tasks/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
@@ -452,9 +452,9 @@ kind: Kustomization
 namePrefix: t-
 
 resources:
-- buildah.yaml
-- git-clone.yaml
-- maven-build.yaml
+  - buildah.yaml
+  - git-clone.yaml
+  - maven-build.yaml
 
 ## ./base/triggers/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
