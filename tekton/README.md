@@ -31,7 +31,7 @@ The repository is intended to configure every aspect of Tekton, from the install
 4. **apply**: Runs `kubectl apply -k overlays/${ENV}` to install/update Tekton and deploy Tekton CRDs.
 5. **cleanup**: Cleans up Completed pipeline runs and deletes all creds.
 
-The `./tekton.sh --apply` argument sources the `.env` file at the root of the repository. Variables referenced by path are added as files to Kubernetes secrets.
+The `./tekton.sh` script sources the `.env` file at the root of the repository. Variables referenced by path are added as files to Kubernetes secrets.
 
 ### Layout
 
