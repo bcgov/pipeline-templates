@@ -362,6 +362,8 @@ EOF
 
 *Scans public web apps for vulnerbilities. [ZAP Scanner](https://www.zaproxy.org/docs/docker/about/)*
 
+The pipeline performs either a quick or full scan based on the `scanType` parameter. The duration can be modified in minutes using the `scanDuration` parameter.
+
 ```yaml
 cat <<EOF | kubectl create -f -
 apiVersion: tekton.dev/v1beta1
@@ -377,9 +379,9 @@ spec:
   - name: branchName
     value: main
   - name: targetUrl
-    value: https://gregrobinson.ca
+    value: https://www2.gov.bc.ca/gov/content/home
   - name: scanType
-    value: quick
+    value: quick 
   - name: scanDuration
     value: '2'
   workspaces:
