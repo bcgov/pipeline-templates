@@ -125,7 +125,7 @@ Usage: tekton.sh [option...]
 
 ## Pipeline Run Templates
 
-All `PipelineRun` templates listed below are tested and working.
+All pipeline run templates listed below are tested and working. The `PipelineRun` templates refernece pipelines and tasks that were deployed using `./tekton.sh`. All the dependancies to operate this repository are within the repository. Developers can focus on consuming the pipelines for their needs with minimal changes. Additional to adhoc use, developers can create a yaml file with the following templates and store them in a Git repositoy where they can incorporate the pipeline runs into their own automation workflows. Aslong as the runner has access a Kibernetes cluster, a pipeline run will execute with just `kubectl apply -f <YOUR_PIPELINE_RUN>.yaml`.
 
 ### **buildah-build-push**
 
@@ -288,7 +288,7 @@ spec:
   - name: sonarHostUrl
     value: 'https://sonarcloud.io'
   - name: sonarProject
-    value: tekton
+    value: app-factory
   - name: repoUrl
     value: git@github.com:gregnrobinson/app-factory.git
   - name: branchName
