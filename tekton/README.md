@@ -100,6 +100,11 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
    # Used by Tekton triggers to call a webhook configured within a repo using the configured secret.
    # Refer to https://docs.github.com/en/developers/webhooks-and-events/webhooks/securing-your-webhooks for creating a webook and secret.
    GITHUB_SECRET="<YOUR_GITHUB_SECRET>"
+
+   # - Sonar Token - #
+   # - Ussed for running sonar scans. it is not required to set this value for any tasks except the sonar-scan pipeline run.
+   # - The mvn-build pipeline run has an option to run sonar scanning but can be disabled using the value false for the runSonarScan parameter
+   SONAR_TOKEN="<YOUR_SONAR_TOKEN>"
    EOF
    ```
 
@@ -154,7 +159,7 @@ spec:
   - name: pathToContext
     value: ./tekton/demo/flask-web
   - name: buildahImage
-    value: quay.io/buildah/stable # AMD64
+    value: quay.io/buildah/stable
   workspaces:
   - name: shared-data
     volumeClaimTemplate:
