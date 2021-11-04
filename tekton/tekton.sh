@@ -45,7 +45,7 @@ function update(){
         kubectl config use-context ${CONTEXT}
         kubectl apply -k overlays/update || cleanup
     fi
-    echo "${green}Install completed successfully...${normal}"
+    echo "${green}Update completed successfully...${normal}"
 }
 
 function credentials(){
@@ -56,7 +56,6 @@ function credentials(){
     yq eval -i '.secretGenerator[2].literals.[0] = "'secretToken=$GITHUB_SECRET'"' overlays/creds/kustomization.yaml
     yq eval -i '.secretGenerator[3].literals.[0] = "'secretToken=$GITHUB_TOKEN'"'  overlays/creds/kustomization.yaml
     yq eval -i '.secretGenerator[4].literals.[0] = "'secretToken=$SONAR_TOKEN'"'   overlays/creds/kustomization.yaml
-    echo "${green}Credentials successfully configured...${normal}"
 }
 
 function secrets(){

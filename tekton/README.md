@@ -318,6 +318,44 @@ spec:
 EOF
 ```
 
+### **trivy-scan**
+
+*Scans for vulnerbilities and file systems. [SonarCloud](https://github.com/aquasecurity/trivy)*
+
+```yaml
+cat <<EOF | kubectl create -f -
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: trivy-scanner-run-
+spec:
+  pipelineRef:
+    name: p-trivy
+  params:
+  - name: targetImage
+    value: python:3.4-alpine
+  - name: repoUrl
+    value: git@github.com:bcgov/security-pipeline-templates.git
+  - name: branchName
+    value: main
+  workspaces:
+  - name: shared-data
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+  - name: ssh-creds
+    secret:
+      secretName: tkn-ssh-credentials
+  - name: docker-config
+    secret:
+      secretName: tkn-docker-credentials
+EOF
+```
+
 ## How It Works
 
 Much of the heavy lifting is performed by a tool called [Kustomize](https://kustomize.io/). Kustomize comes pre-bundled with **kubectl version >= 1.14** which means the only required prerequisite for developers to deploy this project is a target cluster and the latest version of kubectl.

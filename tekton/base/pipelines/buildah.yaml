@@ -49,6 +49,17 @@ spec:
           value: "true"
         - name: revision
           value: $(params.branchName)
+    - name: trivy-scan
+      taskRef:
+        name: t-trivy-scanner
+      runAfter:
+        - fetch-repository
+      params:
+        - name: TARGET_IMAGE
+          value: $(params.imageUrl)
+      workspaces:
+        - name: source
+          workspace: shared-data
     - name: buildah-build-push
       taskRef:
         name: t-buildah
