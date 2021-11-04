@@ -122,10 +122,11 @@ Run `./tekton.sh -h` to display the help menu.
 ```bash
 Usage: tekton.sh [option...]
 
-   -a, --apply         Install and deploy Tekton resources. 
+   -i, --install       Install Tekton and create pipeline secrets. 
    -s, --sync          Pull the latest pipeline and trigger releases. 
+   -c, --creds         Deploys/Updates pipeline secrets from .env 
+   -u, --update        Deploys/Updates just the pipelines, tasks, and triggers. 
    -p, --prune         Delete all Completed, Errored or DeadLineExceeded pod runs. 
-   -c, --creds         Create secret declerations from the provided values in .env. 
    -h, --help          Display argument options. 
 ```
 
@@ -244,9 +245,9 @@ spec:
   - name: buildImageUrl
     value: docker.io/gregnrobinson/codeql-cli:latest
   - name: repoUrl
-    value: git@github.com:bcgov/security-pipeline-templates.git
+    value: git@github.com:gregnrobinson/cloud-tools.git
   - name: repo
-    value: bcgov/security-pipeline-templates
+    value: gregnrobinson/cloud-tools
   - name: branchName
     value: main
   - name: pathToContext
