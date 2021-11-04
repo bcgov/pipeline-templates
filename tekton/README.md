@@ -31,7 +31,7 @@ The repository is intended to configure every aspect of Tekton, from the install
 4. **apply**: Runs `kubectl apply -k overlays/${ENV}` to install/update Tekton and deploy Tekton CRDs.
 5. **cleanup**: Cleans up Completed pipeline runs and deletes all creds.
 
-The `./tekton.sh --apply` argument sources the `.env` file at the root of the repository. Variables referenced by path are added as files to Kubernetes secrets.
+The `./tekton.sh` script sources the `.env` file at the root of the repository. Variables referenced by path are added as files to Kubernetes secrets.
 
 ### Layout
 
@@ -111,8 +111,10 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
 
 3. Apply the manifests.
 
+   Only run the the `-i` flag when no Tekton environment exists on the target cluster.
+
    ```bash
-   ./tekton.sh --apply
+   ./tekton.sh -i
    ```
 
 ## Usage
@@ -322,7 +324,7 @@ EOF
 
 ### **trivy-scan**
 
-*Scans for vulnerbilities and file systems. [SonarCloud](https://github.com/aquasecurity/trivy)*
+*Scans for vulnerbilities and file systems. [Trivy](https://github.com/aquasecurity/trivy)*
 
 ```yaml
 cat <<EOF | kubectl create -f -
