@@ -112,7 +112,7 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
 3. Apply the manifests.
 
    ```bash
-   ./tekton.sh --apply
+   ./tekton.sh -i
    ```
 
 ## Usage
