@@ -44,6 +44,13 @@ spec:
               name: $(params.GITHUB_TOKEN)
               key: secretToken
     - name: codeql-create-db
+      resources:
+        requests:
+          memory: 2Gi
+          cpu: 600m
+        limits:
+          memory: 4Gi
+          cpu: 900m
       image: $(params.BUILD_IMAGE)
       workingDir: $(workspaces.source.path)
       script: |
@@ -56,11 +63,18 @@ spec:
               name: $(params.GITHUB_TOKEN)
               key: secretToken
     - name: codeql-analyze-db
+      resources:
+        requests:
+          memory: 2Gi
+          cpu: 800m
+        limits:
+          memory: 4Gi
+          cpu: 900m
       image: $(params.BUILD_IMAGE)
       workingDir: $(workspaces.source.path)
       script: |
         codeql database analyze /workspace/source/$(params.LANGUAGE)-db --format=sarif-latest --output=$(params.LANGUAGE)-results
-        codeql github upload-results --repository=$(params.REPO) --ref=refs/heads/main --sarif=$(params.LANGUAGE)-results --commit="68a1e02ceff5a79687bd35c8ee664c6617ed9d18"
+        codeql github upload-results --repository=$(params.REPO) --ref=refs/heads/main --sarif=$(params.LANGUAGE)-results
       env:
         - name: GITHUB_TOKEN
           valueFrom:
