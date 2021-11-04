@@ -111,6 +111,8 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
 
 3. Apply the manifests.
 
+   Only run the the `-i` flag when no Tekton environment exists on the target cluster.
+
    ```bash
    ./tekton.sh -i
    ```
