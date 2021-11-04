@@ -61,7 +61,6 @@ function credentials(){
 
 function secrets(){
     setup
-    sync
     credentials
     if [ -z "${CONTEXT}" ]; then
         kubectl apply -k overlays/creds
