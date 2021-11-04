@@ -1,0 +1,29 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: owasp-scanner
+  labels:
+    app.kubernetes.io/version: "0.1"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/categories: Security
+    tekton.dev/tags: security
+    tekton.dev/displayName: "owasp zap scanner"
+    tekton.dev/platforms: "linux/amd64"
+spec:
+  description: >-
+    The worlds most widely used web app scanner. Free and open source.
+    Actively maintained by a dedicated international team of volunteers.
+
+  workspaces:
+    - name: source
+  params:
+    - name: TARGET_URL
+      description: Host URL where the sonarqube server is running
+      default: "https://example.com"
+  steps:
+    - name: owasp-quick-scan
+      image: owasp/zap2docker-stable
+      workingDir: $(workspaces.source.path)
+      command:
+        - zap-cli quick-scan --self-contained --start-options '-config api.disablekey=true' $(params.TARGET_URL)
