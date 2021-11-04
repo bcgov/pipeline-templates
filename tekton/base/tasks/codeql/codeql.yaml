@@ -73,8 +73,8 @@ spec:
       image: $(params.BUILD_IMAGE)
       workingDir: $(workspaces.source.path)
       script: |
-        codeql database analyze /workspace/source/$(params.LANGUAGE)-db --format=sarif-latest --output=$(params.LANGUAGE)-results
-        codeql github upload-results --repository=$(params.REPO) --ref=refs/heads/main --sarif=$(params.LANGUAGE)-results
+        codeql database analyze /workspace/source/$(params.LANGUAGE)-db --format=sarif-latest --output=/workspace/source/$(params.LANGUAGE)-results
+        codeql github upload-results --repository=$(params.REPO) --ref=refs/heads/main --sarif=/workspace/source/$(params.LANGUAGE)-results
       env:
         - name: GITHUB_TOKEN
           valueFrom:

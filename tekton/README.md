@@ -15,11 +15,11 @@
 
 ## Overview
 
-This project aims to improve the management experience with tekton pipelines. The [pipeline](https://github.com/tektoncd/pipeline) and [triggers](https://github.com/tektoncd/triggers) projects are included as a single deployment. All pipelines and tasks are included in the deployment and can be incrementally updated by running `./tekton.sh --apply`. All operations specific to manifest deployment are handled by [Kustomize](https://kustomize.io/). A `kustomization.yaml` file exists recursively in all directories under `./base.`
+This project aims to improve the management experience with tekton pipelines. The [pipeline](https://github.com/tektoncd/pipeline) and [triggers](https://github.com/tektoncd/triggers) projects are included as a single deployment. All pipelines and tasks are included in the deployment and can be incrementally updated by running `./tekton.sh -i`. All operations specific to manifest deployment are handled by [Kustomize](https://kustomize.io/). A `kustomization.yaml` file exists recursively in all directories under `./base.`
 
 The project creates secrets for your docker and ssh credentials using the Kustomize [secretGenerator](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kustomize/). This allows for the git-clone and buildah Tekton tasks to interact with private repositories. I would consider setting up git and container registry credentials a foundational prerequisite for operating cicd tooling. Once Kustomize creates the secrets, they are referenced directly by name in the [Pipeline Run Templates](#pipeline-run-templates) section.
 
-The repository is intended to configure every aspect of Tekton, from the installation manifests to the custom Tekton CRDs that manage the creation and execution of pipelines. Whenever changes are made to `./base` or `./overlays,` run `./tekton.sh --apply` to apply the changes against the current Kubernetes context. Behind the scenes, the following functions are executed.
+The repository is intended to configure every aspect of Tekton, from the installation manifests to the custom Tekton CRDs that manage the creation and execution of pipelines. Whenever changes are made to `./base` or `./overlays,` run `./tekton.sh -u` to apply the changes against the current Kubernetes context. Behind the scenes, the following functions are executed.
 
 1. **setup**: Installs [yq](https://mikefarah.gitbook.io/yq/) for parsing YAML files.
 2. **sync**: Pulls the following Tekton release manifests to `./base/install`
@@ -31,7 +31,7 @@ The repository is intended to configure every aspect of Tekton, from the install
 4. **apply**: Runs `kubectl apply -k overlays/${ENV}` to install/update Tekton and deploy Tekton CRDs.
 5. **cleanup**: Cleans up Completed pipeline runs and deletes all creds.
 
-The `./tekton.sh` script sources the `.env` file at the root of the repository. Variables referenced by path are added as files to Kubernetes secrets.
+The `./tekton.sh -i` argument sources the `.env` file at the root of the repository. Variables referenced by path are added as files to Kubernetes secrets.
 
 ### Layout
 
@@ -110,8 +110,6 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
    ```
 
 3. Apply the manifests.
-
-   Only run the the `-i` flag when no Tekton environment exists on the target cluster.
 
    ```bash
    ./tekton.sh -i
@@ -247,9 +245,9 @@ spec:
   - name: buildImageUrl
     value: docker.io/gregnrobinson/codeql-cli:latest
   - name: repoUrl
-    value: git@github.com:gregnrobinson/cloud-tools.git
+    value: git@github.com:bcgov/security-pipeline-templates.git
   - name: repo
-    value: gregnrobinson/cloud-tools
+    value: bcgov/security-pipeline-templates
   - name: branchName
     value: main
   - name: pathToContext
@@ -324,7 +322,7 @@ EOF
 
 ### **trivy-scan**
 
-*Scans for vulnerbilities and file systems. [Trivy](https://github.com/aquasecurity/trivy)*
+*Scans for vulnerbilities and file systems. [SonarCloud](https://github.com/aquasecurity/trivy)*
 
 ```yaml
 cat <<EOF | kubectl create -f -
