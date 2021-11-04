@@ -9,3 +9,4 @@ resources:
 - codeql.yaml
 - sonar.yaml
 - trivy.yaml
+- owasp.yaml

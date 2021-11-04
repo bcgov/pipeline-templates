@@ -10,4 +10,5 @@ resources:
 - mvn-sonar-scan.yaml
 - sonar-scanner.yaml
 - trivy-scanner.yaml
+- owasp-scanner.yaml
 - ./codeql

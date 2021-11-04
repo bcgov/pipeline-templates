@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: trivy
+  name: owasp
 spec:
   workspaces:
     - name: shared-data
@@ -14,12 +14,19 @@ spec:
     - name: docker-config
       description: |
         This workspace will provide docker credentials to the docker-build-push task.
+    - name: owasp-settings
+      description: |
+        mounts /zap/wrk to store generated configs and results.
   params:
   - name: repoUrl
     type: string
   - name: branchName
     type: string
   - name: targetUrl
+    type: string
+  - name: scanType
+    type: string
+  - name: scanDuration
     type: string
   tasks:
     - name: fetch-repository
@@ -45,6 +52,12 @@ spec:
       params:
         - name: TARGET_URL
           value: $(params.targetUrl)
+        - name: SCAN_TYPE
+          value: $(params.scanType)
+        - name: SCAN_DURATION
+          value: $(params.scanDuration)
       workspaces:
         - name: source
           workspace: shared-data
+        - name: owasp-settings
+          workspace: owasp-settings
