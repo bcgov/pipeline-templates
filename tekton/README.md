@@ -10,6 +10,7 @@
   - [**maven-build**](#maven-build)
   - [**codeql-scan**](#codeql-scan)
   - [**sonar-scan**](#sonar-scan)
+  - [**trivy-scan**](#trivy-scan)
 - [How It Works](#how-it-works)
 
 ## Overview
