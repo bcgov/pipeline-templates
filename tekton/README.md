@@ -80,6 +80,7 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
 2. Create a file named `.env` and adjust the following variables to match your environment.
 
    ```yaml
+   cat <<EOF >>.env
    # - Kubernetes Context - #
    # Sets the Kubernetes context that all manifests will deploy to.
    # Defaults to current context if not set.
