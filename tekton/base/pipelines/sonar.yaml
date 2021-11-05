@@ -24,6 +24,8 @@ spec:
     type: string
   - name: sonarProject
     type: string
+  - name: sonarTokenSecret
+    type: string
   tasks:
     - name: fetch-repository
       taskRef:
@@ -50,6 +52,8 @@ spec:
           value: $(params.sonarHostUrl)
         - name: SONAR_PROJECT_KEY
           value: $(params.sonarProject)
+        - name: SONAR_TOKEN_SECRET
+          value: $(params.sonarTokenSecret)
       workspaces:
         - name: source
           workspace: shared-data

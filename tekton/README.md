@@ -283,6 +283,21 @@ EOF
 
 *Scans a given repository against a provided SonarCloud project. [SonarCloud](https://sonarcloud.io/)*
 
+Requires a secret within the task named `tkn-sonar-secret`. This is used to authenticate to SonarCloud or SonarQube.
+
+For scans with SonarCloud, create a `sonar-project.properties` file at the root of the repository that is referenced in the `repoUrl` parameter.
+
+```conf
+# sonar-project.properties
+sonar.organization=ci-testing
+sonar.projectKey=tekton
+sonar.host.url=https://sonarcloud.io
+```
+
+- **sonarHostUrl**: The SonarQube/SonarCloud instance.  
+- **sonarProject**: The project to run the scan against.  
+- **sonarTokenSecret**: The authentication token for SonarQube/SonarCloud.
+
 ```yaml
 cat <<EOF | kubectl create -f -
 apiVersion: tekton.dev/v1beta1
@@ -297,6 +312,8 @@ spec:
     value: https://sonarcloud.io
   - name: sonarProject
     value: app-factory
+  - name: sonarTokenSecret
+    value: tkn-sonar-token
   - name: repoUrl
     value: git@github.com:gregnrobinson/app-factory.git
   - name: branchName

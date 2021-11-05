@@ -30,6 +30,9 @@ spec:
     - name: SONAR_PROJECT_KEY
       description: Project's unique key
       default: "tekton"
+    - name: SONAR_TOKEN_SECRET
+      description: The name of the secret containing the Sonar token.
+      default: tkn-sonar-token
   steps:
     - name: sonar-properties-create
       image: registry.access.redhat.com/ubi8/ubi-minimal:8.2
@@ -83,5 +86,5 @@ spec:
         - name: SONAR_TOKEN
           valueFrom:
             secretKeyRef:
-              name: tkn-sonar-secret
+              name: $(params.sonarTokenSecret)
               key: secretToken
