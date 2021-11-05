@@ -1,0 +1,17 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.0.1
+  hooks:
+    - id: check-docstring-first
+    - id: debug-statements
+    - id: name-tests-test
+
+- repo: https://github.com/gruntwork-io/pre-commit
+  rev: v0.1.17
+  hooks:
+    - id: terraform-fmt
+
+- repo: https://github.com/asottile/setup-cfg-fmt
+  rev: v1.19.0
+  hooks:
+    - id: setup-cfg-fmt
