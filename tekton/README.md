@@ -362,6 +362,10 @@ EOF
 
 *Scans public web apps for vulnerbilities. [ZAP Scanner](https://www.zaproxy.org/docs/docker/about/)*
 
+- **targetUrl**: The URL to run the scan against.  
+- **scanType**: Accepted values are `quick` or `full`.  
+- **scanDuration**: The duration of the scan in minutes.
+
 The pipeline performs either a quick or full scan based on the `scanType` parameter. The duration can be modified in minutes using the `scanDuration` parameter.
 
 ```yaml
@@ -374,12 +378,8 @@ spec:
   pipelineRef:
     name: p-owasp
   params:
-  - name: repoUrl
-    value: git@github.com:bcgov/security-pipeline-templates.git
-  - name: branchName
-    value: main
   - name: targetUrl
-    value: https://www2.gov.bc.ca/gov/content/home
+    value: https://example.com
   - name: scanType
     value: quick 
   - name: scanDuration
