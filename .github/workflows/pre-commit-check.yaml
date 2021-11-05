@@ -15,3 +15,8 @@ jobs:
       with:
         tflint_version: latest
     - uses: pre-commit/action@v2.0.3
+    - run: |
+        curl https://get.datree.io | /bin/bash
+        datree test ./tekton/base/pipelines/* --ignore-missing-schemas
+        datree test ./tekton/base/tasks/*     --ignore-missing-schemas
+        datree test ./tekton/base/triggers/*  --ignore-missing-schemas
