@@ -11,9 +11,6 @@ spec:
     - name: ssh-creds
       description: |
         This workspace will provide ssh credentials to the git-clone task.
-    - name: docker-config
-      description: |
-        This workspace will provide docker credentials to the docker-build-push task.
     - name: sonar-settings
   params:
   - name: repoUrl
@@ -23,6 +20,8 @@ spec:
   - name: sonarHostUrl
     type: string
   - name: sonarProject
+    type: string
+  - name: sonarTokenSecret
     type: string
   tasks:
     - name: fetch-repository
@@ -50,6 +49,8 @@ spec:
           value: $(params.sonarHostUrl)
         - name: SONAR_PROJECT_KEY
           value: $(params.sonarProject)
+        - name: SONAR_TOKEN_SECRET
+          value: $(params.sonarTokenSecret)
       workspaces:
         - name: source
           workspace: shared-data

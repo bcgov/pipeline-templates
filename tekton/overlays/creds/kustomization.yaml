@@ -18,7 +18,7 @@ secretGenerator:
     type: Opaque
     literals:
       - secretToken=
-  - name: sonar-token
+  - name: tkn-sonar-token
     type: Opaque
     literals:
       - secretToken=
