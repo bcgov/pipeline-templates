@@ -358,6 +358,52 @@ spec:
 EOF
 ```
 
+### **owasp-scan**
+
+*Scans public web apps for vulnerbilities. [ZAP Scanner](https://www.zaproxy.org/docs/docker/about/)*
+
+- **targetUrl**: The URL to run the scan against.  
+- **scanType**: Accepted values are `quick` or `full`.  
+- **scanDuration**: The duration of the scan in minutes.
+
+The pipeline performs either a quick or full scan based on the `scanType` parameter. The duration can be modified in minutes using the `scanDuration` parameter.
+
+```yaml
+cat <<EOF | kubectl create -f -
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: owasp-scanner-run-
+spec:
+  pipelineRef:
+    name: p-owasp
+  params:
+  - name: targetUrl
+    value: https://example.com
+  - name: scanType
+    value: quick 
+  - name: scanDuration
+    value: '2'
+  workspaces:
+  - name: shared-data
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+  - name: ssh-creds
+    secret:
+      secretName: tkn-ssh-credentials
+  - name: docker-config
+    secret:
+      secretName: tkn-docker-credentials
+  - name: owasp-settings
+    emptyDir: {}
+EOF
+```
+
 ## How It Works
 
 Much of the heavy lifting is performed by a tool called [Kustomize](https://kustomize.io/). Kustomize comes pre-bundled with **kubectl version >= 1.14** which means the only required prerequisite for developers to deploy this project is a target cluster and the latest version of kubectl.

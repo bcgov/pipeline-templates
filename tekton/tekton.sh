@@ -22,7 +22,6 @@ function sync(){
 }
 
 function install(){
-    setup
     sync
     credentials
     secrets
@@ -36,7 +35,6 @@ function install(){
 }
 
 function update(){
-    setup
     credentials
     secrets
     if [ -z "${CONTEXT}" ]; then
