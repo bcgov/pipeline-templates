@@ -81,31 +81,34 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
 
    ```yaml
    cat <<EOF >>.env
-   # - Kubernetes Context - #
-   # Sets the Kubernetes context that all manifests will deploy to.
-   # Defaults to current context if not set.
+   # - < Kubernetes Context > - #
+   # - Sets the Kubernetes context that all manifests will deploy to.
+   # - Defaults to current context if not set.
    CONTEXT=""
    
-   # - Github SSH Key - #
-   # The SSH private key path used for authenticating to target Github repositories.
+   # - < Github SSH Key > - #
+   # - The SSH private key path used for authenticating to target Github repositories.
    SSH_KEY_PATH=~/.ssh/id_rsa
 
-   # - Docker Config - #
-   # Run 'docker login' to generate a config file.
+   # - < Docker Config > - #
+   # - Run 'docker login' to generate a config file.
    DOCKER_CONFIG_PATH=~/.docker/config.json
 
-   # - Github Webhook Secret Token - #
-   # Used by Tekton triggers to call a webhook configured within a repo using the configured secret.
-   # Refer to https://docs.github.com/en/developers/webhooks-and-events/webhooks/securing-your-webhooks for creating a webook and secret.
+   # - < Github Webhook Secret Token > - #
+   # - Used by Tekton triggers to call a webhook configured within a repo using the configured secret.
+   # - Refer to https://docs.github.com/en/developers/webhooks-and-events/webhooks/securing-your-webhooks for creating a webook and secret.
+   # - configuration can be left as is if you are not running codeql.
    GITHUB_SECRET="<YOUR_GITHUB_SECRET>"
 
-   # - Github Token - #
-   # - 
-   SONAR_TOKEN="<YOUR_SONAR_TOKEN>"
+   # - < Github Token > - #
+   # - Required by CodeQL to authenticate and write security results to the repository.
+   # - configuration can be left as is if you are not running codeql.
+   GITHUB_TOKEN="<YOUR_GITHUB_TOKEN>"
 
-   # - Sonar Token - #
+   # - < Sonar Token > - #
    # - Ussed for running sonar scans. it is not required to set this value for any tasks except the sonar-scan pipeline run.
-   # - The mvn-build pipeline run has an option to run sonar scanning but can be disabled using the value false for the runSonarScan parameter
+   # - The mvn-build pipeline run has an option to run sonar scanning but can be disabled using the value false for the runSonarScan parameter.
+   # - configuration can be left as is if you are not running sonar.
    SONAR_TOKEN="<YOUR_SONAR_TOKEN>"
    EOF
    ```
