@@ -1,4 +1,4 @@
-# Tekton Pipeline Templates
+# Tekton Pipeline
 
 - [Overview](#overview)
   - [Layout](#layout)
