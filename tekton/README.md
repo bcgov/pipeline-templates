@@ -11,6 +11,7 @@
   - [**codeql-scan**](#codeql-scan)
   - [**sonar-scan**](#sonar-scan)
   - [**trivy-scan**](#trivy-scan)
+  - [**owasp-scan**](#owasp-scan)
 - [How It Works](#how-it-works)
 
 ## Overview
