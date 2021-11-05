@@ -17,7 +17,11 @@ jobs:
     - uses: pre-commit/action@v2.0.3
     - run: |
         curl https://get.datree.io | /bin/bash
+        echo "scanning base..."
         datree test ./tekton/base/*           --ignore-missing-schemas
+        echo "scanning pipelines..."
         datree test ./tekton/base/pipelines/* --ignore-missing-schemas
+        echo "scanning tasks..."
         datree test ./tekton/base/tasks/*     --ignore-missing-schemas
+        echo "scan triggers..."
         datree test ./tekton/base/triggers/*  --ignore-missing-schemas
