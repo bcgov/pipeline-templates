@@ -21,4 +21,4 @@ jobs:
         datree test ./tekton/base/pipelines/* --ignore-missing-schemas
         datree test ./tekton/base/tasks/*     --ignore-missing-schemas
         datree test ./tekton/base/triggers/*  --ignore-missing-schemas
-        datree test ./github-actions/*        --ignore-missing-schemas
+        datree test ./github-actions/*.yaml        --ignore-missing-schemas
