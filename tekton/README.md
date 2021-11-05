@@ -283,7 +283,7 @@ EOF
 
 *Scans a given repository against a provided SonarCloud project. [SonarCloud](https://sonarcloud.io/)*
 
-Requires a secret within the task named `tkn-sonar-secret`. This is used to authenticate to SonarCloud or SonarQube.
+Requires a secret within the task named `tkn-sonar-token`. This is used to authenticate to SonarCloud or SonarQube.
 
 For scans with SonarCloud, create a `sonar-project.properties` file at the root of the repository that is referenced in the `repoUrl` parameter.
 
