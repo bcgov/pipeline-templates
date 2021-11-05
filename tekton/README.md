@@ -330,9 +330,6 @@ spec:
   - name: ssh-creds
     secret:
       secretName: tkn-ssh-credentials
-  - name: docker-config
-    secret:
-      secretName: tkn-docker-credentials
   - name: sonar-settings
     emptyDir: {}
 EOF
