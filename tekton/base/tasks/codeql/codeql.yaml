@@ -14,12 +14,9 @@ spec:
       description: A Github PAT with repo access.
       default: tkn-github-token
     - name: REPO
-      description: Path to the Dockerfile to build. 
+      description: Repo short form name.
     - name: REPO_URL
-      description: Path to the Dockerfile to build.
-    - name: RELEASE_NAME
-      description: Path to the Dockerfile to build. 
-      default: codeql.zip
+      description: Full clone Url.
     - name: VERSION
       description: CodeQL version to use. 
       default: v2.7.0
@@ -37,12 +34,6 @@ spec:
       script: |
         codeql resolve languages &&\
         codeql resolve qlpacks
-      env:
-        - name: GITHUB_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: $(params.GITHUB_TOKEN)
-              key: secretToken
     - name: codeql-create-db
       resources:
         requests:
@@ -56,12 +47,6 @@ spec:
       script: |
         codeql database create \
           --language=$(params.LANGUAGE) /workspace/source/$(params.LANGUAGE)-db
-      env:
-        - name: GITHUB_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: $(params.GITHUB_TOKEN)
-              key: secretToken
     - name: codeql-analyze-db
       resources:
         requests:
