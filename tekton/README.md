@@ -233,6 +233,9 @@ EOF
 
 *Scans a given repository for explicit languages. [CodeQL](https://codeql.github.com/)*
 
+- **language**: Language for codeql to analyze.
+- **githubToken**: Github token for uploading scan results to Github.  
+
 ```yaml
 cat <<EOF | kubectl create -f -
 apiVersion: tekton.dev/v1beta1
@@ -255,8 +258,6 @@ spec:
     value: .
   - name: githubToken
     value: tkn-github-token
-  - name: version
-    value: v2.7.0
   - name: language
     value: python
   workspaces:

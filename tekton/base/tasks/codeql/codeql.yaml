@@ -17,9 +17,6 @@ spec:
       description: Repo short form name.
     - name: REPO_URL
       description: Full clone Url.
-    - name: VERSION
-      description: CodeQL version to use. 
-      default: v2.7.0
     - name: LANGUAGE
       description: CodeQL language to scan. 
       default: javascript

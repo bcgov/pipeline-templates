@@ -30,9 +30,6 @@ spec:
     - name: githubToken
       type: string
       description: Reference to the secret name storing the github PAT.
-    - name: version
-      type: string
-      description: Version of CodeQL to use.
     - name: language
       type: string
       description: Language for CodeQL to scan.
@@ -68,8 +65,6 @@ spec:
           value: $(params.repo)
         - name: REPO_URL
           value: $(params.repoUrl)
-        - name: VERSION
-          value: $(params.version)
         - name: LANGUAGE
           value: $(params.language)
       workspaces:
