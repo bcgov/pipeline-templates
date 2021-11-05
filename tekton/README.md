@@ -140,7 +140,7 @@ All pipeline run templates listed below are tested and working. The `PipelineRun
 
 ### **buildah-build-push**
 
-*Build and push a docker image using [buildah](https://buildah.io/).*  <a href="#top">Back to top</a>
+*Build and push a docker image using [buildah](https://buildah.io/).*
 
 ```yaml
 cat <<EOF | kubectl create -f -
@@ -183,6 +183,7 @@ spec:
       secretName: tkn-docker-credentials
 EOF
 ```
+<a href="#top">Back to top</a>
 
 ### **maven-build**
 
@@ -231,6 +232,8 @@ spec:
     emptyDir: {}
 EOF
 ```
+
+<a href="#top">Back to top</a>
 
 ### **codeql-scan**
 
