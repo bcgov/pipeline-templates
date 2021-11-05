@@ -311,11 +311,11 @@ spec:
   - name: sonarHostUrl
     value: https://sonarcloud.io
   - name: sonarProject
-    value: app-factory
+    value: tekton
   - name: sonarTokenSecret
     value: tkn-sonar-token
   - name: repoUrl
-    value: git@github.com:gregnrobinson/app-factory.git
+    value: git@github.com:gregnrobinson/gregrobinson-ca-k8s.git
   - name: branchName
     value: main
   workspaces:
