@@ -26,7 +26,7 @@ on:
     # First day of the month at midnight. '0 0 1 * *'
     # Every Quarter. '0 0 1 */3 *'
     # Every 6 months. '0 0 1 */6 *'
-    # Every Year. '0 0 1 1 *' 
+    # Every Year. '0 0 1 1 *'
     #- cron: '0 0 * * *'
 jobs:
   build:
