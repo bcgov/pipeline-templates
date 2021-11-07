@@ -1,4 +1,5 @@
 # GitHub Actions Templates
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Perform a Static Application Security Test (SAST) using Code QL
@@ -15,18 +16,20 @@
           - master
       pull_request:
     ```
-    
+
 2. Broken out into a few functions
-  * Lines 5-11 have the ability to define the scope of the action by including or ignoring specific branches or tags.
-  * Ability to schedule scans to automate the scanning process to meet company policies or any security requirements.
+
+* Lines 5-11 have the ability to define the scope of the action by including or ignoring specific branches or tags.
+* Ability to schedule scans to automate the scanning process to meet company policies or any security requirements.
 
 3. Runs on Ubuntu-latest
 
 5. Currently set to scan for Java code, other options are available
-  *  CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python' ]
+
+* CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python' ]
      Learn more:
-     https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#changing-the-languages-that-are-analyzed
-     
+     <https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#changing-the-languages-that-are-analyzed>
+
 6. Checkout Repo
 
 7. Initilize Code QL
@@ -37,7 +40,7 @@
 
 10. Updates sent to #Security Events
 
--------------------------------------------------------------------------------------------------------------------- 
+--------------------------------------------------------------------------------------------------------------------
 
 ## Perform a Static Application Security Test (SAST) using Sonarcloud
 
@@ -53,10 +56,11 @@
           - master
       pull_request:
     ```
-    
+
 2. Broken out into a few functions
-  * Lines 5-11 have the ability to define the scope of the action by including or ignoring specific branches or tags.
-  * Ability to schedule scans to automate the scanning process to meet company policies or any security requirements.
+
+* Lines 5-11 have the ability to define the scope of the action by including or ignoring specific branches or tags.
+* Ability to schedule scans to automate the scanning process to meet company policies or any security requirements.
 
 3. Ability to create pre requisite action before launching this action is defined in line 29 (Currently commented out)
 
@@ -69,16 +73,16 @@
 ## Perform Dynamic Application Security Test (DAST) using OWASP
 
 There are two options to perform DAST using OWASP:
-- [OWASP Baseline yaml template](./owaspbase.yml)
-  - Runs the ZAP spider against the specified target for (by default) 1 minute and then waits for the passive scanning to complete before reporting the results.
-  - The script doesn't perform any actual ‘attacks’ and will run for a relatively short period of time (a few minutes at most).
-  - By default it reports all alerts as WARNings but you can specify a config file which can change any rules to FAIL or IGNORE.
-  - This script is intended to be ideal to run in a CI/CD environment, even against production sites.
+* [OWASP Baseline yaml template](./owaspbase.yml)
+  * Runs the ZAP spider against the specified target for (by default) 1 minute and then waits for the passive scanning to complete before reporting the results.
+  * The script doesn't perform any actual ‘attacks’ and will run for a relatively short period of time (a few minutes at most).
+  * By default it reports all alerts as WARNings but you can specify a config file which can change any rules to FAIL or IGNORE.
+  * This script is intended to be ideal to run in a CI/CD environment, even against production sites.
 
-- [OWASP Full Scan yaml template](./owaspfull.yml)
-  - Runs the ZAP spider against the specified target (by default with no time limit) followed by an optional ajax spider scan and then a full active scan before reporting the results.
-  - This means that the script does perform actual ‘attacks’ and can potentially run for a long period of time.
-  - By default it reports all alerts as WARNings but you can specify a config file which can change any rules to FAIL or IGNORE. The configuration works in a very similar way as the Baseline Scan so see the Baseline page for more details.
+* [OWASP Full Scan yaml template](./owaspfull.yml)
+  * Runs the ZAP spider against the specified target (by default with no time limit) followed by an optional ajax spider scan and then a full active scan before reporting the results.
+  * This means that the script does perform actual ‘attacks’ and can potentially run for a long period of time.
+  * By default it reports all alerts as WARNings but you can specify a config file which can change any rules to FAIL or IGNORE. The configuration works in a very similar way as the Baseline Scan so see the Baseline page for more details.
 
 [![OWASP Baseline Scan](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/owaspbase.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/owaspbase.yml)
 
@@ -96,20 +100,23 @@ Open source web application security scanner:
    The above is an example of a vulnerable website that can be used to test the Github Actions Template. Please replace this URL with the targeted website you would like to scan.
 
 2. Broken out into a few functions
-  * Lines 5-11 have the ability to define the scope of the action by including or ignoring specific branches or tags.
-  * Ability to schedule scans to automate the scanning process to meet company policies or any security requirements.
+
+  ~ Lines 5-11 have the ability to define the scope of the action by including or ignoring specific branches or tags.
+  ~ Ability to schedule scans to automate the scanning process to meet company policies or any security requirements.
 
 3. Update line 44 with the appropriate branch name
 
 --------------------------------------------------------------------------------------------------------------------  
 
 ## Perform a container build based on a Dockerfile and scan using Aqua Trivy Vulnerability Scanner
-  
+
 [![Aqua Trivy Vulnerability Scanner](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/trivyscan.yml/badge.svg)](https://github.com/bcgov/Security-pipeline-templates/actions/workflows/trivyscan.yml)
 [Click to edit Trivy Yaml](./trivyscan.yml)
 
 Scanner for vulnerabilities in container images, file systems, and Git repositories, as well as for configuration issues:
+
 1. Ability to trigger off branch push or pull request
+
     ```bash
       push:
         branches:
@@ -119,7 +126,7 @@ Scanner for vulnerabilities in container images, file systems, and Git repositor
 
 2. Adjust the severity outside of CRITICAL,HIGH:
 
-    ```
+    ```yaml
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
@@ -130,11 +137,11 @@ Scanner for vulnerabilities in container images, file systems, and Git repositor
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
     ```
-    
+
 3. Update lines 42 and 48 with the appropriate image location and name
 
 4. Results of scan set to GitHub Security Tab
-   
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Versioning
@@ -156,12 +163,14 @@ The following template enables a GitHub action to version the repository you are
           - master
       pull_request:
     ```
+
 2. Define environment variable to define the bump
-   ```
-          env:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         WITH_V: true
-         DEFAULT_BUMP: patch, minor, major
+
+    ```bash
+           env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          DEFAULT_BUMP: patch, minor, major
     ```
 
 --------------------------------------------------------------------------------------------------------------------
