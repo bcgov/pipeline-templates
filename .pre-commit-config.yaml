@@ -18,13 +18,35 @@ repos:
     - id: check-added-large-files
     - id: check-symlinks
     - id: debug-statements
-
-- repo: https://github.com/gruntwork-io/pre-commit
-  rev: v0.1.17
-  hooks:
-    - id: terraform-fmt
-
-- repo: https://github.com/asottile/setup-cfg-fmt
-  rev: v1.19.0
-  hooks:
-    - id: setup-cfg-fmt
+-   repo: https://github.com/asottile/setup-cfg-fmt
+    rev: v1.19.0
+    hooks:
+    -   id: setup-cfg-fmt
+-   repo: https://github.com/PyCQA/flake8
+    rev: 4.0.1
+    hooks:
+    -   id: flake8
+        additional_dependencies: [flake8-typing-imports==1.7.0]
+-   repo: https://github.com/pre-commit/mirrors-autopep8
+    rev: v1.5.7
+    hooks:
+    -   id: autopep8
+-   repo: https://github.com/asottile/reorder_python_imports
+    rev: v2.6.0
+    hooks:
+    -   id: reorder-python-imports
+        args: [--py3-plus]
+-   repo: https://github.com/asottile/add-trailing-comma
+    rev: v2.2.0
+    hooks:
+    -   id: add-trailing-comma
+        args: [--py36-plus]
+-   repo: https://github.com/asottile/pyupgrade
+    rev: v2.29.0
+    hooks:
+    -   id: pyupgrade
+        args: [--py36-plus]
+-   repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.910-1
+    hooks:
+    -   id: mypy
