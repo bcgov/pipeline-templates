@@ -41,7 +41,7 @@ on:
 # the `language` matrix defined below to confirm you have the correct set of
 # supported CodeQL languages.
 #
-jobs:         
+jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
