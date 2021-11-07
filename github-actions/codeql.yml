@@ -29,7 +29,7 @@ on:
     # Every Year. '0 0 1 1 *'
     #- cron: '0 0 * * *'
 
-    #Code QL 
+    #Code QL
 # For most projects, this workflow file will not need changing; you simply need
 # to commit it to your repository.
 #

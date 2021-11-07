@@ -1,4 +1,4 @@
-env: 
+env:
   TARGET_URL: 'http://www.itsecgames.com/' # Set env variable for the target website for OWASP to scan
 
 name: 'OWASP Full Scan Template'
@@ -31,7 +31,7 @@ on:
     # Every 6 months. '0 0 1 */6 *'
     # Every Year. '0 0 1 1 *'
     #- cron: '0 0 * * *'
-#Begin Job of scanning the website, 
+#Begin Job of scanning the website,
 jobs:
   zap_scan:
     runs-on: ubuntu-latest

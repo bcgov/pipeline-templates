@@ -1,4 +1,4 @@
-# GitHub Actions Templates 
+# GitHub Actions Templates
 --------------------------------------------------------------------------------------------------------------------
 
 ## Perform a Static Application Security Test (SAST) using Code QL
@@ -116,7 +116,9 @@ Scanner for vulnerabilities in container images, file systems, and Git repositor
           - master
       pull_request:
     ```
+
 2. Adjust the severity outside of CRITICAL,HIGH:
+
     ```
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
@@ -128,6 +130,7 @@ Scanner for vulnerabilities in container images, file systems, and Git repositor
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
     ```
+    
 3. Update lines 42 and 48 with the appropriate image location and name
 
 4. Results of scan set to GitHub Security Tab
