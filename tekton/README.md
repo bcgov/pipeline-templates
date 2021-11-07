@@ -85,7 +85,7 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
    # - Sets the Kubernetes context that all manifests will deploy to.
    # - Defaults to current context if not set.
    CONTEXT=""
-   
+
    # - < Github SSH Key > - #
    # - The SSH private key path used for authenticating to target Github repositories.
    SSH_KEY_PATH=~/.ssh/id_rsa
@@ -126,12 +126,12 @@ Run `./tekton.sh -h` to display the help menu.
 ```bash
 Usage: tekton.sh [option...]
 
-   -i, --install       Install Tekton and create pipeline secrets. 
-   -s, --sync          Pull the latest pipeline and trigger releases. 
-   -c, --creds         Deploys/Updates pipeline secrets from .env 
-   -u, --update        Deploys/Updates just the pipelines, tasks, and triggers. 
-   -p, --prune         Delete all Completed, Errored or DeadLineExceeded pod runs. 
-   -h, --help          Display argument options. 
+   -i, --install       Install Tekton and create pipeline secrets.
+   -s, --sync          Pull the latest pipeline and trigger releases.
+   -c, --creds         Deploys/Updates pipeline secrets from .env
+   -u, --update        Deploys/Updates just the pipelines, tasks, and triggers.
+   -p, --prune         Delete all Completed, Errored or DeadLineExceeded pod runs.
+   -h, --help          Display argument options.
 ```
 
 ## Pipeline Run Templates
@@ -240,7 +240,7 @@ EOF
 *Scans a given repository for explicit languages. [CodeQL](https://codeql.github.com/)*
 
 - **language**: Language for codeql to analyze.
-- **githubToken**: Github token for uploading scan results to Github.  
+- **githubToken**: Github token for uploading scan results to Github.
 
 ```yaml
 cat <<EOF | kubectl create -f -
@@ -301,8 +301,8 @@ sonar.projectKey=tekton
 sonar.host.url=https://sonarcloud.io
 ```
 
-- **sonarHostUrl**: The SonarQube/SonarCloud instance.  
-- **sonarProject**: The project to run the scan against.  
+- **sonarHostUrl**: The SonarQube/SonarCloud instance.
+- **sonarProject**: The project to run the scan against.
 - **sonarTokenSecret**: The authentication token for SonarQube/SonarCloud.
 
 ```yaml
@@ -388,8 +388,8 @@ EOF
 
 *Scans public web apps for vulnerbilities. [ZAP Scanner](https://www.zaproxy.org/docs/docker/about/)*
 
-- **targetUrl**: The URL to run the scan against.  
-- **scanType**: Accepted values are `quick` or `full`.  
+- **targetUrl**: The URL to run the scan against.
+- **scanType**: Accepted values are `quick` or `full`.
 - **scanDuration**: The duration of the scan in minutes.
 
 The pipeline performs either a quick or full scan based on the `scanType` parameter. The duration can be modified in minutes using the `scanDuration` parameter.
@@ -407,7 +407,7 @@ spec:
   - name: targetUrl
     value: https://example.com
   - name: scanType
-    value: quick 
+    value: quick
   - name: scanDuration
     value: '2'
   workspaces:

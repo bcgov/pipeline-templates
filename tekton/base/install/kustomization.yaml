@@ -5,4 +5,3 @@ resources:
   - dashboards.yaml
   - triggers.yaml
   - interceptors.yaml
-  
