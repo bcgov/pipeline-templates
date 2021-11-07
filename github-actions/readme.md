@@ -73,6 +73,7 @@
 ## Perform Dynamic Application Security Test (DAST) using OWASP
 
 There are two options to perform DAST using OWASP:
+
 * [OWASP Baseline yaml template](./owaspbase.yml)
   * Runs the ZAP spider against the specified target for (by default) 1 minute and then waits for the passive scanning to complete before reporting the results.
   * The script doesn't perform any actual ‘attacks’ and will run for a relatively short period of time (a few minutes at most).
@@ -106,7 +107,7 @@ Open source web application security scanner:
 
 3. Update line 44 with the appropriate branch name
 
---------------------------------------------------------------------------------------------------------------------  
+--------------------------------------------------------------------------------------------------------------------
 
 ## Perform a container build based on a Dockerfile and scan using Aqua Trivy Vulnerability Scanner
 
