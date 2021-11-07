@@ -87,8 +87,8 @@ spec:
           value: "$(params.mavenImage)"
         - name: GOALS
           value:
-            - verify 
-            - org.sonarsource.scanner.maven:sonar-maven-plugin:sonar 
+            - verify
+            - org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
             - -Dsonar.projectKey=$(params.sonarProject)
       workspaces:
         - name: maven-settings

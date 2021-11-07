@@ -18,4 +18,3 @@ spec:
             name: el-build-push-image-tekton-trigger-listener
             port:
               number: 8080
-              

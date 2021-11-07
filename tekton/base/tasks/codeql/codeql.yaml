@@ -18,7 +18,7 @@ spec:
     - name: REPO_URL
       description: Full clone Url.
     - name: LANGUAGE
-      description: CodeQL language to scan. 
+      description: CodeQL language to scan.
       default: javascript
   workspaces:
     - name: source
