@@ -15,6 +15,9 @@ repos:
     - id: detect-private-key
     - id: fix-byte-order-marker
     - id: pretty-format-json
+    - id: check-added-large-files
+    - id: check-symlinks
+    - id: debug-statements
 
 - repo: https://github.com/gruntwork-io/pre-commit
   rev: v0.1.17
