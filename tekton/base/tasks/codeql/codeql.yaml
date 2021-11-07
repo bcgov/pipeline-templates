@@ -63,4 +63,3 @@ spec:
             secretKeyRef:
               name: $(params.GITHUB_TOKEN)
               key: secretToken
-

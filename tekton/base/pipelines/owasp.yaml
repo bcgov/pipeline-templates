@@ -34,3 +34,4 @@ spec:
           workspace: shared-data
         - name: owasp-settings
           workspace: owasp-settings
+          

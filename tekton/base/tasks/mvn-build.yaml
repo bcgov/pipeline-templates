@@ -153,10 +153,3 @@ spec:
             secretKeyRef:
               name: tkn-sonar-secret
               key: secretToken
-
-
-
-
-
-
-
