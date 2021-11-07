@@ -75,7 +75,7 @@ function secrets(){
 function cleanup(){
     setup
     kubectl delete pod $(kubectl get pods | grep Completed        | awk '{print $1}') 2> /dev/null || echo "${green}Cleaning up Completed jobs${normal}"
-    kubectl delete pod $(kubectl get pods | grep Error            | awk '{print $1}') 2> /dev/null || echo "${green}Cleaning up Errored jobs${normal}" 
+    kubectl delete pod $(kubectl get pods | grep Error            | awk '{print $1}') 2> /dev/null || echo "${green}Cleaning up Errored jobs${normal}"
     kubectl delete pod $(kubectl get pods | grep DeadlineExceeded | awk '{print $1}') 2> /dev/null || echo "${green}Cleaning up DeadlineExceeded jobs${normal}"
     echo "${green}Cleanup completed successfully...${normal}"
 }
@@ -89,28 +89,28 @@ function setup(){
             if [[ ${MACHINE_TYPE} =~ 'x86_64' ]]; then
                 wget -q https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_darwin_amd64 -O yq &&\
                     chmod +x yq
-                    echo "${green}yq_darwin_amd64 was installed...${normal}" 
+                    echo "${green}yq_darwin_amd64 was installed...${normal}"
             elif [[ ${MACHINE_TYPE} =~ 'arm64' ]]; then
                 wget -q https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_darwin_arm64 -O yq &&\
                     chmod +x yq
-                    echo "${green}yq_darwin_arm64 was installed...${normal}" 
+                    echo "${green}yq_darwin_arm64 was installed...${normal}"
             fi
         fi
         if [ ${OS} == 'Linux' ]; then
             if [[ ${MACHINE_TYPE} =~ 'x86_64' ]]; then
                 wget -q https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_amd64 -O yq &&\
                     chmod +x yq
-                    echo "${green}yq_linux_amd64 was installed...${normal}" 
+                    echo "${green}yq_linux_amd64 was installed...${normal}"
             elif [[ ${MACHINE_TYPE} =~ 'arm64' ]] || [[ ${MACHINE_TYPE} =~ 'aarch64' ]]; then
                 wget -q https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_arm64 -O yq &&\
                     chmod +x yq
-                    echo "${green}yq_linux_arm64 was installed...${normal}" 
+                    echo "${green}yq_linux_arm64 was installed...${normal}"
             fi
         fi
     fi
 }
 
-function display_help() {    
+function display_help() {
     SHORT_SHA="$(git rev-parse --short HEAD)"
     BRANCH="$(git rev-parse --abbrev-ref HEAD)"
     echo ""
@@ -125,7 +125,7 @@ function display_help() {
     echo "   ${bold}-u, --update${normal}        Deploys/Updates just the pipelines, tasks, and triggers. "
     echo "   ${bold}-p, --prune${normal}         Delete all ${bold}Completed${normal}, $(tput bold)Errored${normal} or $(tput bold)DeadLineExceeded${normal} pod runs. "
     echo "   ${bold}-h, --help${normal}          Display argument options. "
-    echo 
+    echo
     exit 1
 }
 
@@ -165,7 +165,7 @@ do
       -*)
           echo "Error: Unknown option: $1" >&2
           ## or call function display_help
-          exit 1 
+          exit 1
           ;;
       *)  # No more options
           break
