@@ -1,6 +1,6 @@
 # Pipeline Templates
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/bcgov/security-pipeline-templates/pre-commit?label=pre-commit) [![Lifecycle:Experimental](https://img.shields.io/badge/Lifecycle-Experimental-339999)](<Redirect-URL>)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/bcgov/security-pipeline-templates/pre-commit?label=pre-commit) [![Lifecycle:Experimental](https://img.shields.io/badge/Lifecycle-Experimental-339999)](<Redirect-URL>) ![GitHub commits since latest release (by SemVer)](https://img.shields.io/github/commits-since/bcgov/security-pipeline-templates/latest/main)
 
 This repo contains a catalog of pipeline code for each respective pipeline technology.
 
