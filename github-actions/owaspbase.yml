@@ -1,6 +1,6 @@
-env: 
+env:
   TARGET_URL: 'http://www.itsecgames.com/' # Set env variable for the target website for OWASP to scan
- 
+
 name: 'OWASP Baseline Scan Template'
 on:
  #branches:
@@ -29,7 +29,7 @@ on:
     # First day of the month at midnight. '0 0 1 * *'
     # Every Quarter. '0 0 1 */3 *'
     # Every 6 months. '0 0 1 */6 *'
-    # Every Year. '0 0 1 1 *' 
+    # Every Year. '0 0 1 1 *'
     #- cron: '0 0 * * *'
 #Begin Job of scanning the website, 
 jobs:
