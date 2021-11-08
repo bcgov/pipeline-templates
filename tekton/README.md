@@ -419,12 +419,6 @@ spec:
         resources:
           requests:
             storage: 1Gi
-  - name: ssh-creds
-    secret:
-      secretName: tkn-ssh-credentials
-  - name: docker-config
-    secret:
-      secretName: tkn-docker-credentials
   - name: owasp-settings
     emptyDir: {}
 EOF
