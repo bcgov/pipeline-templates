@@ -9,4 +9,4 @@ This repo contains a catalog of pipeline code for each respective pipeline techn
 ## Pipeline Tools
 
 - [Tekton](tekton/README.md)
-- [Github Actions](github-actions/README.md)
+- [Github Actions](github-actions/readme.md)
