@@ -2,8 +2,8 @@ name: ci-build-push
 
 env:
   NAME: nginx-web
-  IMAGE: gregnrobinson/nginx-web-demo
-  WORKDIR: ./github-actions/demo/nginx-web
+  IMAGE: gregnrobinson/nginx-demo
+  WORKDIR: ./demo/nginx
 
 on:
   push:
