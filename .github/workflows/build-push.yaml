@@ -2,7 +2,7 @@ name: ci-build-push
 
 env:
   NAME: nginx-web
-  IMAGE: gregnrobinson/nginx-demo
+  IMAGE: gregnrobinson/bcgov-nginx-demo
   WORKDIR: ./demo/nginx
 
 on:
