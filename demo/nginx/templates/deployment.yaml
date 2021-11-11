@@ -36,13 +36,6 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          volumeMounts:
-          - name: google-application-credentials
-            mountPath: /etc/secrets/google
-            readOnly: true
-          env:
-          - name: GOOGLE_APPLICATION_CREDENTIALS
-            value: /var/secrets/google/google-application-credentials.json
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
