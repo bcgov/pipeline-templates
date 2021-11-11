@@ -54,11 +54,11 @@ jobs:
         publish: true
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-    - id: keydb
+    - id: latest
       uses: pozetroninc/github-action-get-latest-release@master
       with:
-        owner: gregnrobinson
-        repo: cloud-tools
+        owner: bcgov
+        repo: security-pipeline-templates
         excludes: prerelease, draft
     - name: Tag Push Latest
       working-directory: ${{ env.WORKDIR }}
@@ -66,7 +66,7 @@ jobs:
         docker buildx build
         --platform=linux/amd64,linux/arm64
         -t ${{ env.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
-        -t ${{ env.IMAGE }}:${{ steps.keydb.outputs.release }}
+        -t ${{ env.IMAGE }}:${{ steps.latest.outputs.release }}
         -t ${{ env.IMAGE }}:latest
         --output=type=image,push=true
         ${GITHUB_WORKSPACE}/${{ env.WORKDIR }}
