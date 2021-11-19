@@ -1,4 +1,8 @@
 name: sonarcloud-scan
+
+env:
+  WORKDIR: ./tekton/demo/maven-test
+
 on:
  #branches:
  # -main
@@ -11,7 +15,7 @@ on:
  #paths-ignore:
  # - 'docs/**'
   push: #Any push will trigger this action
-    branches: [ mybranch ]
+    branches: [ main ]
   pull_request: #Any Pull Request will trigger this action
     branches: [ mybranch ]
   workflow_dispatch:
