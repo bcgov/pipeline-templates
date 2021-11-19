@@ -52,6 +52,7 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
   build:
+    needs: codeql-scan
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -76,6 +77,8 @@ jobs:
         --output=type=image,push=true
         ${GITHUB_WORKSPACE}/${{ env.BUILD_WORKDIR }}
   trivy-scan:
+    needs: build
+    name: Trivy Scanner
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -89,6 +92,7 @@ jobs:
         vuln-type: os,library
         severity: CRITICAL
   sonar-scan:
+    needs: trivy-scan
     name: Sonarqube Scanning
     runs-on: ubuntu-latest
     steps:
@@ -104,6 +108,7 @@ jobs:
              -Dsonar.projectKey=${{ env.PROJECT_KEY }}
   zap-owasp:
     runs-on: ubuntu-latest
+    needs: build
     name: ZAP Scan
     steps:
       - name: ZAP Base Scan
