@@ -1,5 +1,6 @@
 env:
-  TARGET_URL: 'http://www.itsecgames.com/' # Set env variable for the target website for OWASP to scan
+  SCAN_TYPE: base
+  TARGET_URL: http://www.itsecgames.com/
 
 name: owasp-base-scan
 on:
@@ -33,8 +34,9 @@ on:
     #- cron: '0 0 * * *'
 #Begin Job of scanning the website,
 jobs:
-  zap_scan:
+  zap_base:
     runs-on: ubuntu-latest
+    if: ${{ env.SCAN_TYPE == 'base' }}
     name: Scan the webapplication
     steps:
       - name: ZAP Baseline Scan
@@ -46,3 +48,17 @@ jobs:
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a -d' # -a enables alpha active and passive scan rules. -d shows debug messages, can be removed after testing
           issue_title: OWAP Baseline
+  zap_full:
+    runs-on: ubuntu-latest
+    if: ${{ env.SCAN_TYPE == 'full' }}
+    name: Scan the webapplication
+    steps:
+      - name: ZAP Full Scan
+        uses: zaproxy/action-full-scan@v0.2.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: 'owasp/zap2docker-stable'
+          target: ${{ env.TARGET_URL }}
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a -d'
+          issue_title: OWASP Full
