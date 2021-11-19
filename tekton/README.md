@@ -63,6 +63,10 @@ The `./tekton.sh -i` argument sources the `.env` file at the root of the reposit
 
 ## Common Workflow
 
+Having all the overrides defined within the `PipelineRun` allows for the configuration to be dynamically modified at runtime. The `PipelineRun` should contain all parameters that are dynamic values. The diagram represents common values that will always need to be modified based on the specific project this template is used for.
+
+A shared workspace defined in the `PipelineRun` determines at runtime which data source all tasks will share. This means when the `git-clone` task clones the repository locally, the buildah will have access to these files to complete the build process. `git-clone` is the most used task as many pipelines need a copy of the source code before the following tasks can execute.
+
 ![workflow](https://user-images.githubusercontent.com/26353407/142582737-20753d40-a2d4-499d-9667-90553b262b4c.png)
 
 
