@@ -1,5 +1,5 @@
 env:
-  SCAN_TYPE: base
+  SCAN_TYPE: 'base'
   TARGET_URL: http://www.itsecgames.com/
 
 name: owasp-base-scan
@@ -15,9 +15,9 @@ on:
  #paths-ignore:
  # - 'docs/**'
   push: #Any push will trigger this action
-    branches: [ mybranch ]
+    branches: [ main ]
   pull_request: #Any Pull Request will trigger this action
-    branches: [ mybranch ]
+    branches: [ main ]
   workflow_dispatch:
     # Layout of cron schedule.  'minute hour day(month) month day(week)'
     # Schedule option to review code at rest for possible net-new threats/CVE's
