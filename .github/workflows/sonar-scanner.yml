@@ -1,4 +1,4 @@
-name: sonar-scanner
+name: sonar-scan
 
 env:
   ORG: ci-testing
