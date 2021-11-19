@@ -6,7 +6,7 @@ env:
   WORKDIR: ./demo/nginx
 
 on:
-  push:
+  #push:
     #branches:
     #- main
     #paths-ignore:
