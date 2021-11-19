@@ -1,4 +1,4 @@
-name: owasp-base-scan
+name: owasp-scan
 env:
   SCAN_TYPE: 'full' # Accepted values are base and full.
   TARGET_URL: http://www.itsecgames.com/
