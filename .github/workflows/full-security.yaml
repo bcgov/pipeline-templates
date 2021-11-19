@@ -52,6 +52,7 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
   build:
+    name: Docker Build
     needs: codeql-scan
     runs-on: ubuntu-latest
     timeout-minutes: 60
