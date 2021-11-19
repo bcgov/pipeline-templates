@@ -40,6 +40,10 @@ jobs:
         -t ${{ env.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
         --output=type=image,push=true
         ${GITHUB_WORKSPACE}/${{ env.WORKDIR }}
+  trivy-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
     - name: Trivy Vulnerability Scan
       uses: aquasecurity/trivy-action@master
       with:

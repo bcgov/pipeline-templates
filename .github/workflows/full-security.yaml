@@ -1,0 +1,128 @@
+name: full-security
+
+env:
+  # DOCKER BUILD PARAMS
+  NAME: nginx-web
+  IMAGE: gregnrobinson/bcgov-nginx-demo
+  BUILD_WORKDIR: ./demo/nginx
+
+  # SONAR PARAMS
+  ORG: ci-testing
+  PROJECT_KEY: github-actions-test
+  URL: https://sonarcloud.io
+
+  # OWASP ZAP
+  SCAN_TYPE: 'full' # Accepted values are base and full.
+  TARGET_URL: http://www.example.com/
+  DURATION: '2'
+  MAX_DURATION: '5'
+
+on:
+  push:
+    branches:
+    - main
+  workflow_dispatch:
+
+jobs:
+  codeql-scan:
+    name: CodeQL Scanning
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'python' ]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    # Initializes the CodeQL tools for scanning.
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+      with:
+        languages: ${{ matrix.language }}
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v1
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+    - name: Inject slug/short variables
+      uses: rlespinasse/github-slug-action@v3.x
+    - uses: actions/checkout@v2
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    - name: Build
+      working-directory: ${{ env.BUILD_WORKDIR }}
+      run: >
+        docker buildx build
+        --platform=linux/amd64,linux/arm64
+        -t ${{ env.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
+        --output=type=image,push=true
+        ${GITHUB_WORKSPACE}/${{ env.BUILD_WORKDIR }}
+  trivy-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+    - name: Trivy Vulnerability Scan
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: ${{ env.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
+        format: table
+        exit-code: '1'
+        ignore-unfixed: true
+        vuln-type: os,library
+        severity: CRITICAL
+  sonar-scan:
+    name: Sonarqube Scanning
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        uses: warchant/setup-sonar-scanner@v3
+      - name: Run Sonar Scanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: sonar-scanner
+             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+             -Dsonar.organization=${{ env.ORG }}
+             -Dsonar.host.url=${{ env.URL }}
+             -Dsonar.projectKey=${{ env.PROJECT_KEY }}
+  zap-owasp:
+    runs-on: ubuntu-latest
+    name: ZAP Scan
+    steps:
+      - name: ZAP Base Scan
+        if: ${{ env.SCAN_TYPE == 'base' }}
+        uses: zaproxy/action-baseline@v0.6.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: 'owasp/zap2docker-stable'
+          target: ${{ env.TARGET_URL }}
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a -d -T ${{ env.MAX_DURATION }} -m ${{ env.DURATION }}'
+          issue_title: OWAP Baseline
+      - name: ZAP Full Scan
+        if: ${{ env.SCAN_TYPE == 'full' }}
+        uses: zaproxy/action-full-scan@v0.3.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: 'owasp/zap2docker-stable'
+          target: ${{ env.TARGET_URL }}
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a -d -T ${{ env.MAX_DURATION }} -m ${{ env.DURATION }}'
+          issue_title: OWASP Full
