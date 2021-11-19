@@ -1,4 +1,7 @@
 name: owasp-base-scan
+env:
+  SCAN_TYPE: 'base'
+  TARGET_URL: http://www.itsecgames.com/
 on:
  #branches:
  # -main
@@ -28,14 +31,12 @@ on:
     # Every 6 months. '0 0 1 */6 *'
     # Every Year. '0 0 1 1 *'
     #- cron: '0 0 * * *'
-env:
-  SCAN_TYPE: 'base'
-  TARGET_URL: http://www.itsecgames.com/
+
 #Begin Job of scanning the website,
 jobs:
   zap_base:
     runs-on: ubuntu-latest
-    if: ${SCAN_TYPE} == 'base'
+    if: env.SCAN_TYPE == 'base'
     name: ZAP Base Scan
     steps:
       - name: ZAP Baseline Scan
@@ -49,7 +50,7 @@ jobs:
           issue_title: OWAP Baseline
   zap_full:
     runs-on: ubuntu-latest
-    if: ${SCAN_TYPE} == 'full'
+    if: env.SCAN_TYPE == 'full'
     name: ZAP Full Scan
     steps:
       - name: ZAP Full Scan
