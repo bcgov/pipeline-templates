@@ -134,31 +134,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=${{ env.PROJECT_KEY }}
-  zap-owasp:
-    runs-on: ubuntu-latest
-    needs: trivy-scan
-    name: OWASP ZAP Scan
-    steps:
-      - name: ZAP Base Scan
-        if: ${{ env.SCAN_TYPE == 'base' }}
-        uses: zaproxy/action-baseline@v0.6.1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          docker_name: 'owasp/zap2docker-stable'
-          target: ${{ env.TARGET_URL }}
-          rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-a -d -T ${{ env.MAX_DURATION }} -m ${{ env.DURATION }}'
-          issue_title: OWAP Baseline
-      - name: ZAP Full Scan
-        if: ${{ env.SCAN_TYPE == 'full' }}
-        uses: zaproxy/action-full-scan@v0.3.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          docker_name: 'owasp/zap2docker-stable'
-          target: ${{ env.TARGET_URL }}
-          rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-a -d -T ${{ env.MAX_DURATION }} -m ${{ env.DURATION }}'
-          issue_title: OWASP Full
   push:
     name: Docker Push
     needs: sonar-scan-mvn
@@ -198,3 +173,28 @@ jobs:
         -t ${{ env.IMAGE }}:latest
         --output=type=image,push=true
         ${GITHUB_WORKSPACE}/${{ env.BUILD_WORKDIR }}
+  zap-owasp:
+    runs-on: ubuntu-latest
+    needs: push
+    name: OWASP ZAP Scan
+    steps:
+      - name: ZAP Base Scan
+        if: ${{ env.SCAN_TYPE == 'base' }}
+        uses: zaproxy/action-baseline@v0.6.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: 'owasp/zap2docker-stable'
+          target: ${{ env.TARGET_URL }}
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a -d -T ${{ env.MAX_DURATION }} -m ${{ env.DURATION }}'
+          issue_title: OWAP Baseline
+      - name: ZAP Full Scan
+        if: ${{ env.SCAN_TYPE == 'full' }}
+        uses: zaproxy/action-full-scan@v0.3.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: 'owasp/zap2docker-stable'
+          target: ${{ env.TARGET_URL }}
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a -d -T ${{ env.MAX_DURATION }} -m ${{ env.DURATION }}'
+          issue_title: OWASP Full
