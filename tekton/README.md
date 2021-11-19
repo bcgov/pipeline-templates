@@ -1,4 +1,4 @@
-# Tekton Pipeline
+# Tekton Pipelines
 
 - [Overview](#overview)
   - [Layout](#layout)
@@ -60,6 +60,11 @@ The `./tekton.sh -i` argument sources the `.env` file at the root of the reposit
       ├── rbac.yaml
       └── trigger-template.yaml
 ```
+
+## Common Workflow
+
+![workflow](https://user-images.githubusercontent.com/26353407/142582737-20753d40-a2d4-499d-9667-90553b262b4c.png)
+
 
 ## Prerequisites
 
