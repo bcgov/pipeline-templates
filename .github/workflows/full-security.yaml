@@ -160,3 +160,41 @@ jobs:
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a -d -T ${{ env.MAX_DURATION }} -m ${{ env.DURATION }}'
           issue_title: OWASP Full
+  push:
+    needs: sonar-scan-repo
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+    - name: Inject slug/short variables
+      uses: rlespinasse/github-slug-action@v3.x
+    - uses: actions/checkout@v2
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    - uses: release-drafter/release-drafter@v5
+      with:
+        publish: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    - id: latest
+      uses: pozetroninc/github-action-get-latest-release@master
+      with:
+        owner: bcgov
+        repo: security-pipeline-templates
+        excludes: prerelease, draft
+    - name: Tag Push Latest
+      working-directory: ${{ env.BUILD_WORKDIR }}
+      run: >
+        docker buildx build
+        --platform=linux/amd64,linux/arm64
+        -t ${{ env.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
+        -t ${{ env.IMAGE }}:${{ steps.latest.outputs.release }}
+        -t ${{ env.IMAGE }}:latest
+        --output=type=image,push=true
+        ${GITHUB_WORKSPACE}/${{ env.BUILD_WORKDIR }}
