@@ -36,10 +36,10 @@ on:
 jobs:
   zap_base:
     runs-on: ubuntu-latest
-    if: env.SCAN_TYPE == 'base'
     name: ZAP Base Scan
     steps:
       - name: ZAP Baseline Scan
+        if: ${{ env.SCAN_TYPE == 'base' }}
         uses: zaproxy/action-baseline@v0.4.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -50,10 +50,10 @@ jobs:
           issue_title: OWAP Baseline
   zap_full:
     runs-on: ubuntu-latest
-    if: env.SCAN_TYPE == 'full'
     name: ZAP Full Scan
     steps:
       - name: ZAP Full Scan
+        if: ${{ env.SCAN_TYPE == 'full' }}
         uses: zaproxy/action-full-scan@v0.2.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
