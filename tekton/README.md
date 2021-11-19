@@ -2,6 +2,7 @@
 
 - [Overview](#overview)
   - [Layout](#layout)
+  - [Common Workflow](#common-workflow)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
