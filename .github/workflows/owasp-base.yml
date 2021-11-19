@@ -1,7 +1,3 @@
-env:
-  SCAN_TYPE: 'base'
-  TARGET_URL: http://www.itsecgames.com/
-
 name: owasp-base-scan
 on:
  #branches:
@@ -32,6 +28,9 @@ on:
     # Every 6 months. '0 0 1 */6 *'
     # Every Year. '0 0 1 1 *'
     #- cron: '0 0 * * *'
+env:
+  SCAN_TYPE: 'base'
+  TARGET_URL: http://www.itsecgames.com/
 #Begin Job of scanning the website,
 jobs:
   zap_base:
