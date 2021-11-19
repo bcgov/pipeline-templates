@@ -1,4 +1,4 @@
-name: ci-build-push
+name: trivy-scan
 
 env:
   NAME: nginx-web
