@@ -37,7 +37,7 @@ jobs:
   zap_base:
     runs-on: ubuntu-latest
     if: ${{ env.SCAN_TYPE == 'base' }}
-    name: Scan the webapplication
+    name: ZAP Base Scan
     steps:
       - name: ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.4.0
@@ -51,7 +51,7 @@ jobs:
   zap_full:
     runs-on: ubuntu-latest
     if: ${{ env.SCAN_TYPE == 'full' }}
-    name: Scan the webapplication
+    name: ZAP Full Scan
     steps:
       - name: ZAP Full Scan
         uses: zaproxy/action-full-scan@v0.2.0
