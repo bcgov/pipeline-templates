@@ -1,4 +1,4 @@
-name: sonarcloud-scan-mvn
+name: sonar-scan-mvn
 
 env:
   WORKDIR: ./tekton/demo/maven-test
