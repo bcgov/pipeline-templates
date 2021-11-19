@@ -10,10 +10,10 @@ on:
  # -v1.
  #paths-ignore:
  # - 'docs/**'
-  push: #Any push will trigger this action
-    branches: [ main ]
-  pull_request: #Any Pull Request will trigger this action
-    branches: [ main ]
+  #@push: #Any push will trigger this action
+  #@  branches: [ main ]
+  #@pull_request: #Any Pull Request will trigger this action
+  #@  branches: [ main ]
   workflow_dispatch:
     # Layout of cron schedule.  'minute hour day(month) month day(week)'
     # Schedule option to review code at rest for possible net-new threats/CVE's
@@ -35,7 +35,7 @@ env:
 jobs:
   zap_base:
     runs-on: ubuntu-latest
-    if: ${{ env.SCAN_TYPE == 'base' }}
+    if: ${{env.SCAN_TYPE}} == 'base'
     name: ZAP Base Scan
     steps:
       - name: ZAP Baseline Scan
@@ -49,7 +49,7 @@ jobs:
           issue_title: OWAP Baseline
   zap_full:
     runs-on: ubuntu-latest
-    if: ${{ env.SCAN_TYPE == 'full' }}
+    if: ${{env.SCAN_TYPE}} == 'full'
     name: ZAP Full Scan
     steps:
       - name: ZAP Full Scan
