@@ -14,6 +14,7 @@ on:
     branches: [ mybranch ]
   pull_request: #Any Pull Request will trigger this action
     branches: [ mybranch ]
+  workflow_dispatch:
   #schedule:
     # Layout of cron schedule.  'minute hour day(month) month day(week)'
     # Schedule option to review code at rest for possible net-new threats/CVE's
