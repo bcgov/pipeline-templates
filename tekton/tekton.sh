@@ -121,8 +121,8 @@ function display_help() {
     echo
     echo "   ${bold}-i, --install${normal}       Install Tekton and create pipeline secrets. "
     echo "   ${bold}-s, --sync${normal}          Pull the latest pipeline and trigger releases. "
-    echo "   ${bold}-c, --creds${normal}         Deploys/Updates pipeline secrets from .env "
-    echo "   ${bold}-u, --update${normal}        Deploys/Updates just the pipelines, tasks, and triggers. "
+    echo "   ${bold}-c, --creds${normal}         Deploy/Update pipeline secrets from .env "
+    echo "   ${bold}-a, --apply${normal}         Deploy/Update secrets, pipelines, tasks, and triggers. "
     echo "   ${bold}-p, --prune${normal}         Delete all ${bold}Completed${normal}, $(tput bold)Errored${normal} or $(tput bold)DeadLineExceeded${normal} pod runs. "
     echo "   ${bold}-h, --help${normal}          Display argument options. "
     echo
@@ -140,7 +140,7 @@ do
           install
           shift 2
           ;;
-      -u | --update)
+      -a | --apply)
           update
           shift 2
           ;;
@@ -148,7 +148,6 @@ do
           sync
           shift 2
           ;;
-
       -c | --creds)
           secrets
           shift 2
