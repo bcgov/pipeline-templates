@@ -7,10 +7,8 @@ env:
   WORKDIR: ./tekton/demo/maven-test
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
-    branches: [ mybranch ]
+    branches: [ main ]
   workflow_dispatch:
 jobs:
   sonar-scan:
