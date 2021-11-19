@@ -78,7 +78,7 @@ jobs:
         ${GITHUB_WORKSPACE}/${{ env.BUILD_WORKDIR }}
   trivy-scan:
     needs: build
-    name: Trivy Scanner
+    name: Trivy Scan
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -93,7 +93,7 @@ jobs:
         severity: CRITICAL
   sonar-scan:
     needs: trivy-scan
-    name: Sonarqube Scanning
+    name: Sonar Scan
     runs-on: ubuntu-latest
     steps:
       - name: Setup
@@ -108,8 +108,8 @@ jobs:
              -Dsonar.projectKey=${{ env.PROJECT_KEY }}
   zap-owasp:
     runs-on: ubuntu-latest
-    needs: build
-    name: ZAP Scan
+    needs: sonar-scan
+    name: OWASP ZAP Scan
     steps:
       - name: ZAP Base Scan
         if: ${{ env.SCAN_TYPE == 'base' }}
