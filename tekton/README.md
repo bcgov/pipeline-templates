@@ -67,6 +67,8 @@ Having all the overrides defined within the `PipelineRun` allows for the configu
 
 A shared workspace defined in the `PipelineRun` determines at runtime which data source all tasks will share. This means when the `git-clone` task clones the repository locally, the buildah will have access to these files to complete the build process. `git-clone` is the most used task as many pipelines need a copy of the source code before the following tasks can execute.
 
+`Pipelines` are for orchestrating the execution of tasks and this involves assigning parameter overrides that each task needs. `git-clone` requires SSH credentials, and the `buildah` tasks require a Docker config that will be used to authenticate to private Docker registries.
+
 ![workflow](https://user-images.githubusercontent.com/26353407/142582737-20753d40-a2d4-499d-9667-90553b262b4c.png)
 
 
