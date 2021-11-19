@@ -4,7 +4,7 @@
 
 # Pipeline Templates
 
-This repo contains a catalog of pipeline code for each respective pipeline technology.
+This repo contains a catalog of pipeline templates to kickstart development among teams.
 
 ## Pipeline Tools
 
