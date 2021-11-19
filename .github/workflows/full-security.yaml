@@ -10,6 +10,7 @@ env:
   ORG: ci-testing
   PROJECT_KEY: github-actions-test
   URL: https://sonarcloud.io
+  MVN_WORKDIR: ./tekton/demo/maven-test
 
   # OWASP ZAP
   SCAN_TYPE: 'full' # Accepted values are base and full.
@@ -89,9 +90,9 @@ jobs:
         ignore-unfixed: true
         vuln-type: os,library
         severity: CRITICAL
-  sonar-scan:
+  sonar-scan-repo:
     needs: trivy-scan
-    name: Sonar Scan
+    name: Sonar Scan Repo
     runs-on: ubuntu-latest
     steps:
       - name: Setup
@@ -104,6 +105,36 @@ jobs:
              -Dsonar.organization=${{ env.ORG }}
              -Dsonar.host.url=${{ env.URL }}
              -Dsonar.projectKey=${{ env.PROJECT_KEY }}
+  sonar-scan-mvn:
+    name: Sonar Scan Mvn
+    runs-on: ubuntu-latest
+    needs: trivy-scan
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Cache SonarCloud Packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Maven Packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Build / Analyze
+        working-directory: ${{ env.MVN_WORKDIR }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=${{ env.PROJECT_KEY }}
   zap-owasp:
     runs-on: ubuntu-latest
     needs: trivy-scan
