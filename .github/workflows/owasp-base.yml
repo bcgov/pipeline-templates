@@ -19,7 +19,7 @@ jobs:
           docker_name: 'owasp/zap2docker-stable'
           target: ${{ env.TARGET_URL }}
           rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-a -d -T ${{ env.MAX_DURATION }} -m ${{ DURATION }}'
+          cmd_options: '-a -d -T ${{ env.MAX_DURATION }} -m ${{ env.DURATION }}'
           issue_title: OWAP Baseline
       - name: ZAP Full Scan
         if: ${{ env.SCAN_TYPE == 'full' }}
