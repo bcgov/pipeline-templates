@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: ZAP Baseline Scan
         if: ${{ env.SCAN_TYPE == 'base' }}
-        uses: zaproxy/action-baseline@@v0.6.1
+        uses: zaproxy/action-baseline@v0.6.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           docker_name: 'owasp/zap2docker-stable'
@@ -23,11 +23,11 @@ jobs:
           issue_title: OWAP Baseline
       - name: ZAP Full Scan
         if: ${{ env.SCAN_TYPE == 'full' }}
-        uses: zaproxy/action-full-scan@v0.2.0
+        uses: zaproxy/action-full-scan@v0.3.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           docker_name: 'owasp/zap2docker-stable'
           target: ${{ env.TARGET_URL }}
           rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-a -d'
+          cmd_options: '-a -d -T ${{ env.MAX_DURATION }} -m ${{ env.DURATION }}'
           issue_title: OWASP Full
