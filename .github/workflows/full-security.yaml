@@ -161,7 +161,7 @@ jobs:
           cmd_options: '-a -d -T ${{ env.MAX_DURATION }} -m ${{ env.DURATION }}'
           issue_title: OWASP Full
   push:
-    needs: sonar-scan-repo
+    needs: sonar-scan-mvn
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
