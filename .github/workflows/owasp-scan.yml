@@ -9,9 +9,9 @@ on:
 jobs:
   zap_base:
     runs-on: ubuntu-latest
-    name: ZAP Base Scan
+    name: ZAP Scan
     steps:
-      - name: ZAP Baseline Scan
+      - name: ZAP Base Scan
         if: ${{ env.SCAN_TYPE == 'base' }}
         uses: zaproxy/action-baseline@v0.6.1
         with:
