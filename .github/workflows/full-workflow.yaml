@@ -136,7 +136,7 @@ jobs:
         run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=${{ env.PROJECT_KEY }}
   push:
     name: Docker Push
-    needs: sonar-scan-mvn
+    needs: [sonar-scan-mvn, sonar-scan-repo]
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
