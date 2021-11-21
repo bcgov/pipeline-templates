@@ -47,7 +47,7 @@ env:
 
   # 🖊️ EDIT to change the image registry settings.
   # Registries such as GHCR, Quay.io, and Docker Hub are supported.
-  IMAGE_REGISTRY: docker.io/gregnrobinson/tkn-flask-oc
+  IMAGE_REGISTRY: docker.io/gregnrobinson
   IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
 
   # 🖊️ EDIT to specify custom tags for the container image, or default tags will be generated below.
