@@ -122,7 +122,6 @@ jobs:
 
     # https://github.com/redhat-actions/buildah-build#readme
     - name: Build from Dockerfile
-      working-directory: ${{ env.WORK_DIR }}
       id: build-image
       uses: redhat-actions/buildah-build@v2
       with:
@@ -133,7 +132,7 @@ jobs:
         # Or, perform a source-to-image build using https://github.com/redhat-actions/s2i-build
         # Otherwise, point this to your Dockerfile/Containerfile relative to the repository root.
         dockerfiles: |
-          Dockerfile
+          ./demo/flask-web/Dockerfile
 
     # https://github.com/redhat-actions/push-to-registry#readme
     - name: Push to registry
