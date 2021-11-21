@@ -32,7 +32,7 @@ env:
   # To get a permanent token, refer to https://github.com/redhat-actions/oc-login/wiki/Using-a-Service-Account-for-GitHub-Actions
   OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
   OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
-  IMAGE_REGISTRY_PASSWORD: ${{ secrets.OPENSHIFT_TOKEN }}
+  IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
   # 🖊️ EDIT to set the kube context's namespace after login. Leave blank to use your user's default namespace.
   OPENSHIFT_NAMESPACE: "default"
 
@@ -48,7 +48,6 @@ env:
   # Registries such as GHCR, Quay.io, and Docker Hub are supported.
   IMAGE_REGISTRY: docker.io/gregnrobinson/tkn-flask-oc
   IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
-  IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
 
   # 🖊️ EDIT to specify custom tags for the container image, or default tags will be generated below.
   IMAGE_TAGS: "latest"
@@ -146,7 +145,6 @@ jobs:
         password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
 
     # The path the image was pushed to is now stored in ${{ steps.push-image.outputs.registry-path }}
-
     - name: Install oc
       uses: redhat-actions/openshift-tools-installer@v1
       with:
