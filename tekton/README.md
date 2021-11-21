@@ -23,6 +23,7 @@ The project creates secrets for your docker and ssh credentials using the Kustom
 
 The repository is intended to configure every aspect of Tekton, from the installation manifests to the custom Tekton CRDs that manage the creation and execution of pipelines. Whenever changes are made to `./base` or `./overlays,` run `./tekton.sh -u` to apply the changes against the current Kubernetes context. Behind the scenes, the following functions are executed.
 
+
 1. **setup**: Installs [yq](https://mikefarah.gitbook.io/yq/) for parsing YAML files.
 2. **sync**: Pulls the following Tekton release manifests to `./base/install`
     - pipeline
@@ -70,8 +71,7 @@ A shared workspace defined in the `PipelineRun` determines at runtime which data
 
 `Pipelines` are for orchestrating the execution of tasks and this involves assigning parameter overrides that each task needs. `git-clone` requires SSH credentials, and the `buildah` tasks require a Docker config that will be used to authenticate to private Docker registries.
 
-![workflow](https://user-images.githubusercontent.com/26353407/142582737-20753d40-a2d4-499d-9667-90553b262b4c.png)
-
+![workflow](https://user-images.githubusercontent.com/26353407/142748076-1a261753-1c73-474b-83fd-dd6d69e89299.png)
 
 ## Prerequisites
 
