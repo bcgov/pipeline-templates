@@ -7,9 +7,9 @@ metadata:
     app.kubernetes.io/instance: default
     app.kubernetes.io/name: dashboard
     app.kubernetes.io/part-of: tekton-dashboard
-    app.kubernetes.io/version: v0.21.0
-    dashboard.tekton.dev/release: v0.21.0
-    version: v0.21.0
+    app.kubernetes.io/version: v0.22.0
+    dashboard.tekton.dev/release: v0.22.0
+    version: v0.22.0
   name: tekton-dashboard
   namespace: tekton-pipelines
 spec:
