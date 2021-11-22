@@ -1,3 +1,5 @@
 flask
 redis
 psutil>=2.0
+Random-Word>=1.0.7
+quote>=2.0.4
