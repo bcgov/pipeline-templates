@@ -203,6 +203,7 @@ jobs:
         --output=type=image,push=true
         ${GITHUB_WORKSPACE}/${{ env.BUILD_WORKDIR }}
   openshift-ci-cd:
+    needs: push
     name: Build and deploy to OpenShift
     # ubuntu-20.04 can also be used.
     runs-on: ubuntu-18.04
@@ -298,6 +299,7 @@ jobs:
         kubectl rollout restart deploy
       id: deploy
   zap-owasp:
+    needs: deploy
     runs-on: ubuntu-latest
     needs: push
     name: OWASP ZAP Scan
