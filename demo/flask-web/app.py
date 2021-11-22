@@ -10,13 +10,9 @@ import logging
 
 from flask import Flask, json, render_template
 
-companies = [{"id": 1, "name": "Company One"},
-             {"id": 2, "name": "Company Two"}]
-
 app = Flask(__name__)
 
 cache = redis.Redis(host='redis', port=6379)
-
 
 def get_hit_count():
     retries = 5
@@ -55,12 +51,6 @@ def getSystemInfo():
         return json.dumps(info)
     except Exception as e:
         logging.exception(e)
-
-
-@app.route('/companies', methods=['GET'])
-def get_companies():
-  return json.dumps(companies)
-
 
 @app.route('/hits')
 def hello():
