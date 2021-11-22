@@ -56,7 +56,7 @@ env:
 on:
   # https://docs.github.com/en/actions/reference/events-that-trigger-workflows
   workflow_dispatch:
-  
+
 jobs:
   openshift-ci-cd:
     name: Build and deploy to OpenShift
