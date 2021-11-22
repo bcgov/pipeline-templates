@@ -301,7 +301,6 @@ jobs:
   zap-owasp:
     needs: deploy
     runs-on: ubuntu-latest
-    needs: push
     name: OWASP ZAP Scan
     steps:
       - name: ZAP Base Scan
