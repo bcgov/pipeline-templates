@@ -24,7 +24,7 @@ env:
 
   OPENSHIFT_NAMESPACE: "default"
   # 🖊️ EDIT to set a name for your OpenShift app, or a default one will be generated below.
-  
+
   APP_NAME: "flask-demo-app"
 
   # 🖊️ EDIT with the port your application should be accessible on.
