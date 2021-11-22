@@ -43,7 +43,7 @@ env:
   OPENSHIFT_NAMESPACE: "default"
 
   # 🖊️ EDIT to set a name for your OpenShift app, or a default one will be generated below.
-  APP_NAME: "flask-demo-app"
+  APP_NAME: "bcgov-nginx-demo"
 
   # 🖊️ EDIT with the port your application should be accessible on.
   # If the container image exposes *exactly one* port, this can be left blank.
@@ -80,20 +80,6 @@ jobs:
       with:
         authkey: ${{ secrets.TAILSCALE_API_KEY }}
         #version: 1.10.2
-    - name: Setup SSH
-      id: ssh
-      env:
-        SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      run: |
-        set -x
-        hosts=("kube1")
-        mkdir -p ~/.ssh
-        host="dev-ubuntu-1.gregnrobinson.github.beta.tailscale.net"
-        host6=$(tailscale ip -6 $host)
-        ssh-keyscan ${host6} >> ~/.ssh/known_hosts
-        printf "%s" "${SSH_KEY}" > ~/.ssh/key
-        chmod 600 ~/.ssh/key
-        ping -c 2 ${host6}
     - name: Check for required secrets
       uses: actions/github-script@v4
       with:
@@ -175,11 +161,25 @@ jobs:
       run: |
         echo "IMAGE_TAGS=latest ${GITHUB_SHA::12}" | tee -a $GITHUB_ENV
 
+    - name: Setup SSH
+      id: ssh
+      env:
+        SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      run: |
+        set -x
+        mkdir -p ~/.ssh
+        host="dev-ubuntu-1.gregnrobinson.github.beta.tailscale.net"
+        host6=$(tailscale ip -6 $host)
+        ssh-keyscan ${host6} >> ~/.ssh/known_hosts
+        printf "%s" "${SSH_KEY}" > ~/.ssh/key
+        chmod 600 ~/.ssh/key
+        ping -c 2 ${host6}
+
     - name: Run Ansible Playbook
       uses: dawidd6/action-ansible-playbook@v2.4.0
       with:
         playbook: ansible/main.yaml
-        directory: /home/runner/work/security-pipeline-templates/security-pipeline-templates/
+        directory: /home/runner/work/security-pipeline-templates/
         key: ${{secrets.SSH_PRIVATE_KEY}}
         inventory: |
           [all]
