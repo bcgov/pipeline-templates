@@ -43,7 +43,7 @@ env:
   IMAGE_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
 on:
   # https://docs.github.com/en/actions/reference/events-that-trigger-workflows
-  workflow_dispatch:
+  #workflow_dispatch:
   push:
 
 jobs:
