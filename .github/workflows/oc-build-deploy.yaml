@@ -175,9 +175,9 @@ jobs:
 
     - name: Helm Deploy
       run: |
-        kubectl create ns flask-web || echo "namespace exists..."
-        helm upgrade --install flask-web -f ./demo/flask-web/helm/values.yaml ./demo/flask-web/helm -n flask-web
-        kubectl -n flask-web rollout restart deploy
+        #kubectl create ns flask-web || echo "namespace exists..."
+        helm upgrade --install flask-web -f ./demo/flask-web/helm/values.yaml ./demo/flask-web/helm
+        kubectl rollout restart deploy
       id: deploy
 
   #  # This step should create a deployment, service, and route to run your app and expose it to the internet.
