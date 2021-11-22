@@ -156,7 +156,7 @@ jobs:
         # Or, perform a source-to-image build using https://github.com/redhat-actions/s2i-build
         # Otherwise, point this to your Dockerfile/Containerfile relative to the repository root.
         dockerfiles: |
-          ./demo/flask-web/Dockerfile
+          ./demo/nginx/Dockerfile
 
     # https://github.com/redhat-actions/push-to-registry#readme
     - name: Push to registry
