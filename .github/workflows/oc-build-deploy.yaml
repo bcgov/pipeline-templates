@@ -189,8 +189,7 @@ jobs:
           release=${{ env.RELEASE }}
           namespace=${{ env.NAMESPACE }}
           workdir=${{ env.WORK_DIR }}
-          url=${{ env.URL }}
-          tag=${{ env.TAG }}
+          tag=latest
           #workspace=/home/runner/work/app-factory/app-factory
         options: |
           --verbose
@@ -205,8 +204,8 @@ jobs:
     #    git clone git@github.com:bcgov/security-pipeline-templates.git &&\
     #    cd ~/security-pipeline-templates/demo/nginx/helm &&\
     #    he
-    #    
-    #    
+    #
+    #
     #    "
     # The path the image was pushed to is now stored in ${{ steps.push-image.outputs.registry-path }}
     #- name: Install oc
