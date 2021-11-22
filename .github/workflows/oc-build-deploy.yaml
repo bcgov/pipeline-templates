@@ -74,7 +74,7 @@ jobs:
       with:
         authkey: ${{ secrets.TAILSCALE_API_KEY }}
         version: 1.10.2
-        
+
     - name: Check for required secrets
       uses: actions/github-script@v4
       with:
