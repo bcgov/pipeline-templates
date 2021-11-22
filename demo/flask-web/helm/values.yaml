@@ -5,7 +5,7 @@
 replicaCount: 4
 
 image:
-  repository: gregnrobinson/tkn-flask-web
+  repository: gregnrobinson/flask-demo-app
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: latest
@@ -37,11 +37,11 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 80
 
 ingress:
-  enabled: true
+  enabled: false
   className: ""
   annotations:
     kubernetes.io/ingress.class: nginx
