@@ -48,7 +48,7 @@ env:
 on:
   # https://docs.github.com/en/actions/reference/events-that-trigger-workflows
   workflow_dispatch:
-  push:
+#  push:
 
 jobs:
   codeql-scan:
