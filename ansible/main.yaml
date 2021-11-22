@@ -1,0 +1,16 @@
+
+---
+- hosts: all
+  become: true
+  gather_facts: no
+  vars:
+    path: /home/greg/security-pipeline-templates
+  pre_tasks:
+    - name: Read-write git checkout from github
+      ansible.builtin.git:
+        repo: git@github.com:bcgov/security-pipeline-templates.git
+        dest: '{{ path }}'
+        force: true
+      tags: always
+  roles:
+    - { role: deploy,   tags: ["deploy"] }

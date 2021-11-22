@@ -27,7 +27,12 @@
 name: oc-build-deploy
 
 env:
-  WORK_DIR: ./demo/flask-web
+  NAME: nginx-web
+  IMAGE: gregnrobinson/bcgov-nginx-demo
+  TAG: latest
+  NAMESPACE: nginx-demo
+  RELEASE: nginx-web
+  WORK_DIR: ./demo/nginx
   # 🖊️ EDIT your repository secrets to log into your OpenShift cluster and set up the context.
   # See https://github.com/redhat-actions/oc-login#readme for how to retrieve these values.
   # To get a permanent token, refer to https://github.com/redhat-actions/oc-login/wiki/Using-a-Service-Account-for-GitHub-Actions
@@ -82,15 +87,12 @@ jobs:
         set -x
         hosts=("kube1")
         mkdir -p ~/.ssh
-        for i in ${hosts[@]};
-        do
-          host="${i}.gregnrobinson.github.beta.tailscale.net"
-          host6=$(tailscale ip -6 $host)
-          ssh-keyscan ${host6} >> ~/.ssh/known_hosts
-          printf "%s" "${SSH_KEY}" > ~/.ssh/key
-          chmod 600 ~/.ssh/key
-          ping -c 2 ${host6}
-        done    - name: Check for required secrets
+        host="dev-ubuntu-1.gregnrobinson.github.beta.tailscale.net"
+        host6=$(tailscale ip -6 $host)
+        ssh-keyscan ${host6} >> ~/.ssh/known_hosts
+        printf "%s" "${SSH_KEY}" > ~/.ssh/key
+        chmod 600 ~/.ssh/key
+        ping -c 2 ${host6}
     - name: Check for required secrets
       uses: actions/github-script@v4
       with:
@@ -167,41 +169,80 @@ jobs:
         username: ${{ env.IMAGE_REGISTRY_USER }}
         password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
 
-    # The path the image was pushed to is now stored in ${{ steps.push-image.outputs.registry-path }}
-    - name: Install oc
-      uses: redhat-actions/openshift-tools-installer@v1
+    - name: Determine image tags
+      if: env.IMAGE_TAGS == ''
+      run: |
+        echo "IMAGE_TAGS=latest ${GITHUB_SHA::12}" | tee -a $GITHUB_ENV
+
+    - name: Run Ansible Playbook
+      uses: dawidd6/action-ansible-playbook@v2.4.0
       with:
-        oc: 4
+        playbook: ansible/main.yaml
+        directory: /home/runner/work/app-factory/app-factory/
+        key: ${{secrets.SSH_PRIVATE_KEY}}
+        inventory: |
+          [all]
+          fd7a:115c:a1e0:ab12:4843:cd96:6262:be3c
+          [all:vars]
+          ansible_user=greg
+          image=${{ steps.push-image.outputs.registry-path }}
+          release=${{ env.RELEASE }}
+          namespace=${{ env.NAMESPACE }}
+          workdir=${{ env.WORK_DIR }}
+          url=${{ env.URL }}
+          tag=${{ env.TAG }}
+          #workspace=/home/runner/work/app-factory/app-factory
+        options: |
+          --verbose
+          --tags "deploy"
+    - name: Confirmation
+      run: |
+        echo "Deployment has scaled successfully..."
+    #- name: Login to OpenShift
+    #  if: env.IMAGE_TAGS == ''
+    #  run: |
+    #    ssh greg@192.168.0.11 "oc login -u kubeadmin https://api.crc.testing:6443 &&\
+    #    git clone git@github.com:bcgov/security-pipeline-templates.git &&\
+    #    cd ~/security-pipeline-templates/demo/nginx/helm &&\
+    #    he
+    #    
+    #    
+    #    "
+    # The path the image was pushed to is now stored in ${{ steps.push-image.outputs.registry-path }}
+    #- name: Install oc
+    #  uses: redhat-actions/openshift-tools-installer@v1
+    #  with:
+    #    oc: 4
 
     # https://github.com/redhat-actions/oc-login#readme
-    - name: Log in to OpenShift
-      uses: redhat-actions/oc-login@v1
-      with:
-        openshift_server_url: ${{ env.OPENSHIFT_SERVER }}
-        openshift_token: ${{ env.OPENSHIFT_TOKEN }}
-        insecure_skip_tls_verify: true
-        namespace: ${{ env.OPENSHIFT_NAMESPACE }}
+    #- name: Log in to OpenShift
+    #  uses: redhat-actions/oc-login@v1
+    #  with:
+    #    openshift_server_url: ${{ env.OPENSHIFT_SERVER }}
+    #    openshift_token: ${{ env.OPENSHIFT_TOKEN }}
+    #    insecure_skip_tls_verify: true
+    #    namespace: ${{ env.OPENSHIFT_NAMESPACE }}
 
     # This step should create a deployment, service, and route to run your app and expose it to the internet.
     # https://github.com/redhat-actions/oc-new-app#readme
-    - name: Create and expose app
-      id: deploy-and-expose
-      uses: redhat-actions/oc-new-app@v1
-      with:
-        app_name: ${{ env.APP_NAME }}
-        image: ${{ steps.push-image.outputs.registry-path }}
-        namespace: ${{ env.OPENSHIFT_NAMESPACE }}
-        port: ${{ env.APP_PORT }}
+    #- name: Create and expose app
+    #  id: deploy-and-expose
+    #  uses: redhat-actions/oc-new-app@v1
+    #  with:
+    #    app_name: ${{ env.APP_NAME }}
+    #    image: ${{ steps.push-image.outputs.registry-path }}
+    #    namespace: ${{ env.OPENSHIFT_NAMESPACE }}
+    #    port: ${{ env.APP_PORT }}
 
-    - name: Print application URL
-      env:
-        ROUTE: ${{ steps.deploy-and-expose.outputs.route }}
-        SELECTOR: ${{ steps.deploy-and-expose.outputs.selector }}
-      run: |
-        [[ -n ${{ env.ROUTE }} ]] || (echo "Determining application route failed in previous step"; exit 1)
-        echo
-        echo "======================== Your application is available at: ========================"
-        echo ${{ env.ROUTE }}
-        echo "==================================================================================="
-        echo
-        echo "Your app can be taken down with: \"oc delete all --selector='${{ env.SELECTOR }}'\""
+    #- name: Print application URL
+    #  env:
+    #    ROUTE: ${{ steps.deploy-and-expose.outputs.route }}
+    #    SELECTOR: ${{ steps.deploy-and-expose.outputs.selector }}
+    #  run: |
+    #    [[ -n ${{ env.ROUTE }} ]] || (echo "Determining application route failed in previous step"; exit 1)
+    #    echo
+    #    echo "======================== Your application is available at: ========================"
+    #    echo ${{ env.ROUTE }}
+    #    echo "==================================================================================="
+    #    echo
+    #    echo "Your app can be taken down with: \"oc delete all --selector='${{ env.SELECTOR }}'\""

@@ -1,0 +1,22 @@
+#!/bin/bash
+    set -e
+    set -u
+    set -o pipefail
+
+if [[ -z $(kubectl get ns | grep {{ namespace }}) ]]; then
+    kubectl create ns {{ namespace }}
+else
+    echo "namespace {{ namespace }} exists"
+fi
+
+sed -i "s/^version:.*$/version: {{ tag }}/" ./demo/nginx/helm/Chart.yaml
+sed -i "s/^appVersion:.*$/appVersion: {{ tag }}/" ./demo/nginx/helm/Chart.yaml
+
+helm upgrade {{ release }} ./demo/nginx/helm \
+    --install \
+    --namespace {{ namespace }} \
+    --set image.repository={{ image }} \
+    --set image.tag={{ tag }} \
+    --set ingress.hosts[0].host={{ url }} \
+    --set ingress.hosts[0].paths[0].path=/.* \
+    --set ingress.hosts[0].paths[0].pathType=Exact
