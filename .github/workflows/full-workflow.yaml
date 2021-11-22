@@ -6,6 +6,10 @@ env:
   IMAGE: gregnrobinson/flask-demo-app
   BUILD_WORKDIR: ./demo/flask-web
 
+  ## HELM VARIABLES
+  HELM_DIR: ./demo/flask-web/helm
+  VALUES_FILE: ./demo/flask-web/helm/values.yaml
+
   ## SONAR PARAMS
   ORG: ci-testing
   PROJECT_KEY: github-actions-test
@@ -282,9 +286,10 @@ jobs:
     # kubectl port-forward deployment/flask-web 8080:80
     - name: Helm Deploy
       run: |
-        #kubectl create ns flask-web || echo "namespace exists..."
-        helm upgrade --install flask-web -f ./demo/flask-web/helm/values.yaml ./demo/flask-web/helm --set image.tag=${{ env.GITHUB_SHA_SHORT }}
-        kubectl rollout restart deploy
+        helm upgrade \
+          --install ${{ env.NAME }} \
+          --set image.tag=${{ env.GITHUB_SHA_SHORT }} \
+          -f ${{ env.VALUES_FILE }} ${{ env.HELM_DIR }}
       id: deploy
   zap-owasp:
     needs: openshift-ci-cd
