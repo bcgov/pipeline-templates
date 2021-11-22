@@ -24,8 +24,7 @@ def get_quote():
     res = quote(w, limit=1)
     for i in range(len(res)):
         print("\nQuote Generated: ", res[i]['quote'])
-    
-    
+
 def get_hit_count():
     retries = 5
     while True:
@@ -50,4 +49,4 @@ def hello():
 @app.route('/quote')
 def quoter():
     quote = get_quote()
-    return 'web1: {} hits.\n'.format(count)
+    return(quote)
