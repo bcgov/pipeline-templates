@@ -172,35 +172,11 @@ jobs:
       with:
         version: 'latest' # default is latest stable
       id: install
-
+      
+      # kubectl port-forward deployment/flask-web 8080:80
     - name: Helm Deploy
       run: |
         #kubectl create ns flask-web || echo "namespace exists..."
         helm upgrade --install flask-web -f ./demo/flask-web/helm/values.yaml ./demo/flask-web/helm
         kubectl rollout restart deploy
       id: deploy
-
-  #  # This step should create a deployment, service, and route to run your app and expose it to the internet.
-  #  # https://github.com/redhat-actions/oc-new-app#readme
-  #  - name: Create and expose app
-  #    id: deploy-and-expose
-  #    uses: redhat-actions/oc-new-app@v1
-  #    with:
-  #      app_name: ${{ env.APP_NAME }}
-  #      image: ${{ steps.push-image.outputs.registry-path }}
-  #      namespace: ${{ env.OPENSHIFT_NAMESPACE }}
-  #      port: ${{ env.APP_PORT }}
-#
-  #  - name: Print application URL
-  #    env:
-  #      ROUTE: ${{ steps.deploy-and-expose.outputs.route }}
-  #      SELECTOR: ${{ steps.deploy-and-expose.outputs.selector }}
-  #    run: |
-  #      [[ -n ${{ env.ROUTE }} ]] || (echo "Determining application route failed in previous step"; exit 1)
-  #      echo
-  #      echo "======================== Your application is available at: ========================"
-  #      echo ${{ env.ROUTE }}
-  #      echo "==================================================================================="
-  #      echo
-  #      echo "Your app can be taken down with: \"oc delete all --selector='${{ env.SELECTOR }}'\""
-#
