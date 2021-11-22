@@ -214,6 +214,8 @@ jobs:
       SELECTOR: ${{ steps.deploy-and-expose.outputs.selector }}
 
     steps:
+    - name: Inject slug/short variables
+      uses: rlespinasse/github-slug-action@v3.x
     - name: Setup Tailscale
       uses: tailscale/github-action@main
       with:
