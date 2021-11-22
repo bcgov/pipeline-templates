@@ -195,7 +195,7 @@ jobs:
           securityContext: {}
 
           service:
-            type: ClusterIp
+            type: ClusterIP
             port: 80
 
           ingress:
