@@ -1,35 +1,30 @@
 name: full-workflow
 
 env:
-  # DOCKER BUILD PARAMS
+  ## DOCKER BUILD PARAMS
   NAME: flask-web
   IMAGE: gregnrobinson/flask-demo-app
   BUILD_WORKDIR: ./demo/flask-web
 
-  # SONAR PARAMS
+  ## SONAR PARAMS
   ORG: ci-testing
   PROJECT_KEY: github-actions-test
   URL: https://sonarcloud.io
   MVN_WORKDIR: ./tekton/demo/maven-test
 
-  # OWASP ZAP
+  ## OWASP ZAP
   SCAN_TYPE: 'base' # Accepted values are base and full.
   TARGET_URL: http://www.itsecgames.com
   DURATION: '2'
   MAX_DURATION: '5'
 
-  # OPENSHIFT ENVIRONMENT
-  WORK_DIR: ./demo/flask-web
-  # 🖊️ EDIT your repository secrets to log into your OpenShift cluster and set up the context.
-  # See https://github.com/redhat-actions/oc-login#readme for how to retrieve these values.
-  # To get a permanent token, refer to https://github.com/redhat-actions/oc-login/wiki/Using-a-Service-Account-for-GitHub-Actions
+  ## OPENSHIFT ENVIRONMENT
   OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
   OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
-  IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
-  # 🖊️ EDIT to set the kube context's namespace after login. Leave blank to use your user's default namespace.
-  OPENSHIFT_NAMESPACE: "default"
 
+  OPENSHIFT_NAMESPACE: "default"
   # 🖊️ EDIT to set a name for your OpenShift app, or a default one will be generated below.
+  
   APP_NAME: "flask-demo-app"
 
   # 🖊️ EDIT with the port your application should be accessible on.
@@ -40,15 +35,12 @@ env:
   # 🖊️ EDIT to change the image registry settings.
   # Registries such as GHCR, Quay.io, and Docker Hub are supported.
   IMAGE_REGISTRY: docker.io/gregnrobinson
-  IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
-
-  # 🖊️ EDIT to specify custom tags for the container image, or default tags will be generated below.
-  IMAGE_TAGS: "latest"
-
+  IMAGE_REGISTRY_USER: ${{ secrets.DOCKERHUB_USERNAME }}
+  IMAGE_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
 on:
   # https://docs.github.com/en/actions/reference/events-that-trigger-workflows
   workflow_dispatch:
-#  push:
+  push:
 
 jobs:
   codeql-scan:
@@ -204,7 +196,7 @@ jobs:
         ${GITHUB_WORKSPACE}/${{ env.BUILD_WORKDIR }}
   openshift-ci-cd:
     needs: push
-    name: Build and deploy to OpenShift
+    name: Deploy to OpenShift
     # ubuntu-20.04 can also be used.
     runs-on: ubuntu-18.04
     environment: production
@@ -262,18 +254,12 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v2
 
-    - name: Determine app name
+    - name: Determine App Name
       if: env.APP_NAME == ''
       run: |
         echo "APP_NAME=$(basename $PWD)" | tee -a $GITHUB_ENV
 
-    - name: Determine image tags
-      if: env.IMAGE_TAGS == ''
-      run: |
-        echo "IMAGE_TAGS=latest ${GITHUB_SHA::12}" | tee -a $GITHUB_ENV
-
-    # The path the image was pushed to is now stored in ${{ steps.push-image.outputs.registry-path }}
-    - name: Install oc
+    - name: Install OC
       uses: redhat-actions/openshift-tools-installer@v1
       with:
         oc: 4
