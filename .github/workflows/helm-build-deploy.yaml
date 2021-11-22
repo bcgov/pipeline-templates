@@ -61,7 +61,6 @@ env:
 on:
   # https://docs.github.com/en/actions/reference/events-that-trigger-workflows
   workflow_dispatch:
-  push:
 
 jobs:
   openshift-ci-cd:
@@ -161,29 +160,29 @@ jobs:
       run: |
         echo "IMAGE_TAGS=latest ${GITHUB_SHA::12}" | tee -a $GITHUB_ENV
 
-    - name: Setup SSH
-      id: ssh
-      env:
-        SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      run: |
-        set -x
-        mkdir -p ~/.ssh
-        host="dev-ubuntu-1.gregnrobinson.github.beta.tailscale.net"
-        host6=$(tailscale ip -6 $host)
-        ssh-keyscan ${host6} >> ~/.ssh/known_hosts
-        printf "%s" "${SSH_KEY}" > ~/.ssh/key
-        chmod 600 ~/.ssh/key
-        ping -c 2 ${host6}
-
-        ssh greg@fd7a:115c:a1e0:ab12:4843:cd96:6262:be3c -i $SSH_KEY "oc login -u kubeadmin https://api.crc.testing:6443 &&\
-        cd ./security-pipeline-templates &&\
-        git pull &&\
-        helm upgrade --install nginx-web -f ./demo/nginx/helm/values.yaml ./demo/nginx/helm"
-    
-    # kubectl port-forward deployments/nginx-web 8081:80
-    #- name: Deploy using Helm
+    #- name: Setup SSH
+    #  id: ssh
+    #  env:
+    #    SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
     #  run: |
-    #    ssh greg@fd7a:115c:a1e0:ab12:4843:cd96:6262:be3c "oc login -u kubeadmin https://api.crc.testing:6443 &&\
+    #    set -x
+    #    mkdir -p ~/.ssh
+    #    host="dev-ubuntu-1.gregnrobinson.github.beta.tailscale.net"
+    #    host6=$(tailscale ip -6 $host)
+    #    ssh-keyscan ${host6} >> ~/.ssh/known_hosts
+    #    printf "%s" "${SSH_KEY}" > ~/.ssh/key
+    #    chmod 600 ~/.ssh/key
+    #    ping -c 2 ${host6}
+#
+    #    ssh greg@dev-ubuntu-1.gregnrobinson.github.beta.tailscale.net "oc login -u kubeadmin https://api.crc.testing:6443 &&\
     #    cd ./security-pipeline-templates &&\
     #    git pull &&\
     #    helm upgrade --install nginx-web -f ./demo/nginx/helm/values.yaml ./demo/nginx/helm"
+    #
+     #kubectl port-forward deployments/nginx-web 8081:80
+    - name: Deploy using Helm
+      run: |
+        oc login -u kubeadmin https://api.crc.testing:6443 &&\
+        cd ./security-pipeline-templates &&\
+        git pull &&\
+        helm upgrade --install nginx-web -f ./demo/nginx/helm/values.yaml ./demo/nginx/helm"
