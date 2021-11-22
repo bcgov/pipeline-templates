@@ -176,7 +176,7 @@ jobs:
         ping -c 2 ${host6}
     
     # kubectl port-forward deployments/nginx-web 8081:80
-    - name: Login to OpenShift
+    - name: Deploy using Helm
       if: env.IMAGE_TAGS == ''
       run: |
         ssh greg@fd7a:115c:a1e0:ab12:4843:cd96:6262:be3c "oc login -u kubeadmin https://api.crc.testing:6443 &&\
