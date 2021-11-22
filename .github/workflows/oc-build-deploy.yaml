@@ -24,10 +24,15 @@
 
 # 👋 Visit our GitHub organization at https://github.com/redhat-actions/ to see our actions and provide feedback.
 
-name: oc-build-deploy
+name: helm-build-deploy
 
 env:
-  WORK_DIR: ./demo/flask-web
+  NAME: nginx-web
+  IMAGE: gregnrobinson/bcgov-nginx-demo
+  TAG: latest
+  NAMESPACE: nginx-demo
+  RELEASE: nginx-web
+  WORK_DIR: ./demo/nginx
   # 🖊️ EDIT your repository secrets to log into your OpenShift cluster and set up the context.
   # See https://github.com/redhat-actions/oc-login#readme for how to retrieve these values.
   # To get a permanent token, refer to https://github.com/redhat-actions/oc-login/wiki/Using-a-Service-Account-for-GitHub-Actions
@@ -38,7 +43,7 @@ env:
   OPENSHIFT_NAMESPACE: "default"
 
   # 🖊️ EDIT to set a name for your OpenShift app, or a default one will be generated below.
-  APP_NAME: "flask-demo-app"
+  APP_NAME: "bcgov-nginx-demo"
 
   # 🖊️ EDIT with the port your application should be accessible on.
   # If the container image exposes *exactly one* port, this can be left blank.
@@ -56,7 +61,6 @@ env:
 on:
   # https://docs.github.com/en/actions/reference/events-that-trigger-workflows
   workflow_dispatch:
-  push:
 
 jobs:
   openshift-ci-cd:
@@ -75,7 +79,6 @@ jobs:
       with:
         authkey: ${{ secrets.TAILSCALE_API_KEY }}
         #version: 1.10.2
-
     - name: Check for required secrets
       uses: actions/github-script@v4
       with:
@@ -139,7 +142,7 @@ jobs:
         # Or, perform a source-to-image build using https://github.com/redhat-actions/s2i-build
         # Otherwise, point this to your Dockerfile/Containerfile relative to the repository root.
         dockerfiles: |
-          ./demo/flask-web/Dockerfile
+          ./demo/nginx/Dockerfile
 
     # https://github.com/redhat-actions/push-to-registry#readme
     - name: Push to registry
@@ -152,31 +155,34 @@ jobs:
         username: ${{ env.IMAGE_REGISTRY_USER }}
         password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
 
-    # The path the image was pushed to is now stored in ${{ steps.push-image.outputs.registry-path }}
-    - name: Install oc
-      uses: redhat-actions/openshift-tools-installer@v1
-      with:
-        oc: 4
-
-    # https://github.com/redhat-actions/oc-login#readme
-    - name: Log in to OpenShift
-      uses: redhat-actions/oc-login@v1
-      with:
-        openshift_server_url: ${{ env.OPENSHIFT_SERVER }}
-        openshift_token: ${{ env.OPENSHIFT_TOKEN }}
-        insecure_skip_tls_verify: true
-        namespace: ${{ env.OPENSHIFT_NAMESPACE }}
-
-    - name: Install Helm
-      uses: azure/setup-helm@v1
-      with:
-        version: 'latest' # default is latest stable
-      id: install
-      
-      # kubectl port-forward deployment/flask-web 8080:80
-    - name: Helm Deploy
+    - name: Determine image tags
+      if: env.IMAGE_TAGS == ''
       run: |
-        #kubectl create ns flask-web || echo "namespace exists..."
-        helm upgrade --install flask-web -f ./demo/flask-web/helm/values.yaml ./demo/flask-web/helm
-        kubectl rollout restart deploy
-      id: deploy
+        echo "IMAGE_TAGS=latest ${GITHUB_SHA::12}" | tee -a $GITHUB_ENV
+
+    #- name: Setup SSH
+    #  id: ssh
+    #  env:
+    #    SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+    #  run: |
+    #    set -x
+    #    mkdir -p ~/.ssh
+    #    host="dev-ubuntu-1.gregnrobinson.github.beta.tailscale.net"
+    #    host6=$(tailscale ip -6 $host)
+    #    ssh-keyscan ${host6} >> ~/.ssh/known_hosts
+    #    printf "%s" "${SSH_KEY}" > ~/.ssh/key
+    #    chmod 600 ~/.ssh/key
+    #    ping -c 2 ${host6}
+#
+    #    ssh greg@dev-ubuntu-1.gregnrobinson.github.beta.tailscale.net "oc login -u kubeadmin https://api.crc.testing:6443 &&\
+    #    cd ./security-pipeline-templates &&\
+    #    git pull &&\
+    #    helm upgrade --install nginx-web -f ./demo/nginx/helm/values.yaml ./demo/nginx/helm"
+    #
+     #kubectl port-forward deployments/nginx-web 8081:80
+    - name: Deploy using Helm
+      run: |
+        oc login -u kubeadmin https://api.crc.testing:6443 &&\
+        cd ./security-pipeline-templates &&\
+        git pull &&\
+        helm upgrade --install nginx-web -f ./demo/nginx/helm/values.yaml ./demo/nginx/helm"
