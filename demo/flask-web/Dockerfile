@@ -11,5 +11,5 @@ RUN apk add --no-cache gcc musl-dev linux-headers
 RUN pip install -r requirements.txt
 
 EXPOSE 8080
-#EXPOSE 5000
+EXPOSE 5000
 CMD ["flask", "run"]
