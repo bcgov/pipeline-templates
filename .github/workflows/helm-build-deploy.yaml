@@ -24,7 +24,7 @@
 
 # 👋 Visit our GitHub organization at https://github.com/redhat-actions/ to see our actions and provide feedback.
 
-name: oc-build-deploy
+name: helm-build-deploy
 
 env:
   WORK_DIR: ./demo/flask-web
