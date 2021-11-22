@@ -172,7 +172,7 @@ jobs:
       with:
         version: 'latest' # default is latest stable
       id: install
-      
+
       # kubectl port-forward deployment/flask-web 8080:80
     - name: Helm Deploy
       run: |
