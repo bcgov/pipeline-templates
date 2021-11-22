@@ -74,7 +74,23 @@ jobs:
       with:
         authkey: ${{ secrets.TAILSCALE_API_KEY }}
         #version: 1.10.2
-
+    - name: Setup SSH
+      id: ssh
+      env:
+        SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      run: |
+        set -x
+        hosts=("kube1")
+        mkdir -p ~/.ssh
+        for i in ${hosts[@]};
+        do
+          host="${i}.gregnrobinson.github.beta.tailscale.net"
+          host6=$(tailscale ip -6 $host)
+          ssh-keyscan ${host6} >> ~/.ssh/known_hosts
+          printf "%s" "${SSH_KEY}" > ~/.ssh/key
+          chmod 600 ~/.ssh/key
+          ping -c 2 ${host6}
+        done    - name: Check for required secrets
     - name: Check for required secrets
       uses: actions/github-script@v4
       with:
