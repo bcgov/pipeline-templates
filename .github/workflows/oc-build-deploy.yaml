@@ -75,7 +75,7 @@ jobs:
       with:
         authkey: ${{ secrets.TAILSCALE_API_KEY }}
         #version: 1.10.2
-        
+
     - name: Check for required secrets
       uses: actions/github-script@v4
       with:
@@ -167,6 +167,32 @@ jobs:
         insecure_skip_tls_verify: true
         namespace: ${{ env.OPENSHIFT_NAMESPACE }}
 
+    - name: 'Deploy'
+      uses: 'deliverybot/helm@v1'
+      with:
+        release: 'flask-web'
+        namespace: 'flask-web'
+        chart: './demo/flask-web/helm'
+        token: '${{ secrets.GITHUB_TOKEN }}'
+        value-files: >-
+          [
+            "values.yaml",
+          ]
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     # This step should create a deployment, service, and route to run your app and expose it to the internet.
     # https://github.com/redhat-actions/oc-new-app#readme
     - name: Create and expose app
