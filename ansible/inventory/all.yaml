@@ -1,7 +1,0 @@
-all:
-  vars:
-    ansible_user: greg
-    ansible_ssh_private_key_file: ~/.ssh/id_rsa
-  hosts:
-    dev-ubuntu-1:
-      ansible_host: dev-ubuntu-1.gregnrobinson.github.beta.tailscale.net
