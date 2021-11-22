@@ -179,7 +179,7 @@ jobs:
       uses: dawidd6/action-ansible-playbook@v2.4.0
       with:
         playbook: ansible/main.yaml
-        directory: /home/runner/work/security-pipeline-templates/
+        directory: /home/runner/work/security-pipeline-templates/security-pipeline-templates/
         key: ${{secrets.SSH_PRIVATE_KEY}}
         inventory: |
           [all]
@@ -191,7 +191,7 @@ jobs:
           namespace=${{ env.NAMESPACE }}
           workdir=${{ env.WORK_DIR }}
           tag=latest
-          #workspace=/home/runner/work/app-factory/app-factory
+          #workspace=/home/runner/work/security-pipeline-templates/security-pipeline-templates/
         options: |
           --verbose
           --tags "deploy"
