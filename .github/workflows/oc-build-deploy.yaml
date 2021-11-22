@@ -174,10 +174,13 @@ jobs:
         namespace: 'flask-web'
         chart: './demo/flask-web/helm'
         token: '${{ secrets.GITHUB_TOKEN }}'
+        values: |
+          image: ${{ steps.build-image.outputs.image }}
         value-files: >-
-          [
-            "values.yaml",
-          ]
+        [
+          "values.yaml", 
+        ]
+  
     
     
     
