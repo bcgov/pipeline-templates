@@ -30,28 +30,6 @@ def get_hit_count():
 def subway():
     return render_template("index.html")
 
-
-@app.route("/getinfo", methods=['GET'])
-def getSystemInfo():
-    count = get_hit_count()
-    try:
-        info = {}
-        info['hits'] = '{}'.format(count)
-        info['platform'] = platform.system()
-        info['platform-release'] = platform.release()
-        info['platform-version'] = platform.version()
-        info['architecture'] = platform.machine()
-        info['hostname'] = socket.gethostname()
-        info['ip-address'] = socket.gethostbyname(socket.gethostname())
-        info['mac-address'] = ':'.join(re.findall('..',
-                                       '%012x' % uuid.getnode()))
-        info['processor'] = platform.processor()
-        info['ram'] = str(
-            round(psutil.virtual_memory().total / (1024.0 ** 3)))+" GB"
-        return json.dumps(info)
-    except Exception as e:
-        logging.exception(e)
-
 @app.route('/hits')
 def hello():
     count = get_hit_count()
