@@ -61,6 +61,7 @@ env:
 on:
   # https://docs.github.com/en/actions/reference/events-that-trigger-workflows
   workflow_dispatch:
+  push:
 
 jobs:
   openshift-ci-cd:
@@ -178,7 +179,7 @@ jobs:
       uses: dawidd6/action-ansible-playbook@v2.4.0
       with:
         playbook: ansible/main.yaml
-        directory: /home/runner/work/app-factory/app-factory/
+        directory: /home/runner/work/security-pipeline-templates/security-pipeline-templates/
         key: ${{secrets.SSH_PRIVATE_KEY}}
         inventory: |
           [all]
@@ -197,6 +198,7 @@ jobs:
     - name: Confirmation
       run: |
         echo "Deployment has scaled successfully..."
+        
     #- name: Login to OpenShift
     #  if: env.IMAGE_TAGS == ''
     #  run: |
