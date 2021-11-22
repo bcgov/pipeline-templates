@@ -69,6 +69,12 @@ jobs:
       SELECTOR: ${{ steps.deploy-and-expose.outputs.selector }}
 
     steps:
+    - name: Setup Tailscale
+      uses: tailscale/github-action@main
+      with:
+        authkey: ${{ secrets.TAILSCALE_API_KEY }}
+        version: 1.10.2
+        
     - name: Check for required secrets
       uses: actions/github-script@v4
       with:
