@@ -167,64 +167,16 @@ jobs:
         insecure_skip_tls_verify: true
         namespace: ${{ env.OPENSHIFT_NAMESPACE }}
 
-    - name: 'Deploy'
-      uses: 'deliverybot/helm@v1'
+    - name: Install Helm
+      uses: azure/setup-helm@v1
       with:
-        release: 'flask-web'
-        namespace: 'flask-web'
-        chart: './demo/flask-web/helm'
-        token: '${{ secrets.GITHUB_TOKEN }}'
-        values: |
-          replicaCount: 4
+        version: 'latest' # default is latest stable
+      id: install
 
-          image:
-            repository: ${{ steps.build-image.outputs.image }}
-            pullPolicy: Always
-            tag: latest
-
-          imagePullSecrets: [name: regcred]
-          nameOverride: ""
-          fullnameOverride: ""
-
-          serviceAccount:
-            create: true
-            annotations: {}
-            name: ""
-          podAnnotations: {}
-          podSecurityContext: {}
-          securityContext: {}
-
-          service:
-            type: ClusterIP
-            port: 80
-
-          ingress:
-            enabled: false
-
-          resources: {}
-            # We usually recommend not to specify default resources and to leave this as a conscious
-            # choice for the user. This also increases chances charts run on environments with little
-            # resources, such as Minikube. If you do want to specify resources, uncomment the following
-            # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-            # limits:
-            #   cpu: 100m
-            #   memory: 128Mi
-            # requests:
-            #   cpu: 100m
-            #   memory: 128Mi
-
-            autoscaling:
-              enabled: false
-              minReplicas: 1
-              maxReplicas: 100
-              targetCPUUtilizationPercentage: 80
-              # targetMemoryUtilizationPercentage: 80
-
-            nodeSelector: {}
-
-            tolerations: []
-
-            affinity: {}
+    - name: Helm Deploy
+      run: |
+        helm upgrade --install flask-web -f ./demo/flask-web/helm/values.yaml ./demo/flask-web/helm
+      id: deploy
   
   #  # This step should create a deployment, service, and route to run your app and expose it to the internet.
   #  # https://github.com/redhat-actions/oc-new-app#readme
