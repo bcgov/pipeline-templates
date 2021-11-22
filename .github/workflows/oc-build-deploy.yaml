@@ -175,6 +175,7 @@ jobs:
 
     - name: Helm Deploy
       run: |
+        kubectl create ns flask-web || echo "namespace exists..."
         helm upgrade --install flask-web -f ./demo/flask-web/helm/values.yaml ./demo/flask-web/helm
       id: deploy
   
