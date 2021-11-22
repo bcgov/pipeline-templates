@@ -13,7 +13,7 @@ env:
   MVN_WORKDIR: ./tekton/demo/maven-test
 
   # OWASP ZAP
-  SCAN_TYPE: 'full' # Accepted values are base and full.
+  SCAN_TYPE: 'base' # Accepted values are base and full.
   TARGET_URL: http://www.itsecgames.com
   DURATION: '2'
   MAX_DURATION: '5'
