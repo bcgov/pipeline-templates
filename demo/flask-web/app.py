@@ -50,4 +50,4 @@ def hello():
 def quoter():
     quote = get_quote()
     print(quote)
-    return quote
+    return quote + '\n'
