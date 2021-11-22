@@ -36,6 +36,7 @@ securityContext:
   # runAsNonRoot: true
   # runAsUser: 1000
 
+# kubectl port-forward deployment/flask-web 8080:80
 service:
   type: ClusterIP
   port: 8080
