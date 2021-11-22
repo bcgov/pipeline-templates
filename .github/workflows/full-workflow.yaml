@@ -17,7 +17,7 @@ env:
   TARGET_URL: http://www.itsecgames.com
   DURATION: '2'
   MAX_DURATION: '5'
-  
+
   # OPENSHIFT ENVIRONMENT
   WORK_DIR: ./demo/flask-web
   # 🖊️ EDIT your repository secrets to log into your OpenShift cluster and set up the context.
