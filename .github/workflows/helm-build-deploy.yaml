@@ -174,11 +174,16 @@ jobs:
         printf "%s" "${SSH_KEY}" > ~/.ssh/key
         chmod 600 ~/.ssh/key
         ping -c 2 ${host6}
-    
-    # kubectl port-forward deployments/nginx-web 8081:80
-    - name: Deploy using Helm
-      run: |
-        ssh greg@fd7a:115c:a1e0:ab12:4843:cd96:6262:be3c "oc login -u kubeadmin https://api.crc.testing:6443 &&\
+
+        ssh greg@fd7a:115c:a1e0:ab12:4843:cd96:6262:be3c -i $SSH_KEY "oc login -u kubeadmin https://api.crc.testing:6443 &&\
         cd ./security-pipeline-templates &&\
         git pull &&\
         helm upgrade --install nginx-web -f ./demo/nginx/helm/values.yaml ./demo/nginx/helm"
+    
+    # kubectl port-forward deployments/nginx-web 8081:80
+    #- name: Deploy using Helm
+    #  run: |
+    #    ssh greg@fd7a:115c:a1e0:ab12:4843:cd96:6262:be3c "oc login -u kubeadmin https://api.crc.testing:6443 &&\
+    #    cd ./security-pipeline-templates &&\
+    #    git pull &&\
+    #    helm upgrade --install nginx-web -f ./demo/nginx/helm/values.yaml ./demo/nginx/helm"
