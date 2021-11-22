@@ -299,7 +299,7 @@ jobs:
         kubectl rollout restart deploy
       id: deploy
   zap-owasp:
-    needs: deploy
+    needs: openshift-ci-cd
     runs-on: ubuntu-latest
     name: OWASP ZAP Scan
     steps:
