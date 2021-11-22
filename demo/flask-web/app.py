@@ -7,23 +7,23 @@ import uuid
 import json
 import psutil
 import logging
+import requests
 
-from random_word import RandomWords
-from quote import quote
-from flask import Flask, json, render_template
+from flask import Flask, json, render_template, make_response
 
 app = Flask(__name__)
 
 cache = redis.Redis(host='redis', port=6379)
 
+## function that gets the random quote
 def get_quote():
-    r = RandomWords()
-    w = r.get_random_word()
-    print("Keyword Generated: ", w)
-
-    res = quote(w, limit=1)
-    for i in range(len(res)):
-        print("\nQuote Generated: ", res[i]['quote'])
+    ## making the get request
+    response = requests.get("https://quote-garden.herokuapp.com/api/v3/quotes/random")
+    if response.status_code == 200:
+        ## extracting the core data
+	    json_data = response.json()
+	    data = json_data['data']
+    return(data[0]['quoteText'])
 
 def get_hit_count():
     retries = 5
@@ -49,4 +49,5 @@ def hello():
 @app.route('/quote')
 def quoter():
     quote = get_quote()
-    return(quote)
+    print(quote)
+    return quote
