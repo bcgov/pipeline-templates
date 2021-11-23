@@ -2,7 +2,6 @@ name: full-workflow
 
 env:
   ## GITHUB ENVIRONMENT
-  DEPLOY_ENV: dev
   DEPLOY: 'true'
   
   ## DOCKER
