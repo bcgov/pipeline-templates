@@ -1,0 +1,5867 @@
+{
+	"@version": "2.11.0",
+	"@generated": "Tue, 23 Nov 2021 09:34:00",
+	"site":[ 
+		{
+			"@name": "http://www.itsecgames.com",
+			"@host": "www.itsecgames.com",
+			"@port": "80",
+			"@ssl": "false",
+			"alerts": [ 
+				{
+					"pluginid": "10038",
+					"alertRef": "10038",
+					"alert": "Content Security Policy (CSP) Header Not Set",
+					"name": "Content Security Policy (CSP) Header Not Set",
+					"riskcode": "2",
+					"confidence": "3",
+					"riskdesc": "Medium (High)",
+					"desc": "<p>Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page \u2014 covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.</p>",
+					"instances":[ 
+						{
+							"uri": "http://www.itsecgames.com",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/bugs.htm",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/download.htm",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/index.htm",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/robots.txt",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/training.htm",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						}
+					],
+					"count": "7",
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header, to achieve optimal browser support: \"Content-Security-Policy\" for Chrome 25+, Firefox 23+ and Safari 7+, \"X-Content-Security-Policy\" for Firefox 4.0+ and Internet Explorer 10+, and \"X-WebKit-CSP\" for Chrome 14+ and Safari 6+.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy</p><p>https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</p><p>http://www.w3.org/TR/CSP/</p><p>http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html</p><p>http://www.html5rocks.com/en/tutorials/security/content-security-policy/</p><p>http://caniuse.com/#feat=contentsecuritypolicy</p><p>http://content-security-policy.com/</p>",
+					"cweid": "693",
+					"wascid": "15",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10108",
+					"alertRef": "10108",
+					"alert": "Reverse Tabnabbing",
+					"name": "Reverse Tabnabbing",
+					"riskcode": "2",
+					"confidence": "2",
+					"riskdesc": "Medium (Medium)",
+					"desc": "<p>At least one link on this page is vulnerable to Reverse tabnabbing as it uses a target attribute without using both of the \"noopener\" and \"noreferrer\" keywords in the \"rel\" attribute, which allows the target page to take control of this page.</p>",
+					"instances":[ 
+						{
+							"uri": "http://www.itsecgames.com",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a href=\"http://itsecgames.blogspot.com\" target=\"_blank\">Blog</a>"
+						},
+						{
+							"uri": "http://www.itsecgames.com/bugs.htm",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a href=\"http://itsecgames.blogspot.com\" target=\"_blank\">Blog</a>"
+						},
+						{
+							"uri": "http://www.itsecgames.com/download.htm",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a href=\"http://itsecgames.blogspot.com\" target=\"_blank\">Blog</a>"
+						},
+						{
+							"uri": "http://www.itsecgames.com/index.htm",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a href=\"http://itsecgames.blogspot.com\" target=\"_blank\">Blog</a>"
+						},
+						{
+							"uri": "http://www.itsecgames.com/training.htm",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a href=\"http://itsecgames.blogspot.com\" target=\"_blank\">Blog</a>"
+						}
+					],
+					"count": "5",
+					"solution": "<p>Do not use a target attribute, or if you have to then also add the attribute: rel=\"noopener noreferrer\".</p>",
+					"otherinfo": "",
+					"reference": "<p>https://owasp.org/www-community/attacks/Reverse_Tabnabbing</p><p>https://dev.to/ben/the-targetblank-vulnerability-by-example</p><p>https://mathiasbynens.github.io/rel-noopener/</p><p>https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c</p>",
+					"cweid": "-1",
+					"wascid": "-1",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "90003",
+					"alertRef": "90003",
+					"alert": "Sub Resource Integrity Attribute Missing",
+					"name": "Sub Resource Integrity Attribute Missing",
+					"riskcode": "2",
+					"confidence": "3",
+					"riskdesc": "Medium (High)",
+					"desc": "<p>The integrity attribute is missing on a script or link tag served by an external server. The integrity tag prevents an attacker who have gained access to this server from injecting a malicious content. </p>",
+					"instances":[ 
+						{
+							"uri": "http://www.itsecgames.com",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://fonts.googleapis.com/css?family=Architects+Daughter\">"
+						},
+						{
+							"uri": "http://www.itsecgames.com/bugs.htm",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://fonts.googleapis.com/css?family=Architects+Daughter\">"
+						},
+						{
+							"uri": "http://www.itsecgames.com/download.htm",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://fonts.googleapis.com/css?family=Architects+Daughter\">"
+						},
+						{
+							"uri": "http://www.itsecgames.com/index.htm",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://fonts.googleapis.com/css?family=Architects+Daughter\">"
+						},
+						{
+							"uri": "http://www.itsecgames.com/training.htm",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://fonts.googleapis.com/css?family=Architects+Daughter\">"
+						}
+					],
+					"count": "5",
+					"solution": "<p>Provide a valid integrity attribute to the tag.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en/docs/Web/Security/Subresource_Integrity</p>",
+					"cweid": "345",
+					"wascid": "15",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10020",
+					"alertRef": "10020",
+					"alert": "X-Frame-Options Header Not Set",
+					"name": "X-Frame-Options Header Not Set",
+					"riskcode": "2",
+					"confidence": "2",
+					"riskdesc": "Medium (Medium)",
+					"desc": "<p>X-Frame-Options header is not included in the HTTP response to protect against 'ClickJacking' attacks.</p>",
+					"instances":[ 
+						{
+							"uri": "http://www.itsecgames.com",
+							"method": "GET",
+							"param": "X-Frame-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/bugs.htm",
+							"method": "GET",
+							"param": "X-Frame-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/download.htm",
+							"method": "GET",
+							"param": "X-Frame-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/index.htm",
+							"method": "GET",
+							"param": "X-Frame-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/training.htm",
+							"method": "GET",
+							"param": "X-Frame-Options",
+							"attack": "",
+							"evidence": ""
+						}
+					],
+					"count": "5",
+					"solution": "<p>Most modern Web browsers support the X-Frame-Options HTTP header. Ensure it's set on all web pages returned by your site (if you expect the page to be framed only by pages on your server (e.g. it's part of a FRAMESET) then you'll want to use SAMEORIGIN, otherwise if you never expect the page to be framed, you should use DENY. Alternatively consider implementing Content Security Policy's \"frame-ancestors\" directive. </p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options</p>",
+					"cweid": "1021",
+					"wascid": "15",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10063",
+					"alertRef": "10063",
+					"alert": "Permissions Policy Header Not Set",
+					"name": "Permissions Policy Header Not Set",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>Permissions Policy Header is an added layer of security that helps to restrict from unauthorized access or usage of browser/client features by web resources. This policy ensures the user privacy by limiting or specifying the features of the browsers can be used by the web resources. Permissions Policy provides a set of standard HTTP headers that allow website owners to limit which features of browsers can be used by the page such as camera, microphone, location, full screen etc.</p>",
+					"instances":[ 
+						{
+							"uri": "http://www.itsecgames.com",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/bugs.htm",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/download.htm",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/index.htm",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/js/html5.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/robots.txt",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/training.htm",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						}
+					],
+					"count": "8",
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Permissions-Policy header.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy</p><p>https://developers.google.com/web/updates/2018/06/feature-policy</p><p>https://scotthelme.co.uk/a-new-security-header-feature-policy/</p><p>https://w3c.github.io/webappsec-feature-policy/</p><p>https://www.smashingmagazine.com/2018/12/feature-policy/</p>",
+					"cweid": "693",
+					"wascid": "15",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10096",
+					"alertRef": "10096",
+					"alert": "Timestamp Disclosure - Unix",
+					"name": "Timestamp Disclosure - Unix",
+					"riskcode": "1",
+					"confidence": "1",
+					"riskdesc": "Low (Low)",
+					"desc": "<p>A timestamp was disclosed by the application/web server - Unix</p>",
+					"instances":[ 
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000000000"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000000017"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000000078"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000000846"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000001297"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000002532"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000002807"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000021898"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000030205"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000031153"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000031323"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000031564"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000031708"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000042546"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000057935"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000058085"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000058997"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000059153"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000060725"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000061052"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000061195"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000062668"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000063014"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000063174"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000065927"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000066464"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000097597"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000112010"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000116596"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000118106"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000118438"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000119703"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000119979"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000120123"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000120258"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000120288"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000120451"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000120525"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000120763"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000161602"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000176556"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000176873"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000178281"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000178557"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000178701"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000179071"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000180523"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000180577"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000180853"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000180907"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000181051"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000213123"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000213455"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000214312"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000214588"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000214732"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000217509"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000218174"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000218350"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000218596"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000218953"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000220500"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000220776"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000220920"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000248990"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000260970"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000261292"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000262119"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000262395"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000262539"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000371926"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000375491"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000375873"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000377615"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000377891"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000378035"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000378213"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000378463"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000388678"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000392777"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000403794"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000407845"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000417169"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000421149"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000421597"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000423099"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000423375"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000423519"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000423664"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000423822"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000423966"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000424114"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000424271"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000424415"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000424565"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000424724"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000427470"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000428007"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000451008"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000456982"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000457387"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000458750"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000459027"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000459172"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000471379"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000472248"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000472396"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000472558"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000479163"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000483098"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000493569"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000502673"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000508344"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000508694"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000510249"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000510526"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000510671"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000510806"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000510838"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000511002"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000511077"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000511319"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000556442"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000560378"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000560728"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000562197"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000562474"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000562619"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000562994"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000564329"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000564606"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000564751"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000644426"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000653284"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000653638"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000655420"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000655697"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000655842"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000655994"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000658780"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000660943"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000661297"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000663259"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000663536"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000663681"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000664061"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000665816"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000666093"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000666238"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000666577"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000667493"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000667770"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000667915"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000780875"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000785275"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000785740"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000786749"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000787026"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000787171"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000876658"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000879698"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000900653"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000903397"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000968885"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0000970759"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001011859"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001015213"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001052136"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001054102"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001101911"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001103994"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001140976"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001142375"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001199652"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001202643"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001275476"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001279515"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001280009"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001281467"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001281744"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001281889"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001282033"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001282190"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001282347"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001282497"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001289080"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001301643"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001324966"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001331524"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001343967"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001404706"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001411195"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001423537"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001443380"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001443755"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001445221"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001445498"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001445643"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001452401"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001455147"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001455505"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001457108"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001457385"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001457530"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001457703"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001483657"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001487688"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001488060"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001488933"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001489210"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001489355"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001581021"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001586841"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001776559"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001779367"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001779717"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001781425"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001781702"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001781847"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001782197"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001783827"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001784104"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001784249"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001784614"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001785958"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001786235"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001786380"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001818049"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001835198"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001835580"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001836750"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001837027"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001837172"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001850205"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001850442"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001852485"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001853376"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001853698"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001854475"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001854752"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001854897"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001855310"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001856567"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001856844"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001856989"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001886460"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001887225"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001887564"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001888923"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001889200"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001889345"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001959596"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001976941"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001977273"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001978730"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001979007"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001979152"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001979529"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001981201"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001981478"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0001981623"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002029805"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002050006"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002113692"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002119668"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002119990"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002121317"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002121594"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002121739"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002122078"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002123020"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002123297"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002123442"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002156100"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002156432"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002157911"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002158188"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002158333"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002158672"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002159728"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002160005"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002160150"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002254709"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002282263"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002282602"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002283917"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002284194"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002284339"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002368770"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002397088"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002397425"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002398309"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002398586"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002398731"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002399081"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002400512"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002400789"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002400934"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002428835"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002442255"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002442617"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002444045"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002444322"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002444467"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002444607"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002444750"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002444899"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002445061"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002445211"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002445560"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002446896"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002447173"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002447318"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002480735"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002486730"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002487180"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002489001"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002489278"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002489423"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002489717"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002510589"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002522055"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002522865"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002523157"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002533417"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002541811"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002542407"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002550300"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002550716"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002566472"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002566945"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002567284"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002568614"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002568891"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002569036"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002591927"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002592079"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002592428"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002593838"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002594115"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002594260"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002626503"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002633280"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002633619"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002634546"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002634823"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002634968"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002857333"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002874440"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002874772"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002876177"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002876454"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002876599"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002876938"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002878178"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002878455"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002878600"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002921233"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002929435"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002929789"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002930730"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002931007"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002931152"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002931501"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002932777"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002933054"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002933199"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0002993817"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003005400"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003005764"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003006707"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003006984"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003007129"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003012332"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003012432"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003012590"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003012876"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003013328"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003013615"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003014186"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003014479"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003014715"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003014997"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003015231"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003015515"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003015779"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003015970"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003016070"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003016231"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003016380"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003016480"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003016580"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003016680"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003016780"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003016941"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003017041"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003017199"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003017485"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003017937"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003018224"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003018795"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003019088"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003019370"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003019654"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003019941"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003020921"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003020982"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003021268"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003022289"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003022574"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003023124"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003023500"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003024429"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003024706"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003024851"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003030190"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003030290"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003030448"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003030734"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003031186"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003031473"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003031766"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003032048"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003032332"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003032432"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003032593"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003032742"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003032842"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003032942"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003033042"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003033142"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003033303"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003033403"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003033561"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003033847"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003034134"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003034427"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003034709"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003034993"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003035280"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003035566"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003035851"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003035991"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003036023"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003036192"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003036267"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003036514"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003036871"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003037153"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003039555"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003039909"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003041506"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003041783"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003041928"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003042250"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003043415"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003043692"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003043837"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003044159"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003045560"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003045837"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003045982"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003046328"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003047186"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003047463"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003047608"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003199062"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003201298"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003201932"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003202297"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003203824"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003204101"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003204246"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003204404"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003204562"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003215949"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003220548"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003220903"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003222448"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003222725"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003222870"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003223028"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003223186"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003223529"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003225023"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003225300"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003225445"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003225795"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003227231"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003227508"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003227653"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003249378"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003252019"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003252374"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003253935"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003254212"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003254357"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003254515"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003254673"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003255039"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003256709"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003256986"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003257131"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003257266"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003257401"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003281448"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003287440"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003287798"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003289531"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003289808"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003289953"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003290114"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003290514"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003292059"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003292336"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003292481"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003299453"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003306867"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003312118"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003320348"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003324575"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003330197"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003334374"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003334767"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003336464"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003336741"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003336886"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003337050"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003337214"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003377290"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003383998"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003384347"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003385867"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003386144"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003386289"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003432953"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003446798"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003447137"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003448568"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003448845"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003448990"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003487668"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003498846"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003499243"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003501025"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003501302"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003501447"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003501625"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003501803"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003501984"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003502165"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003502345"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003502526"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003502707"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003502888"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003503260"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003504800"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003505077"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003505222"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003505378"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003505534"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003561782"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003567061"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003567404"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003569091"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003569368"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003569513"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003569869"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003570974"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003571251"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003571396"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003585558"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003591452"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003675365"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003683993"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003684347"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003685324"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003685601"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003685746"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003686127"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003687714"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003687991"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003688136"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003688295"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003688454"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003688617"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003688781"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003689130"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003690645"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003690922"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003691067"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003726196"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003731038"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003731371"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003733107"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003733384"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003733529"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003733878"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003735186"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003735463"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003735608"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003818349"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003825825"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003826192"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003827494"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003827771"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0003827916"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004010613"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004022734"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004023083"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004024528"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004024805"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004024950"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004053157"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004063381"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004063735"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004064685"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004064962"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004065107"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004065483"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004067216"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004067493"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004067638"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004067794"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004067950"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004068293"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004069847"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004070124"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004070269"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004070656"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004072292"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004072569"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004072714"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004085843"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004097578"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004097942"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004099492"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004099769"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004099914"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004100065"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004100217"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004100593"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004101977"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004102254"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004102399"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004134155"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004134528"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004136324"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004136601"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004136746"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004136922"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004137097"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004137272"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004137677"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004139561"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004139838"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004139983"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004140164"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004140345"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004140526"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004140707"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004140888"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004141044"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004141200"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004141356"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004141512"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004141867"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004142771"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004143048"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004143193"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004289394"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004301596"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004301950"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004302952"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004303229"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004303374"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004303753"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004305400"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004305677"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004305822"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004305987"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004306152"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004306308"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004306463"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004306618"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004307088"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004308601"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004308878"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004309023"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004309169"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004309317"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004318408"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004320516"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004320664"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004320812"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004320957"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004326090"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004328238"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004328626"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004330383"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004330660"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004330805"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004330944"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004331084"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004331222"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004331361"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004360398"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004362955"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004390468"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004393097"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004393620"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004394700"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004394977"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004395122"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004401773"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004414393"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004460610"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004467170"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004479643"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004524939"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004545447"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004552111"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004564674"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004575793"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004582452"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004594989"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004611811"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004623287"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004623748"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004625250"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004625527"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004625672"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004625818"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004625977"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004626122"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004626271"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004626429"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004626574"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004626725"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004626885"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004627118"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004627717"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004756014"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004756820"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004757300"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004757609"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004770986"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004771040"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004771365"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004889210"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004889887"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004890233"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004890515"
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0004991882"
+						},
+						{
+							"uri": "http://www.itsecgames.com/stylesheets/stylesheet.css",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "20110126"
+						}
+					],
+					"count": "755",
+					"solution": "<p>Manually confirm that the timestamp data is not sensitive, and that the data cannot be aggregated to disclose exploitable patterns.</p>",
+					"otherinfo": "<p>0000000000, which evaluates to: 1970-01-01 00:00:00</p>",
+					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
+					"cweid": "200",
+					"wascid": "13",
+					"sourceid": "69"
+				},
+				{
+					"pluginid": "10021",
+					"alertRef": "10021",
+					"alert": "X-Content-Type-Options Header Missing",
+					"name": "X-Content-Type-Options Header Missing",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.</p>",
+					"instances":[ 
+						{
+							"uri": "http://www.itsecgames.com",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/bugs.htm",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/download.htm",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/vulnerabilities.txt",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/images/favicon.ico",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/images/netsparker.png",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/images/owasp.png",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/images/zap.png",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/js/html5.js",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/stylesheets/stylesheet.css",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/training.htm",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						}
+					],
+					"count": "11",
+					"solution": "<p>Ensure that the application/web server sets the Content-Type header appropriately, and that it sets the X-Content-Type-Options header to 'nosniff' for all web pages.</p><p>If possible, ensure that the end user uses a standards-compliant and modern web browser that does not perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform MIME-sniffing.</p>",
+					"otherinfo": "<p>This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.</p><p>At \"High\" threshold this scan rule will not alert on client or server error responses.</p>",
+					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p><p>https://owasp.org/www-community/Security_Headers</p>",
+					"cweid": "693",
+					"wascid": "15",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10094",
+					"alertRef": "10094",
+					"alert": "Base64 Disclosure",
+					"name": "Base64 Disclosure",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>Base64 encoded data was disclosed by the application/web server. Note: in the interests of performance not all base64 strings in the response were analyzed individually, the entire response should be looked at by the analyst/security team/developer(s).</p>",
+					"instances":[ 
+						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "8/Filter/DCTDecode/Interpolate"
+						}
+					],
+					"count": "1",
+					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
+					"otherinfo": "<p>\uFFFD\uFFFDb\uFFFD\u05EB\uFFFD0\uFFFD\r\uFFFD(u\uFFFD\u021E\u05EB\uFFFD\uFFFDZ\uFFFD</p>",
+					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
+					"cweid": "200",
+					"wascid": "13",
+					"sourceid": "69"
+				},
+				{
+					"pluginid": "10027",
+					"alertRef": "10027",
+					"alert": "Information Disclosure - Suspicious Comments",
+					"name": "Information Disclosure - Suspicious Comments",
+					"riskcode": "0",
+					"confidence": "1",
+					"riskdesc": "Informational (Low)",
+					"desc": "<p>The response appears to contain suspicious comments which may help an attacker. Note: Matches made within script blocks or files are against the entire content not only comments.</p>",
+					"instances":[ 
+						{
+							"uri": "http://www.itsecgames.com/js/html5.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "select"
+						}
+					],
+					"count": "1",
+					"solution": "<p>Remove all comments that return information that may help an attacker and fix any underlying problems they refer to.</p>",
+					"otherinfo": "<p>The following pattern was used: \\bSELECT\\b and was detected in the element starting with: \"(function(a,b){function h(a,b){var c=a.createElement(\"p\"),d=a.getElementsByTagName(\"head\")[0]||a.documentElement;return c.innerH\", see evidence field for the suspicious comment/snippet.</p>",
+					"reference": "",
+					"cweid": "200",
+					"wascid": "13",
+					"sourceid": "61"
+				},
+				{
+					"pluginid": "10049",
+					"alertRef": "10049",
+					"alert": "Storable and Cacheable Content",
+					"name": "Storable and Cacheable Content",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The response contents are storable by caching components such as proxy servers, and may be retrieved directly from the cache, rather than from the origin server by the caching servers, in response to similar requests from other users.  If the response data is sensitive, personal or user-specific, this may result in sensitive information being leaked. In some cases, this may even result in a user gaining complete control of the session of another user, depending on the configuration of the caching components in use in their environment. This is primarily an issue where \"shared\" caching servers such as \"proxy\" caches are configured on the local network. This configuration is typically found in corporate or educational environments, for instance.</p>",
+					"instances":[ 
+						{
+							"uri": "http://www.itsecgames.com",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/bugs.htm",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/download.htm",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/downloads/vulnerabilities.txt",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/images/favicon.ico",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/images/owasp.png",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/js/html5.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/robots.txt",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/stylesheets/stylesheet.css",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "http://www.itsecgames.com/training.htm",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						}
+					],
+					"count": "11",
+					"solution": "<p>Validate that the response does not contain sensitive, personal or user-specific information.  If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</p><p>Cache-Control: no-cache, no-store, must-revalidate, private</p><p>Pragma: no-cache</p><p>Expires: 0</p><p>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request. </p>",
+					"otherinfo": "<p>In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.</p>",
+					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
+					"cweid": "524",
+					"wascid": "13",
+					"sourceid": "1"
+				}
+			]
+		}
+	]
+}
