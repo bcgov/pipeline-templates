@@ -56,7 +56,6 @@ on:
 
 jobs:
   codeql-scan:
-    if: ${{ env.DEPLOY_ENV == 'prod' }}
     name: CodeQL Scan
     runs-on: ubuntu-latest
     permissions:
