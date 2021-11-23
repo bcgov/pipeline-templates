@@ -117,7 +117,7 @@ jobs:
       with:
         image-ref: ${{ env.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
         format: table
-        exit-code: ${{ env.TRIVY_SEVERITY }}
+        exit-code: ${{ env.TRIVY_EXIT_CODE }}
         ignore-unfixed: ${{ env.TRIVY_IGNORE_UNFIXED }}
         vuln-type: os,library
         severity: ${{ env.TRIVY_SEVERITY }}
