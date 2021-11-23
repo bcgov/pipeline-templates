@@ -328,7 +328,6 @@ jobs:
         run: |
           gsutil mb gs://${{ $ZAP_BUCKET_NAME }} || echo "Bucket already exists..."
           gsutil cp /zap/wrk/report_html.html gs://${{ $ZAP_BUCKET_NAME }}
-          gsutil web set -m report_html.html gs://${{ $ZAP_BUCKET_NAME }}
           gsutil signurl -d 10m ${{ secrets.GCP_SA_KEY }} gs://${{ $ZAP_BUCKET_NAME }}/report_html.html  
       - name: ZAP Full Scan
         if: ${{ env.ZAP_SCAN_TYPE == 'full' }}
