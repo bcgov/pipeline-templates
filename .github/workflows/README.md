@@ -90,13 +90,11 @@ on:
   ...
 ```
 
-on:
-
-
 ### Full Workflow Example
 
 [Pipeline Run](https://github.com/bcgov/security-pipeline-templates/actions/runs/1492508528)
 
+![image](https://user-images.githubusercontent.com/26353407/142968369-6c62a7c5-46f2-423b-bf90-d5ba544d672a.png)
 
 
 ## Reference
