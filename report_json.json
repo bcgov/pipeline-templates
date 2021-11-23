@@ -1,6 +1,6 @@
 {
 	"@version": "2.11.0",
-	"@generated": "Tue, 23 Nov 2021 22:36:55",
+	"@generated": "Tue, 23 Nov 2021 22:41:21",
 	"site":[ 
 		{
 			"@name": "http://www.itsecgames.com",
@@ -5615,7 +5615,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "75"
+					"sourceid": "67"
 				},
 				{
 					"pluginid": "10021",
@@ -5737,7 +5737,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "75"
+					"sourceid": "67"
 				},
 				{
 					"pluginid": "10027",
