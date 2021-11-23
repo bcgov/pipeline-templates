@@ -5,6 +5,7 @@ This folder contains all Github Actions templates. To make use of the repository
 - [Github Actions Templates](#github-actions-templates)
     + [Layout](#layout)
   * [How to Use](#how-to-use)
+  * [Secrets Management](#secrets-management)
   * [Full Workflow Example](#full-workflow-example)
   * [Reference](#reference)
 
@@ -75,6 +76,18 @@ on:
     #- cron: '0 0 * * *'
   ...
 ```
+
+## Secrets Management
+
+The following repository secrets are required depending on which template is being used. [Learn more](https://docs.github.com/en/actions/security-guides/encrypted-secrets).
+
+| Secret Name            | Description |
+| ---------------------- | ------------|
+| DOCKERHUB_USERNAME     | Dockerhub Username. Used for interacting with private repositories.        |
+| DOCKERHUB_PASSWORD     | Dockerhub password. Used for interacting with private Docker repositories.       |
+| OPENSHIFT_SERVER       | The API endpoint of your Openshfit cluster. By default, this needs to be a publically accessible endpoint.       |
+| OPENSHIFT_TOKEN        | A token that has the correct permissions to perform create deployment in OpenShift.       |
+| SONAR_TOKEN            | Used when using the Sonar scanning templates.       |
 
 ## Full Workflow Example
 

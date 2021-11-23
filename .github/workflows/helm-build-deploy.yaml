@@ -27,7 +27,15 @@
 name: helm-build-deploy
 
 env:
-  WORK_DIR: ./demo/flask-web
+  ## DOCKER BUILD PARAMS
+  NAME: flask-web
+  IMAGE: gregnrobinson/flask-demo-app
+  BUILD_WORKDIR: ./demo/flask-web
+
+  ## HELM VARIABLES
+  HELM_DIR: ./demo/flask-web/helm
+  VALUES_FILE: ./demo/flask-web/helm/values.yaml
+
   # 🖊️ EDIT your repository secrets to log into your OpenShift cluster and set up the context.
   # See https://github.com/redhat-actions/oc-login#readme for how to retrieve these values.
   # To get a permanent token, refer to https://github.com/redhat-actions/oc-login/wiki/Using-a-Service-Account-for-GitHub-Actions
@@ -38,7 +46,7 @@ env:
   OPENSHIFT_NAMESPACE: "default"
 
   # 🖊️ EDIT to set a name for your OpenShift app, or a default one will be generated below.
-  APP_NAME: "flask-demo-app"
+  NAME: "flask-demo-app"
 
   # 🖊️ EDIT with the port your application should be accessible on.
   # If the container image exposes *exactly one* port, this can be left blank.
@@ -117,9 +125,9 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Determine app name
-      if: env.APP_NAME == ''
+      if: env.NAME == ''
       run: |
-        echo "APP_NAME=$(basename $PWD)" | tee -a $GITHUB_ENV
+        echo "NAME=$(basename $PWD)" | tee -a $GITHUB_ENV
 
     - name: Determine image tags
       if: env.IMAGE_TAGS == ''
@@ -131,7 +139,7 @@ jobs:
       id: build-image
       uses: redhat-actions/buildah-build@v2
       with:
-        image: ${{ env.APP_NAME }}
+        image: ${{ env.NAME }}
         tags: ${{ env.IMAGE_TAGS }}
 
         # If you don't have a Dockerfile/Containerfile, refer to https://github.com/redhat-actions/buildah-build#scratch-build-inputs
