@@ -2,7 +2,7 @@ name: full-workflow
 
 env:
   ## GITHUB ENVIRONMENT
-  ENV: dev
+  DEPLOY_ENV: dev
   DEPLOY: 'true'
   
   ## DOCKER
@@ -211,8 +211,8 @@ jobs:
     needs: push
     name: Deploy to OpenShift
     # ubuntu-20.04 can also be used.
-    runs-on: ubuntu-
-    environment: production
+    runs-on: ubuntu-20.04
+    environment: ${{ env.DEPLOY_ENV }}
 
     outputs:
       ROUTE: ${{ steps.deploy-and-expose.outputs.route }}
