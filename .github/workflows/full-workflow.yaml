@@ -1,39 +1,49 @@
 name: full-workflow
 
 env:
-  ## DOCKER BUILD PARAMS
+  ## GITHUB ENVIRONMENT
+  ENV: dev
+  DEPLOY: 'true'
+  
+  ## DOCKER
   NAME: flask-web
   IMAGE: gregnrobinson/flask-demo-app
   BUILD_WORKDIR: ./demo/flask-web
 
-  ## HELM VARIABLES
-  HELM_DIR: ./demo/flask-web/helm
-  VALUES_FILE: ./demo/flask-web/helm/values.yaml
+  ## TRIVY
+  TRIVY_EXIT_CODE: 1
+  TRIVY_SEVERITY: CRITICAL
+  TRIVY_IGNORE_UNFIXED: true
 
-  ## SONAR PARAMS
-  ORG: ci-testing
-  PROJECT_KEY: github-actions-test
-  URL: https://sonarcloud.io
-  MVN_WORKDIR: ./tekton/demo/maven-test
+  ## HELM
+  HELM_DIR: ./demo/flask-web/helm
+  HELM_VALUES_FILE: ./demo/flask-web/helm/values.yaml
+
+  ## SONAR
+  SONAR_ORG: ci-testing
+  SONAR_PROJECT_KEY: github-actions-test
+  SONAR_URL: https://sonarcloud.io
+
+  ## SONAR MVN
+  SONAR_MVN_WORKDIR: ./demo/maven-test
 
   ## OWASP ZAP
-  SCAN_TYPE: 'base' # Accepted values are base and full.
-  TARGET_URL: http://www.itsecgames.com
-  DURATION: '2'
-  MAX_DURATION: '5'
+  ZAP_SCAN_TYPE: 'base' # Accepted values are base and full.
+  ZAP_TARGET_URL: http://www.itsecgames.com
+  ZAP_DURATION: '2'
+  ZAP_MAX_DURATION: '5'
+
+  # PUBLISH PUBLIC HTML URL 
+  ZAP_GCP_PUBLISH: 'true'
+  ZAP_GCP_BUCKET: 'zap-scan-results'
 
   ## OPENSHIFT ENVIRONMENT
   OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
   OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
-
   OPENSHIFT_NAMESPACE: "default"
-  # 🖊️ EDIT to set a name for your OpenShift app, or a default one will be generated below.
 
+  ## APP SETTINGS
   APP_NAME: "flask-demo-app"
-
-  # 🖊️ EDIT with the port your application should be accessible on.
-  # If the container image exposes *exactly one* port, this can be left blank.
-  # Refer to the 'port' input of https://github.com/redhat-actions/oc-new-app
   APP_PORT: "80"
 
   # 🖊️ EDIT to change the image registry settings.
@@ -46,6 +56,7 @@ on:
 
 jobs:
   codeql-scan:
+    if: ${{ env.ENV == 'prod' }}
     name: CodeQL Scan
     runs-on: ubuntu-latest
     permissions:
@@ -108,10 +119,10 @@ jobs:
       with:
         image-ref: ${{ env.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
         format: table
-        exit-code: '1'
-        ignore-unfixed: true
+        exit-code: ${{ env.TRIVY_SEVERITY }}
+        ignore-unfixed: ${{ env.TRIVY_IGNORE_UNFIXED }}
         vuln-type: os,library
-        severity: CRITICAL
+        severity: ${{ env.TRIVY_SEVERITY }}
   sonar-scan-repo:
     needs: trivy-scan
     name: Sonar Scan Repo
@@ -124,9 +135,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: sonar-scanner
              -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-             -Dsonar.organization=${{ env.ORG }}
-             -Dsonar.host.url=${{ env.URL }}
-             -Dsonar.projectKey=${{ env.PROJECT_KEY }}
+             -Dsonar.organization=${{ env.SONAR_ORG }}
+             -Dsonar.host.url=${{ env.SONAR_URL }}
+             -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }}
   sonar-scan-mvn:
     name: Sonar Scan Mvn
     runs-on: ubuntu-latest
@@ -152,11 +163,11 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build / Analyze
-        working-directory: ${{ env.MVN_WORKDIR }}
+        working-directory: ${{ env.SONAR_MVN_WORKDIR }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=${{ env.PROJECT_KEY }}
+        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }}
   push:
     name: Docker Push
     needs: [sonar-scan-mvn, sonar-scan-repo]
@@ -185,7 +196,7 @@ jobs:
       with:
         owner: bcgov
         repo: security-pipeline-templates
-        excludes: prerelease, draft
+        excludes: prerelease
     - name: Tag Push Latest
       working-directory: ${{ env.BUILD_WORKDIR }}
       run: >
@@ -196,11 +207,11 @@ jobs:
         -t ${{ env.IMAGE }}:latest
         --output=type=image,push=true
         ${GITHUB_WORKSPACE}/${{ env.BUILD_WORKDIR }}
-  openshift-ci-cd:
+  deploy:
     needs: push
     name: Deploy to OpenShift
     # ubuntu-20.04 can also be used.
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-
     environment: production
 
     outputs:
@@ -210,6 +221,7 @@ jobs:
     steps:
     - name: Inject slug/short variables
       uses: rlespinasse/github-slug-action@v3.x
+
     - name: Setup Tailscale
       uses: tailscale/github-action@main
       with:
@@ -287,30 +299,47 @@ jobs:
         helm upgrade \
           --install ${{ env.NAME }} \
           --set image.tag=${{ env.GITHUB_SHA_SHORT }} \
-          -f ${{ env.VALUES_FILE }} ${{ env.HELM_DIR }}
+          -f ${{ env.HELM_VALUES_FILE }} ${{ env.HELM_DIR }}
       id: deploy
   zap-owasp:
-    needs: openshift-ci-cd
+    needs: deploy
     runs-on: ubuntu-latest
     name: OWASP ZAP Scan
     steps:
+      - name: Set up Cloud SDK
+        if: ${{ env.ZAP_GCP_PUBLISH == 'true' }}
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
       - name: ZAP Base Scan
-        if: ${{ env.SCAN_TYPE == 'base' }}
+        if: ${{ env.ZAP_SCAN_TYPE == 'base' }}
         uses: zaproxy/action-baseline@v0.6.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           docker_name: 'owasp/zap2docker-stable'
-          target: ${{ env.TARGET_URL }}
+          target: ${{ env.ZAP_TARGET_URL }}
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a -d -T ${{ env.MAX_DURATION }} -m ${{ env.DURATION }}'
           issue_title: OWAP Baseline
+      - name: GCP Get Results URL
+        if: ${{ env.ZAP_GCP_PUBLISH == 'true' }}
+        run: |
+          gsutil mb gs://${{ $ZAP_BUCKET_NAME }} || echo "Bucket already exists..."
+          gsutil cp /zap/wrk/report_html.html gs://${{ $ZAP_BUCKET_NAME }}
+          gsutil iam ch allUsers:objectViewer gs://${{ $ZAP_BUCKET_NAME }}
+          gsutil web set -m report_html.html gs://${{ $ZAP_BUCKET_NAME }}
+          gsutil signurl -d 10m ${{ secrets.GCP_SA_KEY }} gs://${{ $ZAP_BUCKET_NAME }}/report_html.html  
       - name: ZAP Full Scan
-        if: ${{ env.SCAN_TYPE == 'full' }}
+        if: ${{ env.ZAP_SCAN_TYPE == 'full' }}
         uses: zaproxy/action-full-scan@v0.3.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           docker_name: 'owasp/zap2docker-stable'
-          target: ${{ env.TARGET_URL }}
+          target: ${{ env.ZAP_TARGET_URL }}
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a -d -T ${{ env.MAX_DURATION }} -m ${{ env.DURATION }}'
           issue_title: OWASP Full
+
+

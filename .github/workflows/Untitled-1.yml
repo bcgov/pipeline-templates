@@ -1,0 +1,5 @@
+          gsutil mb gs://zap-scan-results-2 || echo "Bucket already exists..."
+          gsutil cp /zap/wrk/report_html.html gs://zap-scan-results-2
+          gsutil iam ch allUsers:objectViewer gs://zap-scan-results-2
+          gsutil web set -m report_html.html gs://zap-scan-results-2
+          gsutil signurl -d 10m  gs://zap-scan-results-2/report_html.html
