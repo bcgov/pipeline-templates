@@ -319,14 +319,13 @@ jobs:
           docker_name: 'owasp/zap2docker-stable'
           target: ${{ env.ZAP_TARGET_URL }}
           rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-a -d -T ${{ env.MAX_DURATION }} -m ${{ env.DURATION }}'
+          cmd_options: '-a -d -T ${{ env.ZAP_MAX_DURATION }} -m ${{ env.ZAP_DURATION }}'
           issue_title: OWAP Baseline
       - name: GCP Get Results URL
         if: ${{ env.ZAP_GCP_PUBLISH == 'true' }}
         run: |
           gsutil mb gs://${{ env.ZAP_GCP_BUCKET }} || echo "Bucket already exists..."
           gsutil cp /zap/wrk/report_html.html gs://${{ env.ZAP_GCP_BUCKET }}
-          echo ""
           echo "PRE SIGNED URL EXPIRES IN 10 MINUTES!!"
           gsutil signurl -d 10m ${{ secrets.GCP_SA_KEY }} gs://${{ env.ZAP_GCP_BUCKET }}/report_html.html  
       - name: ZAP Full Scan
@@ -337,7 +336,7 @@ jobs:
           docker_name: 'owasp/zap2docker-stable'
           target: ${{ env.ZAP_TARGET_URL }}
           rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-a -d -T ${{ env.MAX_DURATION }} -m ${{ env.DURATION }}'
+          cmd_options: '-a -d -T ${{ env.ZAP_MAX_DURATION }} -m ${{ env.ZAP_DURATION }}'
           issue_title: OWASP Full
 
 
