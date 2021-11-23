@@ -4,10 +4,10 @@ env:
   NAME: nginx-web
   IMAGE: gregnrobinson/bcgov-nginx-demo
   WORKDIR: ./demo/nginx
-  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 on:
   workflow_dispatch:
+  push:
 
 jobs:
   build:
@@ -47,7 +47,7 @@ jobs:
       with:
         publish: true
       env:
-        GITHUB_TOKEN: ${{ env.GH_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - id: latest
       uses: pozetroninc/github-action-get-latest-release@master
       with:
