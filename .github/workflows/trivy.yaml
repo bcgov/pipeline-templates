@@ -6,13 +6,6 @@ env:
   WORKDIR: ./demo/nginx
 
 on:
-  #push:
-    #branches:
-    #- main
-    #paths-ignore:
-    #- 'README.md'
-    #- '.pre-commit-config.yaml'
-    #- './github/workflows/pre-commit-check.yaml'
   workflow_dispatch:
 
 jobs:
