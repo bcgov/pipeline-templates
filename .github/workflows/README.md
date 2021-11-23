@@ -91,6 +91,8 @@ The following repository secrets are required depending on which template is bei
 
 ## Full Workflow Example
 
+Use the following workflow as a reference to understand how each template functions. This workflow incorporates all the templates.
+
 [Pipeline Run](https://github.com/bcgov/security-pipeline-templates/actions/runs/1492508528)
 
 ![image](https://user-images.githubusercontent.com/26353407/142968369-6c62a7c5-46f2-423b-bf90-d5ba544d672a.png)
