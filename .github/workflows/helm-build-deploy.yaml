@@ -75,7 +75,7 @@ jobs:
         severity: CRITICAL
   push:
     name: Docker Push
-    needs: [sonar-scan-mvn, sonar-scan-repo]
+    needs: [trivy-scan, build]
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
