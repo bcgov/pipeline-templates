@@ -73,7 +73,7 @@ on:
   schedule:
     # * is a special character in YAML so you have to quote this string
     - cron:  '30 5,17 * * *'
-    
+
     # Layout of cron schedule.  'minute hour day(month) month day(week)'
     # Schedule option to review code at rest for possible net-new threats/CVE's
     # List of Cron Schedule Examples can be found at https://crontab.guru/examples.html
