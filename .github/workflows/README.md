@@ -1,30 +1,16 @@
-# Tekton Pipelines
+# Github Actions Templates
 
-- [Overview](#overview)
-  - [Layout](#layout)
-  - [Common Workflow](#common-workflow)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Pipeline Run Templates](#pipeline-run-templates)
-  - [**build-push**](#buildah-build-push)
-  - [**maven-build**](#maven-build)
-  - [**codeql-scan**](#codeql-scan)
-  - [**sonar-scan-mvn**](#sonar-scan)
-  - [**sonar-scan-mvn**](#sonar-scan)
-  - [**trivy-scan**](#trivy-scan)
-  - [**owasp-scan**](#owasp-scan)
-- [How It Works](#how-it-works)
+This folder contains all Github Actions templates. To make use of the repository, fork this repository and modify the `env` and `trigger` sections of each template to meet the needs of your application or repository.
 
-## Overview
-
-
-
-The `./tekton.sh -i` argument sources the `.env` file at the root of the repository. Variables referenced by path are added as files to Kubernetes secrets.
+- [Github Actions Templates](#github-actions-templates)
+    + [Layout](#layout)
+  * [How to Use](#how-to-use)
+  * [Full Workflow Example](#full-workflow-example)
+  * [Reference](#reference)
 
 ### Layout
 
-All templates are stored in the .github folder. 
+All templates are stored in the .github folder. By default once you fork or copy the templates, they are ready to be used.
 
 ```diff
 ./github
@@ -51,7 +37,7 @@ All templates are stored in the .github folder.
 2. Modify the `triggers` and `env` section of each of the templates and provide values that match your environment.
 
 ```yaml
-# These variables tell the worflow what and where steps should run against. 
+# These variables tell the worflow what and where steps should run against.
 # For example, if I am building a Docker image, I can set the working directory to the directory where the Dockerfile exists.
 env:
   NAME: nginx-web
@@ -69,7 +55,7 @@ on:
     - './github/workflows/pre-commit-check.yaml'
   workflow_dispatch:
 
-# A schedule can be defined using cron format. 
+# A schedule can be defined using cron format.
   schedule:
     # * is a special character in YAML so you have to quote this string
     - cron:  '30 5,17 * * *'
@@ -90,7 +76,7 @@ on:
   ...
 ```
 
-### Full Workflow Example
+## Full Workflow Example
 
 [Pipeline Run](https://github.com/bcgov/security-pipeline-templates/actions/runs/1492508528)
 
