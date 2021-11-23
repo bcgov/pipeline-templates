@@ -84,5 +84,5 @@ on:
 
 
 ## Reference
-
+[Workflow Syntax](https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions)
 [Workflow Triggers](https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows)
