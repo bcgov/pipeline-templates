@@ -1,6 +1,6 @@
 {
 	"@version": "2.11.0",
-	"@generated": "Wed, 1 Dec 2021 09:24:50",
+	"@generated": "Thu, 2 Dec 2021 09:19:35",
 	"site":[ 
 		{
 			"@name": "http://www.itsecgames.com",
@@ -74,60 +74,6 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy</p><p>https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</p><p>http://www.w3.org/TR/CSP/</p><p>http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html</p><p>http://www.html5rocks.com/en/tutorials/security/content-security-policy/</p><p>http://caniuse.com/#feat=contentsecuritypolicy</p><p>http://content-security-policy.com/</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "1"
-				},
-				{
-					"pluginid": "10108",
-					"alertRef": "10108",
-					"alert": "Reverse Tabnabbing",
-					"name": "Reverse Tabnabbing",
-					"riskcode": "2",
-					"confidence": "2",
-					"riskdesc": "Medium (Medium)",
-					"desc": "<p>At least one link on this page is vulnerable to Reverse tabnabbing as it uses a target attribute without using both of the \"noopener\" and \"noreferrer\" keywords in the \"rel\" attribute, which allows the target page to take control of this page.</p>",
-					"instances":[ 
-						{
-							"uri": "http://www.itsecgames.com",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<a href=\"http://itsecgames.blogspot.com\" target=\"_blank\">Blog</a>"
-						},
-						{
-							"uri": "http://www.itsecgames.com/bugs.htm",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<a href=\"http://itsecgames.blogspot.com\" target=\"_blank\">Blog</a>"
-						},
-						{
-							"uri": "http://www.itsecgames.com/download.htm",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<a href=\"http://itsecgames.blogspot.com\" target=\"_blank\">Blog</a>"
-						},
-						{
-							"uri": "http://www.itsecgames.com/index.htm",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<a href=\"http://itsecgames.blogspot.com\" target=\"_blank\">Blog</a>"
-						},
-						{
-							"uri": "http://www.itsecgames.com/training.htm",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<a href=\"http://itsecgames.blogspot.com\" target=\"_blank\">Blog</a>"
-						}
-					],
-					"count": "5",
-					"solution": "<p>Do not use a target attribute, or if you have to then also add the attribute: rel=\"noopener noreferrer\".</p>",
-					"otherinfo": "",
-					"reference": "<p>https://owasp.org/www-community/attacks/Reverse_Tabnabbing</p><p>https://dev.to/ben/the-targetblank-vulnerability-by-example</p><p>https://mathiasbynens.github.io/rel-noopener/</p><p>https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c</p>",
-					"cweid": "-1",
-					"wascid": "-1",
 					"sourceid": "1"
 				},
 				{
@@ -323,13 +269,6 @@
 					"riskdesc": "Low (Low)",
 					"desc": "<p>A timestamp was disclosed by the application/web server - Unix</p>",
 					"instances":[ 
-						{
-							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "0000000000"
-						},
 						{
 							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
 							"method": "GET",
@@ -5609,9 +5548,9 @@
 							"evidence": "20110126"
 						}
 					],
-					"count": "755",
+					"count": "754",
 					"solution": "<p>Manually confirm that the timestamp data is not sensitive, and that the data cannot be aggregated to disclose exploitable patterns.</p>",
-					"otherinfo": "<p>0000000000, which evaluates to: 1970-01-01 00:00:00</p>",
+					"otherinfo": "<p>0000000017, which evaluates to: 1970-01-01 00:00:17</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",

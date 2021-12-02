@@ -6,7 +6,7 @@
 | Risk Level | Number of Alerts |
 | --- | --- |
 | High | 0 |
-| Medium | 4 |
+| Medium | 3 |
 | Low | 3 |
 | Informational | 3 |
 
@@ -18,11 +18,10 @@
 | Name | Risk Level | Number of Instances |
 | --- | --- | --- |
 | Content Security Policy (CSP) Header Not Set | Medium | 7 |
-| Reverse Tabnabbing | Medium | 5 |
 | Sub Resource Integrity Attribute Missing | Medium | 5 |
 | X-Frame-Options Header Not Set | Medium | 5 |
 | Permissions Policy Header Not Set | Low | 8 |
-| Timestamp Disclosure - Unix | Low | 755 |
+| Timestamp Disclosure - Unix | Low | 754 |
 | X-Content-Type-Options Header Missing | Low | 11 |
 | Base64 Disclosure | Informational | 1 |
 | Information Disclosure - Suspicious Comments | Informational | 1 |
@@ -103,60 +102,6 @@ Ensure that your web server, application server, load balancer, etc. is configur
 
 
 #### WASC Id: 15
-
-#### Source ID: 3
-
-### [ Reverse Tabnabbing ](https://www.zaproxy.org/docs/alerts/10108/)
-
-
-
-##### Medium (Medium)
-
-### Description
-
-At least one link on this page is vulnerable to Reverse tabnabbing as it uses a target attribute without using both of the "noopener" and "noreferrer" keywords in the "rel" attribute, which allows the target page to take control of this page.
-
-* URL: http://www.itsecgames.com
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: `<a href="http://itsecgames.blogspot.com" target="_blank">Blog</a>`
-* URL: http://www.itsecgames.com/bugs.htm
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: `<a href="http://itsecgames.blogspot.com" target="_blank">Blog</a>`
-* URL: http://www.itsecgames.com/download.htm
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: `<a href="http://itsecgames.blogspot.com" target="_blank">Blog</a>`
-* URL: http://www.itsecgames.com/index.htm
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: `<a href="http://itsecgames.blogspot.com" target="_blank">Blog</a>`
-* URL: http://www.itsecgames.com/training.htm
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: `<a href="http://itsecgames.blogspot.com" target="_blank">Blog</a>`
-
-Instances: 5
-
-### Solution
-
-Do not use a target attribute, or if you have to then also add the attribute: rel="noopener noreferrer".
-
-### Reference
-
-
-* [ https://owasp.org/www-community/attacks/Reverse_Tabnabbing ](https://owasp.org/www-community/attacks/Reverse_Tabnabbing)
-* [ https://dev.to/ben/the-targetblank-vulnerability-by-example ](https://dev.to/ben/the-targetblank-vulnerability-by-example)
-* [ https://mathiasbynens.github.io/rel-noopener/ ](https://mathiasbynens.github.io/rel-noopener/)
-* [ https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c ](https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c)
-
-
 
 #### Source ID: 3
 
@@ -354,11 +299,6 @@ Ensure that your web server, application server, load balancer, etc. is configur
 
 A timestamp was disclosed by the application/web server - Unix
 
-* URL: http://www.itsecgames.com/downloads/bWAPP_intro.pdf
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: `0000000000`
 * URL: http://www.itsecgames.com/downloads/bWAPP_intro.pdf
   * Method: `GET`
   * Parameter: ``
@@ -4130,7 +4070,7 @@ A timestamp was disclosed by the application/web server - Unix
   * Attack: ``
   * Evidence: `20110126`
 
-Instances: 755
+Instances: 754
 
 ### Solution
 
