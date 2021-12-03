@@ -21,7 +21,7 @@
 | Sub Resource Integrity Attribute Missing | Medium | 5 |
 | X-Frame-Options Header Not Set | Medium | 5 |
 | Permissions Policy Header Not Set | Low | 8 |
-| Timestamp Disclosure - Unix | Low | 754 |
+| Timestamp Disclosure - Unix | Low | 753 |
 | X-Content-Type-Options Header Missing | Low | 11 |
 | Base64 Disclosure | Informational | 1 |
 | Information Disclosure - Suspicious Comments | Informational | 1 |
@@ -4064,13 +4064,8 @@ A timestamp was disclosed by the application/web server - Unix
   * Parameter: ``
   * Attack: ``
   * Evidence: `0004991882`
-* URL: http://www.itsecgames.com/stylesheets/stylesheet.css
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: `20110126`
 
-Instances: 754
+Instances: 753
 
 ### Solution
 
@@ -4114,17 +4109,17 @@ The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. T
   * Parameter: `X-Content-Type-Options`
   * Attack: ``
   * Evidence: ``
+* URL: http://www.itsecgames.com/downloads/bWAPP_intro.pdf
+  * Method: `GET`
+  * Parameter: `X-Content-Type-Options`
+  * Attack: ``
+  * Evidence: ``
 * URL: http://www.itsecgames.com/downloads/vulnerabilities.txt
   * Method: `GET`
   * Parameter: `X-Content-Type-Options`
   * Attack: ``
   * Evidence: ``
 * URL: http://www.itsecgames.com/images/favicon.ico
-  * Method: `GET`
-  * Parameter: `X-Content-Type-Options`
-  * Attack: ``
-  * Evidence: ``
-* URL: http://www.itsecgames.com/images/netsparker.png
   * Method: `GET`
   * Parameter: `X-Content-Type-Options`
   * Attack: ``
@@ -4269,17 +4264,17 @@ The response contents are storable by caching components such as proxy servers, 
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+* URL: http://www.itsecgames.com/downloads/bWAPP_intro.pdf
+  * Method: `GET`
+  * Parameter: ``
+  * Attack: ``
+  * Evidence: ``
 * URL: http://www.itsecgames.com/downloads/vulnerabilities.txt
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
 * URL: http://www.itsecgames.com/images/favicon.ico
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: ``
-* URL: http://www.itsecgames.com/images/owasp.png
   * Method: `GET`
   * Parameter: ``
   * Attack: ``

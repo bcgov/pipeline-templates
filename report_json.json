@@ -1,6 +1,6 @@
 {
 	"@version": "2.11.0",
-	"@generated": "Thu, 2 Dec 2021 09:19:35",
+	"@generated": "Fri, 3 Dec 2021 09:20:02",
 	"site":[ 
 		{
 			"@name": "http://www.itsecgames.com",
@@ -5539,22 +5539,15 @@
 							"param": "",
 							"attack": "",
 							"evidence": "0004991882"
-						},
-						{
-							"uri": "http://www.itsecgames.com/stylesheets/stylesheet.css",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "20110126"
 						}
 					],
-					"count": "754",
+					"count": "753",
 					"solution": "<p>Manually confirm that the timestamp data is not sensitive, and that the data cannot be aggregated to disclose exploitable patterns.</p>",
 					"otherinfo": "<p>0000000017, which evaluates to: 1970-01-01 00:00:17</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "69"
+					"sourceid": "56"
 				},
 				{
 					"pluginid": "10021",
@@ -5588,6 +5581,13 @@
 							"evidence": ""
 						},
 						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
 							"uri": "http://www.itsecgames.com/downloads/vulnerabilities.txt",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
@@ -5596,13 +5596,6 @@
 						},
 						{
 							"uri": "http://www.itsecgames.com/images/favicon.ico",
-							"method": "GET",
-							"param": "X-Content-Type-Options",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "http://www.itsecgames.com/images/netsparker.png",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -5676,7 +5669,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "69"
+					"sourceid": "56"
 				},
 				{
 					"pluginid": "10027",
@@ -5702,7 +5695,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "61"
+					"sourceid": "62"
 				},
 				{
 					"pluginid": "10049",
@@ -5736,6 +5729,13 @@
 							"evidence": ""
 						},
 						{
+							"uri": "http://www.itsecgames.com/downloads/bWAPP_intro.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
 							"uri": "http://www.itsecgames.com/downloads/vulnerabilities.txt",
 							"method": "GET",
 							"param": "",
@@ -5744,13 +5744,6 @@
 						},
 						{
 							"uri": "http://www.itsecgames.com/images/favicon.ico",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "http://www.itsecgames.com/images/owasp.png",
 							"method": "GET",
 							"param": "",
 							"attack": "",
