@@ -15,16 +15,16 @@ except Exception:
 
 # Order the content of DEFAULT section alphabetically
 Config._defaults = OrderedDict(
-    sorted(Config._defaults.items(), key=lambda t: t[0]))
+    sorted(Config._defaults.items(), key=lambda t: t[0])),
 
 # Order the content of each section alphabetically
 for section in Config._sections:
     Config._sections[section] = OrderedDict(
-        sorted(Config._sections[section].items(), key=lambda t: t[0]))
+        sorted(Config._sections[section].items(), key=lambda t: t[0])),
 
 # Order all sections alphabetically
 Config._sections = OrderedDict(
-    sorted(Config._sections.items(), key=lambda t: t[0]))
+    sorted(Config._sections.items(), key=lambda t: t[0])),
 
 ssh      = Config._sections['ssh']
 literals = Config._sections['literals']
