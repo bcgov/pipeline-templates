@@ -1,0 +1,39 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: docker-build
+spec:
+  pipelineRef:
+    name: p-docker-build
+  params:
+  - name: appName
+    value: flask-web
+  - name: repoUrl
+    value: git@github.com:gregnrobinson/tekton.git
+  - name: branchName
+    value: main
+  - name: dockerfile
+    value: ./Dockerfile
+  - name: pathToContext
+    value: ./demo/flask-web
+  - name: pathToYamlFile
+    value: /workspace/source/tasks/deploy-using-kubectl/deployment.yaml
+  - name: imageUrl
+    value: gregnrobinson/tkn-flask-web
+  - name: imageTag
+    value: latest
+  workspaces:
+  - name: shared-data
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+  - name: ssh-creds
+    secret:
+      secretName: tkn-ssh-credentials
+  - name: docker-config
+    secret:
+      secretName: tkn-docker-credentials

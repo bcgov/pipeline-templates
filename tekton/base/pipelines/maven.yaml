@@ -1,0 +1,97 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: mvn-build
+spec:
+  params:
+    - name: appName
+      type: string
+      description: Name of App that will be deployed.
+    - name: repoUrl
+      type: string
+      description: The git repository URL to clone from.
+    - name: branchName
+      type: string
+      description: The git branch to clone.
+    - name: pathToContext
+      type: string
+    - name: mavenImage
+      type: string
+    - name: runSonarScan
+      type: string
+      description: Whether a Sonar scan will execute. Task will be skipped IF false.
+    - name: sonarProject
+      type: string
+      description: Sonar project for code scanning.
+  workspaces:
+    - name: shared-data
+      description: |
+        This workspace will receive the cloned git repo and be passed
+        to the next Task for the repo's README.md file to be read.
+    - name: ssh-creds
+      description: |
+        This workspace will provide ssh credentials to the git-clone task.
+    - name: docker-config
+      description: |
+        This workspace will provide docker credentials to the docker-build-push task.
+    - name: maven-settings
+      description: |
+        Maven settings.xml file.
+  tasks:
+    - name: fetch-repo
+      taskRef:
+        name: t-git-clone
+      workspaces:
+        - name: output
+          workspace: shared-data
+        - name: ssh-directory
+          workspace: ssh-creds
+      params:
+        - name: url
+          value: $(params.repoUrl)
+        - name: revision
+          value: $(params.branchName)
+    - name: mvn-run
+      taskRef:
+        name: t-mvn-build
+      runAfter:
+        - fetch-repo
+      params:
+        - name: CONTEXT_DIR
+          value: "$(params.pathToContext)"
+        - name: MAVEN_IMAGE
+          value: "$(params.mavenImage)"
+        - name: GOALS
+          value:
+            - -DskipTests
+            - clean
+            - package
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: source
+          workspace: shared-data
+    - name: mvn-sonar-scan
+      when:
+        - input: "$(params.runSonarScan)"
+          operator: in
+          values: ["true"]
+      taskRef:
+        name: t-mvn-sonar-scan
+      runAfter:
+        - fetch-repo
+      params:
+        - name: CONTEXT_DIR
+          value: "$(params.pathToContext)"
+        - name: MAVEN_IMAGE
+          value: "$(params.mavenImage)"
+        - name: GOALS
+          value:
+            - verify
+            - org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+            - -Dsonar.projectKey=$(params.sonarProject)
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: source
+          workspace: shared-data

@@ -1,0 +1,74 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: buildah
+spec:
+  params:
+    - name: IMAGE
+      description: Reference of the image buildah will produce.
+    - name: IMAGE_TAG
+      description: Reference of the target image tag. 
+      default: latest
+    - name: GIT_SHORT_SHA
+      description: The SHA of the current commit the build is executing on.      
+    - name: BUILDAH_IMAGE
+      description: Reference the image version of buildah.
+    - name: STORAGE_DRIVER
+      description: Set buildah storage driver
+      default: vfs
+    - name: DOCKERFILE
+      description: Path to the Dockerfile to build.
+      default: ./Dockerfile
+    - name: CONTEXT
+      description: Path to the Dockerfile to build.
+      default: .
+  workspaces:
+    - name: source
+    - name: dockerconfig
+      description: Includes a docker `config.json`
+      optional: true
+      mountPath: /root/.docker/
+  steps:
+    - name: build
+      image: $(params.BUILDAH_IMAGE)
+      workingDir: $(workspaces.source.path)
+      script: |
+        buildah --storage-driver=$(params.STORAGE_DRIVER) bud \
+          --no-cache -f $(params.DOCKERFILE) -t $(params.IMAGE):$(params.GIT_SHORT_SHA) --isolation chroot $(params.CONTEXT)
+        buildah --storage-driver=$(params.STORAGE_DRIVER) push \
+          --authfile /root/.docker/config.json $(params.IMAGE):$(params.GIT_SHORT_SHA)
+      volumeMounts:
+        - name: varlibcontainers
+          mountPath: /var/lib/containers
+    - name: trivy-scan
+      image: docker.io/aquasec/trivy
+      workingDir: $(workspaces.source.path)
+      script: |
+        trivy image $(params.IMAGE):$(params.GIT_SHORT_SHA)
+      volumeMounts:
+        - name: varlibcontainers
+          mountPath: /var/lib/containers
+      env:
+        - name: TRIVY_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: trivy-username
+              key: trivy-username
+        - name: TRIVY_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: trivy-password
+              key: trivy-password
+    - name: push
+      image: $(params.BUILDAH_IMAGE)
+      workingDir: $(workspaces.source.path)
+      script: |
+        buildah --storage-driver=$(params.STORAGE_DRIVER) tag $(params.IMAGE):$(params.GIT_SHORT_SHA) $(params.IMAGE):latest
+        buildah --storage-driver=$(params.STORAGE_DRIVER) push \
+          --authfile /root/.docker/config.json $(params.IMAGE):latest
+      volumeMounts:
+        - name: varlibcontainers
+          mountPath: /var/lib/containers
+  volumes:
+    - name: varlibcontainers
+      emptyDir: {}

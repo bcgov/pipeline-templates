@@ -1,0 +1,36 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: owasp
+spec:
+  workspaces:
+    - name: shared-data
+      description: |
+        This workspace will receive the cloned git repo and be passed
+        to the next Task for the repo's README.md file to be read.
+    - name: owasp-settings
+      description: |
+        mounts /zap/wrk to store generated configs and results.
+  params:
+  - name: targetUrl
+    type: string
+  - name: scanType
+    type: string
+  - name: scanDuration
+    type: string
+  tasks:
+    - name: owasp-scan
+      taskRef:
+        name: t-owasp-scanner
+      params:
+        - name: TARGET_URL
+          value: $(params.targetUrl)
+        - name: SCAN_TYPE
+          value: $(params.scanType)
+        - name: SCAN_DURATION
+          value: $(params.scanDuration)
+      workspaces:
+        - name: source
+          workspace: shared-data
+        - name: owasp-settings
+          workspace: owasp-settings

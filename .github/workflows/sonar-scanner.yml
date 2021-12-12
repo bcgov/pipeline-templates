@@ -1,0 +1,27 @@
+name: sonar-scan-repo
+
+env:
+  ORG: ci-testing
+  PROJECT_KEY: github-actions-test
+  URL: https://sonarcloud.io
+  WORKDIR: ./tekton/demo/maven-test
+
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+jobs:
+  sonar-scan:
+    name: Sonarqube Scanning
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        uses: warchant/setup-sonar-scanner@v3
+      - name: Run Sonar Scanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: sonar-scanner
+             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+             -Dsonar.organization=${{ env.ORG }}
+             -Dsonar.host.url=${{ env.URL }}
+             -Dsonar.projectKey=${{ env.PROJECT_KEY }}

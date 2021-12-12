@@ -1,0 +1,5 @@
+**/.env
+**/opaque.secrets
+**/.DS_Store
+yq
+.DS_Store

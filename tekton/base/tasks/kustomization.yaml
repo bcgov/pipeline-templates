@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namePrefix: t-
+
+resources:
+- buildah.yaml
+- git-clone.yaml
+- mvn-build.yaml
+- mvn-sonar-scan.yaml
+- npm-sonar-scan.yaml
+- sonar-scanner.yaml
+- trivy-scanner.yaml
+- owasp-scanner.yaml
+- create-pr.yaml
+- deploy.yaml
+- generate-id.yaml
+- yq.yaml
+- ./codeql

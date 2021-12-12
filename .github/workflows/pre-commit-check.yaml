@@ -1,0 +1,27 @@
+name: pre-commit
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+    - uses: terraform-linters/setup-tflint@v1
+      with:
+        tflint_version: latest
+    - uses: pre-commit/action@v2.0.3
+    - run: |
+        curl https://get.datree.io | /bin/bash
+        echo "scanning base..."
+        datree test ./tekton/base/*           --ignore-missing-schemas
+        echo "scanning pipelines..."
+        datree test ./tekton/base/pipelines/* --ignore-missing-schemas
+        echo "scanning tasks..."
+        datree test ./tekton/base/tasks/*     --ignore-missing-schemas
+        echo "scan triggers..."
+        datree test ./tekton/base/triggers/*  --ignore-missing-schemas
