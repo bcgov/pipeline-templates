@@ -110,10 +110,10 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
    github-secret=
    github-token=
    sonar-token=
-   
+
    [docker]
    docker-config-path=
-   
+
    [ssh]
    ssh-key-path=
    EOF

@@ -7,10 +7,10 @@ spec:
     - name: IMAGE
       description: Reference of the image buildah will produce.
     - name: IMAGE_TAG
-      description: Reference of the target image tag. 
+      description: Reference of the target image tag.
       default: latest
     - name: GIT_SHORT_SHA
-      description: The SHA of the current commit the build is executing on.      
+      description: The SHA of the current commit the build is executing on.
     - name: BUILDAH_IMAGE
       description: Reference the image version of buildah.
     - name: STORAGE_DRIVER

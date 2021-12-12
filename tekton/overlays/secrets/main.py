@@ -12,7 +12,7 @@ try:
     Config.read("secrets.ini")
 except Exception:
     pass
-  
+
 # Order the content of DEFAULT section alphabetically
 Config._defaults = OrderedDict(
     sorted(Config._defaults.items(), key=lambda t: t[0]))
@@ -88,5 +88,5 @@ with open('kustomization.yaml', 'w') as f:
     sys.stdout = f
     print(pystache.render(input, {"literals": literals, "ssh": ssh, "docker": docker}))
     sys.stdout = original_stdout
-    
+
 print(bcolors.OKCYAN + "Completed..." + bcolors.ENDC)
