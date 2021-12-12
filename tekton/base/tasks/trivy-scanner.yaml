@@ -1,0 +1,44 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: trivy-scanner
+  labels:
+    app.kubernetes.io/version: "0.1"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/categories: Security
+    tekton.dev/tags: security
+    tekton.dev/displayName: "trivy scanner"
+    tekton.dev/platforms: "linux/amd64"
+spec:
+  description: >-
+    Trivy (tri pronounced like trigger, vy pronounced like envy) is a simple and comprehensive scanner
+    for vulnerabilities in container images, file systems, and Git repositories, as well as for configuration
+    issues. Trivy detects vulnerabilities of OS packages (Alpine, RHEL, CentOS, etc.) and language-specific
+    packages (Bundler, Composer, npm, yarn, etc.). In addition, Trivy scans Infrastructure as Code (IaC) files
+    such as Terraform, Dockerfile and Kubernetes, to detect potential configuration issues that expose your
+    deployments to the risk of attack. Trivy is easy to use. Just install the binary and you're ready to scan.
+
+  workspaces:
+    - name: source
+  params:
+    - name: TARGET_IMAGE
+      description: Image to scan against.
+      default: "python:3.4-alpine"
+  steps:
+    - name: scan-image-vulnerbilities
+      image: docker.io/aquasec/trivy
+      workingDir: $(workspaces.source.path)
+      script: |
+        trivy image $(params.TARGET_IMAGE)
+      env:
+        - name: TRIVY_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: trivy-username
+              key: trivy-username
+        - name: TRIVY_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: trivy-password
+              key: trivy-password

@@ -1,0 +1,65 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: codeql
+spec:
+  params:
+    - name: BUILD_IMAGE
+      default: docker.io/gregnrobinson/codeql-cli:latest
+      description: Reference of the image buildah will produce.
+    - name: CONTEXT
+      description: Path to codeql source code.
+      default: .
+    - name: GITHUB_TOKEN
+      description: A Github PAT with repo access.
+      default: tkn-github-token
+    - name: REPO
+      description: Repo short form name.
+    - name: REPO_URL
+      description: Full clone Url.
+    - name: LANGUAGE
+      description: CodeQL language to scan.
+      default: javascript
+  workspaces:
+    - name: source
+      description: |
+        Shared workspace including the repo source code.
+  steps:
+    - name: codeql-resolve-packs
+      image: $(params.BUILD_IMAGE)
+      workingDir: $(workspaces.source.path)
+      script: |
+        codeql resolve languages &&\
+        codeql resolve qlpacks
+    - name: codeql-create-db
+      resources:
+        requests:
+          memory: 2Gi
+          cpu: 600m
+        limits:
+          memory: 4Gi
+          cpu: 900m
+      image: $(params.BUILD_IMAGE)
+      workingDir: $(workspaces.source.path)
+      script: |
+        codeql database create \
+          --language=$(params.LANGUAGE) /workspace/source/$(params.LANGUAGE)-db
+    - name: codeql-analyze-db
+      resources:
+        requests:
+          memory: 2Gi
+          cpu: 800m
+        limits:
+          memory: 4Gi
+          cpu: 900m
+      image: $(params.BUILD_IMAGE)
+      workingDir: $(workspaces.source.path)
+      script: |
+        codeql database analyze /workspace/source/$(params.LANGUAGE)-db --format=sarif-latest --output=/workspace/source/$(params.LANGUAGE)-results
+        codeql github upload-results --repository=$(params.REPO) --ref=refs/heads/main --sarif=/workspace/source/$(params.LANGUAGE)-results
+      env:
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: $(params.GITHUB_TOKEN)
+              key: secretToken

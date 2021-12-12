@@ -1,0 +1,366 @@
+name: full-workflow
+
+env:
+  ## GITHUB ENVIRONMENT
+  DEPLOY: 'true'
+
+  ## DOCKER
+  NAME: flask-web
+  IMAGE: gregnrobinson/flask-demo-app
+  BUILD_WORKDIR: ./demo/flask-web
+
+  ## TRIVY
+  TRIVY_EXIT_CODE: 1
+  TRIVY_SEVERITY: CRITICAL
+  TRIVY_IGNORE_UNFIXED: true
+
+  ## HELM
+  HELM_DIR: ./demo/flask-web/helm
+  HELM_VALUES_FILE: ./demo/flask-web/helm/values.yaml
+
+  ## SONAR
+  SONAR_ORG: ci-testing
+  SONAR_PROJECT_KEY: github-actions-test
+  SONAR_URL: https://sonarcloud.io
+
+  ## SONAR MVN
+  SONAR_MVN_WORKDIR: ./demo/maven-test
+
+  ## OWASP ZAP
+  ZAP_SCAN_TYPE: 'base' # Accepted values are base and full.
+  ZAP_TARGET_URL: http://www.itsecgames.com
+  ZAP_DURATION: '2'
+  ZAP_MAX_DURATION: '5'
+
+  # PUBLISH PRE SIGNED HTML WEBPAGE
+  # Set to false if you don't want to publish to GCS.
+  ZAP_GCP_PUBLISH: 'true'
+  ZAP_GCP_PROJECT: phronesis-310405
+  ZAP_GCP_BUCKET: 'zap-scan-results'
+
+  ## OPENSHIFT ENVIRONMENT
+  OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
+  OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
+  OPENSHIFT_NAMESPACE: "default"
+
+  ## APP SETTINGS
+  APP_NAME: "flask-demo-app"
+  APP_PORT: "80"
+
+  # 🖊️ EDIT to change the image registry settings.
+  # Registries such as GHCR, Quay.io, and Docker Hub are supported.
+  IMAGE_REGISTRY: ${{ secrets.IMAGE_REGISTRY }}
+  IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
+  IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
+on:
+  workflow_dispatch:
+
+jobs:
+  codeql-scan:
+    name: CodeQL Scan
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'python' ]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    # Initializes the CodeQL tools for scanning.
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+      with:
+        languages: ${{ matrix.language }}
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v1
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
+  build:
+    name: Docker Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+    - name: Inject slug/short variables
+      uses: rlespinasse/github-slug-action@v3.x
+    - uses: actions/checkout@v2
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ env.IMAGE_REGISTRY_USER }}
+        password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
+    - name: Build
+      working-directory: ${{ env.BUILD_WORKDIR }}
+      run: >
+        docker buildx build
+        --platform=linux/amd64
+        -t ${{ env.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
+        --output=type=image,push=true
+        ${GITHUB_WORKSPACE}/${{ env.BUILD_WORKDIR }}
+  trivy-scan:
+    needs: build
+    name: Trivy Scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+    - name: Trivy Vulnerability Scan
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: ${{ env.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
+        format: table
+        exit-code: ${{ env.TRIVY_EXIT_CODE }}
+        ignore-unfixed: ${{ env.TRIVY_IGNORE_UNFIXED }}
+        vuln-type: os,library
+        severity: ${{ env.TRIVY_SEVERITY }}
+  sonar-scan-repo:
+    needs: trivy-scan
+    name: Sonar Scan Repo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        uses: warchant/setup-sonar-scanner@v3
+      - name: Run Sonar Scanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: sonar-scanner
+             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+             -Dsonar.organization=${{ env.SONAR_ORG }}
+             -Dsonar.host.url=${{ env.SONAR_URL }}
+             -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }}
+  sonar-scan-mvn:
+    name: Sonar Scan Mvn
+    runs-on: ubuntu-latest
+    needs: trivy-scan
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Cache SonarCloud Packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Maven Packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Build / Analyze
+        working-directory: ${{ env.SONAR_MVN_WORKDIR }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }}
+  push:
+    name: Docker Push
+    needs: [sonar-scan-mvn, sonar-scan-repo]
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+    - name: Inject slug/short variables
+      uses: rlespinasse/github-slug-action@v3.x
+    - uses: actions/checkout@v2
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ env.IMAGE_REGISTRY_USER }}
+        password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
+    - name: Create Release
+      id: release
+      uses: release-drafter/release-drafter@v5
+      with:
+        publish: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Get Latest Release
+      id: latest
+      uses: pozetroninc/github-action-get-latest-release@master
+      with:
+        repository: ${{ github.repository }}
+        excludes: prerelease
+    - name: Tag Push Latest
+      working-directory: ${{ env.BUILD_WORKDIR }}
+      run: >
+        docker buildx build
+        --platform=linux/amd64
+        -t ${{ env.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
+        -t ${{ env.IMAGE }}:${{ steps.latest.outputs.release }}
+        -t ${{ env.IMAGE }}:latest
+        --output=type=image,push=true
+        ${GITHUB_WORKSPACE}/${{ env.BUILD_WORKDIR }}
+  deploy:
+    needs: push
+    name: Deploy to OpenShift
+    # ubuntu-20.04 can also be used.
+    runs-on: ubuntu-20.04
+    environment: production
+
+    outputs:
+      ROUTE: ${{ steps.deploy-and-expose.outputs.route }}
+      SELECTOR: ${{ steps.deploy-and-expose.outputs.selector }}
+
+    steps:
+    - name: Inject slug/short variables
+      uses: rlespinasse/github-slug-action@v3.x
+
+    - name: Setup Tailscale
+      uses: tailscale/github-action@main
+      with:
+        authkey: ${{ secrets.TAILSCALE_API_KEY }}
+
+    - name: Check for required secrets
+      uses: actions/github-script@v4
+      with:
+        script: |
+          const secrets = {
+            OPENSHIFT_SERVER: `${{ secrets.OPENSHIFT_SERVER }}`,
+            OPENSHIFT_TOKEN: `${{ secrets.OPENSHIFT_TOKEN }}`,
+          };
+
+          const GHCR = "ghcr.io";
+          if (`${{ env.IMAGE_REGISTRY }}`.startsWith(GHCR)) {
+            core.info(`Image registry is ${GHCR} - no registry password required`);
+          }
+          else {
+            core.info("A registry password is required");
+            secrets["IMAGE_REGISTRY_PASSWORD"] = `${{ secrets.IMAGE_REGISTRY_PASSWORD }}`;
+          }
+
+          const missingSecrets = Object.entries(secrets).filter(([ name, value ]) => {
+            if (value.length === 0) {
+              core.error(`Secret "${name}" is not set`);
+              return true;
+            }
+            core.info(`✔️ Secret "${name}" is set`);
+            return false;
+          });
+
+          if (missingSecrets.length > 0) {
+            core.setFailed(`❌ At least one required secret is not set in the repository. \n` +
+              "You can add it using:\n" +
+              "GitHub UI: https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository \n" +
+              "GitHub CLI: https://cli.github.com/manual/gh_secret_set \n" +
+              "Also, refer to https://github.com/redhat-actions/oc-login#getting-started-with-the-action-or-see-example");
+          }
+          else {
+            core.info(`✅ All the required secrets are set`);
+          }
+
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Determine App Name
+      if: env.APP_NAME == ''
+      run: |
+        echo "APP_NAME=$(basename $PWD)" | tee -a $GITHUB_ENV
+
+    - name: Install OC
+      uses: redhat-actions/openshift-tools-installer@v1
+      with:
+        oc: 4
+
+    # https://github.com/redhat-actions/oc-login#readme
+    - name: Log in to OpenShift
+      uses: redhat-actions/oc-login@v1
+      with:
+        openshift_server_url: ${{ env.OPENSHIFT_SERVER }}
+        openshift_token: ${{ env.OPENSHIFT_TOKEN }}
+        insecure_skip_tls_verify: true
+        namespace: ${{ env.OPENSHIFT_NAMESPACE }}
+
+    - name: Install Helm
+      uses: azure/setup-helm@v1
+      with:
+        version: 'latest' # default is latest stable
+      id: install
+
+    # kubectl port-forward deployment/flask-web 8080:80
+    - name: Helm Deploy
+      run: |
+        helm upgrade \
+          --install ${{ env.NAME }} \
+          --set image.tag=${{ env.GITHUB_SHA_SHORT }} \
+          -f ${{ env.HELM_VALUES_FILE }} ${{ env.HELM_DIR }}
+      id: deploy
+  zap-owasp:
+    needs: deploy
+    runs-on: ubuntu-latest
+    name: OWASP ZAP Scan
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Cloud SDK
+        if: ${{ env.ZAP_GCP_PUBLISH == 'true' }}
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ env.ZAP_GCP_PROJECT }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+      - name: ZAP Base Scan
+        if: ${{ env.ZAP_SCAN_TYPE == 'base' }}
+        uses: zaproxy/action-baseline@v0.6.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: 'owasp/zap2docker-stable'
+          target: ${{ env.ZAP_TARGET_URL }}
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a -d -T ${{ env.ZAP_MAX_DURATION }} -m ${{ env.ZAP_DURATION }}'
+          issue_title: OWAP Baseline
+      - name: ZAP Full Scan
+        if: ${{ env.ZAP_SCAN_TYPE == 'full' }}
+        uses: zaproxy/action-full-scan@v0.3.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: 'owasp/zap2docker-stable'
+          target: ${{ env.ZAP_TARGET_URL }}
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a -d -T ${{ env.ZAP_MAX_DURATION }} -m ${{ env.ZAP_DURATION }}'
+      - name: Create Artifact Directory
+        if: ${{ env.ZAP_GCP_PUBLISH == 'true' }}
+        run: |
+          mkdir -p public/zap
+      - name: Publish Reports to Github
+        uses: actions/download-artifact@v2
+        with:
+          name: zap_scan
+          path: public/zap
+      - name: Rename Markdown
+        if: ${{ env.ZAP_GCP_PUBLISH == 'true' }}
+        run: |
+          mv public/zap/report_md.md public/zap/README.md
+      - name: ZAP Results
+        uses: JamesIves/github-pages-deploy-action@4.1.6
+        with:
+          branch: zap-scan
+          folder: public/zap
+      - name: GCP Publish Results URL
+        if: ${{ env.ZAP_GCP_PUBLISH == 'true' }}
+        run: |
+          echo "$GCP_SA_KEY" > gcp-sa-key.json
+          gsutil mb gs://${{ env.ZAP_GCP_BUCKET }} || echo "Bucket already exists..."
+          gsutil cp public/zap/report_html.html gs://${{ env.ZAP_GCP_BUCKET }}
+          echo "URL expires in 10 minutes..."
+          gsutil signurl -d 10m gcp-sa-key.json gs://${{ env.ZAP_GCP_BUCKET }}/report_html.html
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}

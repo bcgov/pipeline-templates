@@ -1,0 +1,29 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.0.1
+  hooks:
+    - id: check-docstring-first
+    - id: debug-statements
+    - id: name-tests-test
+    - id: check-executables-have-shebangs
+    - id: end-of-file-fixer
+    - id: trailing-whitespace
+    - id: check-json
+    - id: check-symlinks
+    - id: check-merge-conflict
+    - id: check-ast
+    - id: detect-private-key
+    - id: fix-byte-order-marker
+    - id: pretty-format-json
+    - id: check-added-large-files
+    - id: check-symlinks
+    - id: debug-statements
+-   repo: https://github.com/asottile/setup-cfg-fmt
+    rev: v1.19.0
+    hooks:
+    -   id: setup-cfg-fmt
+-   repo: https://github.com/asottile/add-trailing-comma
+    rev: v2.2.0
+    hooks:
+    -   id: add-trailing-comma
+        args: [--py36-plus]

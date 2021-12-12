@@ -1,0 +1,23 @@
+name: bump-version
+on:
+  push: #Any push will trigger this action
+    branches: [ mybranch ]
+  pull_request: #Any Pull Request will trigger this action
+    branches: [ mybranch ]
+  workflow_dispatch:
+
+jobs:
+  version_bump:
+    name: Version Bump
+# needs: [branch-naming-rules, owasp-zap, sonarqube-scanning]
+# UPDATE WITH PUSH TO MASTER
+    runs-on: ubuntu-latest
+    steps:
+     - uses: actions/checkout@v2
+       with:
+         fetch-depth: '0'
+     - name: Bump version and push tag
+       uses: anothrNick/github-tag-action@1.26.0
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         WITH_V: true

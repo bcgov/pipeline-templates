@@ -1,0 +1,7 @@
+**/.creds
+**/.DS_Store
+**/*.secrets
+**/*.ini
+overlays/secrets/kustomization.yaml
+overlays/secrets/kustomization.yml
+.DS_Store
