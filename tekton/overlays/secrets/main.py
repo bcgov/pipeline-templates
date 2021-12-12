@@ -14,21 +14,18 @@ except Exception:
     pass
 
 # Order the content of DEFAULT section alphabetically
-Config._defaults = OrderedDict(
-    sorted(Config._defaults.items(), key=lambda t: t[0]))
+Config._defaults = OrderedDict(sorted(Config._defaults.items(), key=lambda t: t[0])),
 
 # Order the content of each section alphabetically
 for section in Config._sections:
-    Config._sections[section] = OrderedDict(
-        sorted(Config._sections[section].items(), key=lambda t: t[0])),
+    Config._sections[section] = OrderedDict(sorted(Config._sections[section].items(), key=lambda t: t[0])),
 
 # Order all sections alphabetically
-Config._sections = OrderedDict(
-    sorted(Config._sections.items(), key=lambda t: t[0]))
+Config._sections = OrderedDict(sorted(Config._sections.items(), key=lambda t: t[0])),
 
-ssh = Config._sections['ssh']
+ssh      = Config._sections['ssh']
 literals = Config._sections['literals']
-docker = Config._sections['docker']
+docker   = Config._sections['docker']
 
 try:
     os.makedirs(".secrets")
@@ -66,9 +63,8 @@ secretGenerator:
 """
 
 literals = [{"k": k, "v": v} for k, v in literals.items()]
-ssh = [{"k": k, "v": v} for k, v in ssh.items()]
-docker = [{"k": k, "v": v} for k, v in docker.items()]
-
+ssh      = [{"k": k, "v": v} for k, v in ssh.items()]
+docker   = [{"k": k, "v": v} for k, v in docker.items()]
 
 class bcolors:
     HEADER = '\033[95m'
@@ -81,15 +77,13 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-
 print(bcolors.OKCYAN + "Writing secrets to Kustomize..." + bcolors.ENDC)
 
 original_stdout = sys.stdout
 
 with open('kustomization.yaml', 'w') as f:
     sys.stdout = f
-    print(pystache.render(
-        input, {"literals": literals, "ssh": ssh, "docker": docker}))
+    print(pystache.render(input, {"literals": literals, "ssh": ssh, "docker": docker}))
     sys.stdout = original_stdout
 
 print(bcolors.OKCYAN + "Completed..." + bcolors.ENDC)
