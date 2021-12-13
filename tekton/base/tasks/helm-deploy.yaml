@@ -14,7 +14,8 @@ spec:
   description: >-
     These tasks will install / upgrade a helm chart into your Kubernetes /
     OpenShift Cluster using Helm
-
+  workspaces:
+    - name: source
   params:
     - name: HELM_DIR
       description: The directory where the helm chart is located.
@@ -30,7 +31,8 @@ spec:
       description: "Specify a specific helm image"
       default: "docker.io/lachlanevenson/k8s-helm@sha256:5c792f29950b388de24e7448d378881f68b3df73a7b30769a6aa861061fd08ae" #tag: v3.6.0
   steps:
-    - name: upgrade-from-repo
+    - name: helm-deploy
+      workingDir: $(workspaces.source.path)
       image: $(params.HELM_IMAGE)
       script: |
-        helm upgrade --install $(params.HELM_RELEASE) --set image.tag=$(params.IMAGE_TAG) -f $(params.HELM_VALUES) $(params.HELM_DIR)
+        helm upgrade --install $(params.HELM_RELEASE) --set image.tag=$(params.IMAGE_TAG) -f $(params.HELM_DIR)/$(params.HELM_VALUES) $(params.HELM_DIR)
