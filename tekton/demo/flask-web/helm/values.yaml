@@ -39,8 +39,12 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 80
-  annotations:
-    metallb.universe.tf/address-pool: addresspool-sample1
+  annotations: {}
+
+route:
+  enabled: true
+  host: flask.demo.local
+  port: 80
 
 ingress:
   enabled: false
