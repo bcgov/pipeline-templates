@@ -10,3 +10,4 @@ resources:
 - sonar.yaml
 - trivy.yaml
 - owasp.yaml
+- build-deploy-helm.yaml

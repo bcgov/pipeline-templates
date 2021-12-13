@@ -1,0 +1,121 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: helm-build-deploy
+spec:
+  workspaces:
+    - name: shared-data
+      description: |
+        This workspace will receive the cloned git repo and be passed
+        to the next Task for the repo's README.md file to be read.
+    - name: ssh-creds
+      description: |
+        This workspace will provide ssh credentials to the git-clone task.
+    - name: docker-config
+      description: |
+        This workspace will provide docker credentials to the docker-build-push task.
+  params:
+    - name: helmDir
+      type: string
+      description: The directory where the helm chart is located.
+    - name: helmValues
+      type: string
+      description: The values file relative to helmDir.
+    - name: helmRelease
+      type: string
+      description: The release name that will be used to identify the deployment.
+    - name: helmImage
+      type: string
+      description: The helm docker image url to use.
+    - name: imageUrl
+      type: string
+      description: Name of App that will be deployed.
+    - name: imageTag
+      type: string
+      description: Name of image tag.
+    - name: repoUrl
+      type: string
+      description: The git repository URL to clone from.
+    - name: branchName
+      type: string
+      description: The git branch to clone.
+    - name: pathToContext
+      type: string
+      description: Path of the Dockerfile.
+    - name: dockerfile
+      type: string
+      description: Location of the Dockerfile.
+    - name: buildahImage
+      type: string
+      description: Version of Buildah to run.
+  tasks:
+    - name: fetch-repository
+      taskRef:
+        name: t-git-clone
+      workspaces:
+        - name: output
+          workspace: shared-data
+        - name: ssh-directory
+          workspace: ssh-creds
+      params:
+        - name: url
+          value: $(params.repoUrl)
+        - name: deleteExisting
+          value: "true"
+        - name: revision
+          value: $(params.branchName)
+    - name: generate-id
+      taskRef:
+        name: t-generate-id
+        kind: Task
+      runAfter:
+        - fetch-repository
+      workspaces:
+        - name: source
+          workspace: shared-data
+    - name: buildah-build-push
+      taskRef:
+        name: t-buildah
+      runAfter:
+        - generate-id
+      params:
+        - name: IMAGE
+          value: $(params.imageUrl)
+        - name: IMAGE_TAG
+          value: $(params.imageTag)
+        - name: GIT_SHORT_SHA
+          value: $(tasks.generate-id.results.short-commit)
+        - name: DOCKERFILE
+          value: $(params.dockerfile)
+        - name: CONTEXT
+          value: $(params.pathToContext)
+        - name: BUILDAH_IMAGE
+          value: $(params.buildahImage)
+      workspaces:
+        - name: source
+          workspace: shared-data
+        - name: dockerconfig
+          workspace: docker-config
+    - name: helm-deploy
+      taskRef:
+        name: t-helm-deploy
+      runAfter:
+        - buildah-build-push
+      params:
+        - name: HELM_DIR
+          value: $(params.helmDir)
+        - name: HELM_VALUES
+          value: $(params.helmValues)
+        - name: HELM_RELEASE
+          value: $(params.helmRelease)
+        - name: HELM_IMAGE
+          value: $(params.helmImage)
+        - name: IMAGE
+          value: $(params.imageUrl)
+        - name: IMAGE_TAG
+          value: $(tasks.generate-id.results.short-commit)
+      workspaces:
+        - name: source
+          workspace: shared-data
+        - name: dockerconfig
+          workspace: docker-config

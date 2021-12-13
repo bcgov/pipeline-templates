@@ -8,6 +8,7 @@
 - [Usage](#usage)
 - [Pipeline Run Templates](#pipeline-run-templates)
   - [**buildah-build-push**](#buildah-build-push)
+  - [**build-deploy-helm**](#buildah-build-push)
   - [**maven-build**](#maven-build)
   - [**codeql-scan**](#codeql-scan)
   - [**sonar-scan**](#sonar-scan)
@@ -237,6 +238,62 @@ EOF
 ```
 
 <a href="#top">Back to top</a>
+
+### **helm-build-deploy**
+
+*Builds and a java application with [maven](https://maven.apache.org/).*
+
+```yaml
+cat <<EOF | kubectl create -f -
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: build-deploy-helm-
+spec:
+  pipelineRef:
+    name: p-helm-build-deploy
+  params:
+  - name: helmDir
+    value: ./tekton/demo/flask-web/helm
+  - name: helmValues
+    value: values.yaml
+  - name: helmRelease
+    value: flask-web
+  - name: helmImage
+    value: docker.io/lachlanevenson/k8s-helm@sha256:5c792f29950b388de24e7448d378881f68b3df73a7b30769a6aa861061fd08ae
+  - name: appName
+    value: flask-web
+  - name: repoUrl
+    value: git@github.com:bcgov/security-pipeline-templates.git
+  - name: imageUrl
+    value: gregnrobinson/tkn-flask-web
+  - name: imageTag
+    value: latest
+  - name: branchName
+    value: main
+  - name: dockerfile
+    value: ./Dockerfile
+  - name: pathToContext
+    value: ./tekton/demo/flask-web
+  - name: buildahImage
+    value: quay.io/buildah/stable
+  workspaces:
+  - name: shared-data
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 500Mi
+  - name: ssh-creds
+    secret:
+      secretName: ssh-key-path
+  - name: docker-config
+    secret:
+      secretName: docker-config-path
+EOF
+```
 
 ### **maven-build**
 
