@@ -7,9 +7,9 @@ env:
   WORKDIR: ./tekton/demo/maven-test
 
 on:
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
+  schedule:
+    - cron: '0 9 * * *'
 jobs:
   sonar-scan:
     name: Sonarqube Scanning
