@@ -21,7 +21,7 @@ This project aims to improve the management experience with tekton pipelines. Th
 
 The project creates secrets for your docker and ssh credentials using the Kustomize [secretGenerator](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kustomize/). This allows for the git-clone and buildah Tekton tasks to interact with private repositories. I would consider setting up git and container registry credentials a foundational prerequisite for operating cicd tooling. Once Kustomize creates the secrets, they are referenced directly by name in the [Pipeline Run Templates](#pipeline-run-templates) section.
 
-The repository is intended to configure every aspect of Tekton, from the installation manifests to the custom Tekton CRDs that manage the creation and execution of pipelines. Whenever changes are made to `./base` or `./overlays,` run `./tekton.sh -u` to apply the changes against the current Kubernetes context. Behind the scenes, the following functions are executed.
+The project is intended to improve developement agility by providung one configuration file that holds kubernetes secrets in the form of simple key pairs. for all the secrets that are needed.  from the installation manifests to the custom Tekton CRDs that manage the creation and execution of pipelines. Whenever changes are made to `./base` or `./overlays,` run `./tekton.sh -u` to apply the changes against the current Kubernetes context. Behind the scenes, the following functions are executed.
 
 
 1. **setup**: Installs [yq](https://mikefarah.gitbook.io/yq/) for parsing YAML files.
