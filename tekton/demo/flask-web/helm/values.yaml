@@ -40,7 +40,7 @@ service:
   type: LoadBalancer
   port: 80
   annotations:
-    metallb.universe.tf/address-pool: addresspool-local
+    metallb.universe.tf/address-pool: addresspool-sample1
 
 ingress:
   enabled: false
