@@ -27,8 +27,10 @@ function apply(){
 }
 
 function secrets(){
+    python3 -m venv ./.venv
+    source ./.venv/bin/activate
     pip install -r ${DIR}/overlays/secrets/requirements.txt --exists-action i --quiet
-    python ${DIR}/overlays/secrets/main.py
+    python3 ${DIR}/overlays/secrets/main.py
 
     echo "${cyan}Applying secrets...${normal}"
     if [ -z "${CONTEXT}" ]; then

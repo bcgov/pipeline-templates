@@ -2,6 +2,7 @@
 **/.DS_Store
 **/*.secrets
 **/*.ini
+**/*.venv
 overlays/secrets/kustomization.yaml
 overlays/secrets/kustomization.yml
 .DS_Store
