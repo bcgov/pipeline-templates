@@ -26,14 +26,12 @@
 					<section class="banner style1 orient-left content-align-left image-position-right fullscreen onload-image-fade-in onload-content-fade-right">
 						<div class="content">
 							<h1>flask</h1>
-							<p>This application is built and deployed using Tekton.</p>
+							<p><i>{{ quote }}</i> <br>- {{ author }}</p>
 							<ul class="icons">
 								<li><a href="https://github.com/bcgov/pipeline-templates" target="_blank"><i class="fab fa-github"></i></a></li>
 								<li><a href="https://linkedin.com/in/gregnrobinson/" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
 								<li><a href="https://arctiq.ca/" target="_blank"><i class="fas fa-globe"></i></a></li>
 							</ul>
-							<ul>
-							<p>A wise man once said <i>{{ quote }}</i></p>
 						</div>
 						<div class="image">
 							<img src="{{ url_for('static', filename='images/banner.jpg') }}" alt="" />
