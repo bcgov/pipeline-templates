@@ -28,7 +28,6 @@ function secrets(){
 
     echo "${green}Deploying secrets...${normal}"
     if [ -z "${CONTEXT}" ]; then
-    
         kubectl apply -k overlays/secrets
     else
         kubectl config use-context ${CONTEXT}
