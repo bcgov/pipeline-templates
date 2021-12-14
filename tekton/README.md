@@ -8,7 +8,7 @@
 - [Usage](#usage)
 - [Pipeline Run Templates](#pipeline-run-templates)
   - [**buildah-build-push**](#buildah-build-push)
-  - [**build-deploy-helm**](#build-deploy-helm)
+  - [**helm-build-deploy**](#helm-build-deploy)
   - [**maven-build**](#maven-build)
   - [**codeql-scan**](#codeql-scan)
   - [**sonar-scan**](#sonar-scan)
@@ -204,7 +204,7 @@ EOF
 
 [Back to top](#tekton-pipelines)
 
-### **build-deploy-helm**
+### **helm-build-deploy**
 
 *Builds a Dockerfile and deploys the resulting image to Openshift as a deployment using [helm](https://helm.sh/docs/). By default, this configuration will use the helm chart located at`demo/flask-web/helm`.*
 
