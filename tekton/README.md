@@ -102,7 +102,7 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
 
     **secrets.ini**
     Creates secrets for all secret types. The `key` refers to the secret name, and the `value` is the secret contents.
-    
+
     Use your Docker credentials for `trivy-username` and `trivy-password`.
 
    ```bash
