@@ -29,6 +29,7 @@ function apply(){
 function secrets(){
     python3 -m venv ./.venv
     source ./.venv/bin/activate
+    python3 -m pip install --upgrade pip -q
     pip install -r ${DIR}/overlays/secrets/requirements.txt --exists-action i --quiet
     python3 ${DIR}/overlays/secrets/main.py
 
