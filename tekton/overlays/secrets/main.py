@@ -86,4 +86,4 @@ with open('kustomization.yaml', 'w') as f:
     print(pystache.render(input, {"literals": literals, "ssh": ssh, "docker": docker}))
     sys.stdout = original_stdout
 
-print(bcolors.OKCYAN + "Completed..." + bcolors.ENDC)
+print(bcolors.OKGREEN + "Completed..." + bcolors.ENDC)

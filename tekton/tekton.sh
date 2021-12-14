@@ -13,20 +13,21 @@ export normal=$(tput sgr0)
 
 function apply(){
     secrets
+    echo "${cyan}Applying Tekton resources...${normal}"
     if [ -z "${CONTEXT}" ]; then
         kubectl apply -k overlays/apply || prune
     else
         kubectl config use-context ${CONTEXT}
         kubectl apply -k overlays/apply || prune
     fi
-    echo "${green}Apply completed successfully...${normal}"
+    echo "${green}Completed...${normal}"
 }
 
 function secrets(){
     pip install -r ${DIR}/overlays/secrets/requirements.txt --exists-action i --quiet
     python ${DIR}/overlays/secrets/main.py
 
-    echo "${green}Deploying secrets...${normal}"
+    echo "${cyan}Applying secrets...${normal}"
     if [ -z "${CONTEXT}" ]; then
         kubectl apply -k overlays/secrets
     else
@@ -36,7 +37,7 @@ function secrets(){
 
     rm -rf overlays/secrets/kustomization.yaml
     rm -rf overlays/secrets/.secrets
-    echo "${green}Secrets configured successfully...${normal}"
+    echo "${green}completed...${normal}"
 }
 
 function prune(){
