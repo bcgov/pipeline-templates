@@ -2,6 +2,9 @@
 set -o errexit
 set -o pipefail
 
+NAMESPACE="${NAMESPACE:=default}"
+CONTEXT="${CONTEXT:-}"
+
 export PATH=$PATH:${PWD}
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
@@ -15,10 +18,10 @@ function apply(){
     secrets
     echo "${cyan}Applying Tekton resources...${normal}"
     if [ -z "${CONTEXT}" ]; then
-        kubectl apply -k overlays/apply || prune
+        kubectl apply -k overlays/apply -n $NAMESPACE
     else
         kubectl config use-context ${CONTEXT}
-        kubectl apply -k overlays/apply || prune
+        kubectl apply -k overlays/apply -n $NAMESPACE
     fi
     echo "${green}Completed...${normal}"
 }
@@ -29,10 +32,10 @@ function secrets(){
 
     echo "${cyan}Applying secrets...${normal}"
     if [ -z "${CONTEXT}" ]; then
-        kubectl apply -k overlays/secrets
+        kubectl apply -k overlays/secrets -n $NAMESPACE
     else
         kubectl config use-context ${CONTEXT}
-        kubectl apply -k overlays/secrets
+        kubectl apply -k overlays/secrets -n $NAMESPACE
     fi
 
     rm -rf overlays/secrets/kustomization.yaml

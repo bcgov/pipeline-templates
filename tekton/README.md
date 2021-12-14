@@ -120,11 +120,14 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
    EOF
    ```
 
-3. Set the context you wish to deploy to. If left unset, resources will deploy against the currently active context.
+3. Set the context and namespace you wish to deploy the resources in. Set the variables in your active shell.
 
    ```bash
-   # kubectl config get-contexts
+   # If CONTEXT is not set or null, the current context is used.
    export CONTEXT="<YOUR_CONTEXT>"
+
+   # If NAMESPACE is not set or null, the default namespace is used.
+   export NAMESPACE="<TARGET_NAMESPACE>"
    ```
 
 4. Apply the Tekton resources. Use this command to also update the cluster with the latest changes to the Tekton resources.
