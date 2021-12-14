@@ -94,7 +94,7 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
 1. Clone the repository. (If you want to make changes, fork the repository)
 
    ```bash
-   https://github.com/bcgov/pipeline-templates
+   git clone https://github.com/bcgov/pipeline-templates
    cd ./pipeline-templates/tekton
    ```
 
