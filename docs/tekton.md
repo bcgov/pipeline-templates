@@ -8,6 +8,7 @@
 - [Usage](#usage)
 - [Pipeline Run Templates](#pipeline-run-templates)
   - [**buildah-build-push**](#buildah-build-push)
+  - [**build-deploy-helm**](#build-deploy-helm)
   - [**maven-build**](#maven-build)
   - [**codeql-scan**](#codeql-scan)
   - [**sonar-scan**](#sonar-scan)
@@ -21,7 +22,7 @@ This project aims to improve the management experience with tekton pipelines. Th
 
 The project creates secrets for your docker and ssh credentials using the Kustomize [secretGenerator](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kustomize/). This allows for the git-clone and buildah Tekton tasks to interact with private repositories. I would consider setting up git and container registry credentials a foundational prerequisite for operating cicd tooling. Once Kustomize creates the secrets, they are referenced directly by name in the [Pipeline Run Templates](#pipeline-run-templates) section.
 
-The repository is intended to configure every aspect of Tekton, from the installation manifests to the custom Tekton CRDs that manage the creation and execution of pipelines. Whenever changes are made to `./base` or `./overlays,` run `./tekton.sh -u` to apply the changes against the current Kubernetes context. Behind the scenes, the following functions are executed.
+The project is intended to improve developement agility by providung one configuration file that holds kubernetes secrets in the form of simple key pairs. for all the secrets that are needed.  from the installation manifests to the custom Tekton CRDs that manage the creation and execution of pipelines. Whenever changes are made to `./base` or `./overlays,` run `./tekton.sh -u` to apply the changes against the current Kubernetes context. Behind the scenes, the following functions are executed.
 
 1. **setup**: Installs [yq](https://mikefarah.gitbook.io/yq/) for parsing YAML files.
 2. **sync**: Pulls the following Tekton release manifests to `./base/install`
@@ -85,18 +86,19 @@ A shared workspace defined in the `PipelineRun` determines at runtime which data
 Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch64*, and *darwin/arm64*.
 
 1. [kubectl](https://kubernetes.io/docs/tasks/tools/) >= 1.21.0
-2. [wget](https://www.tecmint.com/install-wget-in-linux/)
+2. [python3](https://www.python.org/)
+3. [pip](https://pip.pypa.io/en/stable/installation/)
 
 ## Installation
 
 1. Clone the repository. (If you want to make changes, fork the repository)
 
    ```bash
-   https://github.com/bcgov/security-pipeline-templates
-   cd ./security-pipeline-templates/tekton
+   https://github.com/bcgov/pipeline-templates
+   cd ./pipeline-templates/tekton
    ```
 
-2. Create a file named `secrets.ini` using the snippets below.
+2. Create a file named `secrets.ini` using the snippet below.
 
     **secrets.ini**
     Creates secrets for all secret types. The `key` refers to the secret name, and the `value` is the secret contents.
@@ -118,11 +120,14 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
    EOF
    ```
 
-3. Set the context you wish to deploy to. If left unset, resources will deploy against the currently active context.
+3. Set the context and namespace you wish to deploy the resources in. Set the variables in your active shell.
 
    ```bash
-   # kubectl config get-contexts
+   # If CONTEXT is not set or null, the current context is used.
    export CONTEXT="<YOUR_CONTEXT>"
+
+   # If NAMESPACE is not set or null, the default namespace is used.
+   export NAMESPACE="<TARGET_NAMESPACE>"
    ```
 
 4. Apply the Tekton resources. Use this command to also update the cluster with the latest changes to the Tekton resources.
@@ -138,49 +143,9 @@ Run `./tekton.sh -h` to display the help menu.
 ```bash
 Usage: tekton.sh [option...]
 
-   -a, --apply         Update secrets, pipelines, tasks, and triggers.
-   -p, --prune         Delete all Completed, Errored or DeadLineExceeded pod runs.
+   -a, --apply         Apply Secrets, Pipelines, Tasks and Triggers.
+   -p, --prune         Delete all PipelineRuns.
    -h, --help          Display argument options.
-```
-
-### Expected Apply Output
-
-```diff
-gregrobinson:security-pipeline-templates/tekton$ ./tekton.sh -a
-+Writing secrets to Kustomize...
-secret/docker-config-path configured
-secret/github-secret unchanged
-secret/github-token unchanged
-secret/sonar-token unchanged
-secret/ssh-key-path configured
-secret/trivy-password unchanged
-secret/trivy-username unchanged
-+Secrets configured successfully...
-pipeline.tekton.dev/p-buildah configured
-pipeline.tekton.dev/p-codeql configured
-pipeline.tekton.dev/p-mvn-build configured
-pipeline.tekton.dev/p-owasp created
-pipeline.tekton.dev/p-sonar configured
-pipeline.tekton.dev/p-trivy configured
-task.tekton.dev/t-buildah configured
-task.tekton.dev/t-codeql configured
-task.tekton.dev/t-git-clone configured
-task.tekton.dev/t-mvn-build configured
-task.tekton.dev/t-mvn-sonar-scan configured
-task.tekton.dev/t-owasp-scanner created
-task.tekton.dev/t-sonar-scanner configured
-task.tekton.dev/t-trivy-scanner configured
-+apply completed successfully...
-```
-
-### Expected Pruning Output
-
-```diff
-gregrobinson:security-pipeline-templates/tekton$ ./tekton.sh -p
-+Cleaning up Completed jobs
-+Cleaning up Errored jobs
-+Cleaning up DeadlineExceeded jobs
-+Pruning completed successfully...
 ```
 
 ## Pipeline Run Templates
@@ -236,6 +201,58 @@ EOF
 ```
 
 [Back to top](#tekton-pipelines)
+
+### **build-deploy-helm**
+
+*Builds a Dockerfile and deploys the resulting image to Openshift as a deployment using [helm](https://helm.sh/docs/). By default, this configuration will use the helm chart located at`demo/flask-web/helm`.*
+
+```yaml
+cat <<EOF | kubectl create -f -
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: build-deploy-helm-
+spec:
+  pipelineRef:
+    name: p-helm-build-deploy
+  params:
+  - name: repoUrl
+    value: git@github.com:bcgov/security-pipeline-templates.git
+  - name: branchName
+    value: main
+  - name: imageUrl
+    value: gregnrobinson/tkn-flask-web
+  - name: helmRelease
+    value: flask-web
+  - name: helmDir
+    value: ./tekton/demo/flask-web/helm
+  - name: helmValues
+    value: values.yaml
+  - name: dockerfile
+    value: ./Dockerfile
+  - name: pathToContext
+    value: ./tekton/demo/flask-web
+  - name: buildahImage
+    value: quay.io/buildah/stable
+  - name: helmImage
+    value: docker.io/lachlanevenson/k8s-helm:v3.7.0
+  workspaces:
+  - name: shared-data
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 500Mi
+  - name: ssh-creds
+    secret:
+      secretName: ssh-key-path
+  - name: docker-config
+    secret:
+      secretName: docker-config-path
+EOF
+```
 
 ### **maven-build**
 
