@@ -86,7 +86,7 @@ A shared workspace defined in the `PipelineRun` determines at runtime which data
 Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch64*, and *darwin/arm64*.
 
 1. [kubectl](https://kubernetes.io/docs/tasks/tools/) >= 1.21.0
-2. [wget](https://www.tecmint.com/install-wget-in-linux/)
+3. [python3/pip](https://www.python.org/)
 
 ## Installation
 
