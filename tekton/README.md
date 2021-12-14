@@ -98,7 +98,7 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
    cd ./pipeline-templates/tekton
    ```
 
-2. Create a file named `secrets.ini` using the snippets below.
+2. Create a file named `secrets.ini` using the snippet below.
 
     **secrets.ini**
     Creates secrets for all secret types. The `key` refers to the secret name, and the `value` is the secret contents.
