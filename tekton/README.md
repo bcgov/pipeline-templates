@@ -8,7 +8,7 @@
 - [Usage](#usage)
 - [Pipeline Run Templates](#pipeline-run-templates)
   - [**buildah-build-push**](#buildah-build-push)
-  - [**build-deploy-helm**](#buildah-build-push)
+  - [**build-deploy-helm**](#build-deploy-helm)
   - [**maven-build**](#maven-build)
   - [**codeql-scan**](#codeql-scan)
   - [**sonar-scan**](#sonar-scan)
@@ -139,49 +139,9 @@ Run `./tekton.sh -h` to display the help menu.
 ```bash
 Usage: tekton.sh [option...]
 
-   -a, --apply         Update secrets, pipelines, tasks, and triggers.
-   -p, --prune         Delete all Completed, Errored or DeadLineExceeded pod runs.
-   -h, --help          Display argument options.
-```
-
-### Expected Apply Output
-
-```diff
-gregrobinson:security-pipeline-templates/tekton$ ./tekton.sh -a
-+Writing secrets to Kustomize...
-secret/docker-config-path configured
-secret/github-secret unchanged
-secret/github-token unchanged
-secret/sonar-token unchanged
-secret/ssh-key-path configured
-secret/trivy-password unchanged
-secret/trivy-username unchanged
-+Secrets configured successfully...
-pipeline.tekton.dev/p-buildah configured
-pipeline.tekton.dev/p-codeql configured
-pipeline.tekton.dev/p-mvn-build configured
-pipeline.tekton.dev/p-owasp created
-pipeline.tekton.dev/p-sonar configured
-pipeline.tekton.dev/p-trivy configured
-task.tekton.dev/t-buildah configured
-task.tekton.dev/t-codeql configured
-task.tekton.dev/t-git-clone configured
-task.tekton.dev/t-mvn-build configured
-task.tekton.dev/t-mvn-sonar-scan configured
-task.tekton.dev/t-owasp-scanner created
-task.tekton.dev/t-sonar-scanner configured
-task.tekton.dev/t-trivy-scanner configured
-+apply completed successfully...
-```
-
-### Expected Pruning Output
-
-```diff
-gregrobinson:security-pipeline-templates/tekton$ ./tekton.sh -p
-+Cleaning up Completed jobs
-+Cleaning up Errored jobs
-+Cleaning up DeadlineExceeded jobs
-+Pruning completed successfully...
+   -a, --apply         Apply Secrets, Pipelines, Tasks and Triggers. 
+   -p, --prune         Delete all PipelineRuns. 
+   -h, --help          Display argument options. 
 ```
 
 ## Pipeline Run Templates
@@ -238,9 +198,9 @@ EOF
 
 [Back to top](#tekton-pipelines)
 
-### **helm-build-deploy**
+### **build-deploy-helm**
 
-*Builds and a java application with [maven](https://maven.apache.org/).*
+*Builds a Dockerfile and deploys the resulting image to Openshift as a deployment using [helm](https://helm.sh/docs/). By default this pipeline run will target the `demo/flask-web` directory which contains the required configuration.*
 
 ```yaml
 cat <<EOF | kubectl create -f -
@@ -259,7 +219,7 @@ spec:
   - name: helmRelease
     value: flask-web
   - name: helmImage
-    value: docker.io/lachlanevenson/k8s-helm@sha256:5c792f29950b388de24e7448d378881f68b3df73a7b30769a6aa861061fd08ae
+    value: docker.io/lachlanevenson/k8s-helm:v3.7.0
   - name: appName
     value: flask-web
   - name: repoUrl
