@@ -26,7 +26,9 @@ function secrets(){
     pip install -r ${DIR}/overlays/secrets/requirements.txt --exists-action i --quiet
     python ${DIR}/overlays/secrets/main.py
 
+    echo "${green}Deploying secrets...${normal}"
     if [ -z "${CONTEXT}" ]; then
+    
         kubectl apply -k overlays/secrets
     else
         kubectl config use-context ${CONTEXT}
@@ -39,7 +41,6 @@ function secrets(){
 }
 
 function prune(){
-    setup
     kubectl delete pipelinerun $(kubectl get pipelinerun | awk '{print $1}') 2> /dev/null || echo "${green}Pruning completed successfully...${normal}"
 }
 
@@ -52,8 +53,8 @@ function display_help() {
     echo ""
     echo "Usage: tekton.sh [option...]" >&2
     echo
-    echo "   ${bold}-a, --apply${normal}         Apply secrets, pipelines, tasks, and triggers. "
-    echo "   ${bold}-p, --prune${normal}         Delete all ${bold}Completed${normal}, $(tput bold)Errored${normal} or $(tput bold)DeadLineExceeded${normal} pod runs. "
+    echo "   ${bold}-a, --apply${normal}         Apply ${bold}Secrets${normal}, ${bold}Pipelines${normal}, ${bold}Tasks${normal} and ${bold}Triggers${normal}. "
+    echo "   ${bold}-p, --prune${normal}         Delete all ${bold}PipelineRuns${normal}. "
     echo "   ${bold}-h, --help${normal}          Display argument options. "
     echo
     exit 1

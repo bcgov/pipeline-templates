@@ -66,7 +66,18 @@ literals = [{"k": k, "v": v} for k, v in literals.items()]
 ssh      = [{"k": k, "v": v} for k, v in ssh.items()]
 docker   = [{"k": k, "v": v} for k, v in docker.items()]
 
-print('Writing secrets to Kustomize...')
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+print(bcolors.OKCYAN + "Writing secrets to Kustomize..." + bcolors.ENDC)
 
 original_stdout = sys.stdout
 
@@ -74,3 +85,5 @@ with open('kustomization.yaml', 'w') as f:
     sys.stdout = f
     print(pystache.render(input, {"literals": literals, "ssh": ssh, "docker": docker}))
     sys.stdout = original_stdout
+
+print(bcolors.OKCYAN + "Completed..." + bcolors.ENDC)
