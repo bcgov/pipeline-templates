@@ -30,9 +30,6 @@ spec:
     - name: imageUrl
       type: string
       description: Name of App that will be deployed.
-    - name: imageTag
-      type: string
-      description: Name of image tag.
     - name: repoUrl
       type: string
       description: The git repository URL to clone from.
@@ -82,8 +79,6 @@ spec:
         - name: IMAGE
           value: $(params.imageUrl)
         - name: IMAGE_TAG
-          value: $(params.imageTag)
-        - name: GIT_SHORT_SHA
           value: $(tasks.generate-id.results.short-commit)
         - name: DOCKERFILE
           value: $(params.dockerfile)

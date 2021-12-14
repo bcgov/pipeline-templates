@@ -9,8 +9,6 @@ spec:
     - name: IMAGE_TAG
       description: Reference of the target image tag.
       default: latest
-    - name: GIT_SHORT_SHA
-      description: The SHA of the current commit the build is executing on.
     - name: BUILDAH_IMAGE
       description: Reference the image version of buildah.
     - name: STORAGE_DRIVER
@@ -34,9 +32,9 @@ spec:
       workingDir: $(workspaces.source.path)
       script: |
         buildah --storage-driver=$(params.STORAGE_DRIVER) bud \
-          --no-cache -f $(params.DOCKERFILE) -t $(params.IMAGE):$(params.GIT_SHORT_SHA) --isolation chroot $(params.CONTEXT)
+          --no-cache -f $(params.DOCKERFILE) -t $(params.IMAGE):$(params.IMAGE_TAG) --isolation chroot $(params.CONTEXT)
         buildah --storage-driver=$(params.STORAGE_DRIVER) push \
-          --authfile /root/.docker/.dockerconfigjson $(params.IMAGE):$(params.GIT_SHORT_SHA)
+          --authfile /root/.docker/.dockerconfigjson $(params.IMAGE):$(params.IMAGE_TAG)
       volumeMounts:
         - name: varlibcontainers
           mountPath: /var/lib/containers
@@ -44,7 +42,7 @@ spec:
       image: docker.io/aquasec/trivy
       workingDir: $(workspaces.source.path)
       script: |
-        trivy image $(params.IMAGE):$(params.GIT_SHORT_SHA)
+        trivy image $(params.IMAGE):$(params.IMAGE_TAG)
       volumeMounts:
         - name: varlibcontainers
           mountPath: /var/lib/containers
@@ -63,7 +61,7 @@ spec:
       image: $(params.BUILDAH_IMAGE)
       workingDir: $(workspaces.source.path)
       script: |
-        buildah --storage-driver=$(params.STORAGE_DRIVER) tag $(params.IMAGE):$(params.GIT_SHORT_SHA) $(params.IMAGE):latest
+        buildah --storage-driver=$(params.STORAGE_DRIVER) tag $(params.IMAGE):$(params.IMAGE_TAG) $(params.IMAGE):latest
         buildah --storage-driver=$(params.STORAGE_DRIVER) push \
           --authfile /root/.docker/.dockerconfigjson $(params.IMAGE):latest
       volumeMounts:

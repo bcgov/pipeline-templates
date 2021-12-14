@@ -139,9 +139,9 @@ Run `./tekton.sh -h` to display the help menu.
 ```bash
 Usage: tekton.sh [option...]
 
-   -a, --apply         Apply Secrets, Pipelines, Tasks and Triggers. 
-   -p, --prune         Delete all PipelineRuns. 
-   -h, --help          Display argument options. 
+   -a, --apply         Apply Secrets, Pipelines, Tasks and Triggers.
+   -p, --prune         Delete all PipelineRuns.
+   -h, --help          Display argument options.
 ```
 
 ## Pipeline Run Templates
@@ -200,7 +200,7 @@ EOF
 
 ### **build-deploy-helm**
 
-*Builds a Dockerfile and deploys the resulting image to Openshift as a deployment using [helm](https://helm.sh/docs/). By default this pipeline run will target the `demo/flask-web` directory which contains the required configuration.*
+*Builds a Dockerfile and deploys the resulting image to Openshift as a deployment using [helm](https://helm.sh/docs/). By default, this configuration will use the helm chart located at`demo/flask-web/helm`.*
 
 ```yaml
 cat <<EOF | kubectl create -f -
@@ -212,30 +212,26 @@ spec:
   pipelineRef:
     name: p-helm-build-deploy
   params:
+  - name: repoUrl
+    value: git@github.com:bcgov/security-pipeline-templates.git
+  - name: branchName
+    value: main
+  - name: imageUrl
+    value: gregnrobinson/tkn-flask-web
+  - name: helmRelease
+    value: flask-web
   - name: helmDir
     value: ./tekton/demo/flask-web/helm
   - name: helmValues
     value: values.yaml
-  - name: helmRelease
-    value: flask-web
-  - name: helmImage
-    value: docker.io/lachlanevenson/k8s-helm:v3.7.0
-  - name: appName
-    value: flask-web
-  - name: repoUrl
-    value: git@github.com:bcgov/security-pipeline-templates.git
-  - name: imageUrl
-    value: gregnrobinson/tkn-flask-web
-  - name: imageTag
-    value: latest
-  - name: branchName
-    value: main
   - name: dockerfile
     value: ./Dockerfile
   - name: pathToContext
     value: ./tekton/demo/flask-web
   - name: buildahImage
     value: quay.io/buildah/stable
+  - name: helmImage
+    value: docker.io/lachlanevenson/k8s-helm:v3.7.0
   workspaces:
   - name: shared-data
     volumeClaimTemplate:
