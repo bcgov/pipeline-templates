@@ -114,9 +114,6 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
    github-pat-token=
    sonar-token=
 
-   [docker]
-   docker-config-path=/Users/<USER>/.docker/config.json
-
    [ssh]
    ssh-key-path=/Users/<USER>/.ssh/config.json
    EOF
