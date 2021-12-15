@@ -20,6 +20,12 @@ spec:
     - name: CONTEXT
       description: Path to the Dockerfile to build.
       default: .
+    - name: IMAGE_REGISTRY_USER
+      description: Image registry username.
+      default: image-registry-username
+    - name: IMAGE_REGISTRY_PASSWORD
+      description: Image registry password.
+      default: image-registry-password
   workspaces:
     - name: source
     - name: dockerconfig
@@ -31,13 +37,29 @@ spec:
       image: $(params.BUILDAH_IMAGE)
       workingDir: $(workspaces.source.path)
       script: |
+        buildah login \
+          -u $IMAGE_REGISTRY_USER \
+          -p $IMAGE_REGISTRY_PASS $(params.IMAGE_REGISTRY)
         buildah --storage-driver=$(params.STORAGE_DRIVER) bud \
-          --no-cache -f $(params.DOCKERFILE) -t $(params.IMAGE):$(params.IMAGE_TAG) --isolation chroot $(params.CONTEXT)
-        buildah --storage-driver=$(params.STORAGE_DRIVER) push \
-          --authfile /root/.docker/.dockerconfigjson $(params.IMAGE):$(params.IMAGE_TAG)
+          --no-cache \
+          --isolation chroot $(params.CONTEXT) \
+          -f $(params.DOCKERFILE) \
+          -t $(params.IMAGE):$(params.IMAGE_TAG)
+        buildah --storage-driver=$(params.STORAGE_DRIVER) push $(params.IMAGE):$(params.IMAGE_TAG)
       volumeMounts:
         - name: varlibcontainers
           mountPath: /var/lib/containers
+      env:
+        - name: IMAGE_REGISTRY_USER
+          valueFrom:
+            secretKeyRef:
+              name: $(params.IMAGE_REGISTRY_USER)
+              key: $(params.IMAGE_REGISTRY_USER)
+        - name: IMAGE_REGISTRY_PASS
+          valueFrom:
+            secretKeyRef:
+              name: $(params.IMAGE_REGISTRY_PASS)
+              key: $(params.IMAGE_REGISTRY_PASS)
     - name: trivy-scan
       image: docker.io/aquasec/trivy
       workingDir: $(workspaces.source.path)
@@ -61,12 +83,26 @@ spec:
       image: $(params.BUILDAH_IMAGE)
       workingDir: $(workspaces.source.path)
       script: |
+        buildah login \
+          -u $IMAGE_REGISTRY_USER \
+          -p $IMAGE_REGISTRY_PASS $(params.IMAGE_REGISTRY)
         buildah --storage-driver=$(params.STORAGE_DRIVER) tag $(params.IMAGE):$(params.IMAGE_TAG) $(params.IMAGE):latest
         buildah --storage-driver=$(params.STORAGE_DRIVER) push \
           --authfile /root/.docker/.dockerconfigjson $(params.IMAGE):latest
       volumeMounts:
         - name: varlibcontainers
           mountPath: /var/lib/containers
+      env:
+        - name: IMAGE_REGISTRY_USER
+          valueFrom:
+            secretKeyRef:
+              name: $(params.IMAGE_REGISTRY_USER)
+              key: $(params.IMAGE_REGISTRY_USER)
+        - name: IMAGE_REGISTRY_PASS
+          valueFrom:
+            secretKeyRef:
+              name: $(params.IMAGE_REGISTRY_PASS)
+              key: $(params.IMAGE_REGISTRY_PASS)
   volumes:
     - name: varlibcontainers
       emptyDir: {}

@@ -15,6 +15,12 @@ spec:
       description: |
         This workspace will provide docker credentials to the docker-build-push task.
   params:
+    - name: imageRegistry
+      type: string
+    - name: imageRegistryUser
+      type: string
+    - name: imageRegistryPass
+      type: string
     - name: imageUrl
       type: string
       description: Name of App that will be deployed.
@@ -71,6 +77,12 @@ spec:
           value: $(params.imageUrl)
         - name: IMAGE_TAG
           value: $(tasks.generate-id.results.short-commit)
+        - name: IMAGE_REGISTRY
+          value: $(params.imageRegistry)
+        - name: IMAGE_REGISTRY_USER
+          value: $(params.imageRegistryUser)
+        - name: IMAGE_REGISTRY_PASS
+          value: $(params.imageRegistryPass)
         - name: DOCKERFILE
           value: $(params.dockerfile)
         - name: CONTEXT

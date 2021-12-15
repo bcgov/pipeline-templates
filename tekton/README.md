@@ -334,7 +334,7 @@ spec:
   - name: pathToContext
     value: .
   - name: githubToken
-    value: tkn-github-token
+    value: github-pat-token
   - name: language
     value: python
   workspaces:
