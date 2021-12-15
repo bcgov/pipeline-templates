@@ -12,12 +12,9 @@ spec:
       description: |
         This workspace will provide ssh credentials to the git-clone task.
   params:
-  - name: repoUrl
-    type: string
-  - name: branchName
-    type: string
   - name: targetImage
     type: string
+    description: The URL of the image to be Scanned.
   - name: imageRegistryUser
     type: string
     description: The secret name of the secret holding the username.
@@ -25,26 +22,9 @@ spec:
     type: string
     description: The secret name of the secret holding the password.
   tasks:
-    - name: fetch-repository
-      taskRef:
-        name: t-git-clone
-      workspaces:
-        - name: output
-          workspace: shared-data
-        - name: ssh-directory
-          workspace: ssh-creds
-      params:
-        - name: url
-          value: $(params.repoUrl)
-        - name: deleteExisting
-          value: "true"
-        - name: revision
-          value: $(params.branchName)
     - name: trivy-scan
       taskRef:
         name: t-trivy-scanner
-      runAfter:
-        - fetch-repository
       params:
         - name: TARGET_IMAGE
           value: $(params.targetImage)
