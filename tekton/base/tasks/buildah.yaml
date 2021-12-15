@@ -36,7 +36,7 @@ spec:
       image: $(params.BUILDAH_IMAGE)
       workingDir: $(workspaces.source.path)
       script: |
-        set +x
+        #!/usr/bin/env bash
         buildah login \
           -u $IMAGE_REGISTRY_USER \
           -p $IMAGE_REGISTRY_PASS $(params.IMAGE_REGISTRY) > /dev/null
@@ -81,7 +81,7 @@ spec:
       image: $(params.BUILDAH_IMAGE)
       workingDir: $(workspaces.source.path)
       script: |
-        set +x
+        #!/usr/bin/env bash
         buildah login \
           -u $IMAGE_REGISTRY_USER \
           -p $IMAGE_REGISTRY_PASS $(params.IMAGE_REGISTRY) > /dev/null
