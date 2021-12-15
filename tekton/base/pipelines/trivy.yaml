@@ -11,9 +11,6 @@ spec:
     - name: ssh-creds
       description: |
         This workspace will provide ssh credentials to the git-clone task.
-    - name: docker-config
-      description: |
-        This workspace will provide docker credentials to the docker-build-push task.
   params:
   - name: repoUrl
     type: string
@@ -21,6 +18,12 @@ spec:
     type: string
   - name: targetImage
     type: string
+  - name: imageRegistryUser
+    type: string
+    description: The secret name of the secret holding the username.
+  - name: imageRegistryPass
+    type: string
+    description: The secret name of the secret holding the password.
   tasks:
     - name: fetch-repository
       taskRef:
@@ -45,6 +48,10 @@ spec:
       params:
         - name: TARGET_IMAGE
           value: $(params.targetImage)
+        - name: IMAGE_REGISTRY_USER
+          value: $(params.imageRegistryUser)
+        - name: IMAGE_REGISTRY_PASS
+          value: $(params.imageRegistryPass)
       workspaces:
         - name: source
           workspace: shared-data

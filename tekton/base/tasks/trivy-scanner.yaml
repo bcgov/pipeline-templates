@@ -38,12 +38,12 @@ spec:
       script: |
         trivy image $(params.TARGET_IMAGE)
       env:
-        - name: IMAGE_REGISTRY_USER
+        - name: TRIVY_USERNAME
           valueFrom:
             secretKeyRef:
               name: $(params.IMAGE_REGISTRY_USER)
               key: $(params.IMAGE_REGISTRY_USER)
-        - name: IMAGE_REGISTRY_PASS
+        - name: TRIVY_PASSWORD
           valueFrom:
             secretKeyRef:
               name: $(params.IMAGE_REGISTRY_PASS)
