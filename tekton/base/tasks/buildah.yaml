@@ -50,13 +50,13 @@ spec:
         - name: IMAGE_REGISTRY_USERNAME
           valueFrom:
             secretKeyRef:
-              name: trivy-username
-              key: trivy-username
+              name: image-registry-username
+              key: image-registry-username
         - name: IMAGE_REGISTRY_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: trivy-password
-              key: trivy-password
+              name: image-registry-password
+              key: image-registry-password
     - name: push
       image: $(params.BUILDAH_IMAGE)
       workingDir: $(workspaces.source.path)
