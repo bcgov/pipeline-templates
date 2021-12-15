@@ -13,7 +13,7 @@ jobs:
       with:
         tflint_version: latest
     - uses: pre-commit/action@v2.0.3
-    - name: Datree Analyze Kubernetes Manifests 
+    - name: Analyze Kustomize Manifests
       run: |
         pwd
         ls -al
