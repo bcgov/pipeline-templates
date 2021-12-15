@@ -13,7 +13,8 @@ jobs:
       with:
         tflint_version: latest
     - uses: pre-commit/action@v2.0.3
-    - run: |
+    - name: Datree Analyze Kubernetes Manifests 
+      run: |
         pwd
         ls -al
         curl https://get.datree.io | /bin/bash
