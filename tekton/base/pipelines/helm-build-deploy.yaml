@@ -27,9 +27,17 @@ spec:
     - name: helmImage
       type: string
       description: The helm docker image url to use.
+    - name: imageRegistry
+      type: string
+      description: The Root url of the image registry. (ie. docker.io)
+    - name: imageRegistryUser
+      type: string
+      description: The secret name of the secret holding the username.
+    - name: imageRegistryPass
+      type: string
+      description: The secret name of the secret holding the password.
     - name: imageUrl
       type: string
-      description: Name of App that will be deployed.
     - name: repoUrl
       type: string
       description: The git repository URL to clone from.
@@ -78,6 +86,14 @@ spec:
       params:
         - name: IMAGE
           value: $(params.imageUrl)
+        - name: IMAGE_TAG
+          value: $(tasks.generate-id.results.short-commit)
+        - name: IMAGE_REGISTRY
+          value: $(params.imageRegistry)
+        - name: IMAGE_REGISTRY_USER
+          value: $(params.imageRegistryUser)
+        - name: IMAGE_REGISTRY_PASS
+          value: $(params.imageRegistryPass)
         - name: IMAGE_TAG
           value: $(tasks.generate-id.results.short-commit)
         - name: DOCKERFILE

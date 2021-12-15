@@ -168,14 +168,18 @@ spec:
   pipelineRef:
     name: p-buildah
   params:
-  - name: appName
-    value: flask-web
-  - name: repoUrl
-    value: git@github.com:bcgov/security-pipeline-templates.git
+  - name: imageRegistry
+    value: docker.io
+  - name: imageRegistryUser
+    value: image-registry-username # Secret name containing secret
+  - name: imageRegistryPass
+    value: image-registry-password # Secret name containing secret
   - name: imageUrl
     value: gregnrobinson/tkn-flask-web
   - name: imageTag
     value: latest
+  - name: repoUrl
+    value: git@github.com:bcgov/security-pipeline-templates.git
   - name: branchName
     value: main
   - name: dockerfile
@@ -196,9 +200,6 @@ spec:
   - name: ssh-creds
     secret:
       secretName: ssh-key-path
-  - name: docker-config
-    secret:
-      secretName: docker-config-path
 EOF
 ```
 
@@ -218,12 +219,22 @@ spec:
   pipelineRef:
     name: p-helm-build-deploy
   params:
+  - name: imageRegistry
+    value: docker.io
+  - name: imageRegistryUser
+  # Secret name containing secret
+    value: image-registry-username 
+  - name: imageRegistryPass
+  # Secret name containing secret
+    value: image-registry-password
+  - name: imageUrl
+    value: gregnrobinson/tkn-flask-web
+  - name: imageTag
+    value: latest
   - name: repoUrl
     value: git@github.com:bcgov/security-pipeline-templates.git
   - name: branchName
     value: main
-  - name: imageUrl
-    value: gregnrobinson/tkn-flask-web
   - name: helmRelease
     value: flask-web
   - name: helmDir
@@ -250,9 +261,6 @@ spec:
   - name: ssh-creds
     secret:
       secretName: ssh-key-path
-  - name: docker-config
-    secret:
-      secretName: docker-config-path
 EOF
 ```
 

@@ -26,29 +26,24 @@ spec:
     - name: IMAGE_REGISTRY_USER
       description: The secret name of the secret holding the username.
       default: image-registry-username
-    - name: IMAGE_REGISTRY_PASSWORD
+    - name: IMAGE_REGISTRY_PASS
       description: The secret name of the secret holding the password.
       default: image-registry-password
   workspaces:
     - name: source
-    - name: dockerconfig
-      description: Includes a docker `.dockerconfigjson`
-      optional: true
-      mountPath: /root/.docker/
   steps:
     - name: build
       image: $(params.BUILDAH_IMAGE)
       workingDir: $(workspaces.source.path)
       script: |
+        set +x
         buildah login \
           -u $IMAGE_REGISTRY_USER \
-          -p $IMAGE_REGISTRY_PASS $(params.IMAGE_REGISTRY)
+          -p $IMAGE_REGISTRY_PASS $(params.IMAGE_REGISTRY) > /dev/null
         buildah --storage-driver=$(params.STORAGE_DRIVER) bud \
-          --no-cache \
-          --isolation chroot $(params.CONTEXT) \
-          -f $(params.DOCKERFILE) \
-          -t $(params.IMAGE):$(params.IMAGE_TAG)
+          --no-cache -f $(params.DOCKERFILE) -t $(params.IMAGE):$(params.IMAGE_TAG) --isolation chroot $(params.CONTEXT)
         buildah --storage-driver=$(params.STORAGE_DRIVER) push $(params.IMAGE):$(params.IMAGE_TAG)
+        set -x
       volumeMounts:
         - name: varlibcontainers
           mountPath: /var/lib/containers
@@ -88,7 +83,7 @@ spec:
       script: |
         buildah login \
           -u $IMAGE_REGISTRY_USER \
-          -p $IMAGE_REGISTRY_PASS $(params.IMAGE_REGISTRY)
+          -p $IMAGE_REGISTRY_PASS $(params.IMAGE_REGISTRY) > /dev/null
         buildah --storage-driver=$(params.STORAGE_DRIVER) tag $(params.IMAGE):$(params.IMAGE_TAG) $(params.IMAGE):latest
         buildah --storage-driver=$(params.STORAGE_DRIVER) push $(params.IMAGE):latest
       volumeMounts:
