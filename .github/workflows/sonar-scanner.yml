@@ -2,7 +2,7 @@ name: sonar-scan-repo
 
 env:
   ORG: ci-testing
-  PROJECT_KEY: pipeline-templates
+  PROJECT_KEY: bcgov-pipeline-templates
   URL: https://sonarcloud.io
   WORKDIR: ./demo/flask-web
 
