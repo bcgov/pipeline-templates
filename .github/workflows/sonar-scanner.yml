@@ -2,9 +2,9 @@ name: sonar-scan-repo
 
 env:
   ORG: ci-testing
-  PROJECT_KEY: github-actions-test
+  PROJECT_KEY: pipeline-templates
   URL: https://sonarcloud.io
-  WORKDIR: ./tekton/demo/maven-test
+  WORKDIR: .
 
 on:
   workflow_dispatch:
