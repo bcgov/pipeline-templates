@@ -69,7 +69,7 @@ spec:
       interceptors:
         - github:
             secretRef:
-              secretName: github-secret
+              secretName: github-webhook-secret
               secretKey: secretToken
             eventTypes:
               - pull_request

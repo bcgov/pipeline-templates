@@ -8,7 +8,7 @@
 - [Usage](#usage)
 - [Pipeline Run Templates](#pipeline-run-templates)
   - [**buildah-build-push**](#buildah-build-push)
-  - [**helm-build-deploy**](#helm-build-deploy)
+  - [**build-deploy-helm**](#build-deploy-helm)
   - [**maven-build**](#maven-build)
   - [**codeql-scan**](#codeql-scan)
   - [**sonar-scan**](#sonar-scan)
@@ -108,11 +108,11 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
    ```bash
    cat <<EOF >./overlays/secrets/secrets.ini
    [literals]
-   trivy-username=<IMAGE_REGISTRY_USERNAME>
-   trivy-password=<IMAGE_REGISTRY_PASSWORD>
-   github-secret=<GITHUB_WEBOOK_SECRET>
-   github-token=<GITHUB_PAT_TOKEN>
-   sonar-token=<SONAR_PROJECT_TOKEN>
+   image-registry-username=
+   image-registry-password=
+   github-webhook-secret=
+   github-pat-token=
+   sonar-token=
 
    [docker]
    docker-config-path=/Users/<USER>/.docker/config.json
@@ -204,7 +204,7 @@ EOF
 
 [Back to top](#tekton-pipelines)
 
-### **helm-build-deploy**
+### **build-deploy-helm**
 
 *Builds a Dockerfile and deploys the resulting image to Openshift as a deployment using [helm](https://helm.sh/docs/). By default, this configuration will use the helm chart located at`demo/flask-web/helm`.*
 
@@ -255,8 +255,6 @@ spec:
       secretName: docker-config-path
 EOF
 ```
-
-[Back to top](#tekton-pipelines)
 
 ### **maven-build**
 
