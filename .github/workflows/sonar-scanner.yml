@@ -4,7 +4,7 @@ env:
   ORG: ci-testing
   PROJECT_KEY: pipeline-templates
   URL: https://sonarcloud.io
-  WORKDIR: .
+  WORKDIR: ./demo/flask-web
 
 on:
   workflow_dispatch:
