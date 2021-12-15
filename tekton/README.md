@@ -433,10 +433,10 @@ spec:
   params:
   - name: targetImage
     value: python:3.4-alpine
-  - name: repoUrl
-    value: git@github.com:bcgov/security-pipeline-templates.git
-  - name: branchName
-    value: main
+  - name: imageRegistryUser
+    value: image-registry-username # Secret name containing secret
+  - name: imageRegistryPass
+    value: image-registry-password # Secret name containing secret
   workspaces:
   - name: shared-data
     volumeClaimTemplate:
@@ -449,9 +449,6 @@ spec:
   - name: ssh-creds
     secret:
       secretName: ssh-key-path
-  - name: docker-config
-    secret:
-      secretName: docker-config-path
 EOF
 ```
 
