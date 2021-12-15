@@ -1,7 +1,7 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
-  name: buildah-build-push-trigger
+  name: build-push-image-trigger
 spec:
   params:
   - name: appName
@@ -61,7 +61,7 @@ spec:
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
-  name: build-push-image-tekton-trigger-listener
+  name: build-push-image-trigger
 spec:
   serviceAccountName: service-tekton-triggers-sa
   triggers:
@@ -75,14 +75,14 @@ spec:
               - pull_request
               - push
       bindings:
-        - ref: build-push-image-pipeline-binding
+        - ref: pipeline-templates
       template:
-        ref: build-push-image-template
+        ref: build-push-image-trigger
 ---
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
-  name: build-push-image-pipeline-binding
+  name: pipeline-templates
 spec:
   params:
   - name: gitrevision
