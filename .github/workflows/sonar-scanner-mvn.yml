@@ -5,8 +5,8 @@ env:
   PROJECT_KEY: pipeline-templates
 
 on:
+  pull_request:
   workflow_dispatch:
-
 jobs:
     #Sonarqube Section
   sonarqube-scanning:

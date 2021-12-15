@@ -4,11 +4,10 @@ env:
   ORG: ci-testing
   PROJECT_KEY: bcgov-pipeline-templates
   URL: https://sonarcloud.io
-  WORKDIR: ./demo/flask-web
+  WORKDIR: .
 
 on:
   workflow_dispatch:
-  push:
   schedule:
     - cron: '0 9 * * *'
 jobs:
