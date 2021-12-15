@@ -3,8 +3,6 @@ name: pre-commit
 on:
   pull_request:
   push:
-    branches: [main]
-
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
@@ -15,7 +13,6 @@ jobs:
       with:
         tflint_version: latest
     - uses: pre-commit/action@v2.0.3
-      working-directory: $GITHUB_WORKSPACE
     - run: |
         git fetch --all
         pwd
