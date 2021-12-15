@@ -44,10 +44,10 @@ spec:
                 storage: 1Gi
       - name: ssh-creds
         secret:
-          secretName: tkn-ssh-credentials
+          secretName: ssh-key-path
       - name: docker-config
         secret:
-          secretName: tkn-docker-credentials
+          secretName: docker-config-path
       - name: maven-settings
         emptyDir: {}
 ---
