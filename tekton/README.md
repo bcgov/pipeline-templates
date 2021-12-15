@@ -220,7 +220,7 @@ spec:
     value: quay.io
   - name: imageRegistryUser
   # Secret name containing secret
-    value: image-registry-username 
+    value: image-registry-username
   - name: imageRegistryPass
   # Secret name containing secret
     value: image-registry-password
