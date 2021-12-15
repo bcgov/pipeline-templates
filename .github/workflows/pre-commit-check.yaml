@@ -16,6 +16,7 @@ jobs:
         tflint_version: latest
     - uses: pre-commit/action@v2.0.3
     - run: |
+        git fetch --all
         curl https://get.datree.io | /bin/bash
         echo "scanning base..."
         datree test ./tekton/base/*           --ignore-missing-schemas
