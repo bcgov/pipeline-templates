@@ -11,9 +11,6 @@ spec:
     - name: ssh-creds
       description: |
         This workspace will provide ssh credentials to the git-clone task.
-    - name: docker-config
-      description: |
-        This workspace will provide docker credentials to the docker-build-push task.
   params:
     - name: helmDir
       type: string
@@ -105,8 +102,6 @@ spec:
       workspaces:
         - name: source
           workspace: shared-data
-        - name: dockerconfig
-          workspace: docker-config
     - name: helm-deploy
       taskRef:
         name: t-helm-deploy

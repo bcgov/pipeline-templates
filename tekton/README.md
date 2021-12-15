@@ -304,9 +304,6 @@ spec:
   - name: ssh-creds
     secret:
       secretName: ssh-key-path
-  - name: docker-config
-    secret:
-      secretName: docker-config-path
   - name: maven-settings
     emptyDir: {}
 EOF
