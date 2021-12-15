@@ -17,28 +17,31 @@ spec:
   params:
     - name: imageRegistry
       type: string
+      description: The Root url of the image registry. (ie. docker.io)
     - name: imageRegistryUser
       type: string
+      description: The secret name of the secret holding the username.
     - name: imageRegistryPass
       type: string
+      description: The secret name of the secret holding the password.
     - name: imageUrl
       type: string
-      description: Name of App that will be deployed.
+      description: Image location (ie. bcgov/codeql-cli)
     - name: imageTag
       type: string
       description: Name of image tag.
     - name: repoUrl
       type: string
-      description: The git repository URL to clone from.
+      description: The git repository URL containing the Dockerfile.
     - name: branchName
       type: string
-      description: The git branch to clone.
+      description: The branch to clone.
     - name: pathToContext
       type: string
-      description: Path of the Dockerfile.
+      description: Path to Dockefile.
     - name: dockerfile
       type: string
-      description: Location of the Dockerfile.
+      description: Name of Dockerfile.
     - name: buildahImage
       type: string
       description: Version of Buildah to run.
