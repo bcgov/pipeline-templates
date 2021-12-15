@@ -47,12 +47,12 @@ spec:
         - name: varlibcontainers
           mountPath: /var/lib/containers
       env:
-        - name: TRIVY_USERNAME
+        - name: IMAGE_REGISTRY_USERNAME
           valueFrom:
             secretKeyRef:
               name: trivy-username
               key: trivy-username
-        - name: TRIVY_PASSWORD
+        - name: IMAGE_REGISTRY_PASSWORD
           valueFrom:
             secretKeyRef:
               name: trivy-password
