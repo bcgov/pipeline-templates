@@ -2,17 +2,18 @@ name: sonar-scan-repo
 
 env:
   ORG: ci-testing
-  PROJECT_KEY: github-actions-test
+  PROJECT_KEY: pipeline-templates
   URL: https://sonarcloud.io
-  WORKDIR: ./tekton/demo/maven-test
+  WORKDIR: .
 
 on:
   workflow_dispatch:
+  pull_request:
   schedule:
     - cron: '0 9 * * *'
 jobs:
   sonar-scan:
-    name: Sonarqube Scanning
+    name: Sonar Scan
     runs-on: ubuntu-latest
     steps:
       - name: Setup
