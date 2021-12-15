@@ -166,13 +166,13 @@ spec:
     name: p-buildah
   params:
   - name: imageRegistry
-    value: docker.io
+    value: quay.io
   - name: imageRegistryUser
     value: image-registry-username # Secret name containing secret
   - name: imageRegistryPass
     value: image-registry-password # Secret name containing secret
   - name: imageUrl
-    value: gregnrobinson/tkn-flask-web
+    value: gregnrobinson/flask-web
   - name: imageTag
     value: latest
   - name: repoUrl
@@ -217,7 +217,7 @@ spec:
     name: p-helm-build-deploy
   params:
   - name: imageRegistry
-    value: docker.io
+    value: quay.io
   - name: imageRegistryUser
   # Secret name containing secret
     value: image-registry-username 
