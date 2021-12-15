@@ -54,7 +54,7 @@ function display_help() {
     SHORT_SHA="$(git rev-parse --short HEAD)"
     BRANCH="$(git rev-parse --abbrev-ref HEAD)"
     echo ""
-    echo "${cyan}Tekton Kustomize CLI${normal}"
+    echo "${cyan}Tekton CLI${normal}"
     echo "${cyan}Version: ${BRANCH}-${SHORT_SHA}${normal}"
     echo ""
     echo "Usage: tekton.sh [option...]" >&2
