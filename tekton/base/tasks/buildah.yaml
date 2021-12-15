@@ -20,11 +20,14 @@ spec:
     - name: CONTEXT
       description: Path to the Dockerfile to build.
       default: .
+    - name: IMAGE_REGISTRY
+      description: The Root url of the image registry.
+      default: docker.io
     - name: IMAGE_REGISTRY_USER
-      description: Image registry username.
+      description: The secret name of the secret holding the username.
       default: image-registry-username
     - name: IMAGE_REGISTRY_PASSWORD
-      description: Image registry password.
+      description: The secret name of the secret holding the password.
       default: image-registry-password
   workspaces:
     - name: source
@@ -72,13 +75,13 @@ spec:
         - name: TRIVY_USERNAME
           valueFrom:
             secretKeyRef:
-              name: image-registry-username
-              key: image-registry-username
+              name: $(params.IMAGE_REGISTRY_USER)
+              key: $(params.IMAGE_REGISTRY_USER)
         - name: TRIVY_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: image-registry-password
-              key: image-registry-password
+              name: $(params.IMAGE_REGISTRY_PASS)
+              key: $(params.IMAGE_REGISTRY_PASS)
     - name: push
       image: $(params.BUILDAH_IMAGE)
       workingDir: $(workspaces.source.path)
@@ -87,8 +90,7 @@ spec:
           -u $IMAGE_REGISTRY_USER \
           -p $IMAGE_REGISTRY_PASS $(params.IMAGE_REGISTRY)
         buildah --storage-driver=$(params.STORAGE_DRIVER) tag $(params.IMAGE):$(params.IMAGE_TAG) $(params.IMAGE):latest
-        buildah --storage-driver=$(params.STORAGE_DRIVER) push \
-          --authfile /root/.docker/.dockerconfigjson $(params.IMAGE):latest
+        buildah --storage-driver=$(params.STORAGE_DRIVER) push $(params.IMAGE):latest
       volumeMounts:
         - name: varlibcontainers
           mountPath: /var/lib/containers
