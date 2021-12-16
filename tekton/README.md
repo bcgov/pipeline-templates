@@ -39,36 +39,51 @@ The `./tekton.sh -i` argument sources the `.env` file at the root of the reposit
 ### Layout
 
 ```diff
-  ./base
-  ├── install
-  │   ├── dashboards.yaml
-  │   ├── interceptors.yaml
-+ │   ├── kustomization.yaml
-  │   ├── pipelines.yaml
-  │   └── triggers.yaml
-+ ├── kustomization.yaml
-  ├── pipelines
-  │   ├── buildah.yaml
-+ │   ├── kustomization.yaml
-  │   └── maven.yaml
-  ├── overlays
-  │   ├── apply
-  │   │   └── kustomization.yaml
-+ │   └── secrets ()
-  │       ├── file.secrets
-  │       ├── main.py
-  │       ├── opaque.secrets
-  │       └── requirements.txt
-  ├── tasks
-  │   ├── buildah.yaml
-  │   ├── git-clone.yaml
-+ │   ├── kustomization.yaml
-  │   └── maven-build.yaml
-  └── triggers
-      ├── ingress.yaml
-+     ├── kustomization.yaml
-      ├── rbac.yaml
-      └── trigger-template.yaml
+   ├── base
+   │   ├── pipelines
+   │   │   ├── buildah.yaml
+   │   │   ├── codeql.yaml
+   │   │   ├── helm-build-deploy.yaml
++  │   │   ├── kustomization.yaml
+   │   │   ├── maven.yaml
+   │   │   ├── owasp.yaml
+   │   │   ├── sonar.yaml
+   │   │   └── trivy.yaml
+   │   ├── tasks
+   │   │   ├── buildah.yaml
+   │   │   ├── codeql
+   │   │   │   ├── Dockerfile
+   │   │   │   ├── codeql.yaml
++  │   │   │   └── kustomization.yaml
+   │   │   ├── create-pr.yaml
+   │   │   ├── deploy.yaml
+   │   │   ├── generate-id.yaml
+   │   │   ├── git-clone.yaml
+   │   │   ├── helm-deploy.yaml
++  │   │   ├── kustomization.yaml
+   │   │   ├── mvn-build.yaml
+   │   │   ├── mvn-sonar-scan.yaml
+   │   │   ├── npm-sonar-scan.yaml
+   │   │   ├── npm.yaml
+   │   │   ├── owasp-scanner.yaml
+   │   │   ├── sonar-scanner.yaml
+   │   │   ├── trivy-scanner.yaml
+   │   │   └── yq.yaml
+   │   └── triggers
+   │       ├── ingress.yaml
++  │       ├── kustomization.yaml
+   │       ├── rbac.yaml
+   │       ├── trigger-flask-web.yaml
+   │       └── trigger-maven-build.yaml
+   ├── demo
+   ├── overlays
+   │   ├── apply
++  │   │   └── kustomization.yaml
+   │   └── secrets
+   │       ├── main.py
+   │       ├── requirements.txt
+   │       └── secrets.ini
+   └── tekton.sh
 ```
 
 ## Common Workflow
