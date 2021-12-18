@@ -191,7 +191,7 @@ spec:
   - name: imageTag
     value: latest
   - name: repoUrl
-    value: git@github.com:bcgov/security-pipeline-templates.git
+    value: git@github.com:bcgov/pipeline-templates.git
   - name: branchName
     value: main
   - name: dockerfile
@@ -244,7 +244,7 @@ spec:
   - name: imageTag
     value: latest
   - name: repoUrl
-    value: git@github.com:bcgov/security-pipeline-templates.git
+    value: git@github.com:bcgov/pipeline-templates.git
   - name: branchName
     value: main
   - name: helmRelease
@@ -345,7 +345,7 @@ spec:
   - name: buildImageUrl
     value: docker.io/gregnrobinson/codeql-cli:latest
   - name: repoUrl
-    value: git@github.com:bcgov/security-pipeline-templates.git
+    value: git@github.com:bcgov/pipeline-templates.git
   - name: repo
     value: bcgov/security-pipeline-templates
   - name: branchName
