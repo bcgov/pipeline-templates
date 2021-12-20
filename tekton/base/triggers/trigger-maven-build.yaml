@@ -1,4 +1,4 @@
-apiVersion: triggers.tekton.dev/v1beta1
+apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
   name: maven-build-trigger
@@ -72,7 +72,7 @@ spec:
       template:
         ref: build-push-image-template
 ---
-apiVersion: triggers.tekton.dev/v1beta1
+apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
   name: maven-build-trigger-binding

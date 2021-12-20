@@ -1,4 +1,4 @@
-apiVersion: triggers.tekton.dev/v1beta1
+apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
   name: build-push-image-trigger
@@ -79,7 +79,7 @@ spec:
       template:
         ref: build-push-image-trigger
 ---
-apiVersion: triggers.tekton.dev/v1beta1
+apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
   name: pipeline-templates
