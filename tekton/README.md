@@ -181,7 +181,7 @@ spec:
     name: p-buildah
   params:
   - name: imageRegistry
-    value: quay.io
+    value: docker.io
   - name: imageRegistryUser
     value: image-registry-username # Secret name containing secret
   - name: imageRegistryPass
