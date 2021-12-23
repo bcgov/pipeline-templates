@@ -1,10 +1,7 @@
 name: pre-commit
 
 on:
-  pull_request:
   push:
-    branches: [main]
-
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
@@ -15,13 +12,13 @@ jobs:
       with:
         tflint_version: latest
     - uses: pre-commit/action@v2.0.3
-    - run: |
+    - name: Analyze Kustomize Manifests
+      run: |
+        pwd
+        ls -al
         curl https://get.datree.io | /bin/bash
-        echo "scanning base..."
-        datree test ./tekton/base/*           --ignore-missing-schemas
-        echo "scanning pipelines..."
-        datree test ./tekton/base/pipelines/* --ignore-missing-schemas
+        datree test tekton/base/pipelines/* --ignore-missing-schemas
         echo "scanning tasks..."
-        datree test ./tekton/base/tasks/*     --ignore-missing-schemas
+        datree test tekton/base/tasks/*     --ignore-missing-schemas
         echo "scan triggers..."
-        datree test ./tekton/base/triggers/*  --ignore-missing-schemas
+        datree test tekton/base/triggers/*  --ignore-missing-schemas

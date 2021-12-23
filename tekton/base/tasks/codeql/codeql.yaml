@@ -12,7 +12,7 @@ spec:
       default: .
     - name: GITHUB_TOKEN
       description: A Github PAT with repo access.
-      default: tkn-github-token
+      default: github-token
     - name: REPO
       description: Repo short form name.
     - name: REPO_URL

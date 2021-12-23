@@ -33,7 +33,7 @@ spec:
   steps:
     - name: owasp-scan
       image: owasp/zap2docker-stable
-      workingDir: $(workspaces.source.path)
+      workingDir: $(workspaces.owasp-settings.path)
       script: |
         #!/bin/bash
 

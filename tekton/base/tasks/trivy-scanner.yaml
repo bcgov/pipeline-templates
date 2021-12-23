@@ -25,6 +25,12 @@ spec:
     - name: TARGET_IMAGE
       description: Image to scan against.
       default: "python:3.4-alpine"
+    - name: IMAGE_REGISTRY_USER
+      description: The secret name of the secret holding the username.
+      default: image-registry-username
+    - name: IMAGE_REGISTRY_PASS
+      description: The secret name of the secret holding the password.
+      default: image-registry-password
   steps:
     - name: scan-image-vulnerbilities
       image: docker.io/aquasec/trivy
@@ -35,10 +41,10 @@ spec:
         - name: TRIVY_USERNAME
           valueFrom:
             secretKeyRef:
-              name: trivy-username
-              key: trivy-username
+              name: $(params.IMAGE_REGISTRY_USER)
+              key: $(params.IMAGE_REGISTRY_USER)
         - name: TRIVY_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: trivy-password
-              key: trivy-password
+              name: $(params.IMAGE_REGISTRY_PASS)
+              key: $(params.IMAGE_REGISTRY_PASS)

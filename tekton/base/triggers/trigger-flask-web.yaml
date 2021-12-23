@@ -1,7 +1,7 @@
-apiVersion: triggers.tekton.dev/v1beta1
+apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
-  name: buildah-build-push-trigger
+  name: build-push-image-trigger
 spec:
   params:
   - name: appName
@@ -53,15 +53,15 @@ spec:
                 storage: 500Mi
       - name: ssh-creds
         secret:
-          secretName: tkn-ssh-credentials
+          secretName: ssh-key-path
       - name: docker-config
         secret:
-          secretName: tkn-docker-credentials
+          secretName: docker-config-path
 ---
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
-  name: build-push-image-tekton-trigger-listener
+  name: build-push-image-trigger
 spec:
   serviceAccountName: service-tekton-triggers-sa
   triggers:
@@ -69,20 +69,20 @@ spec:
       interceptors:
         - github:
             secretRef:
-              secretName: github-secret
-              secretKey: secretToken
+              secretName: github-webhook-secret
+              secretKey: github-webhook-secret
             eventTypes:
               - pull_request
               - push
       bindings:
-        - ref: build-push-image-pipeline-binding
+        - ref: pipeline-templates
       template:
-        ref: build-push-image-template
+        ref: build-push-image-trigger
 ---
-apiVersion: triggers.tekton.dev/v1beta1
+apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
-  name: build-push-image-pipeline-binding
+  name: pipeline-templates
 spec:
   params:
   - name: gitrevision

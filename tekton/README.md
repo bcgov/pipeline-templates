@@ -8,7 +8,7 @@
 - [Usage](#usage)
 - [Pipeline Run Templates](#pipeline-run-templates)
   - [**buildah-build-push**](#buildah-build-push)
-  - [**helm-build-deploy**](#helm-build-deploy)
+  - [**build-deploy-helm**](#build-deploy-helm)
   - [**maven-build**](#maven-build)
   - [**codeql-scan**](#codeql-scan)
   - [**sonar-scan**](#sonar-scan)
@@ -39,36 +39,51 @@ The `./tekton.sh -i` argument sources the `.env` file at the root of the reposit
 ### Layout
 
 ```diff
-  ./base
-  ├── install
-  │   ├── dashboards.yaml
-  │   ├── interceptors.yaml
-+ │   ├── kustomization.yaml
-  │   ├── pipelines.yaml
-  │   └── triggers.yaml
-+ ├── kustomization.yaml
-  ├── pipelines
-  │   ├── buildah.yaml
-+ │   ├── kustomization.yaml
-  │   └── maven.yaml
-  ├── overlays
-  │   ├── apply
-  │   │   └── kustomization.yaml
-+ │   └── secrets ()
-  │       ├── file.secrets
-  │       ├── main.py
-  │       ├── opaque.secrets
-  │       └── requirements.txt
-  ├── tasks
-  │   ├── buildah.yaml
-  │   ├── git-clone.yaml
-+ │   ├── kustomization.yaml
-  │   └── maven-build.yaml
-  └── triggers
-      ├── ingress.yaml
-+     ├── kustomization.yaml
-      ├── rbac.yaml
-      └── trigger-template.yaml
+   ├── base
+   │   ├── pipelines
+   │   │   ├── buildah.yaml
+   │   │   ├── codeql.yaml
+   │   │   ├── helm-build-deploy.yaml
++  │   │   ├── kustomization.yaml
+   │   │   ├── maven.yaml
+   │   │   ├── owasp.yaml
+   │   │   ├── sonar.yaml
+   │   │   └── trivy.yaml
+   │   ├── tasks
+   │   │   ├── buildah.yaml
+   │   │   ├── codeql
+   │   │   │   ├── Dockerfile
+   │   │   │   ├── codeql.yaml
++  │   │   │   └── kustomization.yaml
+   │   │   ├── create-pr.yaml
+   │   │   ├── deploy.yaml
+   │   │   ├── generate-id.yaml
+   │   │   ├── git-clone.yaml
+   │   │   ├── helm-deploy.yaml
++  │   │   ├── kustomization.yaml
+   │   │   ├── mvn-build.yaml
+   │   │   ├── mvn-sonar-scan.yaml
+   │   │   ├── npm-sonar-scan.yaml
+   │   │   ├── npm.yaml
+   │   │   ├── owasp-scanner.yaml
+   │   │   ├── sonar-scanner.yaml
+   │   │   ├── trivy-scanner.yaml
+   │   │   └── yq.yaml
+   │   └── triggers
+   │       ├── ingress.yaml
++  │       ├── kustomization.yaml
+   │       ├── rbac.yaml
+   │       ├── trigger-flask-web.yaml
+   │       └── trigger-maven-build.yaml
+   ├── demo
+   ├── overlays
+   │   ├── apply
++  │   │   └── kustomization.yaml
+   │   └── secrets
+   │       ├── main.py
+   │       ├── requirements.txt
+   │       └── secrets.ini
+   └── tekton.sh
 ```
 
 ## Common Workflow
@@ -108,14 +123,11 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
    ```bash
    cat <<EOF >./overlays/secrets/secrets.ini
    [literals]
-   trivy-username=<IMAGE_REGISTRY_USERNAME>
-   trivy-password=<IMAGE_REGISTRY_PASSWORD>
-   github-secret=<GITHUB_WEBOOK_SECRET>
-   github-token=<GITHUB_PAT_TOKEN>
-   sonar-token=<SONAR_PROJECT_TOKEN>
-
-   [docker]
-   docker-config-path=/Users/<USER>/.docker/config.json
+   image-registry-username=
+   image-registry-password=
+   github-webhook-secret=
+   github-pat-token=
+   sonar-token=
 
    [ssh]
    ssh-key-path=/Users/<USER>/.ssh/config.json
@@ -168,14 +180,18 @@ spec:
   pipelineRef:
     name: p-buildah
   params:
-  - name: appName
-    value: flask-web
-  - name: repoUrl
-    value: git@github.com:bcgov/security-pipeline-templates.git
+  - name: imageRegistry
+    value: quay.io
+  - name: imageRegistryUser
+    value: image-registry-username # Secret name containing secret
+  - name: imageRegistryPass
+    value: image-registry-password # Secret name containing secret
   - name: imageUrl
-    value: gregnrobinson/tkn-flask-web
+    value: gregnrobinson/flask-web
   - name: imageTag
     value: latest
+  - name: repoUrl
+    value: git@github.com:bcgov/pipeline-templates.git
   - name: branchName
     value: main
   - name: dockerfile
@@ -196,15 +212,12 @@ spec:
   - name: ssh-creds
     secret:
       secretName: ssh-key-path
-  - name: docker-config
-    secret:
-      secretName: docker-config-path
 EOF
 ```
 
 [Back to top](#tekton-pipelines)
 
-### **helm-build-deploy**
+### **build-deploy-helm**
 
 *Builds a Dockerfile and deploys the resulting image to Openshift as a deployment using [helm](https://helm.sh/docs/). By default, this configuration will use the helm chart located at`demo/flask-web/helm`.*
 
@@ -218,12 +231,22 @@ spec:
   pipelineRef:
     name: p-helm-build-deploy
   params:
-  - name: repoUrl
-    value: git@github.com:bcgov/security-pipeline-templates.git
-  - name: branchName
-    value: main
+  - name: imageRegistry
+    value: quay.io
+  - name: imageRegistryUser
+  # Secret name containing secret
+    value: image-registry-username
+  - name: imageRegistryPass
+  # Secret name containing secret
+    value: image-registry-password
   - name: imageUrl
     value: gregnrobinson/tkn-flask-web
+  - name: imageTag
+    value: latest
+  - name: repoUrl
+    value: git@github.com:bcgov/pipeline-templates.git
+  - name: branchName
+    value: main
   - name: helmRelease
     value: flask-web
   - name: helmDir
@@ -250,9 +273,6 @@ spec:
   - name: ssh-creds
     secret:
       secretName: ssh-key-path
-  - name: docker-config
-    secret:
-      secretName: docker-config-path
 EOF
 ```
 
@@ -277,7 +297,7 @@ spec:
   - name: mavenImage
     value: index.docker.io/library/maven
   - name: repoUrl
-    value: git@github.com:bcgov/security-pipeline-templates.git
+    value: git@github.com:bcgov/pipeline-templates.git
   - name: branchName
     value: main
   - name: pathToContext
@@ -285,7 +305,7 @@ spec:
   - name: runSonarScan
     value: 'true'
   - name: sonarProject
-    value: tekton
+    value: ci-testing
   workspaces:
   - name: shared-data
     volumeClaimTemplate:
@@ -298,9 +318,6 @@ spec:
   - name: ssh-creds
     secret:
       secretName: ssh-key-path
-  - name: docker-config
-    secret:
-      secretName: docker-config-path
   - name: maven-settings
     emptyDir: {}
 EOF
@@ -328,7 +345,7 @@ spec:
   - name: buildImageUrl
     value: docker.io/gregnrobinson/codeql-cli:latest
   - name: repoUrl
-    value: git@github.com:bcgov/security-pipeline-templates.git
+    value: git@github.com:bcgov/pipeline-templates.git
   - name: repo
     value: bcgov/security-pipeline-templates
   - name: branchName
@@ -336,7 +353,7 @@ spec:
   - name: pathToContext
     value: .
   - name: githubToken
-    value: tkn-github-token
+    value: github-pat-token
   - name: language
     value: python
   workspaces:
@@ -433,10 +450,10 @@ spec:
   params:
   - name: targetImage
     value: python:3.4-alpine
-  - name: repoUrl
-    value: git@github.com:bcgov/security-pipeline-templates.git
-  - name: branchName
-    value: main
+  - name: imageRegistryUser
+    value: image-registry-username # Secret name containing secret
+  - name: imageRegistryPass
+    value: image-registry-password # Secret name containing secret
   workspaces:
   - name: shared-data
     volumeClaimTemplate:
@@ -449,9 +466,6 @@ spec:
   - name: ssh-creds
     secret:
       secretName: ssh-key-path
-  - name: docker-config
-    secret:
-      secretName: docker-config-path
 EOF
 ```
 

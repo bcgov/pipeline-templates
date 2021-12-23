@@ -1,4 +1,4 @@
-FROM docker.io/python:3.8-alpine
+FROM docker.io/python:3.7-alpine
 WORKDIR /app
 
 COPY . .

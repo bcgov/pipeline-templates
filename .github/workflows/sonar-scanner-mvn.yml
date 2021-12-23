@@ -2,13 +2,11 @@ name: sonar-scan-mvn
 
 env:
   WORKDIR: ./tekton/demo/maven-test
-  PROJECT_KEY: github-actions-test
+  PROJECT_KEY: pipeline-templates
 
 on:
   pull_request:
-    branches: [ main ]
   workflow_dispatch:
-
 jobs:
     #Sonarqube Section
   sonarqube-scanning:
