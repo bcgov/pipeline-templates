@@ -119,6 +119,7 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
     Creates secrets for all secret types. The `key` refers to the secret name, and the `value` is the secret contents.
 
     `github-secret` is used for triggers. Can be left as is if triggers are not used.
+    `image-registry-username` and `image-registry-password` are the account credentials for your image regsitry. This could be **docker.io**, **quay.io**, **gcr.io** or any other docker compatible docker regsitry.
 
    ```bash
    cat <<EOF >./overlays/secrets/secrets.ini
