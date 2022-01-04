@@ -26,6 +26,19 @@ function apply(){
     echo "${green}Completed...${normal}"
 }
 
+function delete(){
+    echo "${cyan}Deleting Tekton resources...${normal}"
+    if [ -z "${CONTEXT}" ]; then
+        kubectl delete -k overlays/apply -n $NAMESPACE
+        kubectl delete -k overlays/secrets -n $NAMESPACE
+    else
+        kubectl config use-context ${CONTEXT}
+        kubectl delete -k overlays/apply -n $NAMESPACE
+        kubectl delete -k overlays/secrets -n $NAMESPACE
+    fi
+    echo "${green}Completed...${normal}"
+}
+
 function secrets(){
     python3 -m venv ./.venv
     source ./.venv/bin/activate
@@ -61,6 +74,7 @@ function display_help() {
     echo
     echo "   ${bold}-a, --apply${normal}         Apply ${bold}Secrets${normal}, ${bold}Pipelines${normal}, ${bold}Tasks${normal} and ${bold}Triggers${normal}. "
     echo "   ${bold}-p, --prune${normal}         Delete all ${bold}PipelineRuns${normal}. "
+    echo "   ${bold}-d, --delete${normal}        Delete all Tekton resources. "
     echo "   ${bold}-h, --help${normal}          Display argument options. "
     echo
     exit 1
@@ -79,6 +93,10 @@ do
           ;;
       -p | --prune)
           prune
+          shift 2
+          ;;
+      -d | --delete)
+          delete
           shift 2
           ;;
 
