@@ -18,23 +18,11 @@
 
 ## Overview
 
-This project aims to improve the management experience with tekton pipelines. The [pipeline](https://github.com/tektoncd/pipeline) and [triggers](https://github.com/tektoncd/triggers) projects are included as a single deployment. All pipelines and tasks are included in the deployment and can be incrementally updated by running `./tekton.sh -i`. All operations specific to manifest deployment are handled by [Kustomize](https://kustomize.io/). A `kustomization.yaml` file exists recursively in all directories under `./base.`
+This project aims to improve the management experience with tekton pipelines. The [pipeline](https://github.com/tektoncd/pipeline) and [triggers](https://github.com/tektoncd/triggers) projects are included as a single deployment. All pipelines and tasks are included in the deployment and can be incrementally updated by running `./tekton.sh -a`. All operations specific to manifest deployment are handled by [Kustomize](https://kustomize.io/). A `kustomization.yaml` file exists recursively in all directories under `./base.`
 
 The project creates secrets for your docker and ssh credentials using the Kustomize [secretGenerator](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kustomize/). This allows for the git-clone and buildah Tekton tasks to interact with private repositories. I would consider setting up git and container registry credentials a foundational prerequisite for operating cicd tooling. Once Kustomize creates the secrets, they are referenced directly by name in the [Pipeline Run Templates](#pipeline-run-templates) section.
 
-The project is intended to improve developement agility by providung one configuration file that holds kubernetes secrets in the form of simple key pairs. for all the secrets that are needed.  from the installation manifests to the custom Tekton CRDs that manage the creation and execution of pipelines. Whenever changes are made to `./base` or `./overlays,` run `./tekton.sh -u` to apply the changes against the current Kubernetes context. Behind the scenes, the following functions are executed.
-
-1. **setup**: Installs [yq](https://mikefarah.gitbook.io/yq/) for parsing YAML files.
-2. **sync**: Pulls the following Tekton release manifests to `./base/install`
-    - pipeline
-    - triggers
-    - interceptors
-    - dashboard
-3. **credentials**: copies ssh, docker, and webhook credentials to Kustomize and creates secrets.
-4. **apply**: Runs `kubectl apply -k overlays/${ENV}` to install/update Tekton and deploy Tekton CRDs.
-5. **cleanup**: Cleans up Completed pipeline runs and deletes all creds.
-
-The `./tekton.sh -i` argument sources the `.env` file at the root of the repository. Variables referenced by path are added as files to Kubernetes secrets.
+The project is intended to improve developement agility by providung one configuration file that holds kubernetes secrets in the form of simple key pairs. for all the secrets that are needed.  from the installation manifests to the custom Tekton CRDs that manage the creation and execution of pipelines. Whenever changes are made to `./base` or `./overlays,` run `./tekton.sh -a` to apply the changes against the current Kubernetes context. Behind the scenes, the following functions are executed.
 
 ### Layout
 
