@@ -18,8 +18,8 @@
 | Name | Risk Level | Number of Instances |
 | --- | --- | --- |
 | Content Security Policy (CSP) Header Not Set | Medium | 7 |
+| Missing Anti-clickjacking Header | Medium | 5 |
 | Sub Resource Integrity Attribute Missing | Medium | 5 |
-| X-Frame-Options Header Not Set | Medium | 5 |
 | Permissions Policy Header Not Set | Low | 8 |
 | Timestamp Disclosure - Unix | Low | 754 |
 | X-Content-Type-Options Header Missing | Low | 11 |
@@ -105,6 +105,62 @@ Ensure that your web server, application server, load balancer, etc. is configur
 
 #### Source ID: 3
 
+### [ Missing Anti-clickjacking Header ](https://www.zaproxy.org/docs/alerts/10020/)
+
+
+
+##### Medium (Medium)
+
+### Description
+
+The response does not include either Content-Security-Policy with 'frame-ancestors' directive or X-Frame-Options to protect against 'ClickJacking' attacks.
+
+* URL: http://www.itsecgames.com
+  * Method: `GET`
+  * Parameter: `X-Frame-Options`
+  * Attack: ``
+  * Evidence: ``
+* URL: http://www.itsecgames.com/bugs.htm
+  * Method: `GET`
+  * Parameter: `X-Frame-Options`
+  * Attack: ``
+  * Evidence: ``
+* URL: http://www.itsecgames.com/download.htm
+  * Method: `GET`
+  * Parameter: `X-Frame-Options`
+  * Attack: ``
+  * Evidence: ``
+* URL: http://www.itsecgames.com/index.htm
+  * Method: `GET`
+  * Parameter: `X-Frame-Options`
+  * Attack: ``
+  * Evidence: ``
+* URL: http://www.itsecgames.com/training.htm
+  * Method: `GET`
+  * Parameter: `X-Frame-Options`
+  * Attack: ``
+  * Evidence: ``
+
+Instances: 5
+
+### Solution
+
+Modern Web browsers support the Content-Security-Policy and X-Frame-Options HTTP headers. Ensure one of them is set on all web pages returned by your site/app.
+If you expect the page to be framed only by pages on your server (e.g. it's part of a FRAMESET) then you'll want to use SAMEORIGIN, otherwise if you never expect the page to be framed, you should use DENY. Alternatively consider implementing Content Security Policy's "frame-ancestors" directive.
+
+### Reference
+
+
+* [ https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options ](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)
+
+
+#### CWE Id: [ 1021 ](https://cwe.mitre.org/data/definitions/1021.html)
+
+
+#### WASC Id: 15
+
+#### Source ID: 3
+
 ### [ Sub Resource Integrity Attribute Missing ](https://www.zaproxy.org/docs/alerts/90003/)
 
 
@@ -154,61 +210,6 @@ Provide a valid integrity attribute to the tag.
 
 
 #### CWE Id: [ 345 ](https://cwe.mitre.org/data/definitions/345.html)
-
-
-#### WASC Id: 15
-
-#### Source ID: 3
-
-### [ X-Frame-Options Header Not Set ](https://www.zaproxy.org/docs/alerts/10020/)
-
-
-
-##### Medium (Medium)
-
-### Description
-
-X-Frame-Options header is not included in the HTTP response to protect against 'ClickJacking' attacks.
-
-* URL: http://www.itsecgames.com
-  * Method: `GET`
-  * Parameter: `X-Frame-Options`
-  * Attack: ``
-  * Evidence: ``
-* URL: http://www.itsecgames.com/bugs.htm
-  * Method: `GET`
-  * Parameter: `X-Frame-Options`
-  * Attack: ``
-  * Evidence: ``
-* URL: http://www.itsecgames.com/download.htm
-  * Method: `GET`
-  * Parameter: `X-Frame-Options`
-  * Attack: ``
-  * Evidence: ``
-* URL: http://www.itsecgames.com/index.htm
-  * Method: `GET`
-  * Parameter: `X-Frame-Options`
-  * Attack: ``
-  * Evidence: ``
-* URL: http://www.itsecgames.com/training.htm
-  * Method: `GET`
-  * Parameter: `X-Frame-Options`
-  * Attack: ``
-  * Evidence: ``
-
-Instances: 5
-
-### Solution
-
-Most modern Web browsers support the X-Frame-Options HTTP header. Ensure it's set on all web pages returned by your site (if you expect the page to be framed only by pages on your server (e.g. it's part of a FRAMESET) then you'll want to use SAMEORIGIN, otherwise if you never expect the page to be framed, you should use DENY. Alternatively consider implementing Content Security Policy's "frame-ancestors" directive. 
-
-### Reference
-
-
-* [ https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options ](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)
-
-
-#### CWE Id: [ 1021 ](https://cwe.mitre.org/data/definitions/1021.html)
 
 
 #### WASC Id: 15
