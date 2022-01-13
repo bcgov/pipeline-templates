@@ -25,7 +25,6 @@ Config._sections = OrderedDict(sorted(Config._sections.items(), key=lambda t: t[
 
 ssh      = Config._sections['ssh']
 literals = Config._sections['literals']
-docker   = Config._sections['docker']
 
 try:
     os.makedirs(".secrets")
@@ -34,9 +33,6 @@ except FileExistsError:
 for key, value in ssh.items():
     new_path = shutil.copy(value, '.secrets')
     ssh[key] = new_path
-for key, value in docker.items():
-    new_path = shutil.copy(value, '.secrets/.dockerconfigjson')
-    docker[key] = new_path
 
 input = """apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -54,17 +50,10 @@ secretGenerator:
   files:
     - {{v}}
 {{/ssh}}
-{{#docker}}
-- name: {{k}}
-  files:
-    - {{v}}
-  type: kubernetes.io/dockerconfigjson
-{{/docker}}
 """
 
 literals = [{"k": k, "v": v} for k, v in literals.items()]
 ssh      = [{"k": k, "v": v} for k, v in ssh.items()]
-docker   = [{"k": k, "v": v} for k, v in docker.items()]
 
 class bcolors:
     HEADER = '\033[95m'
@@ -83,7 +72,7 @@ original_stdout = sys.stdout
 
 with open('kustomization.yaml', 'w') as f:
     sys.stdout = f
-    print(pystache.render(input, {"literals": literals, "ssh": ssh, "docker": docker}))
+    print(pystache.render(input, {"literals": literals, "ssh": ssh}))
     sys.stdout = original_stdout
 
 print(bcolors.OKGREEN + "Completed..." + bcolors.ENDC)
