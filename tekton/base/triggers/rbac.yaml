@@ -40,7 +40,7 @@ roleRef:
   kind: Role
   name: tekton-triggers-example-minimal
 ---
-kind: ClusterRole
+kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: tekton-triggers-example-clusterrole
@@ -51,7 +51,7 @@ rules:
   verbs: ["get", "list", "watch"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+kind: RoleBinding
 metadata:
   name: tekton-triggers-example-clusterbinding
 subjects:
