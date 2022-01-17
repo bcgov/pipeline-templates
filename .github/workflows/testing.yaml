@@ -110,7 +110,6 @@ jobs:
       - trivy-scan
       - sonar-repo-scan
       - sonar-scan-mvn
-      - deploy
       - zap-owasp
     runs-on: ubuntu-latest
     steps:
