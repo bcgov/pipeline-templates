@@ -202,7 +202,7 @@ The following repository secrets are required depending on which template is bei
 | IMAGE_REGISTRY_PASSWORD | Registry password. Used for interacting with private image repositories.       |
 | OPENSHIFT_SERVER        | The API endpoint of your Openshfit cluster. By default, this needs to be a publically accessible endpoint.       |
 | OPENSHIFT_TOKEN         | A token that has the correct permissions to perform create deployment in OpenShift.       |
-| SONAR_TOKEN             | Used when using the Sonar scanning templates.  
+| SONAR_TOKEN             | Used when using the Sonar scanning templates.
 
 ## Testing Pipeline
 
