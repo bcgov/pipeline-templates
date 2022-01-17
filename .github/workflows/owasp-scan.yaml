@@ -12,7 +12,6 @@ env:
   ZAP_GCP_PROJECT: phronesis-310405
   ZAP_GCP_BUCKET: 'zap-scan-results'
 on:
-  workflow_dispatch:
   workflow_call:
     inputs:
       ZAP_SCAN_TYPE:
