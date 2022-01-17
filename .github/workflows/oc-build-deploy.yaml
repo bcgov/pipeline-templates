@@ -56,6 +56,7 @@ env:
 on:
   # https://docs.github.com/en/actions/reference/events-that-trigger-workflows
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   openshift-ci-cd:

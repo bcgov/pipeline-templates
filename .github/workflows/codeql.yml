@@ -1,6 +1,7 @@
 name: codeql-scan
 on:
   workflow_dispatch:
+  workflow_call:
   pull_request:
   schedule:
     - cron:  '0 0 * * SUN'

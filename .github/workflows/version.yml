@@ -5,6 +5,7 @@ on:
   pull_request: #Any Pull Request will trigger this action
     branches: [ mybranch ]
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   version_bump:
