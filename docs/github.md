@@ -102,28 +102,27 @@ jobs:
     with:
       ## DOCKER BUILD PARAMS
       NAME: flask-web
-      IMAGE: gregnrobinson/flask-demo-app
       BUILD_WORKDIR: ./demo/flask-web
-    
+
+      ## TARGET IMAGE
+      IMAGE_REGISTRY: docker.io
+      IMAGE: gregnrobinson/flask-demo-app
+
       ## HELM VARIABLES
       HELM_DIR: ./demo/flask-web/helm
       VALUES_FILE: ./demo/flask-web/helm/values.yaml
-    
-      # EDIT your repository secrets to log into your OpenShift cluster and set up the context.
+
+      # Repository secrets to log into your OpenShift cluster and set up the context.
       # See https://github.com/redhat-actions/oc-login#readme for how to retrieve these values.
       # To get a permanent token, refer to https://github.com/redhat-actions/oc-login/wiki/Using-a-Service-Account-for-GitHub-Actions
       OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
       OPENSHIFT_NAMESPACE: "default"
-    
-      # EDIT with the port your application should be accessible on.
+
+      # Port number of your application should be accessible on.
       # If the container image exposes *exactly one* port, this can be left blank.
       # Refer to the 'port' input of https://github.com/redhat-actions/oc-new-app
       APP_PORT: "80"
-    
-      # EDIT to change the image registry settings.
-      # Registries such as GHCR, Quay.io, and Docker Hub are supported.
-      IMAGE_REGISTRY: docker.io/gregnrobinson
 
       # Used to access Redhat Openshift on an internal IP address from a Github Runner.
       TAILSCALE: true
@@ -132,7 +131,7 @@ jobs:
       IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
       OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
-      TAILSCALE_API_KEY: ${{ secrets.TAILSCALE_API_KEY }} # Only required if TAILSCALE is set to TRUE
+      TAILSCALE_API_KEY: ${{ secrets.TAILSCALE_API_KEY }} # Only required if TAILSCALE is TRUE
 ```
 
 ### Owasp Scan
