@@ -66,9 +66,12 @@ jobs:
     secrets:
       IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
       IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
-
   trivy-scan:
     uses: bcgov/pipeline-templates/.github/workflows/trivy-container.yaml@main
+    with:
+      IMAGE: gregnrobinson/bcgov-nginx-demo
+      TAG: latest
+      
   sonar-repo-scan:
     uses: bcgov/pipeline-templates/.github/workflows/sonar-scanner.yaml@main
   sonar-scan-mvn:
