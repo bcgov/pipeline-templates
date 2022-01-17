@@ -256,13 +256,7 @@ Every Sunday all worlflows are testing a `workflow_call` to each workflow from t
 
 [View Pipeline Run](https://github.com/bcgov/pipeline-templates/runs/4837867353?check_suite_focus=true)
 
-## Full Workflow Example
-
-Use the following workflow as a reference to understand how each template functions. This workflow incorporates all the templates.
-
-[View Pipeline Run](https://github.com/bcgov/security-pipeline-templates/actions/runs/1496960480)
-
-![full-workflow](https://user-images.githubusercontent.com/26353407/143089191-f23b59a7-185d-4173-b395-0903aab8bc83.png)
+![image](https://user-images.githubusercontent.com/26353407/149741749-cc938033-def8-4f86-976d-5726e3b1d8e4.png)
 
 ## Reference
 
