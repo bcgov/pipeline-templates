@@ -94,6 +94,7 @@ You can make use of the templates by calling the workflows from your own workflo
 name: trivy-scan
 on:
   workflow_dispatch:
+  push:
 jobs:
   zap-owasp:
     uses: bcgov/pipeline-templates/.github/workflows/owasp-scan.yaml@main
@@ -115,6 +116,7 @@ jobs:
 name: trivy-scan
 on:
   workflow_dispatch:
+  push:
 jobs:
   trivy-scan:
     uses: bcgov/pipeline-templates/.github/workflows/trivy-container.yaml@main
@@ -129,6 +131,7 @@ jobs:
 name: codeql-scan
 on:
   workflow_dispatch:
+  push:
 jobs:
   codeql-scan:
     uses: bcgov/pipeline-templates/.github/workflows/codeql.yaml@main
@@ -140,8 +143,7 @@ jobs:
 name: docker-build-push
 on:
   workflow_dispatch:
-  schedule:
-    - cron:  '0 0 * * 0'
+  push:
 jobs:
   build-push:
     uses: bcgov/pipeline-templates/.github/workflows/build-push.yaml@main
@@ -160,8 +162,7 @@ jobs:
 name: docker-build-push
 on:
   workflow_dispatch:
-  schedule:
-    - cron:  '0 0 * * 0'
+  push:
 jobs:
   sonar-repo-scan:
     uses: bcgov/pipeline-templates/.github/workflows/sonar-scanner.yaml@main
@@ -179,8 +180,7 @@ jobs:
 name: docker-build-push
 on:
   workflow_dispatch:
-  schedule:
-    - cron:  '0 0 * * 0'
+  push:
 jobs:
   sonar-scan-mvn:
     uses: bcgov/pipeline-templates/.github/workflows/sonar-scanner-mvn.yaml@main
