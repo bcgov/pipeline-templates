@@ -230,7 +230,7 @@ The following repository secrets are required depending on which template is bei
 
 Every Sunday, all worlflows are tested using a `workflow_call` to each workflow from the testing workflow.
 
-[View Pipeline Run](https://github.com/bcgov/pipeline-templates/runs/4837867353?check_suite_focus=true)
+[View Pipeline Run](https://github.com/bcgov/pipeline-templates/actions/runs/1707326261)
 
 ![image](https://user-images.githubusercontent.com/26353407/149749137-427a0384-cf79-4b2c-ac6d-c3c736db4714.png)
 
