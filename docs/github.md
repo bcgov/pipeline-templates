@@ -2,12 +2,19 @@
 
 This folder contains all Github Actions templates. To make use of the repository, fork this repository and modify the `env` and `trigger` sections of each template to meet the needs of your application or repository.
 
-- [Github Actions Templates](#github-actions-templates)
-  - [Layout](#layout)
-  - [How to Use](#how-to-use)
-  - [Secrets Management](#secrets-management)
-  - [Full Workflow Example](#full-workflow-example)
-  - [Reference](#reference)
+- [Layout](#layout)
+- [How to Use](#how-to-use)
+- [Secrets Management](#secrets-management)
+- [Workflow Templates](#workflow-templates)
+  - [Owasp Scan](#owasp-scan)
+  - [Trivy Scan](#trivy-scan)
+  - [CodeQL Scan](#codeql-scan)
+  - [Docker Build Push](#docker-build-push)
+  - [Sonar Repo Scan](#sonar-repo-scan)
+  - [Sonar Maven Scan](#sonar-maven-scan)
+- [Testing Pipeline](#testing-pipeline)
+- [Full Workflow Example](#full-workflow-example)
+- [Reference](#reference)
 
 ## Layout
 
