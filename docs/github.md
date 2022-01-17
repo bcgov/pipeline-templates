@@ -115,8 +115,6 @@ jobs:
       # Repository secrets to log into your OpenShift cluster and set up the context.
       # See https://github.com/redhat-actions/oc-login#readme for how to retrieve these values.
       # To get a permanent token, refer to https://github.com/redhat-actions/oc-login/wiki/Using-a-Service-Account-for-GitHub-Actions
-      OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
-      OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
       OPENSHIFT_NAMESPACE: "default"
 
       # Port number of your application should be accessible on.
@@ -131,7 +129,7 @@ jobs:
       IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
       OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
-      TAILSCALE_API_KEY: ${{ secrets.TAILSCALE_API_KEY }} # Only required if TAILSCALE is TRUE
+      TAILSCALE_API_KEY: ${{ secrets.TAILSCALE_API_KEY }}
 ```
 
 ### Owasp Scan
