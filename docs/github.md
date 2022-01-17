@@ -66,9 +66,7 @@ jobs:
       HELM_DIR: ./demo/flask-web/helm
       VALUES_FILE: ./demo/flask-web/helm/values.yaml
 
-      # Repository secrets to log into your OpenShift cluster and set up the context.
-      # See https://github.com/redhat-actions/oc-login#readme for how to retrieve these values.
-      # To get a permanent token, refer to https://github.com/redhat-actions/oc-login/wiki/Using-a-Service-Account-for-GitHub-Actions
+      ## OPENSHIFT PARAMS
       OPENSHIFT_NAMESPACE: "default"
 
       # Port number of your application should be accessible on.
