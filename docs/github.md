@@ -1,9 +1,7 @@
 # Github Actions Templates
 
-This folder contains all Github Actions templates. To make use of the repository, fork this repository and modify the `env` and `trigger` sections of each template to meet the needs of your application or repository.
+This project contains all Github Actions templates. To make use of the repository, fork this repository and modify the `env` and `trigger` sections of each template to meet the needs of your application or repository.
 
-- [Layout](#layout)
-- [How to Use](#how-to-use)
 - [Workflow Templates](#workflow-templates)
   - [Helm Build Deploy](#helm-build-deploy)
   - [Owasp Scan](#owasp-scan)
@@ -13,32 +11,10 @@ This folder contains all Github Actions templates. To make use of the repository
   - [Sonar Repo Scan](#sonar-repo-scan)
   - [Sonar Maven Scan](#sonar-maven-scan)
 - [Secrets Management](#secrets-management)
+- [Workflow Triggers](#workflow-triggers)
 - [Testing Pipeline](#testing-pipeline)
-- [Full Workflow Example](#full-workflow-example)
 - [Reference](#reference)
-
-## Layout
-
-All templates are stored in the .github folder. By default once you fork or copy the templates, they are ready to be used.
-
-```diff
-./github
-|-- workflows
-    |-- README.md
-    |-- build-push.yaml
-    |-- codeql.yml
-    |-- full-workflow.yaml
-    |-- helm-build-deploy.yaml
-    |-- oc-build-deploy.yaml
-    |-- owasp-scan.yml
-    |-- pre-commit-check.yaml
-    |-- release.yaml
-    |-- sonar-scanner-mvn.yml
-    |-- sonar-scanner.yml
-    |-- trivy.yaml
-    `-- version.yml
-```
-
+- 
 ## Workflow Templates
 
 You can make use of the templates by calling the workflows from your own workflow. This simplifies workflow execution by only providing the neccesary inputs and secrets to the workflow run.
