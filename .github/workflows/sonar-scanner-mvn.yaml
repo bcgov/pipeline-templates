@@ -8,6 +8,18 @@ on:
   pull_request:
   workflow_dispatch:
   workflow_call:
+    inputs:
+      PROJECT_KEY:
+        required: true
+        type: string
+      WORKDIR:
+        required: true
+        type: string
+    secrets:
+      SONAR_TOKEN:
+        required: true
+      GITHUB_TOKEN:
+        required: true
 jobs:
     #Sonarqube Section
   sonarqube-scanning:
@@ -35,8 +47,8 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build / Analyze
-        working-directory: ${{ env.WORKDIR }}
+        working-directory: ${{ inputs.WORKDIR }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=${{ env.PROJECT_KEY }}
+        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=${{ inputs.PROJECT_KEY }}

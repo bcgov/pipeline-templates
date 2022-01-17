@@ -9,6 +9,21 @@ env:
 on:
   workflow_dispatch:
   workflow_call:
+    inputs:
+      ORG:
+        required: true
+        type: string
+      PROJECT_KEY:
+        required: true
+        type: string
+      URL:
+        required: true
+        type: string
+    secrets:
+      SONAR_TOKEN:
+        required: true
+      GITHUB_TOKEN:
+        required: true
   push:
   schedule:
     - cron: '0 9 * * *'
@@ -24,8 +39,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: sonar-scanner
              -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-             -Dsonar.organization=${{ env.ORG }}
-             -Dsonar.host.url=${{ env.URL }}
-             -Dsonar.projectKey=${{ env.PROJECT_KEY }}
+             -Dsonar.organization=${{ inputs.ORG }}
+             -Dsonar.host.url=${{ inputs.URL }}
+             -Dsonar.projectKey=${{ inputs.PROJECT_KEY }}
              -Dsonar.exclusions=**/*.java
              -Dsonar.sourceEncoding=UTF-8
