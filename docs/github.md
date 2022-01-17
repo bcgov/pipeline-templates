@@ -4,7 +4,6 @@ This folder contains all Github Actions templates. To make use of the repository
 
 - [Layout](#layout)
 - [How to Use](#how-to-use)
-- [Secrets Management](#secrets-management)
 - [Workflow Templates](#workflow-templates)
   - [Owasp Scan](#owasp-scan)
   - [Trivy Scan](#trivy-scan)
@@ -12,6 +11,7 @@ This folder contains all Github Actions templates. To make use of the repository
   - [Docker Build Push](#docker-build-push)
   - [Sonar Repo Scan](#sonar-repo-scan)
   - [Sonar Maven Scan](#sonar-maven-scan)
+- [Secrets Management](#secrets-management)
 - [Testing Pipeline](#testing-pipeline)
 - [Full Workflow Example](#full-workflow-example)
 - [Reference](#reference)
@@ -84,20 +84,9 @@ on:
   ...
 ```
 
-## Secrets Management
-
-The following repository secrets are required depending on which template is being used. [Learn more](https://docs.github.com/en/actions/security-guides/encrypted-secrets).
-
-| Secret Name             | Description |
-| :---------------------- | :------------|
-| IMAGE_REGISTRY          | The registry prefix with username. (ie. docker.io/bcgov)       |
-| IMAGE_REGISTRY_USER     | Registry username. Used for interacting with private image repositories.           |
-| IMAGE_REGISTRY_PASSWORD | Registry password. Used for interacting with private image repositories.       |
-| OPENSHIFT_SERVER        | The API endpoint of your Openshfit cluster. By default, this needs to be a publically accessible endpoint.       |
-| OPENSHIFT_TOKEN         | A token that has the correct permissions to perform create deployment in OpenShift.       |
-| SONAR_TOKEN             | Used when using the Sonar scanning templates.       |
-
 ## Workflow Templates
+
+You can make use of the templates by calling the workflows from your own workflow. This simplifies workflow execution by only providing the neccesary inputs and secrets to the workflow run.
 
 ### Owasp Scan
 
@@ -201,6 +190,19 @@ jobs:
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 ```
+
+## Secrets Management
+
+The following repository secrets are required depending on which template is being used. [Learn more](https://docs.github.com/en/actions/security-guides/encrypted-secrets).
+
+| Secret Name             | Description |
+| :---------------------- | :------------|
+| IMAGE_REGISTRY          | The registry prefix with username. (ie. docker.io/bcgov)       |
+| IMAGE_REGISTRY_USER     | Registry username. Used for interacting with private image repositories.           |
+| IMAGE_REGISTRY_PASSWORD | Registry password. Used for interacting with private image repositories.       |
+| OPENSHIFT_SERVER        | The API endpoint of your Openshfit cluster. By default, this needs to be a publically accessible endpoint.       |
+| OPENSHIFT_TOKEN         | A token that has the correct permissions to perform create deployment in OpenShift.       |
+| SONAR_TOKEN             | Used when using the Sonar scanning templates.  
 
 ## Testing Pipeline
 
