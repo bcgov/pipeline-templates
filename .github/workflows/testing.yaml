@@ -106,8 +106,10 @@ jobs:
     with:
       ## DOCKER BUILD PARAMS
       NAME: flask-web
-      IMAGE: gregnrobinson/flask-demo-app
       BUILD_WORKDIR: ./demo/flask-web
+      
+      IMAGE: gregnrobinson/flask-demo-app
+      IMAGE_REGISTRY: docker.io
 
       ## HELM VARIABLES
       HELM_DIR: ./demo/flask-web/helm
@@ -127,7 +129,7 @@ jobs:
 
       # EDIT to change the image registry settings.
       # Registries such as GHCR, Quay.io, and Docker Hub are supported.
-      IMAGE_REGISTRY: docker.io/gregnrobinson
+
 
       # Used to access Redhat Openshift on an internal IP address from a Github Runner.
       TAILSCALE: true

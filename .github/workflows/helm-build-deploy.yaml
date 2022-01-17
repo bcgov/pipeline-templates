@@ -87,7 +87,7 @@ jobs:
       run: >
         docker buildx build
         --platform=linux/amd64
-        -t ${{ inputs.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
+        -t ${{ inputs.IMAGE_REGISTRY }}/${{ inputs.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
         --output=type=image,push=true
         ${GITHUB_WORKSPACE}/${{ inputs.BUILD_WORKDIR }}
   trivy-scan:
@@ -99,7 +99,7 @@ jobs:
     - name: Trivy Vulnerability Scan
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: ${{ inputs.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
+        image-ref: ${{ inputs.IMAGE_REGISTRY }}/${{ inputs.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
         format: table
         exit-code: '1'
         ignore-unfixed: true
