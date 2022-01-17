@@ -39,6 +39,8 @@ jobs:
       IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
 ```
 
+[Back to top](#github-actions-templates)
+
 ### Helm Deploy
 
 ```yaml
