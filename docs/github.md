@@ -90,6 +90,117 @@ The following repository secrets are required depending on which template is bei
 | OPENSHIFT_TOKEN         | A token that has the correct permissions to perform create deployment in OpenShift.       |
 | SONAR_TOKEN             | Used when using the Sonar scanning templates.       |
 
+## Workflow Templates
+
+### Owasp Scan
+
+```yaml
+name: trivy-scan
+on:
+  workflow_dispatch:
+jobs:
+  zap-owasp:
+    uses: bcgov/pipeline-templates/.github/workflows/owasp-scan.yaml@main
+    with:
+      ZAP_SCAN_TYPE: 'base' # Accepted values are base and full.
+      ZAP_TARGET_URL: http://www.itsecgames.com
+      ZAP_DURATION: '2'
+      ZAP_MAX_DURATION: '5'
+      ZAP_GCP_PUBLISH: true
+      ZAP_GCP_PROJECT: phronesis-310405  # Only required if ZAP_GCP_PUBLISH is TRUE
+      ZAP_GCP_BUCKET: 'zap-scan-results' # Only required if ZAP_GCP_PUBLISH is TRUE
+    secrets:
+      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }} # Only required if ZAP_GCP_PUBLISH is TRUE
+```
+
+### Trivy Scan
+
+```yaml
+name: trivy-scan
+on:
+  workflow_dispatch:
+jobs:
+  trivy-scan:
+    uses: bcgov/pipeline-templates/.github/workflows/trivy-container.yaml@main
+    with:
+      IMAGE: gregnrobinson/bcgov-nginx-demo
+      TAG: latest
+```
+
+### CodeQL Scan
+
+```yaml
+name: codeql-scan
+on:
+  workflow_dispatch:
+jobs:
+  codeql-scan:
+    uses: bcgov/pipeline-templates/.github/workflows/codeql.yaml@main
+```
+
+### Docker Build Push
+
+```yaml
+name: docker-build-push
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 0 * * 0'
+jobs:
+  build-push:
+    uses: bcgov/pipeline-templates/.github/workflows/build-push.yaml@main
+    with:
+      NAME: nginx-web
+      IMAGE: gregnrobinson/bcgov-nginx-demo
+      WORKDIR: ./demo/nginx
+    secrets:
+      IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
+      IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
+```
+
+### Sonar Repo Scan
+
+```yaml
+name: docker-build-push
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 0 * * 0'
+jobs:
+  sonar-repo-scan:
+    uses: bcgov/pipeline-templates/.github/workflows/sonar-scanner.yaml@main
+    with:
+      ORG: ci-testing
+      PROJECT_KEY: bcgov-pipeline-templates
+      URL: https://sonarcloud.io
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+```
+
+### Sonar Maven Scan
+
+```yaml
+name: docker-build-push
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 0 * * 0'
+jobs:
+  sonar-scan-mvn:
+    uses: bcgov/pipeline-templates/.github/workflows/sonar-scanner-mvn.yaml@main
+    with:
+      WORKDIR: ./tekton/demo/maven-test
+      PROJECT_KEY: pipeline-templates
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+```
+
+## Testing Pipeline
+
+Every Sunday all worlflows are testing a `workflow_call` to each workflow from the testing workflow.
+
+[View Pipeline Run](https://github.com/bcgov/pipeline-templates/runs/4837867353?check_suite_focus=true)
+
 ## Full Workflow Example
 
 Use the following workflow as a reference to understand how each template functions. This workflow incorporates all the templates.
