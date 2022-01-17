@@ -31,8 +31,6 @@ on:
         required: true
         type: boolean
     secrets:
-      SONAR_TOKEN:
-        required: true
       IMAGE_REGISTRY_USER:
         required: true
       IMAGE_REGISTRY_PASSWORD:
