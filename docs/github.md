@@ -3,13 +3,14 @@
 This project contains all Github Actions templates. To make use of the repository, fork this repository and modify the `env` and `trigger` sections of each template to meet the needs of your application or repository.
 
 - [Workflow Templates](#workflow-templates)
-  - [Helm Build Deploy](#helm-build-deploy)
+  - [Docker Build Push](#docker-build-push)
+  - [Helm Deploy](#helm-deploy)
   - [Owasp Scan](#owasp-scan)
   - [Trivy Scan](#trivy-scan)
   - [CodeQL Scan](#codeql-scan)
-  - [Docker Build Push](#docker-build-push)
   - [Sonar Repo Scan](#sonar-repo-scan)
   - [Sonar Maven Scan](#sonar-maven-scan)
+  - [Putting it all Together](#putting-it-all-together)
 - [Secrets Management](#secrets-management)
 - [Workflow Triggers](#workflow-triggers)
 - [Testing Framework](#testing-framework)
@@ -19,35 +20,44 @@ This project contains all Github Actions templates. To make use of the repositor
 
 You can make use of the templates by calling the workflows from your own workflow. This simplifies workflow execution by only providing the neccesary inputs and secrets to the workflow run.
 
-### Helm Build Deploy
+### Docker Build Push
 
 ```yaml
-name: helm-build-deploy
+name: docker-build-push
 on:
   workflow_dispatch:
   push:
 jobs:
-  helm-build-deploy:
-    uses: bcgov/pipeline-templates/.github/workflows/helm-build-deploy.yaml@main
+  build-push:
+    uses: bcgov/pipeline-templates/.github/workflows/build-push.yaml@main
     with:
-      ## DOCKER BUILD PARAMS
-      NAME: flask-web
-      BUILD_WORKDIR: ./demo/flask-web
-
-      ## TARGET IMAGE
       IMAGE_REGISTRY: docker.io
-      IMAGE: gregnrobinson/flask-demo-app
+      IMAGE: gregnrobinson/bcgov-nginx-demo
+      WORKDIR: ./demo/nginx
+    secrets:
+      IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
+      IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
+```
+
+### Helm Deploy
+
+```yaml
+name: helm-deploy
+on:
+  workflow_dispatch:
+  push:
+jobs:
+  helm-deploy:
+    uses: bcgov/pipeline-templates/.github/workflows/helm-deploy.yaml@main
+    with:
+      ## HELM RELEASE NAME
+      NAME: flask-web
 
       ## HELM VARIABLES
       HELM_DIR: ./demo/flask-web/helm
       VALUES_FILE: ./demo/flask-web/helm/values.yaml
 
-      ## OPENSHIFT PARAMS
       OPENSHIFT_NAMESPACE: "default"
-
-      # Port number of your application should be accessible on.
-      # If the container image exposes *exactly one* port, this can be left blank.
-      # Refer to the 'port' input of https://github.com/redhat-actions/oc-new-app
       APP_PORT: "80"
 
       # Used to access Redhat Openshift on an internal IP address from a Github Runner.
@@ -57,7 +67,7 @@ jobs:
       IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
       OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
-      TAILSCALE_API_KEY: ${{ secrets.TAILSCALE_API_KEY }} # Only required if TAILSCALE is set to true.
+      TAILSCALE_API_KEY: ${{ secrets.TAILSCALE_API_KEY }}
 ```
 
 [Back to top](#github-actions-templates)
@@ -117,27 +127,6 @@ jobs:
 
 [Back to top](#github-actions-templates)
 
-### Docker Build Push
-
-```yaml
-name: docker-build-push
-on:
-  workflow_dispatch:
-  push:
-jobs:
-  build-push:
-    uses: bcgov/pipeline-templates/.github/workflows/build-push.yaml@main
-    with:
-      IMAGE_REGISTRY: docker.io
-      IMAGE: gregnrobinson/bcgov-nginx-demo
-      WORKDIR: ./demo/nginx
-    secrets:
-      IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
-      IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
-```
-
-[Back to top](#github-actions-templates)
-
 ### Sonar Repo Scan
 
 ```yaml
@@ -177,6 +166,109 @@ jobs:
 
 [Back to top](#github-actions-templates)
 
+### Putting it all Together
+
+You add several jobs to a single caller workflow and integrate secrurity related components with build and deploy components. Refer to the example below on how to do this.
+
+```yaml
+name: helm-build-deploy-cicd
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  codeql-scan:
+    uses: bcgov/pipeline-templates/.github/workflows/codeql.yaml@main
+  build-push:
+    uses: bcgov/pipeline-templates/.github/workflows/build-push.yaml@main
+    with:
+      IMAGE_REGISTRY: docker.io
+      IMAGE: gregnrobinson/bcgov-nginx-demo
+      WORKDIR: ./demo/nginx
+    secrets:
+      IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
+      IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
+  trivy-image-scan:
+    needs: build-push
+    uses: bcgov/pipeline-templates/.github/workflows/trivy-container.yaml@main
+    with:
+      IMAGE: gregnrobinson/bcgov-nginx-demo
+      TAG: latest
+  sonar-repo-scan:
+    uses: bcgov/pipeline-templates/.github/workflows/sonar-scanner.yaml@main
+    with:
+      ORG: ci-testing
+      PROJECT_KEY: bcgov-pipeline-templates
+      URL: https://sonarcloud.io
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  sonar-maven-scan:
+    uses: bcgov/pipeline-templates/.github/workflows/sonar-scanner-mvn.yaml@main
+    with:
+      WORKDIR: ./tekton/demo/maven-test
+      PROJECT_KEY: pipeline-templates
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  helm-deploy:
+    needs: [build-push, trivy-image-scan]
+    uses: bcgov/pipeline-templates/.github/workflows/helm-deploy.yaml@main
+    with:
+      ## DOCKER BUILD PARAMS
+      NAME: flask-web
+
+      ## HELM VARIABLES
+      HELM_DIR: ./demo/flask-web/helm
+      VALUES_FILE: ./demo/flask-web/helm/values.yaml
+
+      OPENSHIFT_NAMESPACE: "default"
+      APP_PORT: "80"
+
+      # Used to access Redhat Openshift on an internal IP address from a Github Runner.
+      TAILSCALE: true
+    secrets:
+      IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
+      IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
+      OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
+      OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
+      TAILSCALE_API_KEY: ${{ secrets.TAILSCALE_API_KEY }}
+  owasp-scan:
+    uses: bcgov/pipeline-templates/.github/workflows/owasp-scan.yaml@main
+    needs: helm-deploy
+    with:
+      ZAP_SCAN_TYPE: 'base' # Accepted values are base and full.
+      ZAP_TARGET_URL: http://www.itsecgames.com
+      ZAP_DURATION: '2'
+      ZAP_MAX_DURATION: '5'
+      ZAP_GCP_PUBLISH: true
+      ZAP_GCP_PROJECT: phronesis-310405  # Only required if ZAP_GCP_PUBLISH is TRUE
+      ZAP_GCP_BUCKET: 'zap-scan-results' # Only required if ZAP_GCP_PUBLISH is TRUE
+    secrets:
+      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }} # Only required if ZAP_GCP_PUBLISH is TRUE
+  slack-workflow-status:
+    if: always()
+    name: Post Workflow Status To Slack
+    needs:
+      - codeql-scan
+      - build-push
+      - trivy-image-scan
+      - sonar-repo-scan
+      - sonar-maven-scan
+      - owasp-scan
+      - helm-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slack Workflow Notification
+        uses: Gamesight/slack-workflow-status@master
+        with:
+          # Required Input
+          repo_token: ${{secrets.GITHUB_TOKEN}}
+          slack_webhook_url: ${{secrets.SLACK_WEBHOOK_URL}}
+          name: 'Github Workflows'
+          icon_emoji: ':fire:'
+          icon_url: 'https://img.icons8.com/material-outlined/96/000000/github.png'
+```
+
 ## Workflow Triggers
 
 ```yaml
@@ -213,90 +305,6 @@ on:
 ```
 
 [Back to top](#github-actions-templates)
-
-### Putting it all Together
-
-You add several jobs to a single caller workflow and integrate secrurity related components with build and deploy components. Refer to the example below on how to do this.
-
-```yaml
-name: helm-build-deploy
-
-on:
-  workflow_dispatch:
-  push:
-jobs:
-  build-push:
-    uses: bcgov/pipeline-templates/.github/workflows/build-push.yaml@main
-    with:
-      IMAGE_REGISTRY: docker.io
-      IMAGE: gregnrobinson/bcgov-nginx-demo
-      WORKDIR: ./demo/nginx
-    secrets:
-      IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
-      IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
-  trivy-image-scan:
-    uses: bcgov/pipeline-templates/.github/workflows/trivy-container.yaml@main
-    with:
-      IMAGE: gregnrobinson/bcgov-nginx-demo
-      TAG: latest
-  helm-deploy:
-    needs: trivy-image-scan
-    uses: bcgov/pipeline-templates/.github/workflows/helm-deploy.yaml@main
-    with:
-      ## DOCKER BUILD PARAMS
-      NAME: flask-web
-
-      ## HELM VARIABLES
-      HELM_DIR: ./demo/flask-web/helm
-      VALUES_FILE: ./demo/flask-web/helm/values.yaml
-
-      OPENSHIFT_NAMESPACE: "default"
-      APP_PORT: "80"
-
-      # Used to access Redhat Openshift on an internal IP address from a Github Runner.
-      TAILSCALE: true
-    secrets:
-      IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
-      IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
-      OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
-      OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
-      TAILSCALE_API_KEY: ${{ secrets.TAILSCALE_API_KEY }}
-  owasp-scan:
-    uses: bcgov/pipeline-templates/.github/workflows/owasp-scan.yaml@main
-    with:
-      ZAP_SCAN_TYPE: 'base' # Accepted values are base and full.
-      ZAP_TARGET_URL: http://www.itsecgames.com
-      ZAP_DURATION: '2'
-      ZAP_MAX_DURATION: '5' # add url of newly deployed app.
-      ZAP_GCP_PUBLISH: true
-      ZAP_GCP_PROJECT: phronesis-310405  # Only required if ZAP_GCP_PUBLISH is TRUE
-      ZAP_GCP_BUCKET: 'zap-scan-results' # Only required if ZAP_GCP_PUBLISH is TRUE
-    secrets:
-      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }} # Only required if ZAP_GCP_PUBLISH is TRUE
-  slack-workflow-status:
-    if: always()
-    name: Post Workflow Status To Slack
-    needs:
-      - codeql-scan
-      - build-push
-      - trivy-image-scan
-      - sonar-repo-scan
-      - sonar-maven-scan
-      - owasp-scan
-      - helm-deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: Slack Workflow Notification
-        uses: Gamesight/slack-workflow-status@master
-        with:
-          # Required Input
-          repo_token: ${{secrets.GITHUB_TOKEN}}
-          slack_webhook_url: ${{secrets.SLACK_WEBHOOK_URL}}
-          name: 'Github Workflows'
-          icon_emoji: ':fire:'
-          icon_url: 'https://img.icons8.com/material-outlined/96/000000/github.png'
-
-```
 
 ## Secrets Management
 
