@@ -60,6 +60,8 @@ jobs:
       TAILSCALE_API_KEY: ${{ secrets.TAILSCALE_API_KEY }} # Only required if TAILSCALE is set to true.
 ```
 
+[Back to top](#github-actions-templates)
+
 ### Owasp Scan
 
 ```yaml
@@ -82,6 +84,8 @@ jobs:
       GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }} # Only required if ZAP_GCP_PUBLISH is TRUE
 ```
 
+[Back to top](#github-actions-templates)
+
 ### Trivy Scan
 
 ```yaml
@@ -97,6 +101,8 @@ jobs:
       TAG: latest
 ```
 
+[Back to top](#github-actions-templates)
+
 ### CodeQL Scan
 
 ```yaml
@@ -108,6 +114,8 @@ jobs:
   codeql-scan:
     uses: bcgov/pipeline-templates/.github/workflows/codeql.yaml@main
 ```
+
+[Back to top](#github-actions-templates)
 
 ### Docker Build Push
 
@@ -128,6 +136,8 @@ jobs:
       IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
 ```
 
+[Back to top](#github-actions-templates)
+
 ### Sonar Repo Scan
 
 ```yaml
@@ -146,6 +156,8 @@ jobs:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 ```
 
+[Back to top](#github-actions-templates)
+
 ### Sonar Maven Scan
 
 ```yaml
@@ -162,6 +174,8 @@ jobs:
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 ```
+
+[Back to top](#github-actions-templates)
 
 ## Workflow Triggers
 
@@ -198,6 +212,8 @@ on:
   ...
 ```
 
+[Back to top](#github-actions-templates)
+
 ## Secrets Management
 
 The following repository secrets are required depending on which template is being used. [Learn more](https://docs.github.com/en/actions/security-guides/encrypted-secrets).
@@ -224,3 +240,5 @@ Every Sunday, all worlflows are tested using a `workflow_call` to each workflow 
 [Workflow Syntax](https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions)
 
 [Workflow Triggers](https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows)
+
+[Back to top](#github-actions-templates)
