@@ -250,9 +250,9 @@ The following repository secrets are required depending on which template is bei
 | OPENSHIFT_TOKEN         | A token that has the correct permissions to perform create deployment in OpenShift.       |
 | SONAR_TOKEN             | Used when using the Sonar scanning templates.
 
-## Testing Pipeline
+## Testing Framework
 
-Every Sunday all worlflows are testing a `workflow_call` to each workflow from the testing workflow.
+Every Sunday, all worlflows are tested using a `workflow_call` to each workflow from the testing workflow.
 
 [View Pipeline Run](https://github.com/bcgov/pipeline-templates/runs/4837867353?check_suite_focus=true)
 
