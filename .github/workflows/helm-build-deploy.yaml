@@ -28,6 +28,7 @@ env:
   IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
   IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
 
+  TAILSCALE: "true"
 on:
   # https://docs.github.com/en/actions/reference/events-that-trigger-workflows
   workflow_dispatch:
@@ -125,7 +126,9 @@ jobs:
     steps:
     - name: Inject slug/short variables
       uses: rlespinasse/github-slug-action@v3.x
+      
     - name: Setup Tailscale
+      if: ${{ env.TAILSCALE == 'true' }}
       uses: tailscale/github-action@main
       with:
         authkey: ${{ secrets.TAILSCALE_API_KEY }}
