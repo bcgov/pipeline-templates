@@ -66,6 +66,8 @@ jobs:
     secrets:
       IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
       IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   trivy-scan:
     uses: bcgov/pipeline-templates/.github/workflows/trivy-container.yaml@main
   sonar-repo-scan:
