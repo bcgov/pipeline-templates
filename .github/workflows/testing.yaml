@@ -1,4 +1,8 @@
 name: testing
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 0 * * 0'
 
 env:
   ## GITHUB ENVIRONMENT
@@ -52,8 +56,6 @@ env:
   IMAGE_REGISTRY: ${{ secrets.IMAGE_REGISTRY }}
   IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
   IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
-on:
-  workflow_dispatch:
 jobs:
   codeql-scan:
     uses: bcgov/pipeline-templates/.github/workflows/codeql.yaml@main
