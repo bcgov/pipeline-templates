@@ -39,6 +39,8 @@ on:
         required: true
       OPENSHIFT_TOKEN:
         required: true
+      GH_TOKEN:
+        required: true
       TAILSCALE_API_KEY:
         required: false
 jobs:
