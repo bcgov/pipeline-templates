@@ -243,8 +243,7 @@ Every Sunday, all worlflows are tested using a `workflow_call` to each workflow 
 
 [View Pipeline Run](https://github.com/bcgov/pipeline-templates/runs/4837867353?check_suite_focus=true)
 
-![image](https://user-images.githubusercontent.com/26353407/149744913-6b11d12c-e8de-4a7e-93f8-155e50608a8a.png)
-
+![image](https://user-images.githubusercontent.com/26353407/149745553-71da417e-9ed8-4af4-b4f9-ff1caf83de4b.png)
 
 ## Reference
 
