@@ -36,15 +36,15 @@ on:
     secrets:
       SONAR_TOKEN:
         required: true
-      IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
+      IMAGE_REGISTRY_USER:
         required: true
-      IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
+      IMAGE_REGISTRY_PASSWORD:
         required: true
-      OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
+      OPENSHIFT_SERVER:
         required: true
-      OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
+      OPENSHIFT_TOKEN:
         required: true
-      TAILSCALE_API_KEY: ${{ secrets.TAILSCALE_API_KEY }}
+      TAILSCALE_API_KEY:
         required: false
 jobs:
   build:
