@@ -1,8 +1,5 @@
 name: helm-build-deploy
 
-env:
-  GITHUB_SHA_SHORT: fc1caaf
-
 on:
   workflow_call:
     inputs:
