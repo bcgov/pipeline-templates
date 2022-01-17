@@ -57,11 +57,6 @@ jobs:
         ignore-unfixed: true
         vuln-type: os,library
         severity: CRITICAL
-    - uses: release-drafter/release-drafter@v5
-      with:
-        publish: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - id: latest
       uses: pozetroninc/github-action-get-latest-release@master
       with:
