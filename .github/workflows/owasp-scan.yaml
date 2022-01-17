@@ -42,7 +42,7 @@ on:
 jobs:
   owasp-scan:
     runs-on: ubuntu-latest
-    name: OWASP ZAP Scan
+    name: owasp-scan
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
