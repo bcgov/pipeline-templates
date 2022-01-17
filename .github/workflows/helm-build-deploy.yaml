@@ -39,8 +39,6 @@ on:
         required: true
       OPENSHIFT_TOKEN:
         required: true
-      GH_TOKEN:
-        required: true
       TAILSCALE_API_KEY:
         required: false
 jobs:
@@ -106,7 +104,7 @@ jobs:
       with:
         publish: true
       env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - id: latest
       uses: pozetroninc/github-action-get-latest-release@master
       with:

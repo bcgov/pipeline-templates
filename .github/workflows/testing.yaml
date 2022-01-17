@@ -81,7 +81,6 @@ jobs:
       OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
       TAILSCALE_API_KEY: ${{ secrets.TAILSCALE_API_KEY }}
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   slack-workflow-status:
     if: always()
     name: Post Workflow Status To Slack
