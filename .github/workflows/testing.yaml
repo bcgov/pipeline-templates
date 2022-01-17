@@ -36,6 +36,28 @@ jobs:
       PROJECT_KEY: pipeline-templates
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  helm-deploy:
+    needs: trivy-image-scan
+    uses: bcgov/pipeline-templates/.github/workflows/helm-build-deploy.yaml@main
+    with:
+      ## DOCKER BUILD PARAMS
+      NAME: flask-web
+
+      ## HELM VARIABLES
+      HELM_DIR: ./demo/flask-web/helm
+      VALUES_FILE: ./demo/flask-web/helm/values.yaml
+
+      OPENSHIFT_NAMESPACE: "default"
+      APP_PORT: "80"
+
+      # Used to access Redhat Openshift on an internal IP address from a Github Runner. 
+      TAILSCALE: true
+    secrets:
+      IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
+      IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
+      OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
+      OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
+      TAILSCALE_API_KEY: ${{ secrets.TAILSCALE_API_KEY }}
   owasp-scan:
     uses: bcgov/pipeline-templates/.github/workflows/owasp-scan.yaml@main
     with:
@@ -48,39 +70,6 @@ jobs:
       ZAP_GCP_BUCKET: 'zap-scan-results' # Only required if ZAP_GCP_PUBLISH is TRUE
     secrets:
       GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }} # Only required if ZAP_GCP_PUBLISH is TRUE
-  helm-build-deploy:
-    uses: bcgov/pipeline-templates/.github/workflows/helm-build-deploy.yaml@main
-    with:
-      ## DOCKER BUILD PARAMS
-      NAME: flask-web
-      BUILD_WORKDIR: ./demo/flask-web
-
-      ## TARGET IMAGE
-      IMAGE_REGISTRY: docker.io
-      IMAGE: gregnrobinson/flask-demo-app
-
-      ## HELM VARIABLES
-      HELM_DIR: ./demo/flask-web/helm
-      VALUES_FILE: ./demo/flask-web/helm/values.yaml
-
-      # Repository secrets to log into your OpenShift cluster and set up the context.
-      # See https://github.com/redhat-actions/oc-login#readme for how to retrieve these values.
-      # To get a permanent token, refer to https://github.com/redhat-actions/oc-login/wiki/Using-a-Service-Account-for-GitHub-Actions
-      OPENSHIFT_NAMESPACE: "default"
-
-      # Port number of your application should be accessible on.
-      # If the container image exposes *exactly one* port, this can be left blank.
-      # Refer to the 'port' input of https://github.com/redhat-actions/oc-new-app
-      APP_PORT: "80"
-
-      # Used to access Redhat Openshift on an internal IP address from a Github Runner.
-      TAILSCALE: true
-    secrets:
-      IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
-      IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
-      OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
-      OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
-      TAILSCALE_API_KEY: ${{ secrets.TAILSCALE_API_KEY }}
   slack-workflow-status:
     if: always()
     name: Post Workflow Status To Slack
@@ -91,7 +80,7 @@ jobs:
       - sonar-repo-scan
       - sonar-maven-scan
       - owasp-scan
-      - helm-build-deploy
+      - helm-deploy
     runs-on: ubuntu-latest
     steps:
       - name: Slack Workflow Notification

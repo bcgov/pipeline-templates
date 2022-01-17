@@ -1,15 +1,9 @@
-name: helm-build-deploy
+name: helm-deploy
 
 on:
   workflow_call:
     inputs:
       NAME:
-        required: true
-        type: string
-      IMAGE:
-        required: true
-        type: string
-      BUILD_WORKDIR:
         required: true
         type: string
       HELM_DIR:
@@ -22,9 +16,6 @@ on:
         required: true
         type: string
       APP_PORT:
-        required: true
-        type: string
-      IMAGE_REGISTRY:
         required: true
         type: string
       TAILSCALE:
@@ -42,87 +33,7 @@ on:
       TAILSCALE_API_KEY:
         required: false
 jobs:
-  build:
-    name: Docker Build
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    steps:
-    - name: Inject slug/short variables
-      uses: rlespinasse/github-slug-action@v3.x
-    - uses: actions/checkout@v2
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v1
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
-    - name: Login to DockerHub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.IMAGE_REGISTRY_USER }}
-        password: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
-    - name: Build
-      working-directory: ${{ inputs.BUILD_WORKDIR }}
-      run: >
-        docker buildx build
-        --platform=linux/amd64
-        -t ${{ inputs.IMAGE_REGISTRY }}/${{ inputs.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
-        --output=type=image,push=true
-        ${GITHUB_WORKSPACE}/${{ inputs.BUILD_WORKDIR }}
-  trivy-scan:
-    needs: build
-    name: Trivy Scan
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    steps:
-    - name: Trivy Vulnerability Scan
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: ${{ inputs.IMAGE_REGISTRY }}/${{ inputs.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
-        format: table
-        exit-code: '1'
-        ignore-unfixed: true
-        vuln-type: os,library
-        severity: CRITICAL
-  push:
-    name: Docker Push
-    needs: [trivy-scan, build]
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    steps:
-    - name: Inject slug/short variables
-      uses: rlespinasse/github-slug-action@v3.x
-    - uses: actions/checkout@v2
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v1
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
-    - name: Login to DockerHub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.IMAGE_REGISTRY_USER }}
-        password: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
-    - uses: release-drafter/release-drafter@v5
-      with:
-        publish: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - id: latest
-      uses: pozetroninc/github-action-get-latest-release@master
-      with:
-        owner: bcgov
-        repo: security-pipeline-templates
-        excludes: prerelease, draft
-    - name: Tag Push Latest
-      working-directory: ${{ inputs.BUILD_WORKDIR }}
-      run: >
-        docker buildx build
-        --platform=linux/amd64
-        -t ${{ inputs.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
-        -t ${{ inputs.IMAGE }}:${{ steps.latest.outputs.release }}
-        -t ${{ inputs.IMAGE }}:latest
-        --output=type=image,push=true
-        ${GITHUB_WORKSPACE}/${{ inputs.BUILD_WORKDIR }}
   deploy:
-    needs: push
     name: Deploy to OpenShift
     runs-on: ubuntu-20.04
     environment: production

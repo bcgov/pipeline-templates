@@ -214,6 +214,90 @@ on:
 
 [Back to top](#github-actions-templates)
 
+### Putting it all Together
+
+You add several jobs to a single caller workflow and integrate secrurity related components with build and deploy components. Refer to the example below on how to do this.
+
+```yaml
+name: helm-build-deploy
+
+on:
+  workflow_dispatch:
+  push:
+jobs:
+  build-push:
+    uses: bcgov/pipeline-templates/.github/workflows/build-push.yaml@main
+    with:
+      IMAGE_REGISTRY: docker.io
+      IMAGE: gregnrobinson/bcgov-nginx-demo
+      WORKDIR: ./demo/nginx
+    secrets:
+      IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
+      IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
+  trivy-image-scan:
+    uses: bcgov/pipeline-templates/.github/workflows/trivy-container.yaml@main
+    with:
+      IMAGE: gregnrobinson/bcgov-nginx-demo
+      TAG: latest
+  helm-deploy:
+    needs: trivy-image-scan
+    uses: bcgov/pipeline-templates/.github/workflows/helm-deploy.yaml@main
+    with:
+      ## DOCKER BUILD PARAMS
+      NAME: flask-web
+
+      ## HELM VARIABLES
+      HELM_DIR: ./demo/flask-web/helm
+      VALUES_FILE: ./demo/flask-web/helm/values.yaml
+
+      OPENSHIFT_NAMESPACE: "default"
+      APP_PORT: "80"
+
+      # Used to access Redhat Openshift on an internal IP address from a Github Runner. 
+      TAILSCALE: true
+    secrets:
+      IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
+      IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
+      OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
+      OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
+      TAILSCALE_API_KEY: ${{ secrets.TAILSCALE_API_KEY }}
+  owasp-scan:
+    uses: bcgov/pipeline-templates/.github/workflows/owasp-scan.yaml@main
+    with:
+      ZAP_SCAN_TYPE: 'base' # Accepted values are base and full.
+      ZAP_TARGET_URL: http://www.itsecgames.com
+      ZAP_DURATION: '2'
+      ZAP_MAX_DURATION: '5' # add url of newly deployed app.
+      ZAP_GCP_PUBLISH: true
+      ZAP_GCP_PROJECT: phronesis-310405  # Only required if ZAP_GCP_PUBLISH is TRUE
+      ZAP_GCP_BUCKET: 'zap-scan-results' # Only required if ZAP_GCP_PUBLISH is TRUE
+    secrets:
+      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }} # Only required if ZAP_GCP_PUBLISH is TRUE
+  slack-workflow-status:
+    if: always()
+    name: Post Workflow Status To Slack
+    needs:
+      - codeql-scan
+      - build-push
+      - trivy-image-scan
+      - sonar-repo-scan
+      - sonar-maven-scan
+      - owasp-scan
+      - helm-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slack Workflow Notification
+        uses: Gamesight/slack-workflow-status@master
+        with:
+          # Required Input
+          repo_token: ${{secrets.GITHUB_TOKEN}}
+          slack_webhook_url: ${{secrets.SLACK_WEBHOOK_URL}}
+          name: 'Github Workflows'
+          icon_emoji: ':fire:'
+          icon_url: 'https://img.icons8.com/material-outlined/96/000000/github.png'
+
+```
+
 ## Secrets Management
 
 The following repository secrets are required depending on which template is being used. [Learn more](https://docs.github.com/en/actions/security-guides/encrypted-secrets).
