@@ -10,7 +10,7 @@ jobs:
   build-push:
     uses: bcgov/pipeline-templates/.github/workflows/build-push.yaml@main
     with:
-      NAME: nginx-web
+      IMAGE_REGISTRY: docker.io
       IMAGE: gregnrobinson/bcgov-nginx-demo
       WORKDIR: ./demo/nginx
     secrets:

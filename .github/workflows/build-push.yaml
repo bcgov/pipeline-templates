@@ -1,17 +1,12 @@
-name: build-push
-
-env:
-  NAME: nginx-web
-  IMAGE: gregnrobinson/bcgov-nginx-demo
-  WORKDIR: ./demo/nginx
+name: docker-build-push
 
 on:
   workflow_call:
     inputs:
-      NAME:
+      IMAGE:
         required: true
         type: string
-      IMAGE:
+      IMAGE_REGISTRY:
         required: true
         type: string
       WORKDIR:
@@ -44,13 +39,13 @@ jobs:
       run: >
         docker buildx build
         --platform=linux/amd64,linux/arm64
-        -t ${{ inputs.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
+        -t ${{ inputs.IMAGE_REGISTRY }}/${{ inputs.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
         --output=type=image,push=true
         ${GITHUB_WORKSPACE}/${{ inputs.WORKDIR }}
     - name: Trivy Vulnerability Scan
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: ${{ inputs.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
+        image-ref: ${{ inputs.IMAGE_REGISTRY }}/${{ inputs.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
         format: table
         exit-code: '1'
         ignore-unfixed: true
