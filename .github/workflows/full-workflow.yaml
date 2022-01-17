@@ -56,7 +56,7 @@ on:
   workflow_dispatch:
 jobs:
   codeql-scan:
-    uses: bcgov/pipeline-templates/.github/workflows/codeql@main
+    uses: bcgov/pipeline-templates/.github/workflows/codeql.yaml@main
 #    name: CodeQL Scan
 #    runs-on: ubuntu-latest
 #    permissions:
