@@ -4,59 +4,6 @@ on:
   workflow_dispatch:
   schedule:
     - cron:  '0 0 * * 0'
-
-env:
-  ## GITHUB ENVIRONMENT
-  DEPLOY: 'true'
-
-  ## DOCKER
-  NAME: flask-web
-  IMAGE: gregnrobinson/flask-demo-app
-  BUILD_WORKDIR: ./demo/flask-web
-
-  ## TRIVY
-  TRIVY_EXIT_CODE: 1
-  TRIVY_SEVERITY: CRITICAL
-  TRIVY_IGNORE_UNFIXED: true
-
-  ## HELM
-  HELM_DIR: ./demo/flask-web/helm
-  HELM_VALUES_FILE: ./demo/flask-web/helm/values.yaml
-
-  ## SONAR
-  SONAR_ORG: ci-testing
-  SONAR_PROJECT_KEY: github-actions-test
-  SONAR_URL: https://sonarcloud.io
-
-  ## SONAR MVN
-  SONAR_MVN_WORKDIR: ./demo/maven-test
-
-  ## OWASP ZAP
-  ZAP_SCAN_TYPE: 'base' # Accepted values are base and full.
-  ZAP_TARGET_URL: http://www.itsecgames.com
-  ZAP_DURATION: '2'
-  ZAP_MAX_DURATION: '5'
-
-  # PUBLISH PRE SIGNED HTML WEBPAGE
-  # Set to false if you don't want to publish to GCS.
-  ZAP_GCP_PUBLISH: 'true'
-  ZAP_GCP_PROJECT: phronesis-310405
-  ZAP_GCP_BUCKET: 'zap-scan-results'
-
-  ## OPENSHIFT ENVIRONMENT
-  OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
-  OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
-  OPENSHIFT_NAMESPACE: "default"
-
-  ## APP SETTINGS
-  APP_NAME: "flask-demo-app"
-  APP_PORT: "80"
-
-  # 🖊️ EDIT to change the image registry settings.
-  # Registries such as GHCR, Quay.io, and Docker Hub are supported.
-  IMAGE_REGISTRY: ${{ secrets.IMAGE_REGISTRY }}
-  IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
-  IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
 jobs:
   codeql-scan:
     uses: bcgov/pipeline-templates/.github/workflows/codeql.yaml@main
