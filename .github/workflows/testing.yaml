@@ -79,7 +79,6 @@ jobs:
       URL: https://sonarcloud.io
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   sonar-scan-mvn:
     uses: bcgov/pipeline-templates/.github/workflows/sonar-scanner-mvn.yaml@main
     with:
@@ -87,7 +86,6 @@ jobs:
       PROJECT_KEY: pipeline-templates
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy:
     uses: bcgov/pipeline-templates/.github/workflows/codeql.yaml@main
   zap-owasp:
