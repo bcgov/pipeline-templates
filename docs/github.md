@@ -220,7 +220,6 @@ The following repository secrets are required depending on which template is bei
 
 | Secret Name             | Description |
 | :---------------------- | :------------|
-| IMAGE_REGISTRY          | The registry prefix with username. (ie. docker.io/bcgov)       |
 | IMAGE_REGISTRY_USER     | Registry username. Used for interacting with private image repositories.           |
 | IMAGE_REGISTRY_PASSWORD | Registry password. Used for interacting with private image repositories.       |
 | OPENSHIFT_SERVER        | The API endpoint of your Openshfit cluster. By default, this needs to be a publically accessible endpoint.       |
