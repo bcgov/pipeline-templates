@@ -3,8 +3,8 @@ on:
   workflow_dispatch:
   workflow_call:
 jobs:
-  analyze:
-    name: Analyze
+  codeql-scan:
+    name: codeql-scan
     runs-on: ubuntu-latest
     permissions:
       actions: read
