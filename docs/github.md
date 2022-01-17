@@ -253,7 +253,7 @@ jobs:
       OPENSHIFT_NAMESPACE: "default"
       APP_PORT: "80"
 
-      # Used to access Redhat Openshift on an internal IP address from a Github Runner. 
+      # Used to access Redhat Openshift on an internal IP address from a Github Runner.
       TAILSCALE: true
     secrets:
       IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
