@@ -12,7 +12,7 @@ This project contains all Github Actions templates. To make use of the repositor
   - [Sonar Maven Scan](#sonar-maven-scan)
 - [Secrets Management](#secrets-management)
 - [Workflow Triggers](#workflow-triggers)
-- [Testing Pipeline](#testing-pipeline)
+- [Testing Framework](#testing-framework)
 - [Reference](#reference)
 
 ## Workflow Templates
