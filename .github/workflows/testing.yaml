@@ -100,7 +100,7 @@ jobs:
       ZAP_GCP_PROJECT: phronesis-310405  # Only required if ZAP_GCP_PUBLISH is TRUE
       ZAP_GCP_BUCKET: 'zap-scan-results' # Only required if ZAP_GCP_PUBLISH is TRUE
     secrets:
-      GCP_SA_KEY: ${{ secrets.SONAR_TOKEN }} # Only required if ZAP_GCP_PUBLISH is TRUE
+      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }} # Only required if ZAP_GCP_PUBLISH is TRUE
   slack-workflow-status:
     if: always()
     name: Post Workflow Status To Slack
