@@ -91,7 +91,7 @@ You can make use of the templates by calling the workflows from your own workflo
 ### Owasp Scan
 
 ```yaml
-name: trivy-scan
+name: owasp-scan
 on:
   workflow_dispatch:
   push:
@@ -159,7 +159,7 @@ jobs:
 ### Sonar Repo Scan
 
 ```yaml
-name: docker-build-push
+name: sonar-repo-scan
 on:
   workflow_dispatch:
   push:
@@ -177,7 +177,7 @@ jobs:
 ### Sonar Maven Scan
 
 ```yaml
-name: docker-build-push
+name: docker-maven-scan
 on:
   workflow_dispatch:
   push:
