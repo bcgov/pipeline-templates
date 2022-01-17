@@ -89,10 +89,18 @@ jobs:
       PROJECT_KEY: pipeline-templates
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  deploy:
-    uses: bcgov/pipeline-templates/.github/workflows/codeql.yaml@main
   zap-owasp:
-    uses: bcgov/pipeline-templates/.github/workflows/codeql.yaml@main
+    uses: bcgov/pipeline-templates/.github/workflows/owasp-scan.yaml@main
+    with:
+      ZAP_SCAN_TYPE: 'base' # Accepted values are base and full.
+      ZAP_TARGET_URL: http://www.itsecgames.com
+      ZAP_DURATION: '2'
+      ZAP_MAX_DURATION: '5'
+      ZAP_GCP_PUBLISH: true
+      ZAP_GCP_PROJECT: phronesis-310405  # Only required if ZAP_GCP_PUBLISH is TRUE
+      ZAP_GCP_BUCKET: 'zap-scan-results' # Only required if ZAP_GCP_PUBLISH is TRUE
+    secrets:
+      GCP_SA_KEY: ${{ secrets.SONAR_TOKEN }} # Only required if ZAP_GCP_PUBLISH is TRUE
   slack-workflow-status:
     if: always()
     name: Post Workflow Status To Slack

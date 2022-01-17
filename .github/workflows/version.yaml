@@ -6,7 +6,6 @@ on:
     branches: [ mybranch ]
   workflow_dispatch:
   workflow_call:
-
 jobs:
   version_bump:
     name: Version Bump

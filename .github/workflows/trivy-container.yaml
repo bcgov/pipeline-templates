@@ -1,7 +1,5 @@
 name: trivy-scan
-
 on:
-  workflow_dispatch:
   workflow_call:
     inputs:
       TAG:
@@ -10,7 +8,6 @@ on:
       IMAGE:
         required: true
         type: string
-
 jobs:
   trivy-scan:
     runs-on: ubuntu-latest

@@ -14,6 +14,31 @@ env:
 on:
   workflow_dispatch:
   workflow_call:
+    inputs:
+      ZAP_SCAN_TYPE:
+        required: true
+        type: string
+      ZAP_TARGET_URL:
+        required: true
+        type: string
+      ZAP_DURATION:
+        required: true
+        type: string
+      ZAP_MAX_DURATION:
+        required: true
+        type: string
+      ZAP_GCP_PUBLISH:
+        required: true
+        type: boolean
+      ZAP_GCP_PROJECT:
+        required: false
+        type: string
+      ZAP_GCP_BUCKET:
+        required: false
+        type: string
+    secrets:
+      GCP_SA_KEY:
+        required: false
   schedule:
     - cron: '0 9 * * *'
 jobs:
