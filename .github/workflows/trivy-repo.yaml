@@ -7,7 +7,7 @@ on:
   workflow_call:
 jobs:
   tricy-repo-scan:
-    name: Build
+    name: trivy-repo-scan
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code

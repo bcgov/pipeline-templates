@@ -17,7 +17,7 @@ on:
         required: true
 jobs:
   sonar-repo-scan:
-    name: Sonar Scan
+    name: sonar-repo-scan
     runs-on: ubuntu-latest
     steps:
       - name: Setup

@@ -69,7 +69,7 @@ jobs:
     secrets:
       IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
       IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
-  trivy-scan:
+  trivy-image-scan:
     uses: bcgov/pipeline-templates/.github/workflows/trivy-container.yaml@main
     with:
       IMAGE: gregnrobinson/bcgov-nginx-demo
@@ -82,14 +82,14 @@ jobs:
       URL: https://sonarcloud.io
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  sonar-scan-mvn:
+  sonar-maven-scan:
     uses: bcgov/pipeline-templates/.github/workflows/sonar-scanner-mvn.yaml@main
     with:
       WORKDIR: ./tekton/demo/maven-test
       PROJECT_KEY: pipeline-templates
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  zap-owasp:
+  owasp-scan:
     uses: bcgov/pipeline-templates/.github/workflows/owasp-scan.yaml@main
     with:
       ZAP_SCAN_TYPE: 'base' # Accepted values are base and full.
@@ -141,10 +141,10 @@ jobs:
     needs:
       - codeql-scan
       - build-push
-      - trivy-scan
+      - trivy-image-scan
       - sonar-repo-scan
-      - sonar-scan-mvn
-      - zap-owasp
+      - sonar-maven-scan
+      - owasp-scan
       - helm-build-deploy
     runs-on: ubuntu-latest
     steps:
