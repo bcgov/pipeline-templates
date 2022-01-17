@@ -38,7 +38,7 @@ jobs:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   helm-deploy:
     needs: trivy-image-scan
-    uses: bcgov/pipeline-templates/.github/workflows/helm-build-deploy.yaml@main
+    uses: bcgov/pipeline-templates/.github/workflows/helm-deploy.yaml@main
     with:
       ## DOCKER BUILD PARAMS
       NAME: flask-web
