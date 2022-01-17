@@ -39,8 +39,6 @@ on:
     secrets:
       GCP_SA_KEY:
         required: false
-  schedule:
-    - cron: '0 9 * * *'
 jobs:
   owasp-scan:
     runs-on: ubuntu-latest

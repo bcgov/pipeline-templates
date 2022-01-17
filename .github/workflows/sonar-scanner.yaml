@@ -1,13 +1,6 @@
-name: sonar-scan-repo
-
-env:
-  ORG: ci-testing
-  PROJECT_KEY: bcgov-pipeline-templates
-  URL: https://sonarcloud.io
-  WORKDIR: ./demo/flask-web
+name: sonar-repo-scan
 
 on:
-  workflow_dispatch:
   workflow_call:
     inputs:
       ORG:
@@ -22,8 +15,6 @@ on:
     secrets:
       SONAR_TOKEN:
         required: true
-  schedule:
-    - cron: '0 9 * * *'
 jobs:
   sonar-repo-scan:
     name: Sonar Scan

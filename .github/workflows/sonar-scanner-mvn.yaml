@@ -1,12 +1,6 @@
-name: sonar-scan-mvn
-
-env:
-  WORKDIR: ./tekton/demo/maven-test
-  PROJECT_KEY: pipeline-templates
+name: sonar-maven-scan
 
 on:
-  pull_request:
-  workflow_dispatch:
   workflow_call:
     inputs:
       PROJECT_KEY:

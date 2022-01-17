@@ -6,7 +6,6 @@ env:
   WORKDIR: ./demo/nginx
 
 on:
-  workflow_dispatch:
   workflow_call:
     inputs:
       NAME:

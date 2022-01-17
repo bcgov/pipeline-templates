@@ -221,7 +221,7 @@ jobs:
 ### Sonar Maven Scan
 
 ```yaml
-name: docker-maven-scan
+name: sonar-maven-scan
 on:
   workflow_dispatch:
   push:

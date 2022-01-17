@@ -1,4 +1,4 @@
-name: trivy-scan
+name: trivy-image-scan
 on:
   workflow_call:
     inputs:
@@ -9,7 +9,7 @@ on:
         required: true
         type: string
 jobs:
-  trivy-container-scan:
+  trivy-image-scan:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
