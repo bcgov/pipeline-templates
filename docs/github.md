@@ -14,7 +14,7 @@ This project contains all Github Actions templates. To make use of the repositor
 - [Workflow Triggers](#workflow-triggers)
 - [Testing Pipeline](#testing-pipeline)
 - [Reference](#reference)
-- 
+
 ## Workflow Templates
 
 You can make use of the templates by calling the workflows from your own workflow. This simplifies workflow execution by only providing the neccesary inputs and secrets to the workflow run.
