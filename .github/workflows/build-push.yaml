@@ -24,7 +24,7 @@ on:
       IMAGE_REGISTRY_PASSWORD:
         required: true
 jobs:
-  build:
+  build-push:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:

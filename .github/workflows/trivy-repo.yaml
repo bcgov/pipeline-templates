@@ -6,7 +6,7 @@ on:
   pull_request:
   workflow_call:
 jobs:
-  build:
+  tricy-repo-scan:
     name: Build
     runs-on: ubuntu-20.04
     steps:

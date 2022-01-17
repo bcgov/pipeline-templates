@@ -42,7 +42,7 @@ on:
   schedule:
     - cron: '0 9 * * *'
 jobs:
-  zap_base:
+  owasp-scan:
     runs-on: ubuntu-latest
     name: OWASP ZAP Scan
     steps:

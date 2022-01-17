@@ -19,11 +19,9 @@ on:
       SONAR_TOKEN:
         required: true
 jobs:
-    #Sonarqube Section
-  sonarqube-scanning:
+  sonar-maven-scan:
     name: Sonar Scanner
     runs-on: ubuntu-latest
-#    needs: branch-naming-rules
     steps:
       - uses: actions/checkout@v2
         with:
