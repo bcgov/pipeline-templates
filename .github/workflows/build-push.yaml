@@ -4,15 +4,25 @@ env:
   NAME: nginx-web
   IMAGE: gregnrobinson/bcgov-nginx-demo
   WORKDIR: ./demo/nginx
-  REPO: bcgov
-  IMAGE_REGISTRY: ${{ secrets.IMAGE_REGISTRY }}
-  IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
-  IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
 
 on:
   workflow_dispatch:
   workflow_call:
-
+    inputs:
+      NAME:
+        required: true
+        type: string
+      IMAGE:
+        required: true
+        type: string
+      WORKDIR:
+        required: true
+        type: string
+    secrets:
+      IMAGE_REGISTRY_USER:
+        required: true
+      IMAGE_REGISTRY_PASSWORD:
+        required: true
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -31,17 +41,17 @@ jobs:
         username: ${{ secrets.IMAGE_REGISTRY_USER }}
         password: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
     - name: Build
-      working-directory: ${{ env.WORKDIR }}
+      working-directory: ${{ inputs.WORKDIR }}
       run: >
         docker buildx build
         --platform=linux/amd64,linux/arm64
-        -t ${{ env.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
+        -t ${{ inputs.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
         --output=type=image,push=true
-        ${GITHUB_WORKSPACE}/${{ env.WORKDIR }}
+        ${GITHUB_WORKSPACE}/${{ inputs.WORKDIR }}
     - name: Trivy Vulnerability Scan
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: ${{ env.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
+        image-ref: ${{ inputs.IMAGE }}:${{ inputs.GITHUB_SHA_SHORT }}
         format: table
         exit-code: '1'
         ignore-unfixed: true
@@ -58,12 +68,12 @@ jobs:
         repository: ${{ github.repository }}
         excludes: prerelease, draft
     - name: Tag Push Latest
-      working-directory: ${{ env.WORKDIR }}
+      working-directory: ${{ inputs.WORKDIR }}
       run: >
         docker buildx build
         --platform=linux/amd64,linux/arm64
-        -t ${{ env.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
-        -t ${{ env.IMAGE }}:${{ steps.latest.outputs.release }}
-        -t ${{ env.IMAGE }}:latest
+        -t ${{ inputs.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
+        -t ${{ inputs.IMAGE }}:${{ steps.latest.outputs.release }}
+        -t ${{ inputs.IMAGE }}:latest
         --output=type=image,push=true
-        ${GITHUB_WORKSPACE}/${{ env.WORKDIR }}
+        ${GITHUB_WORKSPACE}/${{ inputs.WORKDIR }}

@@ -59,6 +59,13 @@ jobs:
     uses: bcgov/pipeline-templates/.github/workflows/codeql.yaml@main
   build-push:
     uses: bcgov/pipeline-templates/.github/workflows/build-push.yaml@main
+    with:
+      NAME: nginx-web
+      IMAGE: gregnrobinson/bcgov-nginx-demo
+      WORKDIR: ./demo/nginx
+    secrets:
+      IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
+      IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
   trivy-scan:
     uses: bcgov/pipeline-templates/.github/workflows/trivy-container.yaml@main
   sonar-repo-scan:
