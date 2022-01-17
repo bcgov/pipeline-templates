@@ -22,8 +22,6 @@ on:
     secrets:
       SONAR_TOKEN:
         required: true
-      GITHUB_TOKEN:
-        required: true
   push:
   schedule:
     - cron: '0 9 * * *'
