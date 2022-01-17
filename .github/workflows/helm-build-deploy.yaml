@@ -33,36 +33,46 @@ on:
   # https://docs.github.com/en/actions/reference/events-that-trigger-workflows
   workflow_dispatch:
   workflow_call:
-    ## DOCKER BUILD PARAMS
-    NAME:
-      required: true
-      type: string
-    IMAGE:
-      required: true
-      type: string
-    BUILD_WORKDIR:
-      required: true
-      type: string
-    HELM_DIR:
-      required: true
-      type: string
-    VALUES_FILE:
-      required: true
-    OPENSHIFT_NAMESPACE:
-      required: true
-      type: string
-    APP_PORT:
-      required: true
-      type: string
-    IMAGE_REGISTRY:
-      required: true
-      type: string
-    TAILSCALE:
-      required: false
-      type: boolean
+    inputs:
+      NAME:
+        required: true
+        type: string
+      IMAGE:
+        required: true
+        type: string
+      BUILD_WORKDIR:
+        required: true
+        type: string
+      HELM_DIR:
+        required: true
+        type: string
+      VALUES_FILE:
+        required: true
+      OPENSHIFT_NAMESPACE:
+        required: true
+        type: string
+      APP_PORT:
+        required: true
+        type: string
+      IMAGE_REGISTRY:
+        required: true
+        type: string
+      TAILSCALE:
+        required: true
+        type: boolean
     secrets:
       SONAR_TOKEN:
         required: true
+      IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
+        required: true
+      IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
+        required: true
+      OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
+        required: true
+      OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
+        required: true
+      TAILSCALE_API_KEY: ${{ secrets.TAILSCALE_API_KEY }}
+        required: false
 
 jobs:
   build:
