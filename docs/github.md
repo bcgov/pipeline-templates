@@ -16,9 +16,17 @@ This project contains all Github Actions templates. To make use of the repositor
 - [Testing Framework](#testing-framework)
 - [Reference](#reference)
 
-## Workflow Templates
+## How to Use
 
-You can make use of the templates by calling the workflows from your own workflow. This simplifies workflow execution by only providing the neccesary inputs and secrets to the workflow run.
+1. To get started, copy one of the [workflow templates](#workflow-templates) to your own repository under `.github/workflows/<workflow_name>`.
+
+2. Create any referenced secrets in **settings > repository secrets**.
+
+3. Push a change to trigger the workflow. The workflow will call the `bcgov/pipeline-templates`
+
+When a workflow is called, it is imported into the callers context, and executes as if all the logic is running locally within the repository.
+
+## Workflow Templates
 
 ### Docker Build Push
 
