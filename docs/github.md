@@ -22,7 +22,7 @@ This project contains all Github Actions templates. To make use of the repositor
 
 2. Create any referenced secrets in **settings > repository secrets**.
 
-3. Push a change to trigger the workflow. The workflow will call the `bcgov/pipeline-templates`
+3. Push a change to trigger the workflow. The workflow will call the `bcgov/pipeline-templates` repository.
 
 When a workflow is called, it is imported into the callers context, and executes as if all the logic is running locally within the repository.
 
