@@ -119,7 +119,7 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
    sonar-token=
 
    [ssh]
-   ssh-key-path=/Users/<USER>/.ssh/config.json
+   ssh-key-path=/Users/<USER>/.ssh/id_rsa
    EOF
    ```
 
