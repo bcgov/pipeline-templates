@@ -37,31 +37,30 @@ jobs:
       PROJECT_KEY: pipeline-templates
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  helm-deploy:
-    needs: [build-push, trivy-image-scan]
-    uses: bcgov/pipeline-templates/.github/workflows/helm-deploy.yaml@main
-    with:
-      ## DOCKER BUILD PARAMS
-      NAME: flask-web
-
-      ## HELM VARIABLES
-      HELM_DIR: ./demo/flask-web/helm
-      VALUES_FILE: ./demo/flask-web/helm/values.yaml
-
-      OPENSHIFT_NAMESPACE: "default"
-      APP_PORT: "80"
-
-      # Used to access Redhat Openshift on an internal IP address from a Github Runner.
-      TAILSCALE: true
-    secrets:
-      IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
-      IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
-      OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
-      OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
-      TAILSCALE_API_KEY: ${{ secrets.TAILSCALE_API_KEY }}
+#  helm-deploy:
+#    needs: [build-push, trivy-image-scan]
+#    uses: bcgov/pipeline-templates/.github/workflows/helm-deploy.yaml@main
+#    with:
+#      ## DOCKER BUILD PARAMS
+#      NAME: flask-web
+#
+#      ## HELM VARIABLES
+#      HELM_DIR: ./demo/flask-web/helm
+#      VALUES_FILE: ./demo/flask-web/helm/values.yaml
+#
+#      OPENSHIFT_NAMESPACE: "default"
+#      APP_PORT: "80"
+#
+#      # Used to access Redhat Openshift on an internal IP address from a Github Runner.
+#      TAILSCALE: true
+#    secrets:
+#      IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
+#      IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
+#      OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
+#      OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
+#      TAILSCALE_API_KEY: ${{ secrets.TAILSCALE_API_KEY }}
   owasp-scan:
     uses: bcgov/pipeline-templates/.github/workflows/owasp-scan.yaml@main
-    needs: helm-deploy
     with:
       ZAP_SCAN_TYPE: 'base' # Accepted values are base and full.
       ZAP_TARGET_URL: http://www.itsecgames.com
@@ -82,7 +81,6 @@ jobs:
       - sonar-repo-scan
       - sonar-maven-scan
       - owasp-scan
-      - helm-deploy
     runs-on: ubuntu-latest
     steps:
       - name: Slack Workflow Notification
