@@ -61,19 +61,12 @@ jobs:
       with:
         username: ${{ secrets.IMAGE_REGISTRY_USER }}
         password: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
-    - id: latest
-      uses: pozetroninc/github-action-get-latest-release@master
-      with:
-        owner: bcgov
-        repo: pipeline-templates
-        excludes: prerelease, draft
     - name: Tag Push Latest
       working-directory: ${{ inputs.WORKDIR }}
       run: >
         docker buildx build
         --platform=linux/amd64
         -t ${{ inputs.IMAGE }}:${{ env.GITHUB_SHA_SHORT }}
-        -t ${{ inputs.IMAGE }}:${{ steps.latest.outputs.release }}
         -t ${{ inputs.IMAGE }}:latest
         --output=type=image,push=true
         ${GITHUB_WORKSPACE}/${{ inputs.WORKDIR }}
