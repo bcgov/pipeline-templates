@@ -1,6 +1,6 @@
 {
 	"@version": "2.11.1",
-	"@generated": "Mon, 24 Jan 2022 02:53:49",
+	"@generated": "Sun, 20 Feb 2022 00:48:00",
 	"site":[ 
 		{
 			"@name": "http://www.itsecgames.com",
@@ -5554,7 +5554,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "71"
+					"sourceid": "66"
 				},
 				{
 					"pluginid": "10021",
@@ -5602,7 +5602,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "http://www.itsecgames.com/images/netsparker.png",
+							"uri": "http://www.itsecgames.com/images/mme.png",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -5616,7 +5616,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "http://www.itsecgames.com/images/zap.png",
+							"uri": "http://www.itsecgames.com/images/twitter.png",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -5676,7 +5676,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "71"
+					"sourceid": "66"
 				},
 				{
 					"pluginid": "10027",
@@ -5702,7 +5702,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "61"
+					"sourceid": "59"
 				},
 				{
 					"pluginid": "10049",
@@ -5750,7 +5750,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "http://www.itsecgames.com/images/owasp.png",
+							"uri": "http://www.itsecgames.com/images/mme.png",
 							"method": "GET",
 							"param": "",
 							"attack": "",

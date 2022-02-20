@@ -4125,7 +4125,7 @@ The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. T
   * Parameter: `X-Content-Type-Options`
   * Attack: ``
   * Evidence: ``
-* URL: http://www.itsecgames.com/images/netsparker.png
+* URL: http://www.itsecgames.com/images/mme.png
   * Method: `GET`
   * Parameter: `X-Content-Type-Options`
   * Attack: ``
@@ -4135,7 +4135,7 @@ The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. T
   * Parameter: `X-Content-Type-Options`
   * Attack: ``
   * Evidence: ``
-* URL: http://www.itsecgames.com/images/zap.png
+* URL: http://www.itsecgames.com/images/twitter.png
   * Method: `GET`
   * Parameter: `X-Content-Type-Options`
   * Attack: ``
@@ -4280,7 +4280,7 @@ The response contents are storable by caching components such as proxy servers, 
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
-* URL: http://www.itsecgames.com/images/owasp.png
+* URL: http://www.itsecgames.com/images/mme.png
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
