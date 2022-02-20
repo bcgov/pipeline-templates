@@ -61,16 +61,11 @@ jobs:
       with:
         username: ${{ secrets.IMAGE_REGISTRY_USER }}
         password: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
-    - uses: release-drafter/release-drafter@v5
-      with:
-        publish: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - id: latest
       uses: pozetroninc/github-action-get-latest-release@master
       with:
         owner: bcgov
-        repo: security-pipeline-templates
+        repo: pipeline-templates
         excludes: prerelease, draft
     - name: Tag Push Latest
       working-directory: ${{ inputs.WORKDIR }}
