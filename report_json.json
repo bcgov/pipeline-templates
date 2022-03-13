@@ -1,6 +1,6 @@
 {
 	"@version": "2.11.1",
-	"@generated": "Sun, 6 Mar 2022 00:45:55",
+	"@generated": "Sun, 13 Mar 2022 00:44:54",
 	"site":[ 
 		{
 			"@name": "http://www.itsecgames.com",
@@ -78,7 +78,7 @@
 				},
 				{
 					"pluginid": "10020",
-					"alertRef": "10020",
+					"alertRef": "10020-1",
 					"alert": "Missing Anti-clickjacking Header",
 					"name": "Missing Anti-clickjacking Header",
 					"riskcode": "2",
@@ -5554,7 +5554,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "70"
+					"sourceid": "66"
 				},
 				{
 					"pluginid": "10021",
@@ -5676,7 +5676,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "70"
+					"sourceid": "66"
 				},
 				{
 					"pluginid": "10027",
