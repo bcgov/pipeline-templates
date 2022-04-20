@@ -294,7 +294,7 @@ spec:
   - name: runSonarScan
     value: 'true'
   - name: sonarProject
-    value: ci-testing
+    value: bcgov_pipeline-templates
   workspaces:
   - name: shared-data
     volumeClaimTemplate:
@@ -375,8 +375,8 @@ For scans with SonarCloud, create a `sonar-project.properties` file at the root 
 
 ```conf
 # sonar-project.properties
-sonar.organization=ci-testing
-sonar.projectKey=tekton
+sonar.organization=bcgov-sonarcloud
+sonar.projectKey=bcgov_pipeline-templates
 sonar.host.url=https://sonarcloud.io
 ```
 
