@@ -11,9 +11,6 @@ spec:
     - name: owasp-settings
       description: |
         mounts /zap/wrk to store generated configs and results.
-    - name: ssh-creds
-      description: |
-        This workspace will provide ssh credentials to the git-clone task.
   params:
   - name: targetUrl
     type: string
@@ -21,48 +18,10 @@ spec:
     type: string
   - name: scanDuration
     type: string
-  - name: githubToken
-    type: string
-    description: Reference to the secret name storing the github PAT.
-  - name: repoUrl
-    type: string
-    description: The git repository URL to clone from.
-  - name: branchName
-    type: string
-  - name: repo
-    type: string
-    description: The git repository name.
-  - name: title
-    type: string
-    description: Issue Title
-  - name: body
-    type: string
-    description: The body of the PR request
-  - name: github-secret
-    type: string
-    description: "The name of the secret that has your github username and token"
   tasks:
-    - name: fetch-repository
-      taskRef:
-        name: t-git-clone
-        kind: Task
-      workspaces:
-        - name: output
-          workspace: shared-data
-        - name: ssh-directory
-          workspace: ssh-creds
-      params:
-        - name: url
-          value: $(params.repoUrl)
-        - name: deleteExisting
-          value: "true"
-        - name: revision
-          value: $(params.branchName)
     - name: owasp-scan
       taskRef:
         name: t-owasp-scanner
-      runAfter:
-        - fetch-repository
       params:
         - name: TARGET_URL
           value: $(params.targetUrl)
@@ -70,32 +29,8 @@ spec:
           value: $(params.scanType)
         - name: SCAN_DURATION
           value: $(params.scanDuration)
-        - name: GITHUB_TOKEN
-          value: $(params.githubToken)
-        - name: REPO
-          value: $(params.repo)
-        - name: REPO_URL
-          value: $(params.repoUrl)
       workspaces:
         - name: source
-          workspace: shared-data
-        - name: owasp-settings
-          workspace: owasp-settings
-    - name: add-issue
-      taskRef:
-        name: t-add-issue
-        kind: Task
-      runAfter:
-       - owasp-scan
-      params:
-        - name: title
-          value: $(params.title)
-        - name: body
-          value: $(params.body)
-        - name: github-secret
-          value: $(params.github-secret)
-      workspaces:
-        - name: source 
           workspace: shared-data
         - name: owasp-settings
           workspace: owasp-settings
