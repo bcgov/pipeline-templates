@@ -62,3 +62,4 @@ spec:
             secretKeyRef:
               name: $(params.github-secret)
               key: email
+              
