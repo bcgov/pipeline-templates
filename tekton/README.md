@@ -481,11 +481,27 @@ spec:
     name: p-owasp
   params:
   - name: targetUrl
-    value: https://example.com
+    # value: https://example.com
+    value: http://scanme.nmap.org
+    #scanType is either quick or full
   - name: scanType
     value: quick
   - name: scanDuration
     value: '2'
+  - name: repo
+    value: bcgov/pipeline-templates
+  - name: repoUrl
+    value: git@github.com:bcgov/pipeline-templates.git
+  - name: branchName
+    value: main
+  - name: githubToken
+    value: github-pat-token
+  - name: title
+    value: 'Tekton Zap Scan Result'
+  - name: body
+    value: 'test'
+  - name: github-secret
+    value: 'github'
   workspaces:
   - name: shared-data
     volumeClaimTemplate:
@@ -496,7 +512,17 @@ spec:
           requests:
             storage: 1Gi
   - name: owasp-settings
-    emptyDir: {}
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+        - ReadWriteOnce # access mode may affect how you can use this volume in parallel tasks
+        resources:
+          requests:
+            storage: 1Gi
+  #  emptyDir: {}
+  - name: ssh-creds
+    secret:
+      secretName: ssh-key-path
 EOF
 ```
 
@@ -651,3 +677,4 @@ resources:
 ```
 
 [Back to top](#tekton-pipelines)
+
