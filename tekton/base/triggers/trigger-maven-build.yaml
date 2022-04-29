@@ -14,6 +14,10 @@ spec:
     default: main
   - name: pathToContext
     default: ./tekton/demo/maven-test
+  - name: runSonarScan
+    default: 'true'
+  - name: sonarProject
+    default: bcgov_pipeline-templates
   resourcetemplates:
   - apiVersion: tekton.dev/v1beta1
     kind: PipelineRun
@@ -33,6 +37,10 @@ spec:
         value: $(tt.params.branchName)
       - name: pathToContext
         value: $(tt.params.pathToContext)
+      - name: runSonarScan
+        value: $(tt.params.runSonarScan)
+      - name: sonarProject
+        value: $(tt.params.sonarProject)
       workspaces:
       - name: shared-data
         volumeClaimTemplate:
