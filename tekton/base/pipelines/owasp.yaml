@@ -96,8 +96,7 @@ spec:
         - name: github-secret
           value: $(params.github-secret)
       workspaces:
-        - name: source 
+        - name: source
           workspace: shared-data
         - name: owasp-settings
-          workspace: owasp-settings     
-                   
+          workspace: owasp-settings
