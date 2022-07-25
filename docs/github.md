@@ -178,7 +178,7 @@ jobs:
 
 ### Putting it all Together
 
-You add several jobs to a single caller workflow and integrate secrurity related components with build and deploy components. Refer to the example below on how to do this.
+You add several jobs to a single caller workflow and integrate security related components with build and deploy components. Refer to the example below on how to do this.
 
 ```yaml
 name: helm-build-deploy-cicd
