@@ -106,9 +106,9 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
     **secrets.ini**
     Creates secrets for all secret types. The `key` refers to the secret name, and the `value` is the secret contents.
 
-    `github-secret` is used for triggers. Can be left as is if triggers are not used.
-    `image-registry-username` and `image-registry-password` are the account credentials for your image registry. This could be **docker.io**, **quay.io**, **gcr.io** or any other docker compatible docker registry.
-    `ssh-key-path` is used to fetch your GitHub SSH credentials for Tekton git-clone task. Sometimes replacing the `<USER>` is sufficient, sometimes you might need to change the whole path to the key based on your workstation setup.
+    - `github-secret` is used for triggers. Can be left as is if triggers are not used.
+    - `image-registry-username` and `image-registry-password` are the account credentials for your image registry. This could be **docker.io**, **quay.io**, **gcr.io** or any other docker compatible docker registry.
+    - `ssh-key-path` is used to fetch your GitHub SSH credentials for Tekton git-clone task. Sometimes replacing the `<USER>` is sufficient, sometimes you might need to change the whole path to the key to match your workstation setup. (Here are some Github doc about [creating SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent))
 
    ```bash
    cat <<EOF >./overlays/secrets/secrets.ini
