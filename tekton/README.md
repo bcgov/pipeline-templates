@@ -90,7 +90,7 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
 
 1. [kubectl](https://kubernetes.io/docs/tasks/tools/) >= 1.21.0
 2. [python3](https://www.python.org/)
-3. [pip](https://pip.pypa.io/en/stable/installation/)
+3. [pip](https://pip.pypa.io/en/stable/installation/) (or pip3 if you have different version of python and pip)
 
 ## Installation
 
@@ -150,9 +150,10 @@ Run `./tekton.sh -h` to display the help menu.
 ```bash
 Usage: tekton.sh [option...]
 
-   -a, --apply         Apply Secrets, Pipelines, Tasks and Triggers.
-   -p, --prune         Delete all PipelineRuns.
-   -h, --help          Display argument options.
+   -a, --apply         Apply Secrets, Pipelines, Tasks and Triggers. 
+   -p, --prune         Delete all PipelineRuns. 
+   -d, --delete        Delete all Tekton resources. 
+   -h, --help          Display argument options. 
 ```
 
 ## Pipeline Run Templates
