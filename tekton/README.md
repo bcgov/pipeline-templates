@@ -90,7 +90,7 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
 
 1. [kubectl](https://kubernetes.io/docs/tasks/tools/) >= 1.21.0
 2. [python3](https://www.python.org/)
-3. [pip](https://pip.pypa.io/en/stable/installation/)
+3. [pip](https://pip.pypa.io/en/stable/installation/) (or pip3 if you have different version of python and pip)
 
 ## Installation
 
@@ -107,7 +107,8 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
     Creates secrets for all secret types. The `key` refers to the secret name, and the `value` is the secret contents.
 
     `github-secret` is used for triggers. Can be left as is if triggers are not used.
-    `image-registry-username` and `image-registry-password` are the account credentials for your image regsitry. This could be **docker.io**, **quay.io**, **gcr.io** or any other docker compatible docker regsitry.
+    `image-registry-username` and `image-registry-password` are the account credentials for your image registry. This could be **docker.io**, **quay.io**, **gcr.io** or any other docker compatible docker registry.
+    `ssh-key-path` is used to fetch your GitHub SSH credentials for Tekton git-clone task. Sometimes replacing the `<USER>` is sufficient, sometimes you might need to change the whole path to the key based on your workstation setup.
 
    ```bash
    cat <<EOF >./overlays/secrets/secrets.ini
@@ -126,6 +127,9 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
 3. Set the context and namespace you wish to deploy the resources in. Set the variables in your active shell.
 
    ```bash
+   # check your current OpenShift login context.
+   oc config current-context
+
    # If CONTEXT is not set or null, the current context is used.
    export CONTEXT="<YOUR_CONTEXT>"
 
@@ -146,9 +150,10 @@ Run `./tekton.sh -h` to display the help menu.
 ```bash
 Usage: tekton.sh [option...]
 
-   -a, --apply         Apply Secrets, Pipelines, Tasks and Triggers.
-   -p, --prune         Delete all PipelineRuns.
-   -h, --help          Display argument options.
+   -a, --apply         Apply Secrets, Pipelines, Tasks and Triggers. 
+   -p, --prune         Delete all PipelineRuns. 
+   -d, --delete        Delete all Tekton resources. 
+   -h, --help          Display argument options. 
 ```
 
 ## Pipeline Run Templates
