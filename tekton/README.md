@@ -88,6 +88,8 @@ A shared workspace defined in the `PipelineRun` determines at runtime which data
 
 Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch64*, and *darwin/arm64*.
 
+> We also have a [Video walkthrough](https://youtu.be/WfR6rKGzi7Q) of the pipeline setup and installation.
+
 1. [kubectl](https://kubernetes.io/docs/tasks/tools/) >= 1.21.0
 2. [python3](https://www.python.org/)
 3. [pip](https://pip.pypa.io/en/stable/installation/) (or pip3 if you have different version of python and pip)
