@@ -24,7 +24,7 @@ spec:
     metadata:
       generateName: docker-build-push-run-
     spec:
-      serviceAccountName: service-tekton-triggers-sa
+      serviceAccountName: pipeline
       pipelineRef:
         name: p-buildah
       params:
@@ -63,7 +63,7 @@ kind: EventListener
 metadata:
   name: build-push-image-trigger
 spec:
-  serviceAccountName: service-tekton-triggers-sa
+  serviceAccountName: pipeline
   triggers:
     - name: github-listener
       interceptors:
