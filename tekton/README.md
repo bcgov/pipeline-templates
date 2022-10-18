@@ -94,6 +94,11 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
 2. [python3](https://www.python.org/)
 3. [pip](https://pip.pypa.io/en/stable/installation/) (or pip3 if you have different version of python and pip)
 
+These instructions assume the use of a bash-based shell such as `zsh` (included on OS X) or [WSL](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/) for Windows. Please use one of these shells, or make the appropriate modifications to the commands shown in these instructions. 
+
+Before you begin, you will need to [set up your GitHub SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh). If you need to create a new SSH key or you are having authentication errors, be sure to use the instructions for creating an `rsa` format key **not** a `ed25519` format key. Do not use a passphrase with your key.
+
+
 ## Installation
 
 1. Clone the repository. (If you want to make changes, fork the repository)
@@ -110,7 +115,7 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
 
     - `github-secret` is used for triggers. Can be left as is if triggers are not used.
     - `image-registry-username` and `image-registry-password` are the account credentials for your image registry. This could be **docker.io**, **quay.io**, **gcr.io** or any other docker compatible docker registry.
-    - `ssh-key-path` is used to fetch your GitHub SSH credentials for Tekton git-clone task. Sometimes replacing the `<USER>` is sufficient, sometimes you might need to change the whole path to the key to match your workstation setup. (Here are some Github doc about [creating SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent))
+    - `ssh-key-path` is used to fetch your GitHub SSH credentials for Tekton git-clone task. Sometimes replacing the `<USER>` is sufficient, sometimes you might need to change the whole path to the key to match your workstation setup.
 
    ```bash
    cat <<EOF >./overlays/secrets/secrets.ini
