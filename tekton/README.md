@@ -140,7 +140,7 @@ Before you begin, you will need to [set up your GitHub SSH key](https://docs.git
    # If CONTEXT is not set or null, the current context is used.
    export CONTEXT="<YOUR_CONTEXT>"
 
-   # If NAMESPACE is not set or null, the default namespace is used.
+   # Make sure to set NAMESPACE variable to point to the tools namespace, otherwise it will use the default namespace which you don't have access to!
    export NAMESPACE="<TARGET_NAMESPACE>"
    ```
 
