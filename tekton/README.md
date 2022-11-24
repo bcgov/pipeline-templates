@@ -165,7 +165,7 @@ Usage: tekton.sh [option...]
 
 ## Pipeline Run Templates
 
-All pipeline run templates listed below are tested and working. The `PipelineRun` templates refernece pipelines and tasks that were deployed using `./tekton.sh`. All the dependancies to operate this repository are within the repository. Developers can focus on consuming the pipelines for their needs with minimal changes. Additional to adhoc use, developers can create a yaml file with the following templates and store them in a Git repositoy where they can incorporate the pipeline runs into their own automation workflows. Aslong as the runner has access a Kibernetes cluster, a pipeline run will execute with just `kubectl apply -f <YOUR_PIPELINE_RUN>.yaml`.
+All pipeline run templates listed below are tested and working. The `PipelineRun` templates reference pipelines and tasks that were deployed using `./tekton.sh`. All the dependancies to operate this repository are within the repository. Developers can focus on consuming the pipelines for their needs with minimal changes. Additional to ad hoc use, developers can create a yaml file with the following templates and store them in a Git repositoy where they can incorporate the pipeline runs into their own automation workflows. As long as the runner has access a Kubernetes cluster, a pipeline run will execute with just `kubectl apply -f <YOUR_PIPELINE_RUN>.yaml`.
 
 ### **buildah-build-push**
 
@@ -437,7 +437,7 @@ EOF
 
 ### **trivy-scan**
 
-*Scans for vulnerbilities and file systems. [SonarCloud](https://github.com/aquasecurity/trivy)*
+*Scans for vulnerabilities and file systems. [trivy](https://github.com/aquasecurity/trivy)*
 
 ```yaml
 cat <<EOF | kubectl create -f -
