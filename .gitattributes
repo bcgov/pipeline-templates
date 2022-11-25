@@ -1,0 +1,2 @@
+; To make sure windows user can process the script
+*.sh        eol=lf

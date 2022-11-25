@@ -6,3 +6,4 @@
 overlays/secrets/kustomization.yaml
 overlays/secrets/kustomization.yml
 .DS_Store
+id_rsa
