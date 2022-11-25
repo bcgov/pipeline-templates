@@ -64,11 +64,11 @@ function prune(){
 }
 
 function display_help() {
-    SHORT_SHA="$(git rev-parse --short HEAD)"
-    BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+    # SHORT_SHA="$(git rev-parse --short HEAD)"
+    # BRANCH="$(git rev-parse --abbrev-ref HEAD)"
     echo ""
     echo "${cyan}Tekton CLI${normal}"
-    echo "${cyan}Version: ${BRANCH}-${SHORT_SHA}${normal}"
+    # echo "${cyan}Version: ${BRANCH}-${SHORT_SHA}${normal}"
     echo ""
     echo "Usage: tekton.sh [option...]" >&2
     echo
@@ -89,15 +89,15 @@ do
           ;;
       -a | --apply)
           apply
-          shift 2
+          exit 0
           ;;
       -p | --prune)
           prune
-          shift 2
+          exit 0
           ;;
       -d | --delete)
           delete
-          shift 2
+          exit 0
           ;;
 
       --) # End of all options

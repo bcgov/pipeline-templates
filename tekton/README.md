@@ -22,7 +22,7 @@ This project aims to improve the management experience with tekton pipelines. Th
 
 The project creates secrets for your docker and ssh credentials using the Kustomize [secretGenerator](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kustomize/). This allows for the git-clone and buildah Tekton tasks to interact with private repositories. I would consider setting up git and container registry credentials a foundational prerequisite for operating cicd tooling. Once Kustomize creates the secrets, they are referenced directly by name in the [Pipeline Run Templates](#pipeline-run-templates) section.
 
-The project is intended to improve developement agility by providung one configuration file that holds kubernetes secrets in the form of simple key pairs. for all the secrets that are needed.  from the installation manifests to the custom Tekton CRDs that manage the creation and execution of pipelines. Whenever changes are made to `./base` or `./overlays,` run `./tekton.sh -a` to apply the changes against the current Kubernetes context. Behind the scenes, the following functions are executed.
+The project is intended to improve developement agility by providung one configuration file that holds kubernetes secrets in the form of simple key pairs. for all the secrets that are needed. from the installation manifests to the custom Tekton CRDs that manage the creation and execution of pipelines. Whenever changes are made to `./base` or `./overlays,` run `./tekton.sh -a` to apply the changes against the current Kubernetes context. Behind the scenes, the following functions are executed.
 
 ### Layout
 
@@ -84,9 +84,60 @@ A shared workspace defined in the `PipelineRun` determines at runtime which data
 
 ![workflow](https://user-images.githubusercontent.com/26353407/142748076-1a261753-1c73-474b-83fd-dd6d69e89299.png)
 
+## Install in Docker Container(Docker Strategy)
+
+Setting up with docker is available with this pipline template.
+
+### Prerequisites(Docker)
+
+1. You will need to have [docker](https://docs.docker.com/get-docker/) installed.
+2. You will need to [set up your GitHub SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
+
+### Installation(Docker)
+
+1. Clone the repository. (If you want to make changes, fork the repository)
+
+   ```bash
+   git clone https://github.com/bcgov/pipeline-templates
+   cd ./pipeline-templates/tekton
+   ```
+
+2. Copy your `rsa` public key:
+   For Mac and Linux user:
+
+```
+ cp ~/.ssh/id_rsa ./
+```
+
+For Windows user:
+
+```
+COPY ~/.ssh/id_rsa
+```
+
+3. Use Docker to build the image:
+
+```
+docker build -t tekton-install .
+```
+
+Run the image in docker container:
+
+```
+docker run -i -t  tekton-install
+```
+
+4. Following the promot line to provide:
+
+- Namespace name
+- OC login command(with token)
+- Choose an option you want to run.
+
+## Run the Install script on your computer
+
 ## Prerequisites
 
-Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch64*, and *darwin/arm64*.
+Note: This project has been tested on _linux/arm64_, _linux/amd64_, _linux/aarch64_, and _darwin/arm64_.
 
 > We also have a [Video walkthrough](https://youtu.be/WfR6rKGzi7Q) of the pipeline setup and installation.
 
@@ -94,10 +145,9 @@ Note: This project has been tested on *linux/arm64*, *linux/amd64*, *linux/aarch
 2. [python3](https://www.python.org/)
 3. [pip](https://pip.pypa.io/en/stable/installation/) (or pip3 if you have different version of python and pip)
 
-These instructions assume the use of a bash-based shell such as `zsh` (included on OS X) or [WSL](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/) for Windows. Please use one of these shells, or make the appropriate modifications to the commands shown in these instructions. 
+These instructions assume the use of a bash-based shell such as `zsh` (included on OS X) or [WSL](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/) for Windows. Please use one of these shells, or make the appropriate modifications to the commands shown in these instructions.
 
 Before you begin, you will need to [set up your GitHub SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh). If you need to create a new SSH key or you are having authentication errors, be sure to use the instructions for creating an `rsa` format key **not** a `ed25519` format key. Do not use a passphrase with your key.
-
 
 ## Installation
 
@@ -110,12 +160,12 @@ Before you begin, you will need to [set up your GitHub SSH key](https://docs.git
 
 2. Create a file named `secrets.ini` using the snippet below.
 
-    **secrets.ini**
-    Creates secrets for all secret types. The `key` refers to the secret name, and the `value` is the secret contents.
+   **secrets.ini**
+   Creates secrets for all secret types. The `key` refers to the secret name, and the `value` is the secret contents.
 
-    - `github-secret` is used for triggers. Can be left as is if triggers are not used.
-    - `image-registry-username` and `image-registry-password` are the account credentials for your image registry. This could be **docker.io**, **quay.io**, **gcr.io** or any other docker compatible docker registry.
-    - `ssh-key-path` is used to fetch your GitHub SSH credentials for Tekton git-clone task. Sometimes replacing the `<USER>` is sufficient, sometimes you might need to change the whole path to the key to match your workstation setup.
+   - `github-secret` is used for triggers. Can be left as is if triggers are not used.
+   - `image-registry-username` and `image-registry-password` are the account credentials for your image registry. This could be **docker.io**, **quay.io**, **gcr.io** or any other docker compatible docker registry.
+   - `ssh-key-path` is used to fetch your GitHub SSH credentials for Tekton git-clone task. Sometimes replacing the `<USER>` is sufficient, sometimes you might need to change the whole path to the key to match your workstation setup.
 
    ```bash
    cat <<EOF >./overlays/secrets/secrets.ini
@@ -157,10 +207,10 @@ Run `./tekton.sh -h` to display the help menu.
 ```bash
 Usage: tekton.sh [option...]
 
-   -a, --apply         Apply Secrets, Pipelines, Tasks and Triggers. 
-   -p, --prune         Delete all PipelineRuns. 
-   -d, --delete        Delete all Tekton resources. 
-   -h, --help          Display argument options. 
+   -a, --apply         Apply Secrets, Pipelines, Tasks and Triggers.
+   -p, --prune         Delete all PipelineRuns.
+   -d, --delete        Delete all Tekton resources.
+   -h, --help          Display argument options.
 ```
 
 ## Pipeline Run Templates
@@ -169,7 +219,7 @@ All pipeline run templates listed below are tested and working. The `PipelineRun
 
 ### **buildah-build-push**
 
-*Build and push a docker image using [buildah](https://buildah.io/).*
+_Build and push a docker image using [buildah](https://buildah.io/)._
 
 ```yaml
 cat <<EOF | kubectl create -f -
@@ -220,7 +270,7 @@ EOF
 
 ### **build-deploy-helm**
 
-*Builds a Dockerfile and deploys the resulting image to Openshift as a deployment using [helm](https://helm.sh/docs/). By default, this configuration will use the helm chart located at`demo/flask-web/helm`.*
+_Builds a Dockerfile and deploys the resulting image to Openshift as a deployment using [helm](https://helm.sh/docs/). By default, this configuration will use the helm chart located at`demo/flask-web/helm`._
 
 ```yaml
 cat <<EOF | kubectl create -f -
@@ -281,7 +331,7 @@ EOF
 
 ### **maven-build**
 
-*Builds and a java application with [maven](https://maven.apache.org/).*
+_Builds and a java application with [maven](https://maven.apache.org/)._
 
 ```yaml
 cat <<EOF | kubectl create -f -
@@ -328,7 +378,7 @@ EOF
 
 ### **codeql-scan**
 
-*Scans a given repository for explicit languages. [CodeQL](https://codeql.github.com/)*
+_Scans a given repository for explicit languages. [CodeQL](https://codeql.github.com/)_
 
 - **language**: Language for codeql to analyze.
 - **githubToken**: Github token for uploading scan results to Github.
@@ -379,7 +429,7 @@ EOF
 
 ### **sonar-scan**
 
-*Scans a given repository against a provided SonarCloud project. [SonarCloud](https://sonarcloud.io/)*
+_Scans a given repository against a provided SonarCloud project. [SonarCloud](https://sonarcloud.io/)_
 
 Requires a secret within the task named `tkn-sonar-token`. This is used to authenticate to SonarCloud or SonarQube.
 
@@ -437,7 +487,7 @@ EOF
 
 ### **trivy-scan**
 
-*Scans for vulnerbilities and file systems. [SonarCloud](https://github.com/aquasecurity/trivy)*
+_Scans for vulnerbilities and file systems. [SonarCloud](https://github.com/aquasecurity/trivy)_
 
 ```yaml
 cat <<EOF | kubectl create -f -
@@ -474,7 +524,7 @@ EOF
 
 ### **owasp-scan**
 
-*Scans public web apps for vulnerbilities. [ZAP Scanner](https://www.zaproxy.org/docs/docker/about/)*
+_Scans public web apps for vulnerbilities. [ZAP Scanner](https://www.zaproxy.org/docs/docker/about/)_
 
 - **targetUrl**: The URL to run the scan against.
 - **scanType**: Accepted values are `quick` or `full`.
