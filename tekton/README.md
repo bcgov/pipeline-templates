@@ -115,19 +115,7 @@ For Windows user:
 COPY ~/.ssh/id_rsa
 ```
 
-3. Use Docker to build the image:
-
-```
-docker build -t tekton-install .
-```
-
-Run the image in docker container:
-
-```
-docker run -i -t  tekton-install
-```
-
-4. Create a **secrets.ini** file under `overylays/secrets/`
+3. Create a **secrets.ini** file under `overylays/secrets/`
 
 ```
   [literals]
@@ -141,7 +129,22 @@ docker run -i -t  tekton-install
    ssh-key-path=
 ```
 
-3. Following the promot line to provide:
+**NOTE FOR WINDOWS USER**
+You may need to transfer install.sh file from CRLF to LF, read this [answer](https://stackoverflow.com/a/54245311) for instruction with different editor.
+
+4. Use Docker to build the image:
+
+```
+docker build -t tekton-install .
+```
+
+Run the image in docker container:
+
+```
+docker run -i -t  tekton-install
+```
+
+5. Following the promot line to provide:
 
 - Namespace name
 - OC login command(with token)
