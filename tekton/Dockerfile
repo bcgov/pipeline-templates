@@ -25,7 +25,7 @@ ADD ./id_rsa /var/opt/tekton/id_rsa
 COPY . .
 
 # clean up this form
-RUN sed -i.bak 's/sonar-token=.*/sonar-token=/g ; s/ssh-key-path=.*/ssh-key-path=/g' ./overlays/secrets/secrets.ini
+RUN sed -i 's/sonar-token=.*/sonar-token=/g ; s/ssh-key-path=.*/ssh-key-path=/g' ./overlays/secrets/secrets.ini
 
 RUN sed -i 's/ssh-key-path=/ssh-key-path=\/var\/opt\/tekton\/id_rsa/g' ./overlays/secrets/secrets.ini
 RUN echo $CONTEXT
@@ -35,5 +35,4 @@ RUN chmod +x /docker-entrypoint-installTekton.sh
 
 ENTRYPOINT [ "/docker-entrypoint-installTekton.sh" ]
 
-CMD [ "/bin/bash" ]
 

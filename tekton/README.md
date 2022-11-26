@@ -127,7 +127,21 @@ Run the image in docker container:
 docker run -i -t  tekton-install
 ```
 
-4. Following the promot line to provide:
+4. Create a **secrets.ini** file under `overylays/secrets/`
+
+```
+  [literals]
+   image-registry-username=
+   image-registry-password=
+   github-webhook-secret=
+   github-pat-token=
+   sonar-token=
+
+   [ssh]
+   ssh-key-path=
+```
+
+3. Following the promot line to provide:
 
 - Namespace name
 - OC login command(with token)
