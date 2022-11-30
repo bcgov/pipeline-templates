@@ -13,6 +13,7 @@ ask-for-env(){
 
     echo Hello! To start with this Tekton setup, I need couple things from you:
     read -p 'Namespace full-name(ex: 101ed4-tools): ' NAMESPACE
+
     # tekton.sh required env variable 
     export NAMESPACE=$NAMESPACE
 
@@ -44,7 +45,6 @@ verify_env_vars() {
     fi
   done
 }
-
 
 init_install(){
 echo "Environment setup has been completed, now what you want to do with ./tekton.sh ?"

@@ -90,7 +90,7 @@ Setting up with docker is available with this pipline template.
 
 ### Prerequisites(Docker)
 
-1. You will need to have [docker](https://docs.docker.com/get-docker/) installed.
+1. You will need to have [docker](https://docs.docker.com/get-docker/) installed.(_Note_: Download docker from website that fit for your OS. Don's use brew install)
 2. You will need to [set up your GitHub SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
 
 ### Installation(Docker)
@@ -135,7 +135,7 @@ You may need to transfer install.sh file from CRLF to LF, read this [answer](htt
 4. Use Docker to build the image:
 
 ```
-docker build -t tekton-install .
+docker build -t tekton-install . --platform linux/amd64
 ```
 
 Run the image in docker container:
