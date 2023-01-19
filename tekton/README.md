@@ -3,9 +3,15 @@
 - [Overview](#overview)
   - [Layout](#layout)
   - [Common Workflow](#common-workflow)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Usage](#usage)
+- [Install in Docker Container](#install-in-docker-container)
+  - [Prerequisites](#prerequisites-docker)
+  - [Installation](#installation-docker)
+  - [Usage](#usage-docker)
+- [Install on your computer](#install-on-your-computer)
+  - [Prerequisites](#prerequisites)
+  - [Prerequisites](#prerequisites---ssh-key)
+  - [Installation](#installation)
+  - [Usage](#usage)
 - [Pipeline Run Templates](#pipeline-run-templates)
   - [**buildah-build-push**](#buildah-build-push)
   - [**build-deploy-helm**](#build-deploy-helm)
@@ -84,16 +90,16 @@ A shared workspace defined in the `PipelineRun` determines at runtime which data
 
 ![workflow](https://user-images.githubusercontent.com/26353407/142748076-1a261753-1c73-474b-83fd-dd6d69e89299.png)
 
-## Install in Docker Container(Docker Strategy)
+## Install in Docker Container
 
 Setting up with docker is available with this pipline template.
 
-### Prerequisites(Docker)
+### Prerequisites (Docker)
 
 1. You will need to have [docker](https://docs.docker.com/get-docker/) installed and make sure that Docker Desktop is running.(_Note_: Download docker from website that fit for your OS. Don's use brew install)
-2. You will need to [set up your GitHub SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
+2. You will need to [set up your GitHub SSH key](#prerequisites---ssh-key).
 
-### Installation(Docker)
+### Installation (Docker)
 
 1. Clone the repository. (If you want to make changes, fork the repository)
 
@@ -132,6 +138,8 @@ COPY ~/.ssh/id_rsa
 **NOTE FOR WINDOWS USER**
 You may need to transfer install.sh file from CRLF to LF, read this [answer](https://stackoverflow.com/a/54245311) for instruction with different editor.
 
+### Usage (Docker)
+
 4. Use Docker to build the image:
 
 ```
@@ -150,9 +158,9 @@ docker run -i -t  tekton-install
 - OC login command(with token)
 - Choose an option you want to run.
 
-## Run the Install script on your computer
+## Install on your computer
 
-## Prerequisites
+### Prerequisites
 
 Note: This project has been tested on _linux/arm64_, _linux/amd64_, _linux/aarch64_, and _darwin/arm64_.
 
@@ -164,6 +172,7 @@ Note: This project has been tested on _linux/arm64_, _linux/amd64_, _linux/aarch
 
 These instructions assume the use of a bash-based shell such as `zsh` (included on OS X) or [WSL](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/) for Windows. Please use one of these shells, or make the appropriate modifications to the commands shown in these instructions.
 
+### Prerequisites - SSH Key
 Before you begin, you will need to [set up your GitHub SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
 Please make sure the SSH key matches the following:
 - the SSH key should be of format `rsa`, **not** a `ed25519` format key. You can generate it as `ssh-keygen -t rsa -b 4096 -C "your_email@example.com"`. See the [GitHub instruction (in blue box)](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key) for more details
@@ -172,7 +181,7 @@ Please make sure the SSH key matches the following:
 
 
 
-## Installation
+### Installation
 
 1. Clone the repository. (If you want to make changes, fork the repository)
 
@@ -223,7 +232,7 @@ Please make sure the SSH key matches the following:
    ./tekton.sh -a
    ```
 
-## Usage
+### Usage
 
 Run `./tekton.sh -h` to display the help menu.
 
