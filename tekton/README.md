@@ -164,7 +164,13 @@ Note: This project has been tested on _linux/arm64_, _linux/amd64_, _linux/aarch
 
 These instructions assume the use of a bash-based shell such as `zsh` (included on OS X) or [WSL](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/) for Windows. Please use one of these shells, or make the appropriate modifications to the commands shown in these instructions.
 
-Before you begin, you will need to [set up your GitHub SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh). If you need to create a new SSH key or you are having authentication errors, be sure to use the instructions for creating an `rsa` format key **not** a `ed25519` format key. Do not use a passphrase with your key.
+Before you begin, you will need to [set up your GitHub SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
+Please make sure the SSH key matches the following:
+- the SSH key should be of format `rsa`, **not** a `ed25519` format key. You can generate it as `ssh-keygen -t rsa -b 4096 -C "your_email@example.com"`. See the [GitHub instruction (in blue box)](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key) for more details
+- do not use a passphrase with your key
+- after adding the public key to your github account, please also follow [these steps](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/testing-your-ssh-connection) to verify that the SSH key works
+
+
 
 ## Installation
 
