@@ -108,23 +108,24 @@ Setting up with docker is available with this pipline template.
    cd ./pipeline-templates/tekton
    ```
 
-2. Copy your `rsa` public key:
-   For Mac and Linux user:
+2. Copy your `rsa` private key to the current working directory:
 
-```
- cp ~/.ssh/id_rsa ./
-```
+    ```bash
+    cp <path_to_SSH_private_key> ./
+    ```
 
-For Windows user:
+3. Create a file named `secrets.ini` using the snippet below.
 
-```
-COPY ~/.ssh/id_rsa
-```
+   **secrets.ini**
+   Creates secrets for all secret types. The `key` refers to the secret name, and the `value` is the secret contents.
 
-3. Create a **secrets.ini** file under `overylays/secrets/`
+   - `github-secret` is used for triggers. Can be left as is if triggers are not used.
+   - `image-registry-username` and `image-registry-password` are the account credentials for your image registry. This could be **docker.io**, **quay.io**, **gcr.io** or any other docker compatible docker registry.
+   - `ssh-key-path` is used to fetch your GitHub SSH credentials for Tekton git-clone task. Sometimes replacing the `<USER>` is sufficient, sometimes you might need to change the whole path to the key to match your workstation setup.
 
-```
-  [literals]
+   ```bash
+   cat <<EOF >./overlays/secrets/secrets.ini
+   [literals]
    image-registry-username=
    image-registry-password=
    github-webhook-secret=
@@ -132,11 +133,11 @@ COPY ~/.ssh/id_rsa
    sonar-token=
 
    [ssh]
-   ssh-key-path=
-```
+   ssh-key-path=/Users/<USER>/.ssh/id_rsa
+   EOF
+   ```
 
-**NOTE FOR WINDOWS USER**
-You may need to transfer install.sh file from CRLF to LF, read this [answer](https://stackoverflow.com/a/54245311) for instruction with different editor.
+> Note if you are on Windows: You may need to transfer install.sh file from CRLF to LF, read this [answer](https://stackoverflow.com/a/54245311) for instruction with different editor.
 
 ### Usage (Docker)
 
