@@ -1,26 +1,27 @@
 # Tekton Pipelines
 
-- [Overview](#overview)
-  - [Layout](#layout)
+- [Tekton Pipelines](#tekton-pipelines)
+  - [Overview](#overview)
+    - [Layout](#layout)
   - [Common Workflow](#common-workflow)
-- [Install in Docker Container](#install-in-docker-container)
-  - [Prerequisites](#prerequisites-docker)
-  - [Installation](#installation-docker)
-  - [Usage](#usage-docker)
-- [Install on your computer](#install-on-your-computer)
-  - [Prerequisites](#prerequisites)
-  - [Prerequisites](#prerequisites---ssh-key)
-  - [Installation](#installation)
-  - [Usage](#usage)
-- [Pipeline Run Templates](#pipeline-run-templates)
-  - [**buildah-build-push**](#buildah-build-push)
-  - [**build-deploy-helm**](#build-deploy-helm)
-  - [**maven-build**](#maven-build)
-  - [**codeql-scan**](#codeql-scan)
-  - [**sonar-scan**](#sonar-scan)
-  - [**trivy-scan**](#trivy-scan)
-  - [**owasp-scan**](#owasp-scan)
-- [How It Works](#how-it-works)
+  - [Install in Docker Container](#install-in-docker-container)
+    - [Prerequisites (Docker)](#prerequisites-docker)
+    - [Installation (Docker)](#installation-docker)
+    - [Usage (Docker)](#usage-docker)
+  - [Install on your computer](#install-on-your-computer)
+    - [Prerequisites](#prerequisites)
+    - [Prerequisites - SSH Key](#prerequisites---ssh-key)
+    - [Installation](#installation)
+    - [Usage](#usage)
+  - [Pipeline Run Templates](#pipeline-run-templates)
+    - [**buildah-build-push**](#buildah-build-push)
+    - [**build-deploy-helm**](#build-deploy-helm)
+    - [**maven-build**](#maven-build)
+    - [**codeql-scan**](#codeql-scan)
+    - [**sonar-scan**](#sonar-scan)
+    - [**trivy-scan**](#trivy-scan)
+    - [**owasp-scan**](#owasp-scan)
+  - [How It Works](#how-it-works)
 
 ## Overview
 
@@ -121,7 +122,7 @@ For Windows user:
 COPY ~/.ssh/id_rsa
 ```
 
-3. Create a **secrets.ini** file under `overylays/secrets/`
+3. Create a **secrets.ini** file under `overylays/secrets/`. Be sure to update the relevant value to include your sonar token (if needed), and update the local path to your ssh key. 
 
 ```
   [literals]
@@ -132,7 +133,7 @@ COPY ~/.ssh/id_rsa
    sonar-token=
 
    [ssh]
-   ssh-key-path=
+   ssh-key-path=/Users/<USER>/.ssh/id_rsa
 ```
 
 **NOTE FOR WINDOWS USER**
