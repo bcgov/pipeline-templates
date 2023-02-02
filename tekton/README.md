@@ -13,6 +13,7 @@
   - [Installation](#installation)
   - [Usage](#usage)
 - [Pipeline Run Templates](#pipeline-run-templates)
+  - [Using Vault for PipelineRun](#using-vault-for-pipelinerun)
   - [**buildah-build-push**](#buildah-build-push)
   - [**build-deploy-helm**](#build-deploy-helm)
   - [**maven-build**](#maven-build)
@@ -249,6 +250,39 @@ Usage: tekton.sh [option...]
 ## Pipeline Run Templates
 
 All pipeline run templates listed below are tested and working. The `PipelineRun` templates reference pipelines and tasks that were deployed using `./tekton.sh`. All the dependencies to operate this repository are within the repository. Developers can focus on consuming the pipelines for their needs with minimal changes. Additional to adhoc use, developers can create a yaml file with the following templates and store them in a Git repository where they can incorporate the pipeline runs into their own automation workflows. As long as the runner has access a Kubernetes cluster, a pipeline run will execute with just `kubectl apply -f <YOUR_PIPELINE_RUN>.yaml`.
+
+### Using Vault for PipelineRun:
+
+If you would like to use Vault encrypted secrets for tasks in the pipeline, take a look [at the tekton doc](https://tekton.dev/docs/pipelines/pipelineruns/#specifying-taskrunspecs) on how to specify the `ServiceAccount` and `annotation` in the `PipelineRun.spec.TaskRunSpecs` section. Here is an example:
+
+```yaml
+...
+spec:
+  ...
+  taskRunSpecs:
+    - pipelineTaskName: buildah
+      taskServiceAccountName: <NAMESPACE_LICENSEPLATE>-vault
+      metadata: 
+        annotations:
+          vault.hashicorp.com/agent-inject: 'true'
+          vault.hashicorp.com/agent-inject-token: 'true'
+          vault.hashicorp.com/agent-pre-populate-only: 'true'
+          vault.hashicorp.com/auth-path: auth/k8s-silver
+          vault.hashicorp.com/namespace: platform-services
+          vault.hashicorp.com/role: <NAMESPACE_LICENSEPLATE>-nonprod
+          vault.hashicorp.com/agent-inject-secret-buildah-cred: <NAMESPACE_LICENSEPLATE>-nonprod/buildah-cred
+          vault.hashicorp.com/agent-inject-template-buildah-cred: |
+            {{- with secret "<NAMESPACE_LICENSEPLATE>-nonprod/buildah-cred" }}
+            export IMAGE_REGISTRY_USER="{{ .image_registry.user }}"
+            export IMAGE_REGISTRY_PASS="{{ .image_registry.pass }}"
+            {{- end `}} }}
+          ...
+# refer to Vault doc for more details: https://docs.developer.gov.bc.ca/vault-getting-started-guide/#kubernetes-service-account-access-for-application-secret-usage
+...
+```
+
+> Note: Also make sure to add the secret file source command `source /vault/secrets/buildah-cred` into the actual step `Task.spec.steps.script`. This way you don't have to use secrets as parameters from the Task template. 
+
 
 ### **buildah-build-push**
 
