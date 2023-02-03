@@ -13,6 +13,7 @@
   - [Installation](#installation)
   - [Usage](#usage)
 - [Pipeline Run Templates](#pipeline-run-templates)
+  - [Using Vault for PipelineRun](#using-vault-for-pipelinerun)
   - [**buildah-build-push**](#buildah-build-push)
   - [**build-deploy-helm**](#build-deploy-helm)
   - [**maven-build**](#maven-build)
@@ -24,11 +25,11 @@
 
 ## Overview
 
-This project aims to improve the management experience with tekton pipelines. The [pipeline](https://github.com/tektoncd/pipeline) and [triggers](https://github.com/tektoncd/triggers) projects are included as a single deployment. All pipelines and tasks are included in the deployment and can be incrementally updated by running `./tekton.sh -a`. All operations specific to manifest deployment are handled by [Kustomize](https://kustomize.io/). A `kustomization.yaml` file exists recursively in all directories under `./base.`
+This project aims to improve the management experience with Tekton pipelines. The [pipeline](https://github.com/tektoncd/pipeline) and [triggers](https://github.com/tektoncd/triggers) projects are included as a single deployment. All pipelines and tasks are included in the deployment and can be incrementally updated by running `./tekton.sh -a`. All operations specific to manifest deployment are handled by [Kustomize](https://kustomize.io/). A `kustomization.yaml` file exists recursively in all directories under `./base.`
 
-The project creates secrets for your docker and ssh credentials using the Kustomize [secretGenerator](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kustomize/). This allows for the git-clone and buildah Tekton tasks to interact with private repositories. I would consider setting up git and container registry credentials a foundational prerequisite for operating cicd tooling. Once Kustomize creates the secrets, they are referenced directly by name in the [Pipeline Run Templates](#pipeline-run-templates) section.
+The project creates secrets for your docker and ssh credentials using the Kustomize [secretGenerator](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kustomize/). This allows for the git-clone and buildah Tekton tasks to interact with private repositories. I would consider setting up git and container registry credentials a foundational prerequisite for operating CICD tooling. Once Kustomize creates the secrets, they are referenced directly by name in the [Pipeline Run Templates](#pipeline-run-templates) section.
 
-The project is intended to improve developement agility by providung one configuration file that holds kubernetes secrets in the form of simple key pairs. for all the secrets that are needed. from the installation manifests to the custom Tekton CRDs that manage the creation and execution of pipelines. Whenever changes are made to `./base` or `./overlays,` run `./tekton.sh -a` to apply the changes against the current Kubernetes context. Behind the scenes, the following functions are executed.
+The project is intended to improve development agility by providing one configuration file that holds kubernetes secrets in the form of simple key pairs. for all the secrets that are needed. from the installation manifests to the custom Tekton CRDs that manage the creation and execution of pipelines. Whenever changes are made to `./base` or `./overlays,` run `./tekton.sh -a` to apply the changes against the current Kubernetes context. Behind the scenes, the following functions are executed.
 
 ### Layout
 
@@ -92,7 +93,7 @@ A shared workspace defined in the `PipelineRun` determines at runtime which data
 
 ## Install in Docker Container
 
-Setting up with docker is available with this pipline template.
+Setting up with docker is available with this pipeline template.
 
 ### Prerequisites (Docker)
 
@@ -153,7 +154,7 @@ Run the image in docker container:
 docker run -i -t  tekton-install
 ```
 
-5. Following the promot line to provide:
+5. Following the promote line to provide:
 
 - Namespace name
 - OC login command(with token)
@@ -248,7 +249,40 @@ Usage: tekton.sh [option...]
 
 ## Pipeline Run Templates
 
-All pipeline run templates listed below are tested and working. The `PipelineRun` templates refernece pipelines and tasks that were deployed using `./tekton.sh`. All the dependancies to operate this repository are within the repository. Developers can focus on consuming the pipelines for their needs with minimal changes. Additional to adhoc use, developers can create a yaml file with the following templates and store them in a Git repositoy where they can incorporate the pipeline runs into their own automation workflows. Aslong as the runner has access a Kibernetes cluster, a pipeline run will execute with just `kubectl apply -f <YOUR_PIPELINE_RUN>.yaml`.
+All pipeline run templates listed below are tested and working. The `PipelineRun` templates reference pipelines and tasks that were deployed using `./tekton.sh`. All the dependencies to operate this repository are within the repository. Developers can focus on consuming the pipelines for their needs with minimal changes. Additional to adhoc use, developers can create a yaml file with the following templates and store them in a Git repository where they can incorporate the pipeline runs into their own automation workflows. As long as the runner has access a Kubernetes cluster, a pipeline run will execute with just `kubectl apply -f <YOUR_PIPELINE_RUN>.yaml`.
+
+### Using Vault for PipelineRun:
+
+If you would like to use Vault encrypted secrets for tasks in the pipeline, take a look [at the tekton doc](https://tekton.dev/docs/pipelines/pipelineruns/#specifying-taskrunspecs) on how to specify the `ServiceAccount` and `annotation` in the `PipelineRun.spec.TaskRunSpecs` section. Here is an example:
+
+```yaml
+...
+spec:
+  ...
+  taskRunSpecs:
+    - pipelineTaskName: buildah
+      taskServiceAccountName: <NAMESPACE_LICENSEPLATE>-vault
+      metadata: 
+        annotations:
+          vault.hashicorp.com/agent-inject: 'true'
+          vault.hashicorp.com/agent-inject-token: 'true'
+          vault.hashicorp.com/agent-pre-populate-only: 'true'
+          vault.hashicorp.com/auth-path: auth/k8s-silver
+          vault.hashicorp.com/namespace: platform-services
+          vault.hashicorp.com/role: <NAMESPACE_LICENSEPLATE>-nonprod
+          vault.hashicorp.com/agent-inject-secret-buildah-cred: <NAMESPACE_LICENSEPLATE>-nonprod/buildah-cred
+          vault.hashicorp.com/agent-inject-template-buildah-cred: |
+            {{- with secret "<NAMESPACE_LICENSEPLATE>-nonprod/buildah-cred" }}
+            export IMAGE_REGISTRY_USER="{{ .image_registry.user }}"
+            export IMAGE_REGISTRY_PASS="{{ .image_registry.pass }}"
+            {{- end `}} }}
+          ...
+# refer to Vault doc for more details: https://docs.developer.gov.bc.ca/vault-getting-started-guide/#kubernetes-service-account-access-for-application-secret-usage
+...
+```
+
+> Note: Also make sure to add the secret file source command `source /vault/secrets/buildah-cred` into the actual step `Task.spec.steps.script`. This way you don't have to use secrets as parameters from the Task template. 
+
 
 ### **buildah-build-push**
 
@@ -520,7 +554,7 @@ EOF
 
 ### **trivy-scan**
 
-_Scans for vulnerbilities and file systems. [SonarCloud](https://github.com/aquasecurity/trivy)_
+_Scans for vulnerabilities and file systems. [SonarCloud](https://github.com/aquasecurity/trivy)_
 
 ```yaml
 cat <<EOF | kubectl create -f -
@@ -557,7 +591,7 @@ EOF
 
 ### **owasp-scan**
 
-_Scans public web apps for vulnerbilities. [ZAP Scanner](https://www.zaproxy.org/docs/docker/about/)_
+_Scans public web apps for vulnerabilities. [ZAP Scanner](https://www.zaproxy.org/docs/docker/about/)_
 
 - **targetUrl**: The URL to run the scan against.
 - **scanType**: Accepted values are `quick` or `full`.
@@ -727,7 +761,7 @@ resources:
   - ./triggers
 ```
 
-Declaring the folder as a resource will find and execute any kustomization.yaml files within the directories accordingly. All manifests are explicitly declared which allows for resources currently under development to be excluded from the deployment. This eliminates the need for branching when creating new Tekton resources. Aslong as the resources are not declared in Kustomize, the changes will not be breaking.
+Declaring the folder as a resource will find and execute any kustomization.yaml files within the directories accordingly. All manifests are explicitly declared which allows for resources currently under development to be excluded from the deployment. This eliminates the need for branching when creating new Tekton resources. As long as the resources are not declared in Kustomize, the changes will not be breaking.
 
 ```yaml
 ## ./base/install/kustomization.yaml
