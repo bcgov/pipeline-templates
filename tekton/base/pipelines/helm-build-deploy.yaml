@@ -91,8 +91,6 @@ spec:
           value: $(params.imageRegistryUser)
         - name: IMAGE_REGISTRY_PASS
           value: $(params.imageRegistryPass)
-        - name: IMAGE_TAG
-          value: $(tasks.generate-id.results.short-commit)
         - name: DOCKERFILE
           value: $(params.dockerfile)
         - name: CONTEXT
