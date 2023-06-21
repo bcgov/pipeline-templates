@@ -127,9 +127,6 @@ Setting up with docker is available with this pipeline template.
    github-webhook-secret=
    github-pat-token=
    sonar-token=
-
-   [ssh]
-   ssh-key-path=
    EOF
    ```
 
@@ -203,8 +200,6 @@ Please make sure the Personal access token has at least **read** access to the r
    github-pat-token=
    sonar-token=
 
-   [ssh]
-   ssh-key-path=/Users/<USER>/.ssh/id_rsa
    EOF
    ```
 
