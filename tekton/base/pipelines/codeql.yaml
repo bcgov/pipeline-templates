@@ -8,9 +8,6 @@ spec:
       description: |
         This workspace will receive the cloned git repo and be passed
         to the next Task for the repo's README.md file to be read.
-    - name: ssh-creds
-      description: |
-        This workspace will provide ssh credentials to the git-clone task.
   params:
     - name: buildImageUrl
       type: string
@@ -40,8 +37,6 @@ spec:
       workspaces:
         - name: output
           workspace: shared-data
-        - name: ssh-directory
-          workspace: ssh-creds
       params:
         - name: url
           value: $(params.repoUrl)

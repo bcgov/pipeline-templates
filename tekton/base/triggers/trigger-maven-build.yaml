@@ -9,7 +9,7 @@ spec:
   - name: mavenImage
     default: index.docker.io/library/maven
   - name: repoUrl
-    default: git@github.com:bcgov/security-pipeline-templates.git
+    default: https://github.com/bcgov/pipeline-templates.git
   - name: branchName
     default: main
   - name: pathToContext
@@ -50,9 +50,6 @@ spec:
             resources:
               requests:
                 storage: 1Gi
-      - name: ssh-creds
-        secret:
-          secretName: ssh-key-path
       - name: docker-config
         secret:
           secretName: docker-config-path
