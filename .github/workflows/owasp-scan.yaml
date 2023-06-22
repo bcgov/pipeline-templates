@@ -45,8 +45,8 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ inputs.ZAP_GCP_PROJECT }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          export_default_credentials: true
+#           service_account_key: ${{ secrets.GCP_SA_KEY }}
+#           export_default_credentials: true
       - name: ZAP Base Scan
         if: ${{ inputs.ZAP_SCAN_TYPE == 'base' }}
         uses: zaproxy/action-baseline@v0.6.1
