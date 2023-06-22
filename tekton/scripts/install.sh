@@ -26,7 +26,7 @@ ask-for-env(){
         done
     oc project $NAMESPACE
 
-    read -p 'Your sonar Token(not mandatory):  ' SONAR_TOKEN
+    read -p 'Your sonar Token(not mandatory): ' SONAR_TOKEN
     sed -i "s/sonar-token=/sonar-token=$SONAR_TOKEN/g" ./overlays/secrets/secrets.ini
     
 

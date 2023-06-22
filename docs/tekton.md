@@ -1,20 +1,21 @@
 # Tekton Pipelines
 
-- [Overview](#overview)
-  - [Layout](#layout)
+- [Tekton Pipelines](#tekton-pipelines)
+  - [Overview](#overview)
+    - [Layout](#layout)
   - [Common Workflow](#common-workflow)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Pipeline Run Templates](#pipeline-run-templates)
-  - [**buildah-build-push**](#buildah-build-push)
-  - [**build-deploy-helm**](#build-deploy-helm)
-  - [**maven-build**](#maven-build)
-  - [**codeql-scan**](#codeql-scan)
-  - [**sonar-scan**](#sonar-scan)
-  - [**trivy-scan**](#trivy-scan)
-  - [**owasp-scan**](#owasp-scan)
-- [How It Works](#how-it-works)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Pipeline Run Templates](#pipeline-run-templates)
+    - [**buildah-build-push**](#buildah-build-push)
+    - [**build-deploy-helm**](#build-deploy-helm)
+    - [**maven-build**](#maven-build)
+    - [**codeql-scan**](#codeql-scan)
+    - [**sonar-scan**](#sonar-scan)
+    - [**trivy-scan**](#trivy-scan)
+    - [**owasp-scan**](#owasp-scan)
+  - [How It Works](#how-it-works)
 
 ## Overview
 
@@ -198,9 +199,6 @@ spec:
         resources:
           requests:
             storage: 500Mi
-  - name: ssh-creds
-    secret:
-      secretName: ssh-key-path
 EOF
 ```
 
@@ -259,9 +257,6 @@ spec:
         resources:
           requests:
             storage: 500Mi
-  - name: ssh-creds
-    secret:
-      secretName: ssh-key-path
 EOF
 ```
 
@@ -304,9 +299,6 @@ spec:
         resources:
           requests:
             storage: 1Gi
-  - name: ssh-creds
-    secret:
-      secretName: ssh-key-path
   - name: maven-settings
     emptyDir: {}
 EOF
@@ -354,9 +346,6 @@ spec:
         resources:
           requests:
             storage: 1Gi
-  - name: ssh-creds
-    secret:
-      secretName: ssh-key-path
   - name: docker-config
     secret:
       secretName: docker-config-path
@@ -413,9 +402,6 @@ spec:
         resources:
           requests:
             storage: 1Gi
-  - name: ssh-creds
-    secret:
-      secretName: ssh-key-path
   - name: sonar-settings
     emptyDir: {}
 EOF
@@ -452,9 +438,6 @@ spec:
         resources:
           requests:
             storage: 1Gi
-  - name: ssh-creds
-    secret:
-      secretName: ssh-key-path
 EOF
 ```
 
@@ -520,9 +503,6 @@ spec:
           requests:
             storage: 1Gi
   #  emptyDir: {}
-  - name: ssh-creds
-    secret:
-      secretName: ssh-key-path
 EOF
 ```
 

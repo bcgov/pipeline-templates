@@ -11,9 +11,6 @@ spec:
     - name: owasp-settings
       description: |
         mounts /zap/wrk to store generated configs and results.
-    - name: ssh-creds
-      description: |
-        This workspace will provide ssh credentials to the git-clone task.
   params:
   - name: targetUrl
     type: string
@@ -49,8 +46,6 @@ spec:
       workspaces:
         - name: output
           workspace: shared-data
-        - name: ssh-directory
-          workspace: ssh-creds
       params:
         - name: url
           value: $(params.repoUrl)

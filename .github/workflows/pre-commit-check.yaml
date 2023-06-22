@@ -2,6 +2,8 @@ name: pre-commit
 
 on:
   push:
+  workflow_dispatch:
+    
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
@@ -11,7 +13,7 @@ jobs:
     - uses: terraform-linters/setup-tflint@v1
       with:
         tflint_version: latest
-    - uses: pre-commit/action@v2.0.3
+    - uses: pre-commit/action@v3.0.0
     - name: Analyze Kustomize Manifests
       run: |
         pwd
