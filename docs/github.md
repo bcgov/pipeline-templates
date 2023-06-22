@@ -289,8 +289,8 @@ on:
     - main
     paths-ignore:
     - 'README.md'
-    - '.pre-commit-config.yaml'
-    - './github/workflows/pre-commit-check.yaml'
+    - '.testing.yaml'
+    - './github/workflows/testing.yaml'
   workflow_dispatch:
 
 # A schedule can be defined using cron format.
