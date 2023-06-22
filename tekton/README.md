@@ -199,7 +199,6 @@ Please make sure the Personal access token has at least **read** access to the r
    github-webhook-secret=
    github-pat-token=
    sonar-token=
-
    EOF
    ```
 
