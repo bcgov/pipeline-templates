@@ -25,8 +25,8 @@ jobs:
   sonar-repo-scan:
     uses: bcgov/pipeline-templates/.github/workflows/sonar-scanner.yaml@main
     with:
-      ORG: ci-testing
-      PROJECT_KEY: bcgov-pipeline-templates
+      ORG: bcgov-sonarcloud
+      PROJECT_KEY: platform-services-registry
       URL: https://sonarcloud.io
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
