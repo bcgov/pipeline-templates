@@ -33,20 +33,17 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Authenticate with Google Cloud
-        uses: google-github-actions/auth@v1
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          project_id: ${{ inputs.ZAP_GCP_PROJECT }}
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-          export_environment_variables: true
-          create_credentials_file: true
+          python-version: '3.9'
       - name: Set up Cloud SDK
         if: ${{ inputs.ZAP_GCP_PUBLISH }}
         uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ inputs.ZAP_GCP_PROJECT }}
-#           service_account_key: ${{ secrets.GCP_SA_KEY }}
-#           export_default_credentials: true
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
       - name: ZAP Base Scan
         if: ${{ inputs.ZAP_SCAN_TYPE == 'base' }}
         uses: zaproxy/action-baseline@v0.6.1
