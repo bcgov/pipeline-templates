@@ -25,9 +25,9 @@ WORKDIR /var/opt/tekton
 COPY . .
 
 # clean up this form
-RUN sed -i 's/sonar-token=.*/sonar-token=/g ; s/ssh-key-path=.*/ssh-key-path=/g' ./overlays/secrets/secrets.ini
+RUN sed -i 's/sonar-token=.*/sonar-token=/g ; s/ssh-key-path=.*/ssh-key-path=/g ;  s/github-pat-token=.*/github-pat-token=/g' ./overlays/secrets/secrets.ini
 
-RUN sed -i 's/ssh-key-path=/ssh-key-path=\/var\/opt\/tekton\/id_rsa/g' ./overlays/secrets/secrets.ini
+# RUN sed -i 's/ssh-key-path=/ssh-key-path=\/var\/opt\/tekton\/id_rsa/g' ./overlays/secrets/secrets.ini
 RUN echo $CONTEXT
 
 COPY ./scripts/install.sh /docker-entrypoint-installTekton.sh
