@@ -22,8 +22,7 @@ ask-for-env(){
     # Use the ${variable/pattern/replacement} syntax to replace the first occurrence of the string " login " (note the spaces) with namespace
     modified_string="${OC_LOGIN_STRING/ login / login -n $NAMESPACE }"
     echo "$modified_string"
-    # oc login --token=sha256~abcd --server=https:/www.baidu.com
-    output=""
+
     output=$(eval "$modified_string"|tr -d '\n' )
 
     while [[ $output != *"Using project \"$NAMESPACE\"."* ]]
