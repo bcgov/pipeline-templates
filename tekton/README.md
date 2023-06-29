@@ -1,27 +1,28 @@
 # Tekton Pipelines
 
-- [Overview](#overview)
-  - [Layout](#layout)
+- [Tekton Pipelines](#tekton-pipelines)
+  - [Overview](#overview)
+    - [Layout](#layout)
   - [Common Workflow](#common-workflow)
-- [Install in Docker Container](#install-in-docker-container)
-  - [Prerequisites](#prerequisites-docker)
-  - [Installation](#installation-docker)
-  - [Usage](#usage-docker)
-- [Install on your computer](#install-on-your-computer)
-  - [Prerequisites](#prerequisites)
-  - [Prerequisites](#prerequisites---ssh-key)
-  - [Installation](#installation)
-  - [Usage](#usage)
-- [Pipeline Run Templates](#pipeline-run-templates)
-  - [Using Vault for PipelineRun](#using-vault-for-pipelinerun)
-  - [**buildah-build-push**](#buildah-build-push)
-  - [**build-deploy-helm**](#build-deploy-helm)
-  - [**maven-build**](#maven-build)
-  - [**codeql-scan**](#codeql-scan)
-  - [**sonar-scan**](#sonar-scan)
-  - [**trivy-scan**](#trivy-scan)
-  - [**owasp-scan**](#owasp-scan)
-- [How It Works](#how-it-works)
+  - [Install in Docker Container](#install-in-docker-container)
+    - [Prerequisites (Docker)](#prerequisites-docker)
+    - [Installation (Docker)](#installation-docker)
+    - [Usage (Docker)](#usage-docker)
+  - [Install on your computer](#install-on-your-computer)
+    - [Prerequisites](#prerequisites)
+    - [Prerequisites - Personal access token](#prerequisites---personal-access-token)
+    - [Installation](#installation)
+    - [Usage](#usage)
+  - [Pipeline Run Templates](#pipeline-run-templates)
+    - [Using Vault for PipelineRun:](#using-vault-for-pipelinerun)
+    - [**buildah-build-push**](#buildah-build-push)
+    - [**build-deploy-helm**](#build-deploy-helm)
+    - [**maven-build**](#maven-build)
+    - [**codeql-scan**](#codeql-scan)
+    - [**sonar-scan**](#sonar-scan)
+    - [**trivy-scan**](#trivy-scan)
+    - [**owasp-scan**](#owasp-scan)
+  - [How It Works](#how-it-works)
 
 ## Overview
 
@@ -98,7 +99,7 @@ Setting up with docker is available with this pipeline template.
 ### Prerequisites (Docker)
 
 1. You will need to have [docker](https://docs.docker.com/get-docker/) installed and make sure that Docker Desktop is running.(_Note_: Download docker from website that fit for your OS. Don's use brew install)
-2. You will need to [set up your GitHub SSH key](#prerequisites---ssh-key).
+2. You will need to [set up your GitHub Personal Access Token](#prerequisites---personal-access-token).
 
 ### Installation (Docker)
 
@@ -109,21 +110,15 @@ Setting up with docker is available with this pipeline template.
    cd ./pipeline-templates/tekton
    ```
 
-2. Copy your `rsa` private key to the current working directory:
-
-    ```bash
-    cp <path_to_SSH_private_key> ./
-    ```
-
-3. Create a file named `secrets.ini` using the snippet below.
+2. Create a file named `secrets.ini` using the snippet below.
 
    **secrets.ini**
    Creates secrets for all secret types. The `key` refers to the secret name, and the `value` is the secret contents.
 
    - `github-secret` is used for triggers. Can be left as is if triggers are not used.
    - `image-registry-username` and `image-registry-password` are the account credentials for your image registry. This could be **docker.io**, **quay.io**, **gcr.io** or any other docker compatible docker registry.
-   - `ssh-key-path` is used to fetch your GitHub SSH credentials for Tekton git-clone task. Sometimes replacing the `<USER>` is sufficient, sometimes you might need to change the whole path to the key to match your workstation setup.
-
+   - `github-pat-token` is used to fetch your GitHub SSH credentials for Tekton git-clone task. Look at this git instruction to see how to obtain your own token: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+  
    ```bash
    cat <<EOF >./overlays/secrets/secrets.ini
    [literals]
@@ -132,9 +127,6 @@ Setting up with docker is available with this pipeline template.
    github-webhook-secret=
    github-pat-token=
    sonar-token=
-
-   [ssh]
-   ssh-key-path=/Users/<USER>/.ssh/id_rsa
    EOF
    ```
 
@@ -142,7 +134,7 @@ Setting up with docker is available with this pipeline template.
 
 ### Usage (Docker)
 
-4. Use Docker to build the image:
+3. Use Docker to build the image:
 
 ```
 docker build -t tekton-install . --platform linux/amd64
@@ -174,12 +166,10 @@ Note: This project has been tested on _linux/arm64_, _linux/amd64_, _linux/aarch
 
 These instructions assume the use of a bash-based shell such as `zsh` (included on OS X) or [WSL](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/) for Windows. Please use one of these shells, or make the appropriate modifications to the commands shown in these instructions.
 
-### Prerequisites - SSH Key
-Before you begin, you will need to [set up your GitHub SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
-Please make sure the SSH key matches the following:
-- the SSH key should be of format `rsa`, **not** a `ed25519` format key. You can generate it as `ssh-keygen -t rsa -b 4096 -C "your_email@example.com"`. See the [GitHub instruction (in blue box)](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key) for more details
-- do not use a passphrase with your key
-- after adding the public key to your github account, please also follow [these steps](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/testing-your-ssh-connection) to verify that the SSH key works
+### Prerequisites - Personal access token
+Before you begin, you will need to [set up your GitHub Personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
+Please make sure the Personal access token has at least **read** access to the repo.
+
 
 
 
@@ -199,7 +189,7 @@ Please make sure the SSH key matches the following:
 
    - `github-secret` is used for triggers. Can be left as is if triggers are not used.
    - `image-registry-username` and `image-registry-password` are the account credentials for your image registry. This could be **docker.io**, **quay.io**, **gcr.io** or any other docker compatible docker registry.
-   - `ssh-key-path` is used to fetch your GitHub SSH credentials for Tekton git-clone task. Sometimes replacing the `<USER>` is sufficient, sometimes you might need to change the whole path to the key to match your workstation setup.
+   - `github-pat-token` is used to fetch your GitHub SSH credentials for Tekton git-clone task. Look at [this git instruction](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens.) to see how to obtain your own token **NOTE**  Because we are using PAT for git pull, the repoUrl **has to** use HTTPS protocal for **git-clone** TaskRun.
 
    ```bash
    cat <<EOF >./overlays/secrets/secrets.ini
@@ -209,9 +199,6 @@ Please make sure the SSH key matches the following:
    github-webhook-secret=
    github-pat-token=
    sonar-token=
-
-   [ssh]
-   ssh-key-path=/Users/<USER>/.ssh/id_rsa
    EOF
    ```
 
@@ -309,7 +296,7 @@ spec:
   - name: imageTag
     value: latest
   - name: repoUrl
-    value: git@github.com:bcgov/pipeline-templates.git
+    value: https://github.com/bcgov/pipeline-templates.git
   - name: branchName
     value: main
   - name: dockerfile
@@ -327,9 +314,6 @@ spec:
         resources:
           requests:
             storage: 500Mi
-  - name: ssh-creds
-    secret:
-      secretName: ssh-key-path
 EOF
 ```
 
@@ -362,7 +346,7 @@ spec:
   - name: imageTag
     value: latest
   - name: repoUrl
-    value: git@github.com:bcgov/pipeline-templates.git
+    value: https://github.com/bcgov/pipeline-templates.git
   - name: branchName
     value: main
   - name: helmRelease
@@ -388,9 +372,6 @@ spec:
         resources:
           requests:
             storage: 500Mi
-  - name: ssh-creds
-    secret:
-      secretName: ssh-key-path
 EOF
 ```
 
@@ -415,7 +396,7 @@ spec:
   - name: mavenImage
     value: index.docker.io/library/maven
   - name: repoUrl
-    value: git@github.com:bcgov/pipeline-templates.git
+    value: https://github.com/bcgov/pipeline-templates.git
   - name: branchName
     value: main
   - name: pathToContext
@@ -433,9 +414,6 @@ spec:
         resources:
           requests:
             storage: 1Gi
-  - name: ssh-creds
-    secret:
-      secretName: ssh-key-path
   - name: maven-settings
     emptyDir: {}
 EOF
@@ -463,7 +441,7 @@ spec:
   - name: buildImageUrl
     value: docker.io/gregnrobinson/codeql-cli:latest
   - name: repoUrl
-    value: git@github.com:bcgov/pipeline-templates.git
+    value: https://github.com/bcgov/pipeline-templates.git
   - name: repo
     value: bcgov/security-pipeline-templates
   - name: branchName
@@ -483,9 +461,6 @@ spec:
         resources:
           requests:
             storage: 1Gi
-  - name: ssh-creds
-    secret:
-      secretName: ssh-key-path
   - name: docker-config
     secret:
       secretName: docker-config-path
@@ -530,7 +505,7 @@ spec:
   - name: sonarTokenSecret
     value: sonar-token
   - name: repoUrl
-    value: git@github.com:gregnrobinson/gregrobinson-ca-k8s.git
+    value: https://github.com/bcgov/pipeline-templates.git
   - name: branchName
     value: main
   workspaces:
@@ -542,9 +517,6 @@ spec:
         resources:
           requests:
             storage: 1Gi
-  - name: ssh-creds
-    secret:
-      secretName: ssh-key-path
   - name: sonar-settings
     emptyDir: {}
 EOF
@@ -581,9 +553,6 @@ spec:
         resources:
           requests:
             storage: 1Gi
-  - name: ssh-creds
-    secret:
-      secretName: ssh-key-path
 EOF
 ```
 
@@ -620,7 +589,7 @@ spec:
   - name: repo
     value: bcgov/pipeline-templates
   - name: repoUrl
-    value: git@github.com:bcgov/pipeline-templates.git
+    value: https://github.com/bcgov/pipeline-templates.git
   - name: branchName
     value: main
   - name: githubToken
@@ -649,9 +618,6 @@ spec:
           requests:
             storage: 1Gi
   #  emptyDir: {}
-  - name: ssh-creds
-    secret:
-      secretName: ssh-key-path
 EOF
 ```
 

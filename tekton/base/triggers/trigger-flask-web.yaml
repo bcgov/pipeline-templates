@@ -7,7 +7,7 @@ spec:
   - name: appName
     default: flask-web
   - name: repoUrl
-    default: git@github.com:bcgov/security-pipeline-templates.git
+    default: https://github.com/bcgov/pipeline-templates.git
   - name: imageUrl
     default: gregnrobinson/tkn-flask-web:latest
   - name: branchName
@@ -51,9 +51,6 @@ spec:
             resources:
               requests:
                 storage: 500Mi
-      - name: ssh-creds
-        secret:
-          secretName: ssh-key-path
       - name: docker-config
         secret:
           secretName: docker-config-path

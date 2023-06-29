@@ -21,7 +21,7 @@ RUN mv ./oc /usr/local/bin/oc
 
 
 WORKDIR /var/opt/tekton
-ADD ./id_rsa /var/opt/tekton/id_rsa
+# ADD ./id_rsa /var/opt/tekton/id_rsa
 COPY . .
 
 # clean up this form
