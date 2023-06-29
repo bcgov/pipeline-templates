@@ -5,10 +5,11 @@ metadata:
 namePrefix: p-
 
 resources:
-- buildah.yaml
-- maven.yaml
-- codeql.yaml
-- sonar.yaml
-- trivy.yaml
-- owasp.yaml
-- helm-build-deploy.yaml
+# - buildah.yaml
+# - maven.yaml
+- react.yaml
+# - codeql.yaml
+# - sonar.yaml
+# - trivy.yaml
+# - owasp.yaml
+# - helm-build-deploy.yaml

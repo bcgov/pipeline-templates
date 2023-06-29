@@ -1,0 +1,35 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: react-build
+  labels:
+    app.kubernetes.io/version: "0.2"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/categories: Build Tools
+    tekton.dev/tags: build-tool
+    tekton.dev/platforms: "linux/amd64,linux/s390x,linux/ppc64le"
+spec:
+ description: >-
+    This Task can be used to run a Maven build.
+  workspaces:
+    - name: source
+      description: The workspace consisting of maven project.
+  params:
+    - name: APP_NAME
+      type: string
+    - name: CONTEXT_DIR
+      type: string
+      description: >-
+        The context directory within the repository for sources on
+        which we want to execute maven goals.
+      default: "."
+  steps:
+    - name: build
+      image: quay.io/openshift/origin-nodejs:14 ##nodejs based s2i builder image for react apps
+      command: ["/usr/libexec/s2i/run"] ##entrypoint for s2i builder image
+      args:
+        - "--incremental" ##enables incremental build
+        - "$(params.CONTEXT_DIR)"
+        - "/tmp/build"  ##temporary build directory used by S2i builder
+        - "$(params.APP_NAME)"

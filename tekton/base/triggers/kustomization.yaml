@@ -3,8 +3,8 @@ kind: Kustomization
 metadata:
   name: tekon-triggers
 resources:
-  - ingress.yaml
+  # - ingress.yaml
   # switch to use the default serviceAccount/pipeline
   # - rbac.yaml
-  - trigger-flask-web.yaml
-  - trigger-maven-build.yaml
+  # - trigger-flask-web.yaml
+  # - trigger-maven-build.yaml

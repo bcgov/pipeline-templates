@@ -1,0 +1,77 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: react-build
+spec:
+  params:
+    - name: appName
+      type: string
+      description: Name of App that will be deployed.
+    - name: repoUrl
+      type: string
+      description: The git repository URL to clone from.
+    - name: branchName
+      type: string
+      description: The git branch to clone.
+    - name: pathToContext
+      type: string
+  workspaces:
+    - name: shared-data
+      description: |
+        This workspace will receive the cloned git repo and be passed
+        to the next Task for the repo's README.md file to be read.
+    - name: ssh-creds
+      description: |
+        This workspace will provide ssh credentials to the git-clone task.
+  tasks:
+    - name: fetch-repo
+      taskRef:
+        name: t-git-clone
+      workspaces:
+        - name: output
+          workspace: shared-data
+      params:
+        - name: url
+          value: $(params.repoUrl)
+        - name: revision
+          value: $(params.branchName)
+
+    - name: react-build
+      taskRef:
+        name: t-react-build
+      runAfter: 
+        - fetch-repo
+      params: 
+        - name: APP_NAME
+          value: "$(params.appName)"
+        - name: CONTEXT_DIR
+          value: "$(params.pathToContext)"
+        # - name: command
+        #   value: start-build
+        # - name: arguments
+        #   value:
+        #     - nodejs
+        #     - "--from-dir=$(workspaces.shared-data.path)"
+        #     # - "--from-dir=$(params.pathToContext)"
+        #     - "--wait"
+      workspaces:
+        - name: source
+          workspace: shared-data
+
+    - name: react-deploy
+      taskRef:
+        name: t-react-deploy
+      runAfter: 
+        - react-build
+      params:
+        - name: APP_NAME
+          value: $(params.appName)
+        # - name: command
+        #   value: create
+        # - name: arguments
+        #   value:
+        #     - "deploymentconfig"
+        #     - $(params.appName)
+        #     - "--image=$(params.appName):latest"
+
+    

@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: react-deploy
+spec:
+  params:
+    - name: APP_NAME
+      type: string
+    - name: imageLocation
+      type: string
+  steps:
+    - name: deploy
+      image: quay.io/openshift/origin-cli:latest
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          oc new-app $(params.imageLocation) --name=$(params.APP_NAME )
+          oc expose svc/$(params.APP_NAME)
