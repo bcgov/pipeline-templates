@@ -17,14 +17,14 @@
 
 | Name | Risk Level | Number of Instances |
 | --- | --- | --- |
-| Content Security Policy (CSP) Header Not Set | Medium | 7 |
-| Missing Anti-clickjacking Header | Medium | 5 |
+| Content Security Policy (CSP) Header Not Set | Medium | 6 |
+| Missing Anti-clickjacking Header | Medium | 4 |
 | Sub Resource Integrity Attribute Missing | Medium | 5 |
 | Permissions Policy Header Not Set | Low | 8 |
 | X-Content-Type-Options Header Missing | Low | 11 |
 | Base64 Disclosure | Informational | 1 |
 | Information Disclosure - Suspicious Comments | Informational | 1 |
-| Storable and Cacheable Content | Informational | 11 |
+| Storable and Cacheable Content | Informational | 12 |
 
 
 
@@ -63,11 +63,6 @@ Content Security Policy (CSP) is an added layer of security that helps to detect
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
-* URL: http://www.itsecgames.com/robots.txt
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: ``
 * URL: http://www.itsecgames.com/sitemap.xml
   * Method: `GET`
   * Parameter: ``
@@ -79,7 +74,7 @@ Content Security Policy (CSP) is an added layer of security that helps to detect
   * Attack: ``
   * Evidence: ``
 
-Instances: 7
+Instances: 6
 
 ### Solution
 
@@ -119,11 +114,6 @@ The response does not include either Content-Security-Policy with 'frame-ancesto
   * Parameter: `X-Frame-Options`
   * Attack: ``
   * Evidence: ``
-* URL: http://www.itsecgames.com/bugs.htm
-  * Method: `GET`
-  * Parameter: `X-Frame-Options`
-  * Attack: ``
-  * Evidence: ``
 * URL: http://www.itsecgames.com/download.htm
   * Method: `GET`
   * Parameter: `X-Frame-Options`
@@ -140,7 +130,7 @@ The response does not include either Content-Security-Policy with 'frame-ancesto
   * Attack: ``
   * Evidence: ``
 
-Instances: 5
+Instances: 4
 
 ### Solution
 
@@ -479,7 +469,12 @@ The response contents are storable by caching components such as proxy servers, 
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
-* URL: http://www.itsecgames.com/images/twitter.png
+* URL: http://www.itsecgames.com/images/linkedin.png
+  * Method: `GET`
+  * Parameter: ``
+  * Attack: ``
+  * Evidence: ``
+* URL: http://www.itsecgames.com/images/mme.png
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
@@ -510,7 +505,7 @@ The response contents are storable by caching components such as proxy servers, 
   * Attack: ``
   * Evidence: ``
 
-Instances: 11
+Instances: 12
 
 ### Solution
 
