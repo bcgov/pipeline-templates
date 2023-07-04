@@ -66,29 +66,29 @@ jobs:
       ZAP_TARGET_URL: http://www.itsecgames.com
       ZAP_DURATION: '2'
       ZAP_MAX_DURATION: '5'
-      ZAP_GCP_PUBLISH: true
+      ZAP_GCP_PUBLISH: false
       ZAP_GCP_PROJECT: phronesis-310405  # Only required if ZAP_GCP_PUBLISH is TRUE
       ZAP_GCP_BUCKET: 'zap-scan-results' # Only required if ZAP_GCP_PUBLISH is TRUE
     secrets:
       GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }} # Only required if ZAP_GCP_PUBLISH is TRUE
-  # slack-workflow-status:
-  #   if: always()
-  #   name: Post Workflow Status To Slack
-  #   needs:
-  #     - codeql-scan
-  #     - build-push
-  #     - trivy-image-scan
-  #     - sonar-repo-scan
-  #     - sonar-maven-scan
-  #     - owasp-scan
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Slack Workflow Notification
-  #       uses: Gamesight/slack-workflow-status@master
-  #       with:
-  #         # Required Input
-  #         repo_token: ${{secrets.GITHUB_TOKEN}}
-  #         slack_webhook_url: ${{secrets.SLACK_WEBHOOK_URL}}
-  #         name: 'Github Workflows'
-  #         icon_emoji: ':fire:'
-  #         icon_url: 'https://img.icons8.com/material-outlined/96/000000/github.png'
+  slack-workflow-status:
+    if: always()
+    name: Post Workflow Status To Slack
+    needs:
+      - codeql-scan
+      - build-push
+      - trivy-image-scan
+      - sonar-repo-scan
+      - sonar-maven-scan
+      - owasp-scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slack Workflow Notification
+        uses: Gamesight/slack-workflow-status@master
+        with:
+          # Required Input
+          repo_token: ${{secrets.GITHUB_TOKEN}}
+          slack_webhook_url: ${{secrets.SLACK_WEBHOOK_URL}}
+          name: 'Github Workflows'
+          icon_emoji: ':fire:'
+          icon_url: 'https://img.icons8.com/material-outlined/96/000000/github.png'
