@@ -1,0 +1,31 @@
+cat <<EOF | kubectl create -f -
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: react-build-run-
+spec:
+  pipelineRef:
+    name: p-react-build
+  params:
+  - name: appName
+    value: react-test
+  - name: repoUrl
+    value: https://github.com/bcgov/pipeline-templates.git
+  - name: branchName
+    value: react-demo
+  - name: pathToContext
+    value: ./tekton/demo/simple-react
+  - name: namespace
+    value: fe805a-tools
+  workspaces:
+  - name: shared-data
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 500Mi
+  - name: maven-settings
+    emptyDir: {}
+EOF
