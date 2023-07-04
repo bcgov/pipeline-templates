@@ -5,38 +5,38 @@ on:
   schedule:
     - cron:  '0 0 * * 0'
 jobs:
-  # codeql-scan:
-  #   uses: bcgov/pipeline-templates/.github/workflows/codeql.yaml@main
-  # build-push:
-  #   uses: bcgov/pipeline-templates/.github/workflows/build-push.yaml@main
-  #   with:
-  #     IMAGE_REGISTRY: docker.io
-  #     IMAGE: gregnrobinson/bcgov-nginx-demo
-  #     WORKDIR: ./demo/nginx
-  #   secrets:
-  #     IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
-  #     IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
-  # trivy-image-scan:
-  #   needs: build-push
-  #   uses: bcgov/pipeline-templates/.github/workflows/trivy-container.yaml@main
-  #   with:
-  #     IMAGE: gregnrobinson/bcgov-nginx-demo
-  #     TAG: latest
-  # sonar-repo-scan:
-  #   uses: bcgov/pipeline-templates/.github/workflows/sonar-scanner.yaml@main
-  #   with:
-  #     ORG: ci-testing
-  #     PROJECT_KEY: bcgov-pipeline-templates
-  #     URL: https://sonarcloud.io
-  #   secrets:
-  #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  # sonar-maven-scan:
-  #   uses: bcgov/pipeline-templates/.github/workflows/sonar-scanner-mvn.yaml@main
-  #   with:
-  #     WORKDIR: ./tekton/demo/maven-test
-  #     PROJECT_KEY: bcgov_pipeline-templates
-  #   secrets:
-  #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  codeql-scan:
+    uses: bcgov/pipeline-templates/.github/workflows/codeql.yaml@main
+  build-push:
+    uses: bcgov/pipeline-templates/.github/workflows/build-push.yaml@main
+    with:
+      IMAGE_REGISTRY: docker.io
+      IMAGE: gregnrobinson/bcgov-nginx-demo
+      WORKDIR: ./demo/nginx
+    secrets:
+      IMAGE_REGISTRY_USER: ${{ secrets.IMAGE_REGISTRY_USER }}
+      IMAGE_REGISTRY_PASSWORD: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
+  trivy-image-scan:
+    needs: build-push
+    uses: bcgov/pipeline-templates/.github/workflows/trivy-container.yaml@main
+    with:
+      IMAGE: gregnrobinson/bcgov-nginx-demo
+      TAG: latest
+  sonar-repo-scan:
+    uses: bcgov/pipeline-templates/.github/workflows/sonar-scanner.yaml@main
+    with:
+      ORG: ci-testing
+      PROJECT_KEY: bcgov-pipeline-templates
+      URL: https://sonarcloud.io
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  sonar-maven-scan:
+    uses: bcgov/pipeline-templates/.github/workflows/sonar-scanner-mvn.yaml@main
+    with:
+      WORKDIR: ./tekton/demo/maven-test
+      PROJECT_KEY: bcgov_pipeline-templates
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 #  helm-deploy:
 #    needs: [build-push, trivy-image-scan]
 #    uses: bcgov/pipeline-templates/.github/workflows/helm-deploy.yaml@main
