@@ -85,6 +85,8 @@ jobs:
         if: ${{ inputs.ZAP_GCP_PUBLISH }}
         run: |
           echo "$GCP_SA_KEY" > gcp-sa-key.json
+          cat gcp-sa-key.json
+          echo $GCP_SA_KEY
           gsutil mb gs://${{ inputs.ZAP_GCP_BUCKET }} || echo "Bucket already exists..."
           gsutil cp public/zap/report_html.html gs://${{ inputs.ZAP_GCP_BUCKET }}
           echo "URL expires in 10 minutes..."
