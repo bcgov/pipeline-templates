@@ -168,7 +168,8 @@ These instructions assume the use of a bash-based shell such as `zsh` (included 
 
 ### Prerequisites - Personal access token
 Before you begin, you will need to [create your Fine-grained GitHub Personal access token]([https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens](https://github.com/settings/tokens?type=beta)).
-Please give it a meanful name and reasonalble expiration date, make sure to  select `All repositories` in Repository access. And click `Generate Token` to obtain your token that can be use in this pipeline template.
+Please give your fine-grained token a meaningful name and reasonable expiration date. Make sure to  select `All repositories` in Repository access. And click `Generate Token` to obtain your token that can be use in this pipeline template.
+
 
 
 
