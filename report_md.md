@@ -479,7 +479,7 @@ The response contents are storable by caching components such as proxy servers, 
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
-* URL: http://www.itsecgames.com/images/linkedin.png
+* URL: http://www.itsecgames.com/images/twitter.png
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
