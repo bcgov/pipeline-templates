@@ -4,65 +4,73 @@ metadata:
   name: react-build
 spec:
   params:
-    - name: appName
+    - description: Name of App that will be deployed.
+      name: appName
       type: string
-      description: Name of App that will be deployed.
-    - name: repoUrl
+    - description: The git repository URL to clone from.
+      name: repoUrl
       type: string
-      description: The git repository URL to clone from.
-    - name: branchName
+    - description: The git branch to clone.
+      name: branchName
       type: string
-      description: The git branch to clone.
     - name: pathToContext
       type: string
     - name: namespace
       type: string
-  workspaces:
-    - name: shared-data
-      description: |
-        This workspace will receive the cloned git repo and be passed
-        to the next Task for the repo's README.md file to be read.
   tasks:
     - name: fetch-repo
-      taskRef:
-        name: t-git-clone
       params:
         - name: url
           value: $(params.repoUrl)
         - name: revision
           value: $(params.branchName)
+      taskRef:
+        kind: Task
+        name: t-git-clone
       workspaces:
         - name: output
           workspace: shared-data
-
-    - name: react-build
-      taskRef:
-        name: t-react-build
-      runAfter: 
-        - fetch-repo
-      params: 
+    - name: react-workspace
+      params:
         - name: CONTEXT_DIR
-          value: "$(params.pathToContext)"
-        - name: OUTPUT_DIR
-          value: image-registry.openshift-image-registry.svc:5000/$(params.namespace)/simple-react:latest
+          value: $(params.pathToContext)
+      runAfter:
+        - fetch-repo
+      taskRef:
+        kind: Task
+        name: t-react-workspace
       workspaces:
         - name: source
           workspace: shared-data
-
-    # - name: react-deploy
-    #   taskRef:
-    #     name: t-react-deploy
-    #   runAfter: 
-    #     - react-build
-    #   params:
-    #     - name: APP_NAME
-    #       value: $(params.appName)
-        # - name: command
-        #   value: create
-        # - name: arguments
-        #   value:
-        #     - "deploymentconfig"
-        #     - $(params.appName)
-        #     - "--image=$(params.appName):latest"
+    - name: react-build
+      params:
+        - name: CONTEXT_DIR
+          value: .
+        - name: TLSVERIFY
+          value: 'false'
+        - name: IMAGE
+          value: >-
+            image-registry.openshift-image-registry.svc:5000/$(params.namespace)/$(params.appName):latest
+      runAfter:
+        - react-workspace
+      taskRef:
+        kind: ClusterTask
+        name: s2i-nodejs
+    - name: react-deploy
+      params:
+        - name: APP_NAME
+          value: $(params.appName)
+        - name: NAMESPACE
+          value: $(params.namespace)
+      runAfter:
+        - react-build
+      taskRef:
+        kind: Task
+        name: t-react-deploy
+  workspaces:
+    - description: |
+        This workspace will receive the cloned git repo and be passed
+        to the next Task for the repo's README.md file to be read.
+      name: shared-data
 
     

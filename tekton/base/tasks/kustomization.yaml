@@ -7,11 +7,10 @@ namePrefix: t-
 resources:
 # - buildah.yaml
 - git-clone.yaml
-- react-build.yaml
+- react-workspace.yaml
 - react-deploy.yaml
 # - mvn-build.yaml
 # - mvn-sonar-scan.yaml
-# - react-build.yaml
 # - npm-sonar-scan.yaml
 # - sonar-scanner.yaml
 # - trivy-scanner.yaml
