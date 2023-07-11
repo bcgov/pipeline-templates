@@ -4,13 +4,13 @@
   - [Overview](#overview)
     - [Layout](#layout)
   - [Common Workflow](#common-workflow)
-  - [Install in Docker Container](#install-in-docker-container)
+  - [Prerequisites - Personal access token](#prerequisites---personal-access-token)
+  - Option 1: [Install in Docker Container](#install-in-docker-container)
     - [Prerequisites (Docker)](#prerequisites-docker)
     - [Installation (Docker)](#installation-docker)
     - [Usage (Docker)](#usage-docker)
-  - [Install on your computer](#install-on-your-computer)
+  - Option 2: [Install on your computer](#install-on-your-computer)
     - [Prerequisites](#prerequisites)
-    - [Prerequisites - Personal access token](#prerequisites---personal-access-token)
     - [Installation](#installation)
     - [Usage](#usage)
   - [Pipeline Run Templates](#pipeline-run-templates)
@@ -167,8 +167,8 @@ Note: This project has been tested on _linux/arm64_, _linux/amd64_, _linux/aarch
 These instructions assume the use of a bash-based shell such as `zsh` (included on OS X) or [WSL](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/) for Windows. Please use one of these shells, or make the appropriate modifications to the commands shown in these instructions.
 
 ### Prerequisites - Personal access token
-Before you begin, you will need to [set up your GitHub Personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
-Please make sure the Personal access token has at least **read** access to the repo.
+Before you begin, you will need to [create your Fine-grained GitHub Personal access token]([https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens](https://github.com/settings/tokens?type=beta)).
+Please give your fine-grained token a meaningful name and reasonable expiration date. Make sure to  select `All repositories` in Repository access. And click `Generate Token` to obtain your token that can be use in this pipeline template.
 
 
 
