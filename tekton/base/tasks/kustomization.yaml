@@ -5,20 +5,20 @@ metadata:
 namePrefix: t-
 
 resources:
-# - buildah.yaml
+- buildah.yaml
 - git-clone.yaml
 - react-workspace.yaml
 - react-deploy.yaml
-# - mvn-build.yaml
-# - mvn-sonar-scan.yaml
-# - npm-sonar-scan.yaml
-# - sonar-scanner.yaml
-# - trivy-scanner.yaml
-# - owasp-scanner.yaml
-# - create-pr.yaml
-# - deploy.yaml
-# - generate-id.yaml
-# - helm-deploy.yaml
-# - yq.yaml
-# - ./codeql
-# - add-issue.yaml
+- mvn-build.yaml
+- mvn-sonar-scan.yaml
+- npm-sonar-scan.yaml
+- sonar-scanner.yaml
+- trivy-scanner.yaml
+- owasp-scanner.yaml
+- create-pr.yaml
+- deploy.yaml
+- generate-id.yaml
+- helm-deploy.yaml
+- yq.yaml
+- ./codeql
+- add-issue.yaml
