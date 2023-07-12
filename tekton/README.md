@@ -43,6 +43,7 @@ The project is intended to improve development agility by providing one configur
 +  │   │   ├── kustomization.yaml
    │   │   ├── maven.yaml
    │   │   ├── owasp.yaml
+   │   │   ├── react.yaml
    │   │   ├── sonar.yaml
    │   │   └── trivy.yaml
    │   ├── tasks
@@ -62,6 +63,8 @@ The project is intended to improve development agility by providing one configur
    │   │   ├── npm-sonar-scan.yaml
    │   │   ├── npm.yaml
    │   │   ├── owasp-scanner.yaml
+   │   │   ├── react-deploy.yaml
+   │   │   ├── react-workspace.yaml
    │   │   ├── sonar-scanner.yaml
    │   │   ├── trivy-scanner.yaml
    │   │   └── yq.yaml
@@ -618,6 +621,51 @@ spec:
           requests:
             storage: 1Gi
   #  emptyDir: {}
+EOF
+```
+
+[Back to top](#tekton-pipelines)
+
+### **react-build**
+
+_Builds and deploys a simple [react](https://react.dev/) application using s2i.
+
+- **imageTag**: The tag for the imagestream. This tag will need to be different if the imagestream is already in the namespace
+- **scanType**: Accepted values are `quick` or `full`.
+
+This pipeline utilizes the s2i [ClusterTask](https://tekton.dev/docs/pipelines/tasks/#task-vs-clustertask) on Openshift to build an image from the the source folder. This task pushes the image to the imagestream which is then deployed by task that follows.
+
+```yaml
+cat <<EOF | kubectl create -f -
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: react-build-run-
+spec:
+  pipelineRef:
+    name: p-react-build
+  params:
+  - name: appName
+    value: simple-react-1
+  - name: repoUrl
+    value: https://github.com/bcgov/pipeline-templates.git
+  - name: branchName
+    value: react-demo
+  - name: pathToContext
+    value: ./tekton/demo/simple-react
+  - name: namespace
+    value: fe805a-tools
+  - name: imageTag
+    value: v1
+  workspaces:
+  - name: shared-data
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 100Mi
 EOF
 ```
 

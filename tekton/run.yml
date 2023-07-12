@@ -17,6 +17,8 @@ spec:
     value: ./tekton/demo/simple-react
   - name: namespace
     value: fe805a-tools
+  - name: imageTag
+    value: v1
   workspaces:
   - name: shared-data
     volumeClaimTemplate:

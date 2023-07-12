@@ -1,14 +1,14 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  metadata:
-  annotations:
-    tekton.dev/categories: Build Tools
-    tekton.dev/pipelines.minVersion: 0.12.1
-    tekton.dev/platforms: 'linux/amd64,linux/s390x,linux/ppc64le'
-    tekton.dev/tags: build-tool
+  name: react-workspace
   labels:
-    app.kubernetes.io/version: '0.2'
+    app.kubernetes.io/version: "0.2"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/categories: Build Tools
+    tekton.dev/tags: build-tool
+    tekton.dev/platforms: "linux/amd64,linux/s390x,linux/ppc64le"
 spec:
   params:
     - description: 'path to context, to be moved to the root directory'
@@ -21,7 +21,7 @@ spec:
       command:
         - sh
         - '-c'
-      image: registry.redhat.io/ubi8/ubi-minimal
+      image: registry.redhat.io/ubi8/ubi-minimal:latest
       name: adjust-workspace
       resources: {}
   workspaces:
