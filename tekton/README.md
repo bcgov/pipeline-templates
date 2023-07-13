@@ -632,7 +632,7 @@ _Builds and deploys a simple [react](https://react.dev/) application using s2i.
 
 - **imageTag**: The tag for the imagestream. This tag will need to be different if the imagestream is already in the namespace
 
-This pipeline utilizes the s2i [ClusterTask](https://tekton.dev/docs/pipelines/tasks/#task-vs-clustertask) on Openshift to build an image from the the source folder. This clustertask pushes the image with the given tag to an imagestream and gives it the same name to the app.
+This pipeline utilizes the s2i [ClusterTask](https://tekton.dev/docs/pipelines/tasks/#task-vs-clustertask) on Openshift to build an image from the the source folder. This clustertask pushes the image with the given tag to an imagestream and gives it the same name to the app. To open the application webpage, proper [network policies](https://github.com/bcgov/how-to-workshops/tree/master/labs/netpol-quickstart) have to be configured.
 
 ```yaml
 cat <<EOF | kubectl create -f -
