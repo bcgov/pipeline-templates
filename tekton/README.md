@@ -631,9 +631,8 @@ EOF
 _Builds and deploys a simple [react](https://react.dev/) application using s2i.
 
 - **imageTag**: The tag for the imagestream. This tag will need to be different if the imagestream is already in the namespace
-- **scanType**: Accepted values are `quick` or `full`.
 
-This pipeline utilizes the s2i [ClusterTask](https://tekton.dev/docs/pipelines/tasks/#task-vs-clustertask) on Openshift to build an image from the the source folder. This task pushes the image to the imagestream which is then deployed by task that follows.
+This pipeline utilizes the s2i [ClusterTask](https://tekton.dev/docs/pipelines/tasks/#task-vs-clustertask) on Openshift to build an image from the the source folder. This clustertask pushes the image with the given tag to an imagestream and gives it the same name to the app.
 
 ```yaml
 cat <<EOF | kubectl create -f -
