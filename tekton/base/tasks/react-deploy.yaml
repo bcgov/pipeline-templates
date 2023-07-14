@@ -1,0 +1,70 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: react-deploy
+  labels:
+    app.kubernetes.io/version: "0.2"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/categories: Build Tools
+    tekton.dev/tags: build-tool
+    tekton.dev/platforms: "linux/amd64,linux/s390x,linux/ppc64le"
+spec:
+  params:
+    - name: APP_NAME
+      type: string
+    - name: NAMESPACE
+      type: string
+      description: The namespace where the application will be deployed
+    - name: TAG
+      type: string
+      description: Image tag of the imagestream 
+  steps:
+    - name: deploy
+      args:
+        - new-app
+        - $(params.APP_NAME)$(params.TAG)
+        - '--name=$(params.APP_NAME)'
+        - '--namespace=$(params.NAMESPACE)'
+      command:
+        - oc
+      image: openshift/origin-cli:latest
+      resources: {}
+    - name: patch-port
+      args:
+        - patch
+        - service
+        - $(params.APP_NAME)
+        - '--patch'
+        - |
+          {
+            "spec": {
+              "ports": [
+                {
+                  "name": "$(params.APP_NAME)",
+                  "port": 8080,
+                  "targetPort": 3000
+                }
+              ]
+            }
+          }
+      ## the default port created by s2i is 8080, while react runs on port 3000
+      command:
+        - oc
+      image: openshift/origin-cli:latest
+      resources: {}
+    - name: expose
+      args:
+        - create
+        - route
+        - edge
+        - $(params.APP_NAME)
+        - '--service=$(params.APP_NAME)'
+        - '--port=3000'
+      command:
+        - oc
+      image: openshift/origin-cli:latest
+      resources: {}
+  workspaces:
+    - description: workspace of clone repo
+      name: source

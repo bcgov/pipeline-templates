@@ -1,0 +1,175 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family:'Courier New', Courier, monospace
+}
+
+.App{
+  padding: 2rem;
+}
+
+h1{
+  font-size: 40px;
+  font-weight: 800;
+  margin-bottom: 2rem;
+}
+
+h4{
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+div{
+  margin-bottom: .5rem;
+}
+
+button{
+  margin-top: .5rem;
+  margin-right: .5rem
+}
+
+.checkbox{
+  margin-right: .5rem;
+}
+
+.task{
+  position: relative;
+  background-color: lightgrey;
+  padding: 1rem;
+  border-radius: 1rem;
+  display:flex;
+  align-items: center;
+  transition: 0.5s;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  color:black;
+}
+
+.task:hover{
+  opacity: 0.8;
+}
+
+.task .checkbox{
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 1rem;
+  border-radius:50rem;
+  background-color: white;
+  transition: 0.4s;
+}
+
+.task.is-complete .checkbox{
+  border:3px solid white;
+  background-color: rgb(182, 245, 182);
+}
+
+.task .delete-task {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+
+  width: 1.5rem;
+  height: 1.5rem;
+  color: lightgrey;
+  background-color: rgb(167, 165, 165);
+  border-radius: 50rem;
+  transition: 0.5s;
+
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-task:hover{
+  background-color: lightcoral;
+}
+
+.addPopup{
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color:white;
+  background-color: lightblue;
+  cursor: pointer;
+  transition: 0.8s;
+}
+
+.addPopup:hover{
+  opacity: 0.8;
+}
+
+.popup{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 100%;
+  max-width: 25rem;
+  background-color: lightgrey;
+  padding: 2rem;
+  border-radius: 1rem;
+  
+}
+
+.closePopup{
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: .8rem;
+  border-radius: 50rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.closePopup:hover{
+  background-color: lightcoral;
+  color: white;
+}
+
+.popup h3{
+  margin-bottom: 1rem;
+}
+
+.add-task-input{
+  width: 100%;
+  padding:.2rem;
+  margin-bottom: 1rem;
+}
+
+
+.button{
+  padding: .5rem;
+  text-align: center;
+  color: white;
+  font-weight: 700;
+  border-radius: 50rem;
+  background-color: grey;
+  cursor: pointer;
+  transition: 0.8s;
+}
+
+.button:hover{
+  opacity: 0.8;
+}
