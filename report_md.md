@@ -116,27 +116,27 @@ The response does not include either Content-Security-Policy with 'frame-ancesto
 
 * URL: http://www.itsecgames.com
   * Method: `GET`
-  * Parameter: `X-Frame-Options`
+  * Parameter: `x-frame-options`
   * Attack: ``
   * Evidence: ``
 * URL: http://www.itsecgames.com/bugs.htm
   * Method: `GET`
-  * Parameter: `X-Frame-Options`
+  * Parameter: `x-frame-options`
   * Attack: ``
   * Evidence: ``
 * URL: http://www.itsecgames.com/download.htm
   * Method: `GET`
-  * Parameter: `X-Frame-Options`
+  * Parameter: `x-frame-options`
   * Attack: ``
   * Evidence: ``
 * URL: http://www.itsecgames.com/index.htm
   * Method: `GET`
-  * Parameter: `X-Frame-Options`
+  * Parameter: `x-frame-options`
   * Attack: ``
   * Evidence: ``
 * URL: http://www.itsecgames.com/training.htm
   * Method: `GET`
-  * Parameter: `X-Frame-Options`
+  * Parameter: `x-frame-options`
   * Attack: ``
   * Evidence: ``
 
@@ -301,57 +301,57 @@ The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. T
 
 * URL: http://www.itsecgames.com
   * Method: `GET`
-  * Parameter: `X-Content-Type-Options`
+  * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
 * URL: http://www.itsecgames.com/bugs.htm
   * Method: `GET`
-  * Parameter: `X-Content-Type-Options`
+  * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
 * URL: http://www.itsecgames.com/download.htm
   * Method: `GET`
-  * Parameter: `X-Content-Type-Options`
+  * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
 * URL: http://www.itsecgames.com/downloads/vulnerabilities.txt
   * Method: `GET`
-  * Parameter: `X-Content-Type-Options`
+  * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
 * URL: http://www.itsecgames.com/images/favicon.ico
   * Method: `GET`
-  * Parameter: `X-Content-Type-Options`
+  * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
 * URL: http://www.itsecgames.com/images/linkedin.png
   * Method: `GET`
-  * Parameter: `X-Content-Type-Options`
+  * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
 * URL: http://www.itsecgames.com/images/mme.png
   * Method: `GET`
-  * Parameter: `X-Content-Type-Options`
+  * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
 * URL: http://www.itsecgames.com/images/twitter.png
   * Method: `GET`
-  * Parameter: `X-Content-Type-Options`
+  * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
 * URL: http://www.itsecgames.com/js/html5.js
   * Method: `GET`
-  * Parameter: `X-Content-Type-Options`
+  * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
 * URL: http://www.itsecgames.com/stylesheets/stylesheet.css
   * Method: `GET`
-  * Parameter: `X-Content-Type-Options`
+  * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
 * URL: http://www.itsecgames.com/training.htm
   * Method: `GET`
-  * Parameter: `X-Content-Type-Options`
+  * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
 
@@ -479,7 +479,7 @@ The response contents are storable by caching components such as proxy servers, 
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
-* URL: http://www.itsecgames.com/images/twitter.png
+* URL: http://www.itsecgames.com/images/mme.png
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
