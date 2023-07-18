@@ -23,7 +23,7 @@ spec:
     - name: deploy
       args:
         - new-app
-        - $(params.APP_NAME)$(params.TAG)
+        - $(params.APP_NAME):$(params.TAG)
         - '--name=$(params.APP_NAME)'
         - '--namespace=$(params.NAMESPACE)'
       command:
@@ -65,6 +65,3 @@ spec:
         - oc
       image: openshift/origin-cli:latest
       resources: {}
-  workspaces:
-    - description: workspace of clone repo
-      name: source
