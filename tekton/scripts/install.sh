@@ -17,12 +17,12 @@ ask-for-env(){
     # tekton.sh required env variable 
     export NAMESPACE=$NAMESPACE
 
-    read -p 'OC login sting that you can find on your console page:(whole string including oc) ' OC_LOGIN_STRING
+    read -p 'OC login string that you can find on your console page:(whole string including oc) ' OC_LOGIN_STRING
 
     while ! $OC_LOGIN_STRING
         do 
             echo Your login strying is not valid, please try again
-            read -p 'OC login sting that you can find on your console page:(whole string including oc) ' OC_LOGIN_STRING
+            read -p 'OC login string that you can find on your console page:(whole string including oc) ' OC_LOGIN_STRING
         done
     oc project $NAMESPACE
 
