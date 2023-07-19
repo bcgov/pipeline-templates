@@ -13,17 +13,17 @@ spec:
   params:
     - name: APP_NAME
       type: string
-    - name: NAMESPACE
-      type: string
-      description: The namespace where the application will be deployed
     - name: TAG
       type: string
       description: Image tag of the imagestream 
+    - name: NAMESPACE
+      type: string
+      description: Namespace tobe deploy
   steps:
     - name: deploy
       args:
         - new-app
-        - $(params.APP_NAME)$(params.TAG)
+        - $(params.APP_NAME):$(params.TAG)
         - '--name=$(params.APP_NAME)'
         - '--namespace=$(params.NAMESPACE)'
       command:
@@ -65,6 +65,3 @@ spec:
         - oc
       image: openshift/origin-cli:latest
       resources: {}
-  workspaces:
-    - description: workspace of clone repo
-      name: source
