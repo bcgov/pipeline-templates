@@ -15,8 +15,6 @@ spec:
       type: string
     - name: pathToContext
       type: string
-    - name: namespace
-      type: string
     - name: imageTag
       type: string
       default: v1
@@ -53,7 +51,7 @@ spec:
           value: 'false'
         - name: IMAGE
           value: >-
-            image-registry.openshift-image-registry.svc:5000/$(params.namespace)/$(params.appName):$(params.imageTag)
+            image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(params.appName):$(params.imageTag)
       runAfter:
         - react-workspace
       taskRef:
@@ -66,10 +64,10 @@ spec:
       params:
         - name: APP_NAME
           value: $(params.appName)
-        - name: NAMESPACE
-          value: $(params.namespace)
         - name: TAG
           value: $(params.imageTag)
+        - name: NAMESPACE
+          value: $(context.pipelineRun.namespace)
       runAfter:
         - react-build
       taskRef:

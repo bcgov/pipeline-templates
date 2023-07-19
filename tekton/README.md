@@ -4,13 +4,13 @@
   - [Overview](#overview)
     - [Layout](#layout)
   - [Common Workflow](#common-workflow)
-  - [Prerequisites - Personal access token](#prerequisites---personal-access-token)
-  - Option 1: [Install in Docker Container](#install-in-docker-container)
+  - [Install in Docker Container](#install-in-docker-container)
     - [Prerequisites (Docker)](#prerequisites-docker)
     - [Installation (Docker)](#installation-docker)
     - [Usage (Docker)](#usage-docker)
-  - Option 2: [Install on your computer](#install-on-your-computer)
+  - [Install on your computer](#install-on-your-computer)
     - [Prerequisites](#prerequisites)
+    - [Prerequisites - Personal access token](#prerequisites---personal-access-token)
     - [Installation](#installation)
     - [Usage](#usage)
   - [Pipeline Run Templates](#pipeline-run-templates)
@@ -22,6 +22,7 @@
     - [**sonar-scan**](#sonar-scan)
     - [**trivy-scan**](#trivy-scan)
     - [**owasp-scan**](#owasp-scan)
+    - [**react-build**](#react-build)
   - [How It Works](#how-it-works)
 
 ## Overview
@@ -652,8 +653,6 @@ spec:
     value: react-demo
   - name: pathToContext
     value: ./tekton/demo/simple-react
-  - name: namespace
-    value: fe805a-tools
   - name: imageTag
     value: v1
   workspaces:

@@ -13,12 +13,12 @@ spec:
   params:
     - name: APP_NAME
       type: string
-    - name: NAMESPACE
-      type: string
-      description: The namespace where the application will be deployed
     - name: TAG
       type: string
       description: Image tag of the imagestream 
+    - name: NAMESPACE
+      type: string
+      description: Namespace tobe deploy
   steps:
     - name: deploy
       args:
