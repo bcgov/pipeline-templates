@@ -52,36 +52,43 @@ Content Security Policy (CSP) is an added layer of security that helps to detect
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 * URL: http://www.itsecgames.com/bugs.htm
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 * URL: http://www.itsecgames.com/download.htm
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 * URL: http://www.itsecgames.com/index.htm
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 * URL: http://www.itsecgames.com/robots.txt
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 * URL: http://www.itsecgames.com/sitemap.xml
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 * URL: http://www.itsecgames.com/training.htm
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 
 Instances: 7
 
@@ -123,26 +130,31 @@ The response does not include either Content-Security-Policy with 'frame-ancesto
   * Parameter: `x-frame-options`
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 * URL: http://www.itsecgames.com/bugs.htm
   * Method: `GET`
   * Parameter: `x-frame-options`
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 * URL: http://www.itsecgames.com/download.htm
   * Method: `GET`
   * Parameter: `x-frame-options`
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 * URL: http://www.itsecgames.com/index.htm
   * Method: `GET`
   * Parameter: `x-frame-options`
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 * URL: http://www.itsecgames.com/training.htm
   * Method: `GET`
   * Parameter: `x-frame-options`
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 
 Instances: 5
 
@@ -179,26 +191,31 @@ The integrity attribute is missing on a script or link tag served by an external
   * Parameter: ``
   * Attack: ``
   * Evidence: `<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Architects+Daughter">`
+  * Other Info: ``
 * URL: http://www.itsecgames.com/bugs.htm
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: `<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Architects+Daughter">`
+  * Other Info: ``
 * URL: http://www.itsecgames.com/download.htm
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: `<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Architects+Daughter">`
+  * Other Info: ``
 * URL: http://www.itsecgames.com/index.htm
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: `<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Architects+Daughter">`
+  * Other Info: ``
 * URL: http://www.itsecgames.com/training.htm
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: `<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Architects+Daughter">`
+  * Other Info: ``
 
 Instances: 5
 
@@ -234,41 +251,49 @@ Permissions Policy Header is an added layer of security that helps to restrict f
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 * URL: http://www.itsecgames.com/bugs.htm
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 * URL: http://www.itsecgames.com/download.htm
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 * URL: http://www.itsecgames.com/index.htm
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 * URL: http://www.itsecgames.com/js/html5.js
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 * URL: http://www.itsecgames.com/robots.txt
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 * URL: http://www.itsecgames.com/sitemap.xml
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 * URL: http://www.itsecgames.com/training.htm
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 
 Instances: 8
 
@@ -308,56 +333,78 @@ The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. T
   * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
+  * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.`
 * URL: http://www.itsecgames.com/bugs.htm
   * Method: `GET`
   * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
+  * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.`
 * URL: http://www.itsecgames.com/download.htm
   * Method: `GET`
   * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
+  * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.`
 * URL: http://www.itsecgames.com/downloads/vulnerabilities.txt
   * Method: `GET`
   * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
+  * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.`
 * URL: http://www.itsecgames.com/images/favicon.ico
   * Method: `GET`
   * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
+  * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.`
 * URL: http://www.itsecgames.com/images/linkedin.png
   * Method: `GET`
   * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
+  * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.`
 * URL: http://www.itsecgames.com/images/mme.png
   * Method: `GET`
   * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
+  * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.`
 * URL: http://www.itsecgames.com/images/twitter.png
   * Method: `GET`
   * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
+  * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.`
 * URL: http://www.itsecgames.com/js/html5.js
   * Method: `GET`
   * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
+  * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.`
 * URL: http://www.itsecgames.com/stylesheets/stylesheet.css
   * Method: `GET`
   * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
+  * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.`
 * URL: http://www.itsecgames.com/training.htm
   * Method: `GET`
   * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
+  * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.`
 
 Instances: 11
 
@@ -395,6 +442,7 @@ Base64 encoded data was disclosed by the application/web server. Note: in the in
   * Parameter: ``
   * Attack: ``
   * Evidence: `8/Filter/DCTDecode/Interpolate`
+  * Other Info: `��b�׫�0��(u�Ȟ׫��Z�`
 
 Instances: 1
 
@@ -430,6 +478,7 @@ The response appears to contain suspicious comments which may help an attacker. 
   * Parameter: ``
   * Attack: ``
   * Evidence: `select`
+  * Other Info: `The following pattern was used: \bSELECT\b and was detected in the element starting with: "(function(a,b){function h(a,b){var c=a.createElement("p"),d=a.getElementsByTagName("head")[0]||a.documentElement;return c.innerH", see evidence field for the suspicious comment/snippet.`
 
 Instances: 1
 
@@ -463,11 +512,13 @@ Specifies how and where the data would be used. For instance, if the value is au
   * Parameter: `Sec-Fetch-Dest`
   * Attack: ``
   * Evidence: ``
-* URL: http://www.itsecgames.com/sitemap.xml
+  * Other Info: ``
+* URL: http://www.itsecgames.com/robots.txt
   * Method: `GET`
   * Parameter: `Sec-Fetch-Dest`
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 
 Instances: 2
 
@@ -503,11 +554,13 @@ Allows to differentiate between requests for navigating between HTML pages and r
   * Parameter: `Sec-Fetch-Mode`
   * Attack: ``
   * Evidence: ``
-* URL: http://www.itsecgames.com/sitemap.xml
+  * Other Info: ``
+* URL: http://www.itsecgames.com/robots.txt
   * Method: `GET`
   * Parameter: `Sec-Fetch-Mode`
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 
 Instances: 2
 
@@ -543,11 +596,13 @@ Specifies the relationship between request initiator's origin and target's origi
   * Parameter: `Sec-Fetch-Site`
   * Attack: ``
   * Evidence: ``
-* URL: http://www.itsecgames.com/sitemap.xml
+  * Other Info: ``
+* URL: http://www.itsecgames.com/robots.txt
   * Method: `GET`
   * Parameter: `Sec-Fetch-Site`
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 
 Instances: 2
 
@@ -583,11 +638,13 @@ Specifies if a navigation request was initiated by a user.
   * Parameter: `Sec-Fetch-User`
   * Attack: ``
   * Evidence: ``
-* URL: http://www.itsecgames.com/sitemap.xml
+  * Other Info: ``
+* URL: http://www.itsecgames.com/robots.txt
   * Method: `GET`
   * Parameter: `Sec-Fetch-User`
   * Attack: ``
   * Evidence: ``
+  * Other Info: ``
 
 Instances: 2
 
@@ -623,56 +680,67 @@ The response contents are storable by caching components such as proxy servers, 
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
 * URL: http://www.itsecgames.com/bugs.htm
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
 * URL: http://www.itsecgames.com/download.htm
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
 * URL: http://www.itsecgames.com/downloads/vulnerabilities.txt
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
 * URL: http://www.itsecgames.com/images/favicon.ico
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
 * URL: http://www.itsecgames.com/images/mme.png
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
 * URL: http://www.itsecgames.com/js/html5.js
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
 * URL: http://www.itsecgames.com/robots.txt
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
 * URL: http://www.itsecgames.com/sitemap.xml
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
 * URL: http://www.itsecgames.com/stylesheets/stylesheet.css
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
 * URL: http://www.itsecgames.com/training.htm
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
+  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
 
 Instances: 11
 
