@@ -13,11 +13,17 @@ spec:
     - description: The git branch to clone.
       name: branchName
       type: string
-    - name: pathToContext
+    - description: Path to the file that contains the application
+      name: pathToContext
       type: string
-    - name: imageTag
+    - description: A tag to differentiate versions of images
+      name: imageTag
       type: string
-      default: v1
+      default: latest
+    - description: Whether or not runDeploy will run. Will run if set to 'true'
+      name: runDeploy
+      type: string
+      default: false
   tasks:
     - name: fetch-repo
       params:
@@ -31,6 +37,7 @@ spec:
       workspaces:
         - name: output
           workspace: shared-data
+          
     - name: react-workspace
       params:
         - name: CONTEXT_DIR
@@ -43,6 +50,7 @@ spec:
       workspaces:
         - name: source
           workspace: shared-data
+
     - name: react-build
       params:
         - name: CONTEXT_DIR
@@ -60,7 +68,12 @@ spec:
       workspaces:
         - name: source
           workspace: shared-data
+          
     - name: react-deploy
+      when:
+        - input: "$(params.runDeploy)"
+          operator: in
+          values: ["true"]
       params:
         - name: APP_NAME
           value: $(params.appName)
@@ -73,6 +86,25 @@ spec:
       taskRef:
         kind: Task
         name: t-react-deploy
+    
+    - name: react-update
+      when:
+        - input: "$(params.runDeploy)"
+          operator: notin
+          values: ["true"]
+      params:
+        - name: APP_NAME
+          value: $(params.appName)
+        - name: TAG
+          value: $(params.imageTag)
+        - name: NAMESPACE
+          value: $(context.pipelineRun.namespace)
+      runAfter:
+        - react-build
+      taskRef:
+        kind: Task
+        name: t-react-update
+
   workspaces:
     - description: |
         This workspace will receive the cloned git repo and be passed
