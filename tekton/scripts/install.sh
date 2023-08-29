@@ -18,7 +18,7 @@ ask-for-env(){
     # tekton.sh required env variable 
     export NAMESPACE=$NAMESPACE
 
-    read -p 'OC login sting that you can find on your console page:(whole string including oc) ' OC_LOGIN_STRING
+    read -p 'OC login string that you can find on your console page:(whole string including oc) ' OC_LOGIN_STRING
     # Use the ${variable/pattern/replacement} syntax to replace the first occurrence of the string " login " (note the spaces) with namespace
     modified_string="${OC_LOGIN_STRING/ login / login -n $NAMESPACE }"
     echo "$modified_string"
@@ -28,7 +28,7 @@ ask-for-env(){
     while [[ $output != *"Using project \"$NAMESPACE\"."* ]]
         do 
             echo Your login string is not valid, please try again
-            read -p 'OC login sting that you can find on your console page:(whole string including oc) ' OC_LOGIN_STRING
+            read -p 'OC login string that you can find on your console page:(whole string including oc) ' OC_LOGIN_STRING
             modified_string="${OC_LOGIN_STRING/ login / login -n $NAMESPACE }"
             output=$(eval "$modified_string" | tail -n 1)
             echo "$output"
