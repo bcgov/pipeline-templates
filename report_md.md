@@ -24,10 +24,10 @@
 | X-Content-Type-Options Header Missing | Low | 11 |
 | Base64 Disclosure | Informational | 1 |
 | Information Disclosure - Suspicious Comments | Informational | 1 |
-| Sec-Fetch-Dest Header is Missing | Informational | 3 |
-| Sec-Fetch-Mode Header is Missing | Informational | 3 |
-| Sec-Fetch-Site Header is Missing | Informational | 3 |
-| Sec-Fetch-User Header is Missing | Informational | 3 |
+| Sec-Fetch-Dest Header is Missing | Informational | 2 |
+| Sec-Fetch-Mode Header is Missing | Informational | 2 |
+| Sec-Fetch-Site Header is Missing | Informational | 2 |
+| Sec-Fetch-User Header is Missing | Informational | 2 |
 | Storable and Cacheable Content | Informational | 11 |
 
 
@@ -226,7 +226,7 @@ Provide a valid integrity attribute to the tag.
 ### Reference
 
 
-* [ https://developer.mozilla.org/en/docs/Web/Security/Subresource_Integrity ](https://developer.mozilla.org/en/docs/Web/Security/Subresource_Integrity)
+* [ https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity ](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity)
 
 
 #### CWE Id: [ 345 ](https://cwe.mitre.org/data/definitions/345.html)
@@ -304,8 +304,8 @@ Ensure that your web server, application server, load balancer, etc. is configur
 ### Reference
 
 
-* [ https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy ](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy)
-* [ https://developers.google.com/web/updates/2018/06/feature-policy ](https://developers.google.com/web/updates/2018/06/feature-policy)
+* [ https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy ](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy)
+* [ https://developer.chrome.com/blog/feature-policy/ ](https://developer.chrome.com/blog/feature-policy/)
 * [ https://scotthelme.co.uk/a-new-security-header-feature-policy/ ](https://scotthelme.co.uk/a-new-security-header-feature-policy/)
 * [ https://w3c.github.io/webappsec-feature-policy/ ](https://w3c.github.io/webappsec-feature-policy/)
 * [ https://www.smashingmagazine.com/2018/12/feature-policy/ ](https://www.smashingmagazine.com/2018/12/feature-policy/)
@@ -453,7 +453,7 @@ Manually confirm that the Base64 data does not leak sensitive information, and t
 ### Reference
 
 
-* [ http://projects.webappsec.org/w/page/13246936/Information%20Leakage ](http://projects.webappsec.org/w/page/13246936/Information%20Leakage)
+* [ https://projects.webappsec.org/w/page/13246936/Information%20Leakage ](https://projects.webappsec.org/w/page/13246936/Information%20Leakage)
 
 
 #### CWE Id: [ 200 ](https://cwe.mitre.org/data/definitions/200.html)
@@ -519,14 +519,8 @@ Specifies how and where the data would be used. For instance, if the value is au
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: http://www.itsecgames.com/sitemap.xml
-  * Method: `GET`
-  * Parameter: `Sec-Fetch-Dest`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
 
-Instances: 3
+Instances: 2
 
 ### Solution
 
@@ -567,14 +561,8 @@ Allows to differentiate between requests for navigating between HTML pages and r
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: http://www.itsecgames.com/sitemap.xml
-  * Method: `GET`
-  * Parameter: `Sec-Fetch-Mode`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
 
-Instances: 3
+Instances: 2
 
 ### Solution
 
@@ -615,14 +603,8 @@ Specifies the relationship between request initiator's origin and target's origi
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: http://www.itsecgames.com/sitemap.xml
-  * Method: `GET`
-  * Parameter: `Sec-Fetch-Site`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
 
-Instances: 3
+Instances: 2
 
 ### Solution
 
@@ -663,14 +645,8 @@ Specifies if a navigation request was initiated by a user.
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: http://www.itsecgames.com/sitemap.xml
-  * Method: `GET`
-  * Parameter: `Sec-Fetch-User`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
 
-Instances: 3
+Instances: 2
 
 ### Solution
 
@@ -779,9 +755,9 @@ This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers 
 ### Reference
 
 
-* [ https://tools.ietf.org/html/rfc7234 ](https://tools.ietf.org/html/rfc7234)
-* [ https://tools.ietf.org/html/rfc7231 ](https://tools.ietf.org/html/rfc7231)
-* [ http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234) ](http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234))
+* [ https://datatracker.ietf.org/doc/html/rfc7234 ](https://datatracker.ietf.org/doc/html/rfc7234)
+* [ https://datatracker.ietf.org/doc/html/rfc7231 ](https://datatracker.ietf.org/doc/html/rfc7231)
+* [ https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html ](https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html)
 
 
 #### CWE Id: [ 524 ](https://cwe.mitre.org/data/definitions/524.html)
