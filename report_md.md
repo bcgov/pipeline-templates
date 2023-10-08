@@ -705,7 +705,7 @@ The response contents are storable by caching components such as proxy servers, 
   * Attack: ``
   * Evidence: ``
   * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
-* URL: http://www.itsecgames.com/images/mme.png
+* URL: http://www.itsecgames.com/images/twitter.png
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
