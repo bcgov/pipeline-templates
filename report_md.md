@@ -24,10 +24,10 @@
 | X-Content-Type-Options Header Missing | Low | 11 |
 | Base64 Disclosure | Informational | 1 |
 | Information Disclosure - Suspicious Comments | Informational | 1 |
-| Sec-Fetch-Dest Header is Missing | Informational | 2 |
-| Sec-Fetch-Mode Header is Missing | Informational | 2 |
-| Sec-Fetch-Site Header is Missing | Informational | 2 |
-| Sec-Fetch-User Header is Missing | Informational | 2 |
+| Sec-Fetch-Dest Header is Missing | Informational | 3 |
+| Sec-Fetch-Mode Header is Missing | Informational | 3 |
+| Sec-Fetch-Site Header is Missing | Informational | 3 |
+| Sec-Fetch-User Header is Missing | Informational | 3 |
 | Storable and Cacheable Content | Informational | 11 |
 
 
@@ -363,14 +363,14 @@ At "High" threshold this scan rule will not alert on client or server error resp
   * Evidence: ``
   * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
 At "High" threshold this scan rule will not alert on client or server error responses.`
-* URL: http://www.itsecgames.com/images/linkedin.png
+* URL: http://www.itsecgames.com/images/mme.png
   * Method: `GET`
   * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
   * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
 At "High" threshold this scan rule will not alert on client or server error responses.`
-* URL: http://www.itsecgames.com/images/mme.png
+* URL: http://www.itsecgames.com/images/owasp.png
   * Method: `GET`
   * Parameter: `x-content-type-options`
   * Attack: ``
@@ -519,8 +519,14 @@ Specifies how and where the data would be used. For instance, if the value is au
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
+* URL: http://www.itsecgames.com/sitemap.xml
+  * Method: `GET`
+  * Parameter: `Sec-Fetch-Dest`
+  * Attack: ``
+  * Evidence: ``
+  * Other Info: ``
 
-Instances: 2
+Instances: 3
 
 ### Solution
 
@@ -561,8 +567,14 @@ Allows to differentiate between requests for navigating between HTML pages and r
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
+* URL: http://www.itsecgames.com/sitemap.xml
+  * Method: `GET`
+  * Parameter: `Sec-Fetch-Mode`
+  * Attack: ``
+  * Evidence: ``
+  * Other Info: ``
 
-Instances: 2
+Instances: 3
 
 ### Solution
 
@@ -603,8 +615,14 @@ Specifies the relationship between request initiator's origin and target's origi
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
+* URL: http://www.itsecgames.com/sitemap.xml
+  * Method: `GET`
+  * Parameter: `Sec-Fetch-Site`
+  * Attack: ``
+  * Evidence: ``
+  * Other Info: ``
 
-Instances: 2
+Instances: 3
 
 ### Solution
 
@@ -645,8 +663,14 @@ Specifies if a navigation request was initiated by a user.
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
+* URL: http://www.itsecgames.com/sitemap.xml
+  * Method: `GET`
+  * Parameter: `Sec-Fetch-User`
+  * Attack: ``
+  * Evidence: ``
+  * Other Info: ``
 
-Instances: 2
+Instances: 3
 
 ### Solution
 
