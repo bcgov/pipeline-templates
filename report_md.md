@@ -18,7 +18,7 @@
 | Name | Risk Level | Number of Instances |
 | --- | --- | --- |
 | Content Security Policy (CSP) Header Not Set | Medium | 7 |
-| Missing Anti-clickjacking Header | Medium | 5 |
+| Missing Anti-clickjacking Header | Medium | 4 |
 | Sub Resource Integrity Attribute Missing | Medium | 5 |
 | Permissions Policy Header Not Set | Low | 8 |
 | X-Content-Type-Options Header Missing | Low | 11 |
@@ -125,12 +125,6 @@ Ensure that your web server, application server, load balancer, etc. is configur
 
 The response does not include either Content-Security-Policy with 'frame-ancestors' directive or X-Frame-Options to protect against 'ClickJacking' attacks.
 
-* URL: http://www.itsecgames.com
-  * Method: `GET`
-  * Parameter: `x-frame-options`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
 * URL: http://www.itsecgames.com/bugs.htm
   * Method: `GET`
   * Parameter: `x-frame-options`
@@ -156,7 +150,7 @@ The response does not include either Content-Security-Policy with 'frame-ancesto
   * Evidence: ``
   * Other Info: ``
 
-Instances: 5
+Instances: 4
 
 ### Solution
 
@@ -356,6 +350,13 @@ At "High" threshold this scan rule will not alert on client or server error resp
   * Evidence: ``
   * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
 At "High" threshold this scan rule will not alert on client or server error responses.`
+* URL: http://www.itsecgames.com/images/facebook.png
+  * Method: `GET`
+  * Parameter: `x-content-type-options`
+  * Attack: ``
+  * Evidence: ``
+  * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.`
 * URL: http://www.itsecgames.com/images/favicon.ico
   * Method: `GET`
   * Parameter: `x-content-type-options`
@@ -371,13 +372,6 @@ At "High" threshold this scan rule will not alert on client or server error resp
   * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
 At "High" threshold this scan rule will not alert on client or server error responses.`
 * URL: http://www.itsecgames.com/images/mme.png
-  * Method: `GET`
-  * Parameter: `x-content-type-options`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
-At "High" threshold this scan rule will not alert on client or server error responses.`
-* URL: http://www.itsecgames.com/images/twitter.png
   * Method: `GET`
   * Parameter: `x-content-type-options`
   * Attack: ``
@@ -717,13 +711,13 @@ The response contents are storable by caching components such as proxy servers, 
   * Attack: ``
   * Evidence: ``
   * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
-* URL: http://www.itsecgames.com/downloads/vulnerabilities.txt
+* URL: http://www.itsecgames.com/images/favicon.ico
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
   * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
-* URL: http://www.itsecgames.com/images/favicon.ico
+* URL: http://www.itsecgames.com/images/linkedin.png
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
