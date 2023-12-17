@@ -507,7 +507,7 @@ Remove all comments that return information that may help an attacker and fix an
 
 Specifies how and where the data would be used. For instance, if the value is audio, then the requested resource must be audio data and not any other type of resource.
 
-* URL: http://www.itsecgames.com/download.htm
+* URL: http://www.itsecgames.com
   * Method: `GET`
   * Parameter: `Sec-Fetch-Dest`
   * Attack: ``
@@ -555,7 +555,7 @@ Ensure that Sec-Fetch-Dest header is included in request headers.
 
 Allows to differentiate between requests for navigating between HTML pages and requests for loading resources like images, audio etc.
 
-* URL: http://www.itsecgames.com/download.htm
+* URL: http://www.itsecgames.com
   * Method: `GET`
   * Parameter: `Sec-Fetch-Mode`
   * Attack: ``
@@ -603,7 +603,7 @@ Ensure that Sec-Fetch-Mode header is included in request headers.
 
 Specifies the relationship between request initiator's origin and target's origin.
 
-* URL: http://www.itsecgames.com/download.htm
+* URL: http://www.itsecgames.com
   * Method: `GET`
   * Parameter: `Sec-Fetch-Site`
   * Attack: ``
@@ -651,7 +651,7 @@ Ensure that Sec-Fetch-Site header is included in request headers.
 
 Specifies if a navigation request was initiated by a user.
 
-* URL: http://www.itsecgames.com/download.htm
+* URL: http://www.itsecgames.com
   * Method: `GET`
   * Parameter: `Sec-Fetch-User`
   * Attack: ``
@@ -729,19 +729,13 @@ The response contents are storable by caching components such as proxy servers, 
   * Attack: ``
   * Evidence: ``
   * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
+* URL: http://www.itsecgames.com/images/linkedin.png
+  * Method: `GET`
+  * Parameter: ``
+  * Attack: ``
+  * Evidence: ``
+  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
 * URL: http://www.itsecgames.com/images/mme.png
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
-* URL: http://www.itsecgames.com/images/twitter.png
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
-* URL: http://www.itsecgames.com/js/html5.js
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
@@ -754,6 +748,12 @@ The response contents are storable by caching components such as proxy servers, 
   * Evidence: ``
   * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
 * URL: http://www.itsecgames.com/sitemap.xml
+  * Method: `GET`
+  * Parameter: ``
+  * Attack: ``
+  * Evidence: ``
+  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
+* URL: http://www.itsecgames.com/stylesheets/stylesheet.css
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
