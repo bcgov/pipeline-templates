@@ -24,10 +24,10 @@
 | X-Content-Type-Options Header Missing | Low | 11 |
 | Base64 Disclosure | Informational | 1 |
 | Information Disclosure - Suspicious Comments | Informational | 1 |
-| Sec-Fetch-Dest Header is Missing | Informational | 4 |
-| Sec-Fetch-Mode Header is Missing | Informational | 4 |
-| Sec-Fetch-Site Header is Missing | Informational | 4 |
-| Sec-Fetch-User Header is Missing | Informational | 4 |
+| Sec-Fetch-Dest Header is Missing | Informational | 3 |
+| Sec-Fetch-Mode Header is Missing | Informational | 3 |
+| Sec-Fetch-Site Header is Missing | Informational | 2 |
+| Sec-Fetch-User Header is Missing | Informational | 3 |
 | Storable and Cacheable Content | Informational | 12 |
 
 
@@ -513,12 +513,6 @@ Specifies how and where the data would be used. For instance, if the value is au
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: http://www.itsecgames.com/bugs.htm
-  * Method: `GET`
-  * Parameter: `Sec-Fetch-Dest`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
 * URL: http://www.itsecgames.com/robots.txt
   * Method: `GET`
   * Parameter: `Sec-Fetch-Dest`
@@ -532,7 +526,7 @@ Specifies how and where the data would be used. For instance, if the value is au
   * Evidence: ``
   * Other Info: ``
 
-Instances: 4
+Instances: 3
 
 ### Solution
 
@@ -567,12 +561,6 @@ Allows to differentiate between requests for navigating between HTML pages and r
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: http://www.itsecgames.com/bugs.htm
-  * Method: `GET`
-  * Parameter: `Sec-Fetch-Mode`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
 * URL: http://www.itsecgames.com/robots.txt
   * Method: `GET`
   * Parameter: `Sec-Fetch-Mode`
@@ -586,7 +574,7 @@ Allows to differentiate between requests for navigating between HTML pages and r
   * Evidence: ``
   * Other Info: ``
 
-Instances: 4
+Instances: 3
 
 ### Solution
 
@@ -621,26 +609,14 @@ Specifies the relationship between request initiator's origin and target's origi
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: http://www.itsecgames.com/bugs.htm
-  * Method: `GET`
-  * Parameter: `Sec-Fetch-Site`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
 * URL: http://www.itsecgames.com/robots.txt
   * Method: `GET`
   * Parameter: `Sec-Fetch-Site`
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: http://www.itsecgames.com/sitemap.xml
-  * Method: `GET`
-  * Parameter: `Sec-Fetch-Site`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
 
-Instances: 4
+Instances: 2
 
 ### Solution
 
@@ -675,12 +651,6 @@ Specifies if a navigation request was initiated by a user.
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: http://www.itsecgames.com/bugs.htm
-  * Method: `GET`
-  * Parameter: `Sec-Fetch-User`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
 * URL: http://www.itsecgames.com/robots.txt
   * Method: `GET`
   * Parameter: `Sec-Fetch-User`
@@ -694,7 +664,7 @@ Specifies if a navigation request was initiated by a user.
   * Evidence: ``
   * Other Info: ``
 
-Instances: 4
+Instances: 3
 
 ### Solution
 
