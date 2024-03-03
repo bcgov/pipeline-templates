@@ -26,9 +26,9 @@
 | Information Disclosure - Suspicious Comments | Informational | 1 |
 | Sec-Fetch-Dest Header is Missing | Informational | 3 |
 | Sec-Fetch-Mode Header is Missing | Informational | 3 |
-| Sec-Fetch-Site Header is Missing | Informational | 2 |
+| Sec-Fetch-Site Header is Missing | Informational | 1 |
 | Sec-Fetch-User Header is Missing | Informational | 3 |
-| Storable and Cacheable Content | Informational | 12 |
+| Storable and Cacheable Content | Informational | 11 |
 
 
 
@@ -603,20 +603,14 @@ Ensure that Sec-Fetch-Mode header is included in request headers.
 
 Specifies the relationship between request initiator's origin and target's origin.
 
-* URL: http://www.itsecgames.com
-  * Method: `GET`
-  * Parameter: `Sec-Fetch-Site`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
-* URL: http://www.itsecgames.com/robots.txt
+* URL: http://www.itsecgames.com/sitemap.xml
   * Method: `GET`
   * Parameter: `Sec-Fetch-Site`
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
 
-Instances: 2
+Instances: 1
 
 ### Solution
 
@@ -729,12 +723,6 @@ The response contents are storable by caching components such as proxy servers, 
   * Attack: ``
   * Evidence: ``
   * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
-* URL: http://www.itsecgames.com/images/twitter.png
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
 * URL: http://www.itsecgames.com/js/html5.js
   * Method: `GET`
   * Parameter: ``
@@ -766,7 +754,7 @@ The response contents are storable by caching components such as proxy servers, 
   * Evidence: ``
   * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
 
-Instances: 12
+Instances: 11
 
 ### Solution
 
