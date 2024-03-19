@@ -35,7 +35,7 @@ ask-for-env(){
         done
     echo "Login successed!"
     read -p 'Your Github Personal Access Token(required): ' GITHUB_PAT
-     export GITHUB_PAT=$GITHUB_PAT
+    export GITHUB_PAT=$GITHUB_PAT
     sed -i "s/github-pat-token=/github-pat-token=$GITHUB_PAT/g" ./overlays/secrets/secrets.ini
 
     read -p 'Your sonar Token(not mandatory): ' SONAR_TOKEN
