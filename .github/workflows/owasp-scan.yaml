@@ -33,10 +33,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
       - name: Set up Cloud SDK
         if: ${{ inputs.ZAP_GCP_PUBLISH }}
-        uses: google-github-actions/setup-gcloud@v0
+        uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ inputs.ZAP_GCP_PROJECT }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}

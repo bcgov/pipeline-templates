@@ -1,0 +1,34 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: react-update
+  labels:
+    app.kubernetes.io/version: "0.2"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/categories: Build Tools
+    tekton.dev/tags: build-tool
+    tekton.dev/platforms: "linux/amd64,linux/s390x,linux/ppc64le"
+spec:
+  params:
+    - name: APP_NAME
+      type: string
+    - name: TAG
+      type: string
+      description: Image tag of the imagestream 
+    - name: NAMESPACE
+      type: string
+      description: Namespace tobe deploy
+  steps:
+    - name: deploy
+      args:
+        - set
+        - image
+        - deploymentconfig/$(params.APP_NAME)
+        - $(params.APP_NAME)=$(params.APP_NAME):$(params.TAG)
+        - '--namespace=$(params.NAMESPACE)'
+      command:
+        - oc
+      image: openshift/origin-cli:latest
+      resources: {}
+   
