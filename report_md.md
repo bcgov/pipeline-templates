@@ -19,18 +19,18 @@ ZAP is supported by the [Crash Override Open Source Fellowship](https://crashove
 
 | Name | Risk Level | Number of Instances |
 | --- | --- | --- |
-| Content Security Policy (CSP) Header Not Set | Medium | 7 |
+| Content Security Policy (CSP) Header Not Set | Medium | 5 |
 | Missing Anti-clickjacking Header | Medium | 5 |
 | Sub Resource Integrity Attribute Missing | Medium | 5 |
 | Permissions Policy Header Not Set | Low | 8 |
 | X-Content-Type-Options Header Missing | Low | 11 |
 | Base64 Disclosure | Informational | 1 |
 | Information Disclosure - Suspicious Comments | Informational | 1 |
-| Sec-Fetch-Dest Header is Missing | Informational | 4 |
-| Sec-Fetch-Mode Header is Missing | Informational | 4 |
-| Sec-Fetch-Site Header is Missing | Informational | 4 |
-| Sec-Fetch-User Header is Missing | Informational | 4 |
-| Storable and Cacheable Content | Informational | 11 |
+| Sec-Fetch-Dest Header is Missing | Informational | 3 |
+| Sec-Fetch-Mode Header is Missing | Informational | 3 |
+| Sec-Fetch-Site Header is Missing | Informational | 3 |
+| Sec-Fetch-User Header is Missing | Informational | 3 |
+| Storable and Cacheable Content | Informational | 13 |
 
 
 
@@ -73,18 +73,6 @@ Content Security Policy (CSP) is an added layer of security that helps to detect
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: http://www.itsecgames.com/robots.txt
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
-* URL: http://www.itsecgames.com/sitemap.xml
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
 * URL: http://www.itsecgames.com/training.htm
   * Method: `GET`
   * Parameter: ``
@@ -92,7 +80,7 @@ Content Security Policy (CSP) is an added layer of security that helps to detect
   * Evidence: ``
   * Other Info: ``
 
-Instances: 7
+Instances: 5
 
 ### Solution
 
@@ -358,13 +346,6 @@ At "High" threshold this scan rule will not alert on client or server error resp
   * Evidence: ``
   * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
 At "High" threshold this scan rule will not alert on client or server error responses.`
-* URL: http://www.itsecgames.com/images/blogger.png
-  * Method: `GET`
-  * Parameter: `x-content-type-options`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
-At "High" threshold this scan rule will not alert on client or server error responses.`
 * URL: http://www.itsecgames.com/images/favicon.ico
   * Method: `GET`
   * Parameter: `x-content-type-options`
@@ -373,6 +354,13 @@ At "High" threshold this scan rule will not alert on client or server error resp
   * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
 At "High" threshold this scan rule will not alert on client or server error responses.`
 * URL: http://www.itsecgames.com/images/linkedin.png
+  * Method: `GET`
+  * Parameter: `x-content-type-options`
+  * Attack: ``
+  * Evidence: ``
+  * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.`
+* URL: http://www.itsecgames.com/images/mme.png
   * Method: `GET`
   * Parameter: `x-content-type-options`
   * Attack: ``
@@ -527,14 +515,8 @@ Specifies how and where the data would be used. For instance, if the value is au
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: http://www.itsecgames.com/stylesheets/stylesheet.css
-  * Method: `GET`
-  * Parameter: `Sec-Fetch-Dest`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
 
-Instances: 4
+Instances: 3
 
 ### Solution
 
@@ -581,14 +563,8 @@ Allows to differentiate between requests for navigating between HTML pages and r
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: http://www.itsecgames.com/stylesheets/stylesheet.css
-  * Method: `GET`
-  * Parameter: `Sec-Fetch-Mode`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
 
-Instances: 4
+Instances: 3
 
 ### Solution
 
@@ -635,14 +611,8 @@ Specifies the relationship between request initiator's origin and target's origi
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: http://www.itsecgames.com/stylesheets/stylesheet.css
-  * Method: `GET`
-  * Parameter: `Sec-Fetch-Site`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
 
-Instances: 4
+Instances: 3
 
 ### Solution
 
@@ -689,14 +659,8 @@ Specifies if a navigation request was initiated by a user.
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: http://www.itsecgames.com/stylesheets/stylesheet.css
-  * Method: `GET`
-  * Parameter: `Sec-Fetch-User`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
 
-Instances: 4
+Instances: 3
 
 ### Solution
 
@@ -755,6 +719,18 @@ The response contents are storable by caching components such as proxy servers, 
   * Attack: ``
   * Evidence: ``
   * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
+* URL: http://www.itsecgames.com/images/linkedin.png
+  * Method: `GET`
+  * Parameter: ``
+  * Attack: ``
+  * Evidence: ``
+  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
+* URL: http://www.itsecgames.com/images/mme.png
+  * Method: `GET`
+  * Parameter: ``
+  * Attack: ``
+  * Evidence: ``
+  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
 * URL: http://www.itsecgames.com/images/twitter.png
   * Method: `GET`
   * Parameter: ``
@@ -792,7 +768,7 @@ The response contents are storable by caching components such as proxy servers, 
   * Evidence: ``
   * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
 
-Instances: 11
+Instances: 13
 
 ### Solution
 
