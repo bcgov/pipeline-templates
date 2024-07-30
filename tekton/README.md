@@ -191,9 +191,9 @@ Please give your fine-grained token a meaningful name and reasonable expiration 
    **secrets.ini**
    Creates secrets for all secret types. The `key` refers to the secret name, and the `value` is the secret contents.
 
-   - `github-secret` is used for triggers. Can be left as is if triggers are not used.
+   - `github-webhook-secret` is used for triggers. Can be left as is if triggers are not used.
    - `image-registry-username` and `image-registry-password` are the account credentials for your image registry. This could be **docker.io**, **quay.io**, **gcr.io** or any other docker compatible docker registry.
-   - `github-pat-token` is used to fetch your GitHub SSH credentials for Tekton git-clone task. Look at [this git instruction](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens.) to see how to obtain your own token **NOTE**  Because we are using PAT for git pull, the repoUrl **has to** use HTTPS protocal for **git-clone** TaskRun.
+   - `github-pat-token` is used to fetch your GitHub SSH credentials for Tekton git-clone task. Look at [this git instruction](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) to see how to obtain your own token **NOTE**  Because we are using PAT for git pull, the repoUrl **has to** use HTTPS protocol for **git-clone** TaskRun.
 
    ```bash
    cat <<EOF >./overlays/secrets/secrets.ini
