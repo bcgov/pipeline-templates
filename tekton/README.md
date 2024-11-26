@@ -172,10 +172,7 @@ These instructions assume the use of a bash-based shell such as `zsh` (included 
 
 ### Prerequisites - Personal access token
 Before you begin, you will need to [create your Fine-grained GitHub Personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)).
-Please give your fine-grained token a meaningful name and reasonable expiration date. Make sure to  select `All repositories` in Repository access. And click `Generate Token` to obtain your token that can be use in this pipeline template.
-
-
-
+Please give your fine-grained token a meaningful name and reasonable expiration date. Make sure to  select `All repositories` in Repository access. And click `Generate Token` to obtain your token that can be used in this pipeline template.Please note that the `bcgov` GitHub organization is requiring IDIR SSO authentication now, and this applies to new and existing PAT. So after the PAT is created, please follow [these steps](https://docs.github.com/en/enterprise-cloud@latest/authentication/authenticating-with-saml-single-sign-on/authorizing-a-personal-access-token-for-use-with-saml-single-sign-on) to authorize it with SSO.
 
 ### Installation
 
