@@ -103,7 +103,7 @@ Setting up with docker is available with this pipeline template.
 ### Prerequisites (Docker)
 
 1. You will need to have [docker](https://docs.docker.com/get-docker/) installed and make sure that Docker Desktop is running.(_Note_: Download docker from website that fit for your OS. Don's use brew install)
-2. You will need to [set up your GitHub Personal Access Token](#prerequisites---personal-access-token).
+2. You will need to [set up your GitHub Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#personal-access-tokens-classic). After creating your personal access token, be sure to click 'Configure SSO'. You must authorize the token to for use in the `bcgov` or `bcgov-c` organisations. 
 
 ### Installation (Docker)
 
@@ -170,12 +170,9 @@ Note: This project has been tested on _linux/arm64_, _linux/amd64_, _linux/aarch
 
 These instructions assume the use of a bash-based shell such as `zsh` (included on OS X) or [WSL](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/) for Windows. Please use one of these shells, or make the appropriate modifications to the commands shown in these instructions.
 
-### Prerequisites - Personal Access Token (PAT)
-Before you begin, you will need to [create your Fine-grained GitHub Personal access token]([https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens](https://github.com/settings/tokens?type=beta)).
-Please give your fine-grained token a meaningful name and reasonable expiration date. Make sure to  select `All repositories` in Repository access. And click `Generate Token` to obtain your token that can be use in this pipeline template. Please note that the `bcgov` GitHub organization is requiring IDIR SSO authentication now, and this applies to new and existing PAT. So after the PAT is created, please follow [this steps](https://docs.github.com/en/enterprise-cloud@latest/authentication/authenticating-with-saml-single-sign-on/authorizing-a-personal-access-token-for-use-with-saml-single-sign-on) to authorize it with SSO.
-
-
-
+### Prerequisites - Personal access token
+Before you begin, you will need to [create your Fine-grained GitHub Personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)).
+Please give your fine-grained token a meaningful name and reasonable expiration date. Make sure to  select `All repositories` in Repository access. And click `Generate Token` to obtain your token that can be used in this pipeline template.Please note that the `bcgov` GitHub organization is requiring IDIR SSO authentication now, and this applies to new and existing PAT. So after the PAT is created, please follow [these steps](https://docs.github.com/en/enterprise-cloud@latest/authentication/authenticating-with-saml-single-sign-on/authorizing-a-personal-access-token-for-use-with-saml-single-sign-on) to authorize it with SSO.
 
 ### Installation
 
@@ -191,9 +188,9 @@ Please give your fine-grained token a meaningful name and reasonable expiration 
    **secrets.ini**
    Creates secrets for all secret types. The `key` refers to the secret name, and the `value` is the secret contents.
 
-   - `github-secret` is used for triggers. Can be left as is if triggers are not used.
+   - `github-webhook-secret` is used for triggers. Can be left as is if triggers are not used.
    - `image-registry-username` and `image-registry-password` are the account credentials for your image registry. This could be **docker.io**, **quay.io**, **gcr.io** or any other docker compatible docker registry.
-   - `github-pat-token` is used to fetch your GitHub SSH credentials for Tekton git-clone task. Look at [this git instruction](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens.) to see how to obtain your own token **NOTE**  Because we are using PAT for git pull, the repoUrl **has to** use HTTPS protocal for **git-clone** TaskRun.
+   - `github-pat-token` is used to fetch your GitHub SSH credentials for Tekton git-clone task. Look at [this git instruction](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) to see how to obtain your own token **NOTE**  Because we are using PAT for git pull, the repoUrl **has to** use HTTPS protocol for **git-clone** TaskRun.
 
    ```bash
    cat <<EOF >./overlays/secrets/secrets.ini
