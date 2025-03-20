@@ -143,7 +143,6 @@ spec:
 
         # git login
         echo "GH CLI Auth"
-        echo ${PARAM_GITHUB_PAT}
         echo $PARAM_GITHUB_PAT > token.txt
         gh auth login --with-token < token.txt
         rm token.txt
