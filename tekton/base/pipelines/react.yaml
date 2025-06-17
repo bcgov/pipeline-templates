@@ -63,8 +63,14 @@ spec:
       runAfter:
         - react-workspace
       taskRef:
-        kind: ClusterTask
-        name: s2i-nodejs
+        resolver: cluster
+        params:
+        - name: kind
+          value: task
+        - name: name
+          value: s2i-nodejs
+        - name: namespace
+          value: openshift-pipelines
       workspaces:
         - name: source
           workspace: shared-data
